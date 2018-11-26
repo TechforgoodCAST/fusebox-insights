@@ -1,0 +1,17 @@
+<p>
+  <strong>Title:</strong>
+  <%= @unknown.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @unknown.description %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @unknown.author.username %>
+</p>
+
+<%= link_to 'Edit', edit_unknown_path(@unknown) %> |
+<%= link_to 'Back', unknowns_path %>
