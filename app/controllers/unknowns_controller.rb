@@ -9,11 +9,11 @@ class UnknownsController < ApplicationController
   end
 
   def new
-    @unknown = current_user.authored.new
+    @unknown = current_user.unknowns.new
   end
 
   def create
-    @unknown = current_user.authored.new(unknown_params)
+    @unknown = current_user.unknowns.new(unknown_params)
 
     if @unknown.save
       redirect_to @unknown, notice: 'Unknown was successfully created.'

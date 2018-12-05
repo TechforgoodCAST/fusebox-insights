@@ -6,6 +6,7 @@ class UnknownsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
     @unknown = create(:unknown, author: @user)
+    @new_unknown = build(:unknown, author: @user)
     visit unknowns_url
     sign_in
   end
@@ -17,7 +18,7 @@ class UnknownsTest < ApplicationSystemTestCase
   test 'creating a Unknown' do
     click_on 'New Unknown'
 
-    fill_in 'Title', with: @unknown.title
+    fill_in 'Title', with: @new_unknown.title
     click_on 'Create Unknown'
 
     assert_text 'Unknown was successfully created'
@@ -27,7 +28,7 @@ class UnknownsTest < ApplicationSystemTestCase
   test 'updating a Unknown' do
     click_on 'Edit', match: :first
 
-    fill_in 'Title', with: @unknown.title
+    fill_in 'Title', with: @new_unknown.title
     click_on 'Update Unknown'
 
     assert_text 'Unknown was successfully updated'

@@ -18,6 +18,12 @@
       <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
     </p>
 
+    <nav>
+      <%= link_to 'In focus', '#todo' %>
+      <%= link_to 'Unknowns', unknowns_path %>
+      <%= link_to 'Insights', insights_path %>
+    </nav>
+
     <%= yield %>
   </body>
 </html>

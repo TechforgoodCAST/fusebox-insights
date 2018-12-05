@@ -16,4 +16,11 @@ class ActiveSupport::TestCase
     subject.valid?
     assert_error(key, msg)
   end
+
+  def assert_unique(key, msg: 'has already been taken', subject: @subject)
+    subject.save!
+    dup = subject.dup
+    dup.valid?
+    assert_error(key, msg, subject: dup)
+  end
 end

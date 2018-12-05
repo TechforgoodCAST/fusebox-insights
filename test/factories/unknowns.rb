@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :unknown do
-    title { 'How might we...' }
+    sequence(:title) { |n| "How might we... #{n}" }
   end
 end

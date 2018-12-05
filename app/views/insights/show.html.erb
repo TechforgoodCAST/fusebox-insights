@@ -1,0 +1,17 @@
+<p>
+  <strong>Title:</strong>
+  <%= @insight.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @insight.description %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @insight.author.username %>
+</p>
+
+<%= link_to 'Edit', edit_insight_path(@insight) %> |
+<%= link_to 'Back', insights_path %>
