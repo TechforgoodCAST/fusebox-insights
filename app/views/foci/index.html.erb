@@ -1,6 +1,8 @@
 <h1>In focus</h1>
 
-<%= link_to 'Change focus', '#todo' %>
+<%= link_to 'Change focus', change_focus_path %>
+
+<p>You’re focussing on the following unknowns. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can add insights any time.</p>
 
 <table>
   <thead>

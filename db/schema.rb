@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2018_12_05_142103) do
   create_table "foci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "unknown_id"
-    t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["unknown_id"], name: "index_foci_on_unknown_id"
