@@ -26,6 +26,8 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'updating a Unknown' do
+    click_link 'Unknowns'
+    click_on 'Show', match: :first
     click_on 'Edit', match: :first
 
     fill_in 'Title', with: @new_unknown.title
@@ -36,6 +38,9 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'destroying a Unknown' do
+    click_link 'Unknowns'
+    click_on 'Show', match: :first
+
     page.accept_confirm do
       click_on 'Destroy', match: :first
     end

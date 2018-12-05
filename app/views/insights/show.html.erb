@@ -13,5 +13,6 @@
   <%= @insight.author.username %>
 </p>
 
-<%= link_to 'Edit', edit_insight_path(@insight) %> |
+<%= link_to 'Edit', edit_insight_path(@insight) %>
+<%= link_to 'Destroy', @insight, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', insights_path %>

@@ -13,5 +13,6 @@
   <%= @unknown.author.username %>
 </p>
 
-<%= link_to 'Edit', edit_unknown_path(@unknown) %> |
+<%= link_to 'Edit', edit_unknown_path(@unknown) %>
+<%= link_to 'Destroy', @unknown, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', unknowns_path %>

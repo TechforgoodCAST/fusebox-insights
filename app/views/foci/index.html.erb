@@ -1,4 +1,6 @@
-<h1>Unknowns</h1>
+<h1>In focus</h1>
+
+<%= link_to 'Change focus', '#todo' %>
 
 <table>
   <thead>
@@ -10,7 +12,7 @@
   </thead>
 
   <tbody>
-    <% @unknowns.each do |unknown| %>
+    <% @foci.each do |unknown| %>
       <tr>
         <td><%= unknown.title %></td>
         <td><%= unknown.author.username %></td>
@@ -19,7 +21,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Unknown', new_unknown_path %>

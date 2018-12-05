@@ -26,6 +26,8 @@ class InsightsTest < ApplicationSystemTestCase
   end
 
   test 'updating a Insight' do
+    click_link 'Insights'
+    click_on 'Show', match: :first
     click_on 'Edit', match: :first
 
     fill_in 'Title', with: @new_insight.title
@@ -36,6 +38,9 @@ class InsightsTest < ApplicationSystemTestCase
   end
 
   test 'destroying a Insight' do
+    click_link 'Insights'
+    click_on 'Show', match: :first
+
     page.accept_confirm do
       click_on 'Destroy', match: :first
     end
