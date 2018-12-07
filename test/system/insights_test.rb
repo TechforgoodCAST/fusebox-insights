@@ -22,24 +22,22 @@ class InsightsTest < ApplicationSystemTestCase
     click_on 'Create Insight'
 
     assert_text 'Insight was successfully created'
-    click_on 'Back'
   end
 
   test 'updating a Insight' do
     click_link 'Insights'
-    click_on 'Show', match: :first
-    click_on 'Edit', match: :first
+    click_on @insight.title
+    click_on 'Edit'
 
     fill_in 'Title', with: @new_insight.title
     click_on 'Update Insight'
 
     assert_text 'Insight was successfully updated'
-    click_on 'Back'
   end
 
   test 'destroying a Insight' do
     click_link 'Insights'
-    click_on 'Show', match: :first
+    click_on @insight.title
 
     page.accept_confirm do
       click_on 'Destroy', match: :first

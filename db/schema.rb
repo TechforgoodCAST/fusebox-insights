@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_142103) do
+ActiveRecord::Schema.define(version: 2018_12_05_171802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 2018_12_05_142103) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_insights_on_author_id"
+  end
+
+  create_table "proofs", force: :cascade do |t|
+    t.bigint "insight_id"
+    t.bigint "unknown_id"
+    t.bigint "author_id", null: false
+    t.integer "confidence", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_proofs_on_author_id"
+    t.index ["insight_id"], name: "index_proofs_on_insight_id"
+    t.index ["unknown_id"], name: "index_proofs_on_unknown_id"
   end
 
   create_table "unknowns", force: :cascade do |t|
@@ -57,4 +69,6 @@ ActiveRecord::Schema.define(version: 2018_12_05_142103) do
 
   add_foreign_key "foci", "unknowns"
   add_foreign_key "foci", "users"
+  add_foreign_key "proofs", "insights"
+  add_foreign_key "proofs", "unknowns"
 end

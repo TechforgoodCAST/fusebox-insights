@@ -1,25 +1,7 @@
 <h1>Unknowns</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @unknowns.each do |unknown| %>
-      <tr>
-        <td><%= unknown.title %></td>
-        <td><%= unknown.author.username %></td>
-        <td><%= link_to 'Show', unknown %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
 <%= link_to 'New Unknown', new_unknown_path %>
+
+<% @unknowns.each do |unknown| %>
+  <%= render partial: 'card', locals: { unknown: unknown } %>
+<% end %>

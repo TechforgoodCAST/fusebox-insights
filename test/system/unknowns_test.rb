@@ -22,24 +22,22 @@ class UnknownsTest < ApplicationSystemTestCase
     click_on 'Create Unknown'
 
     assert_text 'Unknown was successfully created'
-    click_on 'Back'
   end
 
   test 'updating a Unknown' do
     click_link 'Unknowns'
-    click_on 'Show', match: :first
-    click_on 'Edit', match: :first
+    click_on @unknown.title
+    click_on 'Edit'
 
     fill_in 'Title', with: @new_unknown.title
     click_on 'Update Unknown'
 
     assert_text 'Unknown was successfully updated'
-    click_on 'Back'
   end
 
   test 'destroying a Unknown' do
     click_link 'Unknowns'
-    click_on 'Show', match: :first
+    click_on @unknown.title
 
     page.accept_confirm do
       click_on 'Destroy', match: :first

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :insight do
+  factory :proof do
     association :author, factory: :user
-    sequence(:title) { |n| "We discovered people want... #{n}" }
+    confidence { 1 }
+    insight
+    unknown
   end
 end

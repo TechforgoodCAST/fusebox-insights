@@ -5,7 +5,8 @@ class UnknownsController < ApplicationController
   before_action :set_unknown, only: %i[show edit update destroy]
 
   def index
-    @unknowns = Unknown.all
+    # TODO: spec
+    @unknowns = Unknown.order(updated_at: :desc)
   end
 
   def new

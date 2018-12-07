@@ -1,0 +1,6 @@
+<fieldset>
+  <p><%= unknown.author.username %> · Updated <%= time_ago_in_words(unknown.updated_at) %> ago</p>
+  <h3><%= link_to unknown.title, unknown %></h3>
+  <%# TODO: counter cache %>
+  ⬆ <strong><%= link_to unknown.proofs.sum(:confidence), new_insight_path %></strong> ⬇
+</fieldset>

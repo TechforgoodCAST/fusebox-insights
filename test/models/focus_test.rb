@@ -3,13 +3,7 @@
 require 'test_helper'
 
 class FocusTest < ActiveSupport::TestCase
-  setup do
-    @user = build(:user)
-    @unknown = build(:unknown, author: @user)
-  end
+  setup { @subject = create(:focus) }
 
-  test 'one per user and unknown' do
-    @subject = create(:focus, user: @user, unknown: @unknown)
-    assert_unique(:unknown)
-  end
+  test('one per user and unknown') { assert_unique(:unknown) }
 end

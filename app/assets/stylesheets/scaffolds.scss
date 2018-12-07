@@ -21,6 +21,7 @@ pre {
 
 a {
   color: #000;
+  padding: 2px;
 
   &:visited {
     color: #666;
@@ -81,4 +82,13 @@ div {
 
 label {
   display: block;
+}
+
+fieldset {
+  margin: 20px 0;
+}
+
+.active {
+  color: #fff !important;
+  background-color: #000;
 }

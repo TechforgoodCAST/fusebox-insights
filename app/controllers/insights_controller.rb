@@ -5,7 +5,8 @@ class InsightsController < ApplicationController
   before_action :set_insight, only: %i[show edit update destroy]
 
   def index
-    @insights = Insight.all
+    # TODO: spec
+    @insights = Insight.order(updated_at: :desc)
   end
 
   def new

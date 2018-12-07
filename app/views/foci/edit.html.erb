@@ -1,6 +1,6 @@
 <h1>Change focus</h1>
 
 <%= simple_form_for current_user, url: change_focus_path do |f| %>
-  <%= f.association :in_focus, collection: Unknown.all, include_blank: true %>
+  <%= f.association :in_focus, collection: Unknown.all, include_blank: true, input_html: { size: 25 } %>
   <%= f.submit %>
 <% end %>

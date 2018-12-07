@@ -1,18 +1,16 @@
-<p>
-  <strong>Title:</strong>
-  <%= @unknown.title %>
-</p>
+<p>In focus for <%= @unknown.focussed_by.pluck(:username).to_sentence %></p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @unknown.description %>
-</p>
+<fieldset>
+  <p><%= @unknown.author.username %> · Updated <%= time_ago_in_words(@unknown.updated_at) %> ago</p>
+  <h3><%= @unknown.title %></h3>
+  ⬆ <strong>0</strong> ⬇
+  <p><%= @unknown.description %></p>
+  <%= link_to 'Edit', edit_unknown_path(@unknown) %>
+  <%= link_to 'Destroy', @unknown, method: :delete, data: { confirm: 'Are you sure?' } %>
+</fieldset>
 
-<p>
-  <strong>Author:</strong>
-  <%= @unknown.author.username %>
-</p>
-
-<%= link_to 'Edit', edit_unknown_path(@unknown) %>
-<%= link_to 'Destroy', @unknown, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', unknowns_path %>
+<ul>
+  <%- @unknown.proofs.each do |proof| %>
+    <li>Insight <%= link_to proof.insight.title, proof.insight %> by <%= proof.author.username %> contributed <strong><%= proof.confidence %></strong> confidence <%= time_ago_in_words(proof.updated_at) %> ago.</li>
+  <% end %>
+</ul>

@@ -1,0 +1,4 @@
+<fieldset>
+  <p>Contributing to <%= pluralize(insight.unknowns.size, 'unknown') %> · <%= insight.author.username %> updated <%= time_ago_in_words(insight.updated_at) %> ago</p>
+  <h3><%= link_to insight.title, insight %></h3>
+</fieldset>

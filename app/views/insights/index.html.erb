@@ -1,25 +1,7 @@
 <h1>Insights</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @insights.each do |insight| %>
-      <tr>
-        <td><%= insight.title %></td>
-        <td><%= insight.author.username %></td>
-        <td><%= link_to 'Show', insight %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
 <%= link_to 'New Insight', new_insight_path %>
+
+<% @insights.each do |insight| %>
+  <%= render partial: 'card', locals: { insight: insight } %>
+<% end %>

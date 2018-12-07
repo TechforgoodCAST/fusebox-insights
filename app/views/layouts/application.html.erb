@@ -19,9 +19,9 @@
     </p>
 
     <nav>
-      <%= link_to 'In focus', in_focus_path %>
-      <%= link_to 'Unknowns', unknowns_path %>
-      <%= link_to 'Insights', insights_path %>
+      <%= link_to 'In focus', in_focus_path, class: current_path?(in_focus_path) %>
+      <%= link_to 'Unknowns', unknowns_path, class: current_path?(unknowns_path) %>
+      <%= link_to 'Insights', insights_path, class: current_path?(insights_path) %>
     </nav>
 
     <%= yield %>

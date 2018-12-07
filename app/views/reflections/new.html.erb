@@ -1,0 +1,30 @@
+<%= simple_form_for @reflection do |f| %>
+
+  <%- f.object.comments.each_with_index do |comment, index| %>
+    <%- unknown = @reflection.unknowns[index] %>
+
+    <fieldset>
+      <%= render partial: 'unknowns/card', locals: { unknown: unknown } %>
+
+      <%= simple_fields_for :comments, comment do |c| %>
+
+        <%= c.input :confidence do %>
+          <%- Comment::CONFIDENCE.each do |label, value| %>
+            <span class="radio">
+              <%= c.label "#{index}_confidence_#{value}" do %>
+                <%= c.radio_button :confidence, value, id: "comments_#{index}_confidence_#{value}", name: "comments[#{index}][confidence]" %>
+                <%= label %>
+              <% end %>
+            </span>
+          <% end %>
+        <% end %>
+
+        <%= c.input :title, input_html: { id: "comments_#{index}_title", name: "comments[#{index}][title]" } %>
+
+      <% end %>
+    </fieldset>
+
+  <% end %>
+
+  <%= f.submit 'Submit reflection', data: { disable_with: 'Submitting...' } %>
+<% end %>
