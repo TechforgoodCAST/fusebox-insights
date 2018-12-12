@@ -13,4 +13,7 @@ Rails.application.routes.draw do
   patch '/focus/change', to: 'foci#update'
 
   get '/reflections', to: redirect('/reflections/new')
+
+  get  '/unknowns/:id', to: 'comments#new', as: 'unknown_comments'
+  post '/unknowns/:id', to: 'comments#create'
 end

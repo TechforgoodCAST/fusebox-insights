@@ -3,7 +3,12 @@
 <fieldset>
   <p><%= @unknown.author.username %> · Updated <%= time_ago_in_words(@unknown.updated_at) %> ago</p>
   <h3><%= @unknown.title %></h3>
-  ⬆ <strong>0</strong> ⬇
+
+  <%# TODO: counter cache %>
+  <%= link_to '⬆', vote_path(@unknown, 'more') %>
+  <strong><%= link_to @unknown.proofs.sum(:confidence), vote_path(@unknown, 'none') %></strong>
+  <%= link_to '⬇', vote_path(@unknown, 'less') %>
+
   <p><%= @unknown.description %></p>
   <%= link_to 'Edit', edit_unknown_path(@unknown) %>
   <%= link_to 'Destroy', @unknown, method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -14,3 +19,12 @@
     <li>Insight <%= link_to proof.insight.title, proof.insight %> by <%= proof.author.username %> contributed <strong><%= proof.confidence %></strong> confidence <%= time_ago_in_words(proof.updated_at) %> ago.</li>
   <% end %>
 </ul>
+
+<h4>Add an insight</h4>
+
+<%= simple_form_for @comment, url: unknown_comments_path(@unknown) do |f| %>
+  <%= f.input :confidence, as: :radio_buttons, collection: Comment::CONFIDENCE %>
+  <%= f.input :title %>
+  <%= f.input :description, as: :text %>
+  <%= f.submit 'Comment', data: { disable_with: 'Commenting...' } %>
+<% end %>

@@ -7,7 +7,7 @@ class Comment
     'No change' => 0, 'More confident' => 1, 'Less confident' => -1
   }.freeze
 
-  attr_accessor :author, :confidence, :title, :unknown
+  attr_accessor :author, :confidence, :description, :title, :unknown
 
   validates :author, :confidence, :title, :unknown, presence: true
 
@@ -23,7 +23,7 @@ class Comment
 
   def save
     if valid?
-      insight = author.insights.create!(title: title)
+      insight = author.insights.create!(title: title, description: description)
       author.proofs.create!(
         confidence: confidence, insight: insight, unknown: unknown
       )
