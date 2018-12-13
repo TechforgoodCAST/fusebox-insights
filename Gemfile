@@ -63,4 +63,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise', '~> 4.5.0'
+gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
