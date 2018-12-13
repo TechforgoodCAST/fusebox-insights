@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FuseboxInsights</title>
+    <title>Fusebox Insights</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,8 +11,10 @@
 
   <body>
     <header class="mx15 my15 text-right grey">
-      Signed in as <%= current_user&.username %> ·
-      <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'medium grey' %>
+      <%- if user_signed_in? %>
+        Signed in as <%= current_user&.username %> ·
+        <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'medium grey' %>
+      <% end %>
     </header>
 
     <main>
@@ -26,6 +28,10 @@
         <div class="col3 mx15">
           <p id="notice"><%= notice %></p>
           <p id="alert"><%= alert %></p>
+
+          <%- unless user_signed_in? %>
+            <%= render partial: 'layouts/intro' %>
+          <% end %>
 
           <%= yield %>
         </div>
