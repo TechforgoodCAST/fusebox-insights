@@ -1,4 +1,13 @@
-<fieldset>
-  <p>Contributing to <%= pluralize(insight.unknowns.size, 'unknown') %> · <%= insight.author.username %> updated <%= time_ago_in_words(insight.updated_at) %> ago</p>
-  <h3><%= link_to insight.title, insight %></h3>
-</fieldset>
+<div class="card blue-border">
+  <p class="fs14 grey mb10">Contributing to <%= pluralize(insight.unknowns.size, 'unknown') %> · <%= insight.author.username %> updated <%= time_ago_in_words(insight.updated_at) %> ago</p>
+  <h3><%= link_to insight.title, insight, class: 'fs18 medium black' %></h3>
+
+  <%- if edit %>
+    <p class="my15"><%= insight.description %></p>
+    <div class="fs14 text-right">
+      <%= link_to 'Edit', edit_insight_path(insight) %>
+      ·
+      <%= link_to 'Delete', insight, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
+    </div>
+  <% end %>
+</div>

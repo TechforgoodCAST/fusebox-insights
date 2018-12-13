@@ -40,7 +40,7 @@ class UnknownsTest < ApplicationSystemTestCase
     click_on @unknown.title
 
     page.accept_confirm do
-      click_on 'Destroy', match: :first
+      click_on 'Delete', match: :first
     end
 
     assert_text 'Unknown was successfully destroyed'

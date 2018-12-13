@@ -1,6 +1,6 @@
-<h1>Editing Unknown</h1>
+<div class="flex mb30 justify-between items-center">
+  <h1 class="fs20 bold">Editing Unknown</h1>
+  <%= link_to 'Back', @unknown, class: 'medium' %>
+</div>
 
 <%= render 'form', unknown: @unknown %>
-
-<%= link_to 'Show', @unknown %> |
-<%= link_to 'Back', unknowns_path %>

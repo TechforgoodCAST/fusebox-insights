@@ -1,13 +1,7 @@
-<fieldset>
-  <p>Contributing to <%= pluralize(@insight.unknowns.size, 'unknown') %> · <%= @insight.author.username %> updated <%= time_ago_in_words(@insight.updated_at) %> ago</p>
-  <h3><%= @insight.title %></h3>
-  <p><%= @insight.description %></p>
-  <%= link_to 'Edit', edit_insight_path(@insight) %>
-  <%= link_to 'Destroy', @insight, method: :delete, data: { confirm: 'Are you sure?' } %>
-</fieldset>
+<%= render partial: 'card', locals: { edit: true, insight: @insight } %>
 
-<ul>
+<ul class="history">
   <%- @insight.proofs.each do |proof| %>
-    <li>Contributing <strong><%= proof.confidence %></strong> confidence to Unknown <%= link_to proof.unknown.title, proof.unknown %> <%= time_ago_in_words(proof.updated_at) %> ago.</li>
+    <li>Contributing <strong><%= proof.confidence %></strong> confidence to Unknown <span class="medium"><%= link_to proof.unknown.title, proof.unknown %></span> <%= time_ago_in_words(proof.updated_at) %> ago.</li>
   <% end %>
 </ul>

@@ -1,7 +1,10 @@
-<h1>Unknowns</h1>
+<div class="flex mb30 justify-between items-center">
+  <h1 class="fs20 bold">Unknowns</h1>
+  <%= link_to 'New Unknown', new_unknown_path, class: 'medium' %>
+</div>
 
-<%= link_to 'New Unknown', new_unknown_path %>
-
-<% @unknowns.each do |unknown| %>
-  <%= render partial: 'card', locals: { unknown: unknown } %>
-<% end %>
+<div class="flow flow20">
+  <% @unknowns.each do |unknown| %>
+    <%= render partial: 'card', locals: { edit: false, unknown: unknown } %>
+  <% end %>
+</div>

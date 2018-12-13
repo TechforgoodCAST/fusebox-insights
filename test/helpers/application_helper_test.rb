@@ -3,13 +3,13 @@
 require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
-  attr_reader :request
+  test '#current_controller? active' do
+    assert_equal('active', current_controller?('test'))
+  end
 
-  setup { request.path = '/' }
-
-  test('#current_path? active') { assert_equal('active', current_path?('/')) }
-
-  test('#current_path? inactive') { assert_equal(nil, current_path?('/oops')) }
+  test '#current_controller? inactive' do
+    assert_nil(current_controller?('oops'))
+  end
 
   test '#vote_path' do
     path = '/unknowns/1?confidence=none#new_comment'

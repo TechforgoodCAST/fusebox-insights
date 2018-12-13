@@ -40,7 +40,7 @@ class InsightsTest < ApplicationSystemTestCase
     click_on @insight.title
 
     page.accept_confirm do
-      click_on 'Destroy', match: :first
+      click_on 'Delete', match: :first
     end
 
     assert_text 'Insight was successfully destroyed'

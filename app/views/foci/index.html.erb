@@ -1,9 +1,13 @@
-<h1>In focus</h1>
 
-<%= link_to 'Change focus', change_focus_path %>
+<div class="flex mb10 justify-between items-center">
+  <h1 class="fs20 bold">In focus</h1>
+  <%= link_to 'Change focus', change_focus_path, class: 'medium' %>
+</div>
 
-<p>You’re focussing on the following unknowns. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can <%= link_to 'add new insights', new_insight_path %> any time.</p>
+<p class="fs15 mb30">You’re focussing on the following unknowns. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can <%= link_to 'add new insights', new_insight_path %> any time.</p>
 
-<% @foci.each do |unknown| %>
-  <%= render partial: 'unknowns/card', locals: { unknown: unknown } %>
-<% end %>
+<div class="flow flow20">
+  <% @foci.each do |unknown| %>
+    <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+  <% end %>
+</div>

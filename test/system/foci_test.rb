@@ -18,7 +18,7 @@ class FociTest < ApplicationSystemTestCase
     click_on 'Change focus'
 
     select(@unknown.title)
-    click_on 'Update User'
+    click_on 'Change focus'
 
     assert_text 'Focus successfully updated.'
     assert_text @unknown.title

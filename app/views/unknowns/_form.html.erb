@@ -1,27 +1,7 @@
-<%= form_with(model: unknown, local: true) do |form| %>
-  <% if unknown.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(unknown.errors.count, "error") %> prohibited this unknown from being saved:</h2>
-
-      <ul>
-      <% unknown.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+<%= simple_form_for(unknown) do |f| %>
+  <%= f.input :title %>
+  <%= f.input :description %>
+  <div class="text-right">
+    <%= f.button :submit, data: { disable_with: 'Updating...' } %>
   </div>
 <% end %>
