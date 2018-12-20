@@ -1,0 +1,13 @@
+<div class="flex mb10 justify-between items-center">
+  <h1 class="fs20 bold">Change focus</h1>
+  <%= link_to 'Back', in_focus_path, class: 'medium' %>
+</div>
+
+<p class="fs15 mb30">If you don't see the unknown you want to focus on, add it <%= link_to 'here', new_unknown_path %>. Ctrl+Click or Cmd+Click to select more than one.</p>
+
+<%= simple_form_for current_user, url: change_focus_path do |f| %>
+  <%= f.association :in_focus, collection: Unknown.all, include_blank: true, input_html: { size: 15 } %>
+  <div class="text-right">
+    <%= f.button :submit, 'Change focus', data: { disable_with: 'Changing...' } %>
+  </div>
+<% end %>

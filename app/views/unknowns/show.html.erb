@@ -1,0 +1,26 @@
+<p class="grey mb30">
+  In focus for
+  <span class="medium"><%= @unknown.focussed_by.pluck(:username).to_sentence %></span>
+</p>
+
+<%= render partial: 'unknowns/card', locals: { edit: true, unknown: @unknown } %>
+
+<ul class="history">
+  <%- @unknown.proofs.each do |proof| %>
+    <li>Insight <span class="medium"><%= link_to proof.insight.title, proof.insight %></span> by <%= proof.author.username %> contributed <strong><%= proof.confidence %></strong> confidence <%= time_ago_in_words(proof.updated_at) %> ago.</li>
+  <% end %>
+</ul>
+
+<div class="form">
+  <h4 class="grey bold mb10">Add an insight</h4>
+
+  <%= simple_form_for @comment, url: unknown_comments_path(@unknown), html: { class: nil } do |f| %>
+    <%= f.input :confidence, as: :radio_buttons, collection: Comment::CONFIDENCE %>
+    <%= f.input :title %>
+    <%= f.input :description, as: :trix_editor %>
+
+    <div class="text-right">
+      <%= f.button :submit, 'Comment', data: { disable_with: 'Commenting...' } %>
+    </div>
+  <% end %>
+</div>

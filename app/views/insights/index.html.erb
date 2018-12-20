@@ -1,0 +1,10 @@
+<div class="flex mb30 justify-between items-center">
+  <h1 class="fs20 bold">Insights</h1>
+  <%= link_to 'New Insight', new_insight_path, class: 'medium' %>
+</div>
+
+<div class="flow flow20">
+  <% @insights.each do |insight| %>
+    <%= render partial: 'card', locals: { edit: false, insight: insight } %>
+  <% end %>
+</div>
