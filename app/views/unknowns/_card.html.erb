@@ -23,5 +23,7 @@
       ·
       <%= link_to 'Delete', unknown, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
     </div>
+  <% else %>
+    <p class="fs14 grey"><%= pluralize(unknown.proofs.size, 'insight') %></p>
   <% end %>
 </div>
