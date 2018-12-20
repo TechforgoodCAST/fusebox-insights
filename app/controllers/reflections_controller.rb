@@ -22,6 +22,6 @@ class ReflectionsController < ApplicationController
 
     # TODO: Unpermitted parameters: :utf8, :authenticity_token, :commit
     def form_params
-      params.permit(comments: %i[confidence title unknown_id])
+      params.permit(comments: %i[confidence description title unknown_id])
     end
 end

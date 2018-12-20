@@ -7,7 +7,7 @@ class Reflection
 
   def initialize(*args)
     super(*args)
-    @comments = unknowns.map { |u| Comment.new } if @comments.blank?
+    @comments = unknowns.map { Comment.new } if @comments.blank?
   end
 
   def save

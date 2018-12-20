@@ -3,7 +3,7 @@
   <h3><%= link_to insight.title, insight, class: 'fs18 medium black' %></h3>
 
   <%- if edit %>
-    <p class="my15"><%= insight.description %></p>
+    <div class="my15 trix-formatted"><%= raw(insight.description) %></div>
     <div class="fs14 text-right">
       <%= link_to 'Edit', edit_insight_path(insight) %>
       ·

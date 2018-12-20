@@ -14,6 +14,8 @@ en:
     labels:
       comment:
         confidence: 'Has your confidence in this unknown changed?'
+      comments:
+        confidence: 'Has your confidence in this unknown changed?'
       # defaults:
       #   password: 'Password'
       # user:

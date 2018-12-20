@@ -65,3 +65,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise', '~> 4.5.0'
 gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
+gem 'trix-rails', '~> 2.0.0', require: 'trix'

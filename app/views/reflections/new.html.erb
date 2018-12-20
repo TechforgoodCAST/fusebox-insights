@@ -12,7 +12,7 @@
         <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
 
         <div class="form">
-          <%= simple_fields_for :comment, comment do |c| %>
+          <%= simple_fields_for :comments, comment do |c| %>
             <h4 class="grey bold mb10">Add an insight</h4>
 
             <%= c.input :confidence do %>
@@ -28,7 +28,8 @@
 
             <%= c.input :title, input_html: { id: "comments_#{index}_title", name: "comments[#{index}][title]" } %>
 
-            <%= c.input :description, as: :text, input_html: { id: "comments_#{index}_description", name: "comments[#{index}][description]" } %>
+            <%= c.label :description %>
+            <%= c.trix_editor :description, id: "comments_#{index}_description", name: "comments[#{index}][description]" %>
           <% end %>
         </div>
       </div>

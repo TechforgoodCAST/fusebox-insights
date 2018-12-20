@@ -17,7 +17,7 @@
   <%= simple_form_for @comment, url: unknown_comments_path(@unknown), html: { class: nil } do |f| %>
     <%= f.input :confidence, as: :radio_buttons, collection: Comment::CONFIDENCE %>
     <%= f.input :title %>
-    <%= f.input :description, as: :text, input_html: { rows: 1 } %>
+    <%= f.input :description, as: :trix_editor %>
 
     <div class="text-right">
       <%= f.button :submit, 'Comment', data: { disable_with: 'Commenting...' } %>

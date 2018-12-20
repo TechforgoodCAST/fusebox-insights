@@ -17,7 +17,7 @@
   </div>
 
   <%- if edit %>
-    <p class="my15"><%= unknown.description %></p>
+    <div class="my15 trix-formatted"><%= raw(unknown.description) %></div>
     <div class="fs14 text-right">
       <%= link_to 'Edit', edit_unknown_path(unknown) %>
       ·
