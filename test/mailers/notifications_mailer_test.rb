@@ -12,7 +12,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
     mail = NotificationsMailer.weekly_review(@user)
     assert_equal('Time for your weekly reflection', mail.subject)
     assert_equal([@user.email], mail.to)
-    assert_equal(['from@example.com'], mail.from)
+    assert_equal(['no-reply@fusebox-insights.herokuapp.com'], mail.from)
     assert_match('3 clicks', mail.body.encoded)
     assert_match('/reflections/new', mail.body.encoded)
   end
