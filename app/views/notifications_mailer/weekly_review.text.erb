@@ -1,7 +1,7 @@
 Hi <%= @user.username %>,
 
-Based on the unknowns you're focusing on this week it should take <%= pluralize(@user.in_focus.size + 2, 'click') %> and a few sentences to complete your reflection this week.
+The week is ending soon. Don't forget to share an update with your team here: <%= new_reflection_url %>
 
-Quick and easy!
+Based on the unknowns you're focusing on, it should take <%= pluralize(@user.in_focus.size + 2, 'click') %> and a few sentences. Quick and easy!
 
-Reflect on the past week here: <%= new_reflection_url %>
+--
