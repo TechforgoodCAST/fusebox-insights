@@ -3,6 +3,6 @@
 class NotificationsMailer < ApplicationMailer
   def weekly_review(user)
     @user = user
-    mail to: user.email, subject: 'Time for your weekly reflection'
+    mail to: user.email, subject: 'Your Fusebox status update is due soon'
   end
 end
