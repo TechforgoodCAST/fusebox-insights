@@ -1,24 +1,25 @@
-# README
+# Fusebox Insights
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Getting started
 
-Things you may want to cover:
+These instructions will get a copy of the project up and running on your local machine for development and testing purposes.
 
-* Ruby version
+### Prerequisites
 
-* System dependencies
+[Ruby v2.5.3](https://www.ruby-lang.org), [Bundler](https://bundler.io/), [PostgreSQL](https://www.postgresql.org/), [NodeJS](https://nodejs.org/) and [Yarn](https://yarnpkg.com/).
 
-* Configuration
+### Local setup
 
-* Database creation
+1. `git clone https://github.com/TechforgoodCAST/fusebox-insights.git`
+2. `cd fusebox_insights`
+3. `bundle install`
+4. `yarn install`
+5. `rails db:setup`
+7. `rails s` to start local development server
 
-* Database initialization
+As the database will likely be empty you will need to create a new `User` from the `rails console` to make use of the site.
 
-* How to run the test suite
+### Running tests
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- `rails test` to run Ruby unit tests.
+- `rails test:system` to run browser tests.
