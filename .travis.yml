@@ -8,6 +8,7 @@ services:
 before_script:
   - psql -c 'create database fusebox_insights_test;' -U postgres
 
+dist: trusty
 addons:
   chrome: stable
 before_install:
