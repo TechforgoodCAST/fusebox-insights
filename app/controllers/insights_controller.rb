@@ -24,6 +24,7 @@ class InsightsController < ApplicationController
   end
 
   def update
+    authorize @insight
     if @insight.update(insight_params)
       redirect_to @insight, notice: 'Insight was successfully updated.'
     else
@@ -32,6 +33,7 @@ class InsightsController < ApplicationController
   end
 
   def destroy
+    authorize @insight
     @insight.destroy
     redirect_to insights_url, notice: 'Insight was successfully destroyed.'
   end
