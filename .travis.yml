@@ -9,11 +9,8 @@ before_script:
   - psql -c 'create database fusebox_insights_test;' -U postgres
 
 addons:
-  sources:
-    - google-chrome
-  apt:
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 script:
+  - bundle exec rake test
   - bundle exec rake test:system
