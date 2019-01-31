@@ -7,6 +7,10 @@ class InsightsTest < ApplicationSystemTestCase
     @user = create(:user)
     @insight = create(:insight, author: @user)
     @new_insight = build(:insight, author: @user)
+
+    @other_user = create(:user)
+    @others_insight = create(:insight, author: @other_user)
+
     visit insights_url
     sign_in
   end
@@ -44,5 +48,22 @@ class InsightsTest < ApplicationSystemTestCase
     end
 
     assert_text 'Insight was successfully destroyed'
+  end
+
+  test 'cant edit or delete a different users insight' do
+    click_link 'Insights'
+    click_on @others_insight.title
+
+    assert_no_text 'Edit'
+    assert_no_text 'Delete'
+  end
+
+  test 'can edit and delete your own insight' do
+    click_link 'Insights'
+    click_on @insight.title
+
+    assert_text 'Edit'
+    assert_text 'Delete'
+
   end
 end
