@@ -6,7 +6,7 @@ class InsightsController < ApplicationController
 
   def index
     # TODO: spec
-    @insights = Insight.order(updated_at: :desc)
+    @insights = Insight.order(updated_at: :desc).page(params[:page])
   end
 
   def new
