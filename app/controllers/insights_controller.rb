@@ -23,6 +23,10 @@ class InsightsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @insight
+  end
+
   def update
     authorize @insight
     if @insight.update(insight_params)

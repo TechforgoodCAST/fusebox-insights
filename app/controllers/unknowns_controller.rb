@@ -31,6 +31,10 @@ class UnknownsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @unknown
+  end
+
   def update
     authorize @unknown
     if @unknown.update(unknown_params)
@@ -55,4 +59,5 @@ class UnknownsController < ApplicationController
     def unknown_params
       params.require(:unknown).permit(:title, :description)
     end
+    
 end

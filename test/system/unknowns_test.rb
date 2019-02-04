@@ -67,4 +67,19 @@ class UnknownsTest < ApplicationSystemTestCase
 
   end
 
+  test 'cannot access edit non-authored unknown through path' do
+    test_path = '/unknowns/' + @others_unknown.id.to_s + '/edit'
+
+    visit test_path
+    assert_equal('/', current_path)
+
+  end
+
+  test 'can access edit non-authored unknown through path' do
+    test_path = '/unknowns/' + @unknown.id.to_s + '/edit'
+
+    visit test_path
+    assert_equal(test_path, current_path)
+
+  end
 end
