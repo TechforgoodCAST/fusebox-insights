@@ -68,18 +68,14 @@ class InsightsTest < ApplicationSystemTestCase
   end
 
   test 'cannot visit unknown path if not author' do
-    test_path = insight_path(@others_insight) + '/edit'
-
-    visit test_path
+    visit edit_insight_path(@others_insight)
     assert_equal('/', current_path)
 
   end
 
   test 'can visit insight path if author' do
-    test_path = insight_path(@insight) + '/edit'
-
-    visit test_path
-    assert_equal(test_path, current_path)
+    visit edit_insight_path(@insight)
+    assert_equal(edit_insight_path(@insight), current_path)
 
   end
 end

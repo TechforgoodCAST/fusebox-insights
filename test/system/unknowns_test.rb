@@ -68,18 +68,14 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'cannot visit unknown path if not author' do
-    test_path = unknown_path(@others_unknown) + '/edit'
-
-    visit test_path
+    visit edit_unknown_path(@others_unknown)
     assert_equal('/', current_path)
 
   end
 
-  test 'can visit unknown path if author' do
-    test_path = unknown_path(@unknown) + '/edit'
-    
-    visit test_path
-    assert_equal(test_path, current_path)
+  test 'can visit unknown path if author' do    
+    visit edit_unknown_path(@unknown)
+    assert_equal(edit_unknown_path(@unknown), current_path)
 
   end
 end
