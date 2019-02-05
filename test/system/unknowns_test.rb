@@ -39,6 +39,30 @@ class UnknownsTest < ApplicationSystemTestCase
     assert_text 'Unknown was successfully updated'
   end
 
+  test 'nagivate pagination for more than 10 unknowns' do 
+    @unknowns_list = create_list(:unknown, 11, author: @user)
+    click_link 'Unknowns'
+
+    assert_text 'Next'
+    click_on '2'
+
+    assert_text 'Prev'
+    click_on '1'
+
+    assert_text 'Next'
+  end
+
+  test 'limit page to 10 records' do 
+    @unknowns_list = create_list(:unknown, 11, author: @user)
+    click_link 'Unknowns'
+
+    assert_selector('div.card', count: 10)
+
+    click_on '2'
+    assert_selector('div.card', count: 2)
+
+  end
+
   test 'destroying a Unknown' do
     click_link 'Unknowns'
     click_on @unknown.title
@@ -49,7 +73,7 @@ class UnknownsTest < ApplicationSystemTestCase
 
     assert_text 'Unknown was successfully destroyed'
   end
-
+  
   test 'cant edit or delete a different users unknown' do
     click_link 'Unknowns'
     click_on @others_unknown.title

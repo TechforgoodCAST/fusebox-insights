@@ -6,7 +6,7 @@ class UnknownsController < ApplicationController
 
   def index
     # TODO: spec
-    @unknowns = Unknown.order(updated_at: :desc)
+    @unknowns = Unknown.order(updated_at: :desc).page(params[:page])
   end
 
   def show
