@@ -52,10 +52,10 @@ class UnknownsTest < ApplicationSystemTestCase
     @unknowns_list = create_list(:unknown, 11, author: @user)
     click_link 'Unknowns'
 
-    assert_selector('div.card', count: 10)
+    assert_selector('div.card', maximum: 10)
 
     click_on '2'
-    assert_selector('div.card', count: 2)
+    assert_selector('div.card', maximum: 10)
 
   end
 

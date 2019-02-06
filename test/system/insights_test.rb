@@ -35,6 +35,30 @@ class InsightsTest < ApplicationSystemTestCase
     assert_text 'Insight was successfully updated'
   end
 
+  test 'nagivate pagination for more than 10 unknowns' do 
+    @insights_list = create_list(:insight, 11, author: @user)
+    click_link 'Insights'
+
+    assert_text 'Next'
+    click_on '2'
+
+    assert_text 'Prev'
+    click_on '1'
+
+    assert_text 'Next'
+  end
+
+  test 'limit page to 10 records' do 
+    @insights_list = create_list(:insight, 11, author: @user)
+    click_link 'Insights'
+
+    assert_selector('div.card', maximum: 10)
+
+    click_on '2'
+    assert_selector('div.card', maximum: 10)
+
+  end
+
   test 'destroying a Insight' do
     click_link 'Insights'
     click_on @insight.title
