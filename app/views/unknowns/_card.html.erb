@@ -19,9 +19,14 @@
   <%- if edit %>
     <div class="my15 trix-formatted"><%= raw(unknown.description) %></div>
     <div class="fs14 text-right">
-      <%= link_to 'Edit', edit_unknown_path(unknown) %>
-      ·
-      <%= link_to 'Delete', unknown, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
+
+      <% if policy(unknown).update? %>
+        <%= link_to 'Edit', edit_unknown_path(unknown) %>
+      <% end %>
+      
+      <% if policy(unknown).destroy? %>
+        <%= link_to 'Delete', unknown, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
+      <% end %>
     </div>
   <% else %>
     <p class="fs14 grey"><%= pluralize(unknown.proofs.size, 'insight') %></p>

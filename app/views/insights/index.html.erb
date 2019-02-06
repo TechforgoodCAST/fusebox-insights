@@ -8,3 +8,5 @@
     <%= render partial: 'card', locals: { edit: false, insight: insight } %>
   <% end %>
 </div>
+
+<%= paginate @insights %>
