@@ -5,9 +5,15 @@
   <%- if edit %>
     <div class="my15 trix-formatted"><%= raw(insight.description) %></div>
     <div class="fs14 text-right">
-      <%= link_to 'Edit', edit_insight_path(insight) %>
-      ·
-      <%= link_to 'Delete', insight, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
+
+      <% if policy(insight).update? %>
+        <%= link_to 'Edit', edit_insight_path(insight) %>
+      <% end %>
+
+      <% if policy(insight).destroy? %>
+        <%= link_to 'Delete', insight, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
+      <% end %>
+      
     </div>
   <% end %>
 </div>

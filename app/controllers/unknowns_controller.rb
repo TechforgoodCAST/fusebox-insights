@@ -31,7 +31,12 @@ class UnknownsController < ApplicationController
     end
   end
 
+  def edit
+    authorize @unknown
+  end
+
   def update
+    authorize @unknown
     if @unknown.update(unknown_params)
       redirect_to @unknown, notice: 'Unknown was successfully updated.'
     else
@@ -40,6 +45,7 @@ class UnknownsController < ApplicationController
   end
 
   def destroy
+    authorize @unknown
     @unknown.destroy
     redirect_to unknowns_url, notice: 'Unknown was successfully destroyed.'
   end
@@ -53,4 +59,5 @@ class UnknownsController < ApplicationController
     def unknown_params
       params.require(:unknown).permit(:title, :description)
     end
+    
 end
