@@ -2,7 +2,7 @@
 
 require 'application_system_test_case'
 
-class CommentsTest < ApplicationSystemTestCase
+class ResponsesTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
     @unknown = create(:unknown, author: @user)

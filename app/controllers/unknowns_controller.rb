@@ -14,7 +14,7 @@ class UnknownsController < ApplicationController
       'none' => 0, 'more' => 1, 'less' => -1
     }[params[:confidence]]
 
-    @comment = Comment.new(author: current_user, confidence: confidence)
+    @response = Response.new(author: current_user, confidence: confidence)
   end
 
   def new

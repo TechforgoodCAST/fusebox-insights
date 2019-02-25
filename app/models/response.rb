@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Comment
+class Response
   include ActiveModel::Model
 
   CONFIDENCE = {

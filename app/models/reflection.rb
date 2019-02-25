@@ -3,22 +3,22 @@
 class Reflection
   include ActiveModel::Model
 
-  attr_accessor :author, :comments
+  attr_accessor :author, :responses
 
   def initialize(*args)
     super(*args)
-    @comments = unknowns.map { Comment.new } if @comments.blank?
+    @responses = unknowns.map { Response.new } if @responses.blank?
   end
 
   def save
-    if @comments.is_a?(Hash)
-      @comments = @comments.map do |k, v|
-        Comment.new(v.merge(author: author, unknown: unknowns[k.to_i]))
+    if @responses.is_a?(Hash)
+      @responses = @responses.map do |k, v|
+        Response.new(v.merge(author: author, unknown: unknowns[k.to_i]))
       end
     end
 
-    if comments.map(&:valid?).all?
-      comments.each(&:save)
+    if responses.map(&:valid?).all?
+      responses.each(&:save)
     else
       false
     end

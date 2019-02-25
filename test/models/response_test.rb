@@ -2,8 +2,8 @@
 
 require 'test_helper'
 
-class CommentTest < ActiveSupport::TestCase
-  setup { @subject = build(:comment) }
+class ResponseTest < ActiveSupport::TestCase
+  setup { @subject = build(:response) }
 
   test('#confidence present') { assert_present(:confidence) }
 
