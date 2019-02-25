@@ -17,16 +17,30 @@ class Response
   validates :author, :unknown, presence: true
 
   def valid?
+    puts confidence
     if type == TYPE['Insight']
+      puts confidence.to_s
       if Insight.where(title: title).any?
         super
         errors.add(:title, 'has already been taken')
+        false
+      elsif title == ""
+        super
+        errors.add(:title, 'cannot be blank')
+        false
+      elsif confidence == ""
+        super
+        errors.add(:confidence, 'cannot be blank')
         false
       else
         super
       end
     elsif type == TYPE['Comment']
-      super
+      if description == ""
+        super
+        errors.add(:description, 'cannot be blank')
+        false
+      end
     end
   end
 
