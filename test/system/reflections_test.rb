@@ -31,8 +31,8 @@ class ReflectionsTest < ApplicationSystemTestCase
 
   def submit_form(unknowns, title: 'Some new insight', confidence: 'More confident')
     unknowns.each_with_index do |u, i|
-      fill_in "comments_#{i}_title", with: title
-      choose "comments_#{i}_confidence_#{Comment::CONFIDENCE[confidence]}"
+      fill_in "responses_#{i}_title", with: title
+      choose "responses_#{i}_confidence_#{Response::CONFIDENCE[confidence]}"
     end
     click_on 'Submit reflection'
   end

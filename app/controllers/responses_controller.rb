@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-class CommentsController < ApplicationController
+class ResponsesController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @comment = Comment.new(comment_params)
+    @response = Response.new(response_params)
     @unknown = Unknown.find_by(id: params[:id])
 
-    @comment.author = current_user
-    @comment.unknown = @unknown
+    @response.author = current_user
+    @response.unknown = @unknown
 
-    if @comment.save
+    if @response.save
       redirect_to unknown_path(@unknown), notice: 'Insight successfully added.'
     else
       render 'unknowns/show'
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
 
   private
 
-    def comment_params
-      params.require(:comment).permit(:confidence, :description, :title)
+    def response_params
+      params.require(:response).permit(:confidence, :description, :title)
     end
 end

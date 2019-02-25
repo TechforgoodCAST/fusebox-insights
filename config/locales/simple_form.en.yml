@@ -12,9 +12,9 @@ en:
       default_message: "Please review the problems below:"
     # Examples
     labels:
-      comment:
+      response:
         confidence: 'Has your confidence in this unknown changed?'
-      comments:
+      responses:
         confidence: 'Has your confidence in this unknown changed?'
       # defaults:
       #   password: 'Password'
