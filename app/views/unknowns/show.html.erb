@@ -15,6 +15,7 @@
   <h4 class="grey bold mb10">Add an insight</h4>
 
   <%= simple_form_for @response, url: unknown_responses_path(@unknown), html: { class: nil } do |f| %>
+    <%= f.input :type, as: :radio_buttons, collection: Response::TYPE %>
     <%= f.input :confidence, as: :radio_buttons, collection: Response::CONFIDENCE %>
     <%= f.input :title %>
     <%= f.input :description, as: :trix_editor %>
