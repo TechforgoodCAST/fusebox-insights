@@ -11,7 +11,7 @@ class ResponsesController < ApplicationController
     @response.unknown = @unknown
 
     if @response.save
-      redirect_to unknown_path(@unknown), notice: 'Insight successfully added.'
+      redirect_to unknown_path(@unknown), notice: 'Response successfully added.'
     else
       render 'unknowns/show'
     end
