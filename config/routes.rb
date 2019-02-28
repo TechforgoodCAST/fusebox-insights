@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :insights, :unknowns
   resources :reflections, only: %i[new create]
+  resources :search, only: [:index]
 
   get   '/focus',        to: 'foci#index', as: 'in_focus'
   get   '/focus/change', to: 'foci#edit',  as: 'change_focus'

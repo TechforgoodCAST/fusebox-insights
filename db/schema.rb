@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_171802) do
+ActiveRecord::Schema.define(version: 2019_02_28_102503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "unknown_id"
+    t.bigint "author_id", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["unknown_id"], name: "index_comments_on_unknown_id"
+  end
 
   create_table "foci", force: :cascade do |t|
     t.bigint "user_id"
@@ -31,6 +41,15 @@ ActiveRecord::Schema.define(version: 2018_12_05_171802) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_insights_on_author_id"
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
   create_table "proofs", force: :cascade do |t|
@@ -67,6 +86,7 @@ ActiveRecord::Schema.define(version: 2018_12_05_171802) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "unknowns"
   add_foreign_key "foci", "unknowns"
   add_foreign_key "foci", "users"
   add_foreign_key "proofs", "insights"
