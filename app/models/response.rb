@@ -7,15 +7,35 @@ class Response
     'No change' => 0, 'More confident' => 1, 'Less confident' => -1
   }.freeze
 
-  attr_accessor :author, :confidence, :description, :title, :unknown
+  attr_accessor :author, :confidence, :description, :title, :unknown, :type
 
-  validates :author, :confidence, :title, :unknown, presence: true
+  validates :author, :unknown, presence: true
 
   def valid?
-    if Insight.where(title: title).any?
-      super
-      errors.add(:title, 'has already been taken')
-      false
+    if type == 'Insight' 
+      if Insight.where(title: title).any?
+        super
+        errors.add(:title, 'has already been taken')
+        false
+      elsif title == "" || title.nil?
+        super
+        errors.add(:title, "can't be blank")
+        false
+      elsif confidence == "" || confidence.nil?
+        super
+        errors.add(:confidence, "can't be blank")
+        false
+      else
+        super
+      end
+    elsif type == 'Comment'
+      if description == "" || description.nil?
+        super
+        errors.add(:title, "can't be blank")
+        false
+      else
+        super
+      end
     else
       super
     end
@@ -23,10 +43,14 @@ class Response
 
   def save
     if valid?
-      insight = author.insights.create!(title: title, description: description)
-      author.proofs.create!(
-        confidence: confidence, insight: insight, unknown: unknown
-      )
+      if type == 'Insight'
+        insight = author.insights.create!(title: title, description: description)
+        author.proofs.create!(
+          confidence: confidence, insight: insight, unknown: unknown
+        )
+      elsif type == 'Comment'
+        false
+      end
     else
       false
     end

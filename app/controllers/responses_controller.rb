@@ -20,6 +20,6 @@ class ResponsesController < ApplicationController
   private
 
     def response_params
-      params.require(:response).permit(:confidence, :description, :title)
+      params.require(:response).permit(:confidence, :description, :title, :type)
     end
 end
