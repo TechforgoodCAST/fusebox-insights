@@ -31,7 +31,7 @@ class Response
     elsif type == 'Comment'
       if description == "" || description.nil?
         super
-        errors.add(:title, "can't be blank")
+        errors.add(:description, "can't be blank")
         false
       else
         super
