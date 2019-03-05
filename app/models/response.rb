@@ -36,8 +36,6 @@ class Response
       else
         super
       end
-    else
-      super
     end
   end
 
@@ -49,7 +47,7 @@ class Response
           confidence: confidence, insight: insight, unknown: unknown
         )
       elsif type == 'Comment'
-        false
+        author.comments.create!(description: description, unknown: unknown)
       end
     else
       false
