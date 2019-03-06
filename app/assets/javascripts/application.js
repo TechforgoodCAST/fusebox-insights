@@ -16,7 +16,16 @@
 //= require turbolinks
 //= require trix
 //= require_tree .
-$(document).ready(function() {
+document.addEventListener('turbolinks:load', function() {
+
+    $(function() {
+        console.log( "ready!" );
+        if($('#response_type_comment').is(':checked')) {
+            $('.input.string.optional.response_title').hide();
+            $('.input.radio_buttons.optional.response_confidence').hide();
+        }
+    });
+
     $('input[type=radio]').on("change", function(){
         if($(this).prop('id') == "response_type_comment") {
             $('.input.string.optional.response_title').hide();
