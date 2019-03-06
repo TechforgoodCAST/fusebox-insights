@@ -10,47 +10,40 @@ class Response
   attr_accessor :author, :confidence, :description, :title, :unknown, :type
 
   validates :author, :unknown, presence: true
+  validates :title, :confidence, presence: true, if: :is_insight?
+  validates :description, presence: true, if: :is_comment?
 
   def valid?
-    if type == 'Insight' 
+    if is_insight? 
       if Insight.where(title: title).any?
         super
         errors.add(:title, 'has already been taken')
         false
-      elsif title == "" || title.nil?
-        super
-        errors.add(:title, "can't be blank")
-        false
-      elsif confidence == "" || confidence.nil?
-        super
-        errors.add(:confidence, "can't be blank")
-        false
       else
         super
       end
-    elsif type == 'Comment'
-      if description == "" || description.nil?
-        super
-        errors.add(:description, "can't be blank")
-        false
-      else
-        super
-      end
+    else
+      super
     end
   end
 
   def save
-    if valid?
-      if type == 'Insight'
-        insight = author.insights.create!(title: title, description: description)
-        author.proofs.create!(
-          confidence: confidence, insight: insight, unknown: unknown
-        )
-      elsif type == 'Comment'
-        author.comments.create!(description: description, unknown: unknown)
-      end
-    else
-      false
+    if is_insight?
+      insight = author.insights.create!(title: title, description: description)
+      author.proofs.create!(
+        confidence: confidence, insight: insight, unknown: unknown
+      )
+    elsif is_comment?
+      author.comments.create!(description: description, unknown: unknown)
     end
   end
+
+  private
+    def is_insight?
+      type == 'Insight'
+    end
+
+    def is_comment?
+      type == 'Comment'
+    end
 end
