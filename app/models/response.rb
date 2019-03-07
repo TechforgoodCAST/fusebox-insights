@@ -41,10 +41,10 @@ class Response
 
   private
     def is_insight?
-      type == 'insight'
+      type == 'Insight'
     end
 
     def is_comment?
-      type == 'comment'
+      type == 'Comment'
     end
 end
