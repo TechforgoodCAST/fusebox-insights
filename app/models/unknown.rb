@@ -8,6 +8,7 @@ class Unknown < ApplicationRecord
 
   has_many :proofs, dependent: :destroy
   has_many :insights, through: :proofs
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true, uniqueness: { scope: :author }
 end

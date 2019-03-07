@@ -6,6 +6,6 @@ module ApplicationHelper
   end
 
   def vote_path(unknown, confidence)
-    unknown_path(unknown, confidence: confidence, anchor: 'new_comment')
+    unknown_path(unknown, confidence: confidence, anchor: 'new_response')
   end
 end
