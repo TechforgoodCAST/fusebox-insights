@@ -11,7 +11,6 @@ class Response
 
   validates :author, :unknown, :description, presence: true
   validates :title, :confidence, presence: true, if: :is_insight?
-  # validates :description, presence: true, if: :is_comment?
 
   def valid?
     if is_insight? 

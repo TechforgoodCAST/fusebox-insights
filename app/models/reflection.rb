@@ -13,7 +13,7 @@ class Reflection
   def save
     if @responses.is_a?(Hash)
       @responses = @responses.map do |k, v|
-        Response.new(v.merge(author: author, unknown: unknowns[k.to_i]))
+        Response.new(v.merge(author: author, unknown: unknowns[k.to_i], type: 'Insight'))
       end
     end
 

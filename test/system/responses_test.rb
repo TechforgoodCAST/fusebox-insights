@@ -10,11 +10,21 @@ class ResponsesTest < ApplicationSystemTestCase
     sign_in
   end
 
-  test 'can comment on unknown' do
+  test 'can add insight to unknown' do
+    choose 'Insight'
     choose 'More confident'
-    fill_in 'Title', with: 'A reason'
+    fill_in 'Title', with: 'An insight'
+    find('trix-editor').click.set('A reason')
     click_on 'Comment'
 
-    assert_link 'A reason'
+    assert_link 'An insight'
+  end
+
+  test 'can add comment to unknown' do
+    choose 'Comment'
+    find('trix-editor').click.set('A comment')
+    click_on 'Comment'
+
+    assert_text 'A comment'
   end
 end

@@ -33,6 +33,7 @@ class ReflectionsTest < ApplicationSystemTestCase
     unknowns.each_with_index do |u, i|
       fill_in "responses_#{i}_title", with: title
       choose "responses_#{i}_confidence_#{Response::CONFIDENCE[confidence]}"
+      find_by_id("responses_#{i}_description").click.set('A reason')
     end
     click_on 'Submit reflection'
   end
