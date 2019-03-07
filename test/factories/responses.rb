@@ -6,6 +6,7 @@ FactoryBot.define do
     confidence { 0 }
     unknown
     title { 'Title' }
-    type { 'Insight' }
+    description { 'A reason' }
+    type { 'insight' }
   end
 end

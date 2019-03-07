@@ -20,7 +20,7 @@ class ReflectionTest < ActiveSupport::TestCase
   end
 
   test '#save invalid' do
-    @subject.responses = { '0' => { 'confidence' => '1', 'title' => '' , 'type' => 'Insight'} }
+    @subject.responses = { '0' => { 'confidence' => '1', 'type' => 'insight', 'description' => 'A reason' } }
     refute(@subject.save)
   end
 
@@ -28,7 +28,7 @@ class ReflectionTest < ActiveSupport::TestCase
     assert_equal(0, Insight.count)
     assert_equal(0, Proof.count)
 
-    @subject.responses = { '0' => { 'confidence' => '1', 'title' => 'title', 'type' => 'Insight'} }
+    @subject.responses = { '0' => { 'confidence' => '1', 'title' => 'title', 'type' => 'insight', 'description' => 'A reason' } }
     assert(@subject.save)
 
     assert_equal(1, Insight.count)
