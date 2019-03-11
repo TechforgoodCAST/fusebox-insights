@@ -2,7 +2,6 @@
 
 class UnknownsController < ApplicationController
   before_action :authenticate_user!
-  before_action :get_responses, only: %i[show]
   before_action :set_unknown, only: %i[show edit update destroy]
 
   def index
@@ -24,7 +23,7 @@ class UnknownsController < ApplicationController
 
   def create
     @unknown = current_user.unknowns.new(unknown_params)
-
+    
     if @unknown.save
       redirect_to @unknown, notice: 'Unknown was successfully created.'
     else
@@ -59,11 +58,6 @@ class UnknownsController < ApplicationController
 
     def unknown_params
       params.require(:unknown).permit(:title, :description)
-    end
-
-    def get_responses
-      unknown = Unknown.find(params[:id])
-      @total_responses = (unknown.comments + unknown.proofs).sort{|a,b| a.updated_at <=> b.updated_at }
     end
     
 end
