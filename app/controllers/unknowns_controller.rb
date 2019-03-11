@@ -2,7 +2,7 @@
 
 class UnknownsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_unknown, only: %i[show edit update destroy]
+  before_action :set_unknown, :get_responses, only: %i[show edit update destroy]
 
   def index
     # TODO: spec
@@ -58,6 +58,11 @@ class UnknownsController < ApplicationController
 
     def unknown_params
       params.require(:unknown).permit(:title, :description)
+    end
+
+    def get_responses
+      unknown = Unknown.find(params[:id])
+      @total_responses = (unknown.comments + unknown.proofs).sort{|a,b| a.updated_at <=> b.updated_at }
     end
     
 end
