@@ -28,8 +28,7 @@ class ResponsesTest < ApplicationSystemTestCase
     assert_text 'A comment'
   end
 
-  test 'add another insight and check for chronological order' do
-    list = ['A reason', 'A comment', 'Another reason']
+  test 'add insights and comments and check for chronological order' do
 
     choose 'Insight'
     choose 'More confident'
