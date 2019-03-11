@@ -2,7 +2,8 @@
 
 class UnknownsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_unknown, :get_responses, only: %i[show edit update destroy]
+  before_action :get_responses, only: %i[show]
+  before_action :set_unknown, only: %i[show edit update destroy]
 
   def index
     # TODO: spec
