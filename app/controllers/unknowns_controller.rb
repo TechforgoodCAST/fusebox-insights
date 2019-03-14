@@ -23,7 +23,7 @@ class UnknownsController < ApplicationController
 
   def create
     @unknown = current_user.unknowns.new(unknown_params)
-
+    
     if @unknown.save
       redirect_to @unknown, notice: 'Unknown was successfully created.'
     else

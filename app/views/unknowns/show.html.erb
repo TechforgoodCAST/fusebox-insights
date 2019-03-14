@@ -6,15 +6,16 @@
 <%= render partial: 'unknowns/card', locals: { edit: true, unknown: @unknown } %>
 
 <ul class="history">
-  <%- @unknown.proofs.each do |proof| %>
-    <li>Insight <span class="medium"><%= link_to proof.insight.title, proof.insight %></span> by <%= proof.author.username %> contributed <strong><%= proof.confidence %></strong> confidence <%= time_ago_in_words(proof.updated_at) %> ago.</li>
-  <% end %>
-  <%- @unknown.comments.each do |comment| %>
-    <li>
-      <span class="medium"><%= comment.author.username %></span> commented <%= time_ago_in_words(comment.updated_at) %> ago.<br>
-      <span class="my15 trix-formatted" style="padding: 20px"><%= raw(comment.description) %></span>
-    </li>
-  <% end %>
+  <%- @unknown.get_responses.each do |response| %>
+    <%- if response.class.name == "Proof" %>
+      <li>Insight <span class="medium"><%= link_to response.insight.title, response.insight %></span> by <%= response.author.username %> contributed <strong><%= response.confidence %></strong> confidence <%= time_ago_in_words(response.updated_at) %> ago.</li>
+    <%- else %>
+      <li>
+        <span class="medium"><%= response.author.username %></span> commented <%= time_ago_in_words(response.updated_at) %> ago.<br>
+        <span class="my15 trix-formatted" style="padding: 20px"><%= raw(response.description) %></span>
+      </li>
+    <% end %>
+  <% end %> 
 </ul>
 
 <div class="form">
