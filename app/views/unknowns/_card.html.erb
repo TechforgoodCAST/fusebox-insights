@@ -25,7 +25,11 @@
       <% end %>
       
       <% if policy(unknown).destroy? %>
+<<<<<<< HEAD
         <%= link_to 'Delete', unknown, method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
+=======
+        <%= link_to 'Delete', unknown, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
+>>>>>>> projects-wip
       <% end %>
     </div>
   <% else %>

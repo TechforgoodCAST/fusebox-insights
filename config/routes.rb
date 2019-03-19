@@ -14,6 +14,22 @@ Rails.application.routes.draw do
 
   get '/reflections', to: redirect('/reflections/new')
 
-  get  '/unknowns/:id', to: 'responses#new', as: 'unknown_responses'
-  post '/unknowns/:id', to: 'responses#create'
+  get  '/unknowns/:id', to: 'comments#new', as: 'unknown_comments'
+  post '/unknowns/:id', to: 'comments#create'
+
+  # create
+  get '/projects/new/', to: 'projects#new', as: 'new_project'
+  post '/projects/new/', to: 'projects#create', as: 'create_project'
+
+  # retrieve
+  get '/projects/', to: 'projects#index', as: 'projects'
+  get '/projects/:id', to: 'projects#show', as: 'project'
+  
+  # update
+  get '/projects/change/:id', to: 'projects#edit', as: 'edit_project'
+  patch '/projects/change/:id', to: 'projects#update', as: 'change_project'
+
+  # destroy
+  delete '/projects/:id', to: 'projects#destroy', as: 'destroy_project'
+
 end

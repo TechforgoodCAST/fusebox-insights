@@ -1,0 +1,23 @@
+<div class="flow flow20">
+  
+  <h1>My Projects</h1>
+
+  <% if @projects.count > 0 %>
+    <table>
+      <tbody>
+        <%= @projects.each do |project| %>
+          <tr>
+            <td><strong><%= project.name %></strong></td>
+            <td><%= link_to 'Show', project_path(project) %></td>
+            <td><%= link_to 'Edit', edit_project_path(project) %></td>
+            <td><%= link_to 'Destroy', destroy_project_path(project), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </div>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>It seems like you don't have any projects yet.</p>
+  <% end %>
+</div>
+<div><%= link_to 'Create New Project', new_project_path %></div>
