@@ -21,8 +21,6 @@ class ProjectsController < ApplicationController
     # only create slug on create so it doesn't change if
     # the project name changes (slugs shouldn't change)
     @project.slug = @project.name.parameterize
-    @project.valid?
-    puts @projects.errors
     if @project.save
       redirect_to action: 'index', notice: 'Project created successfully.'
     else
@@ -53,7 +51,7 @@ class ProjectsController < ApplicationController
   private
 
     def project_params
-      params.require(:project).permit(:name, :private,)
+      params.require(:project).permit(:name, :description, :private,)
     end
 
 end
