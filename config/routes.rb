@@ -14,6 +14,6 @@ Rails.application.routes.draw do
 
   get '/reflections', to: redirect('/reflections/new')
 
-  get  '/unknowns/:id', to: 'comments#new', as: 'unknown_comments'
-  post '/unknowns/:id', to: 'comments#create'
+  get  '/unknowns/:id', to: 'responses#new', as: 'unknown_responses'
+  post '/unknowns/:id', to: 'responses#create'
 end
