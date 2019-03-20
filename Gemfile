@@ -67,5 +67,5 @@ gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
 gem 'trix-rails', '~> 2.0.0', require: 'trix'
 gem 'kaminari', '~> 1.1.0'
-gem "pundit"
-gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'pundit'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3' # TODO: remove
