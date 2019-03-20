@@ -1,6 +1,8 @@
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :except => :show
+  before_action :can_access_admin_pages, :except => [:show, :new, :index, :create]
+  before_action :is_project_public, :only => :show
 
   def index
     @user = current_user
@@ -50,8 +52,21 @@ class ProjectsController < ApplicationController
 
   private
 
-    def project_params
-      params.require(:project).permit(:name, :description, :private,)
+  def project_params
+    params.require(:project).permit(:name, :description, :private,)
+  end
+
+  def can_access_admin_pages
+    unless Project.find_by(slug: params[:id]).user == current_user
+      return head :forbidden
     end
+  end
+
+  def is_project_public
+    @current_project = Project.find_by(slug: params[:id])
+    unless @current_project.private == false || @current_project.user == current_user
+      return head :forbidden
+    end
+  end
 
 end
