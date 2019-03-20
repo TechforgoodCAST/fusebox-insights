@@ -1,0 +1,32 @@
+<div>
+  <h1>Edit Project</h1>
+
+
+  <%= form_with(model: @project, local: true, url: change_project_path) do |form|  %>
+    <% if @project.errors.any? %>
+      <div id="error_count"><p><%= pluralize(@project.errors.count, 'error') %></p></div>
+      <ul>
+        <% @project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <p>
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+    </p>
+    <p>
+      <%= form.label :description %><br>
+      <%= form.text_area :description %>
+    </p>
+    <p>
+      <%= form.label :private %><br>
+      <%= form.check_box :private %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to 'Back', projects_path %>
