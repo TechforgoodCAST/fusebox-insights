@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_20_142247) do
+ActiveRecord::Schema.define(version: 2019_03_20_155323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_142247) do
     t.string "slug"
     t.string "description"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "proofs", force: :cascade do |t|
@@ -64,6 +65,14 @@ ActiveRecord::Schema.define(version: 2019_03_20_142247) do
     t.index ["author_id"], name: "index_proofs_on_author_id"
     t.index ["insight_id"], name: "index_proofs_on_insight_id"
     t.index ["unknown_id"], name: "index_proofs_on_unknown_id"
+  end
+
+  create_table "support_messages", force: :cascade do |t|
+    t.string "status"
+    t.integer "order"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "unknowns", force: :cascade do |t|
