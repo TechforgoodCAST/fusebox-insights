@@ -11,6 +11,7 @@
           <td><span class="my15 trix-formatted"><%= message.body %></span></td>
           <td><p>TODO: call to action link</p></td>
           <td><td><%= link_to 'Edit', edit_support_message_path(id: message.id) %></td></td>
+          <td><td><%= link_to 'Destroy', destroy_support_message_path(id: message.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>
     </tbody>

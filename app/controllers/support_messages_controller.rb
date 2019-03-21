@@ -42,6 +42,9 @@ class SupportMessagesController < ApplicationController
   end
   
   def destroy
+    @support_message = SupportMessage.find_by(id: params[:id])
+    @support_message.destroy
+    redirect_to action: 'index'
   end
   
   private

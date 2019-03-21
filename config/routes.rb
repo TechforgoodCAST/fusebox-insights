@@ -39,4 +39,6 @@ Rails.application.routes.draw do
   get '/support_messages/change/:id/', to: 'support_messages#edit', as: 'edit_support_message'
   patch '/support_messages/change/:id/', to: 'support_messages#update', as: 'change_support_message'
 
+  delete '/support_messages/:id', to: 'support_messages#destroy', as: 'destroy_support_message'
+
 end
