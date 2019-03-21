@@ -33,6 +33,6 @@ Rails.application.routes.draw do
   delete '/projects/:id', to: 'projects#destroy', as: 'destroy_project'
 
 
-  get '/projects/:project_id/support_messages/', to: 'support_messages#index', as: 'support_messages'
+  get '/projects/:project_slug/support_messages/', to: 'support_messages#index', as: 'support_messages'
 
 end

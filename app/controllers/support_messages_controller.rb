@@ -4,7 +4,8 @@ class SupportMessagesController < ApplicationController
   before_action :support_messsage_related_to_user, :except => [:new, :index]
   
   def index
-    @support_messages = SupportMessage.find_by(project_id: params[:project_id])
+    @project = Project.find_by(slug: params[:project_slug])
+    @support_messages = SupportMessage.find_by(project_id: @project.id)
   end
 
   def show
@@ -17,7 +18,7 @@ class SupportMessagesController < ApplicationController
   
   def create
     @new_message = SupportMessage.new(support_message_params)
-    @current_project = Project.find_by(id: params[:project_id])
+    @current_project = Project.find_by(slug: params[:project_slug])
     @new_message.project = @current_project
     if @new_message.save
       redirect_to action: 'index', notice: 'Support message created successfully.'
