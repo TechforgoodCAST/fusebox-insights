@@ -7,17 +7,18 @@
       <% end %>
     </ul>
   <% end %>
+  <p><%= project.slug %></p>
   <p>
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.input :name %>
   </p>
   <p>
     <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.input :description %>
   </p>
   <p>
     <%= f.label :private %><br>
-    <%= f.check_box :private %>
+    <%= f.input :private %>
   </p>
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
