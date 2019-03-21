@@ -1,13 +1,14 @@
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => :show
+  before_action :set_project
 
   def index
     @projects = current_user.projects
   end
   
   def show
-    @project = Project.find_by(slug: params[:slug])
+    authorize @project
   end
   
   def new
@@ -25,11 +26,11 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find_by(slug: params[:slug])
+    authorize @project
   end
 
   def update
-    @project = Project.find_by(slug: params[:slug])
+    authorize @project
     if @project.update(project_params)
       redirect_to edit_project_path(notice: 'Project updated successfully.')
     else
@@ -38,12 +39,16 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find_by(slug: params[:slug])
+    authorize @project
     @project.destroy
     redirect_to projects_path
   end
 
   private
+
+    def set_project
+      @project = Project.find_by(slug: params[:slug])
+    end
 
     def project_params
       params.require(:project).permit(:name, :description, :private, :slug)
