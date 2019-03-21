@@ -20,9 +20,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.user = current_user
-    # only create slug on create so it doesn't change if
-    # the project name changes (slugs shouldn't change)
-    @project.slug = @project.name.parameterize
+    @project.generate_slug
     if @project.save
       redirect_to action: 'index', notice: 'Project created successfully.'
     else
