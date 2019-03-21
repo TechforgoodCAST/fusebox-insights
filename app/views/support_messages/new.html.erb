@@ -3,11 +3,11 @@
 <%= form_with scope: :support_message, local: true do |form| %>
   <p>
     <%= form.label :body %>
-    <%= form.input :body, as: :trix_editor %>
+    <%= form.text_field :body, as: :trix_editor %>
   </p>
   <p>
     <%= form.label :order %>
-    <%= form.number_field, input_html: {min: '1', step: '1'}  %>
+    <%= form.number_field :order, input_html: { min: 1, step: 1 } %>
   </p>
-  <p><%= form.submit  %></p>
+  <p><%= form.submit %></p>
 <% end %>

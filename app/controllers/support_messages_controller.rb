@@ -1,11 +1,11 @@
 
 class SupportMessagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :support_messsage_related_to_user, :except => [:new, :index]
+  before_action :support_messsage_related_to_user, :except => [:new, :create, :index]
   
   def index
     @project = Project.find_by(slug: params[:project_slug])
-    @support_messages = SupportMessage.find_by(project_id: @project.id)
+    @support_messages = @project.support_messages.order(:order)
   end
 
   def show
@@ -17,21 +17,28 @@ class SupportMessagesController < ApplicationController
   end
   
   def create
-    @new_message = SupportMessage.new(support_message_params)
     @current_project = Project.find_by(slug: params[:project_slug])
+    @new_message = SupportMessage.new(support_message_params)
+    @new_message.status = 'Pending'
     @new_message.project = @current_project
     if @new_message.save
       redirect_to action: 'index', notice: 'Support message created successfully.'
     else
       render :new
     end
-
   end
 
   def edit
+    @support_message = SupportMessage.find_by(id: params[:id])
   end
   
   def update
+    @support_message = SupportMessage.find_by(id: params[:id])
+    if @support_message.update(support_message_params)
+      redirect_to edit_support_message_path, notice: 'Support message updated successfully.'
+    else
+      render :edit
+    end
   end
   
   def destroy
@@ -40,6 +47,7 @@ class SupportMessagesController < ApplicationController
   private
 
     def support_message_params
+      params.require(:support_message).permit(:body, :order, :status)
     end
 
     def support_messsage_related_to_user

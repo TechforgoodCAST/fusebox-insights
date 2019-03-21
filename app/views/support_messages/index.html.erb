@@ -1,7 +1,22 @@
 <h1>Support Messages for project: <%= @project.name  %></h1>
 
 <% if @support_messages.count > 0 %>
-<p>messages</p>
+  <br>
+  <table>
+    <tbody>
+      <%= @support_messages.each do |message| =%>
+        <tr>
+          <td><strong><%= message.order %></strong></td>
+          <td><strong><%= message.status %></strong></td>
+          <td><span class="my15 trix-formatted"><%= message.body %></span></td>
+          <td><p>TODO: call to action link</p></td>
+          <td><td><%= link_to 'Edit', edit_support_message_path(id: message.id) %></td></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'Add another', new_support_message_path %>
 <% else %>
-<p>No support messages for this project!<p>
+  <p>No support messages for this project!<p>
+  <%= link_to 'Create One Now', new_support_message_path %>
 <% end %>

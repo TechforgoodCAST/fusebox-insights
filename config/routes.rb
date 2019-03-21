@@ -32,7 +32,11 @@ Rails.application.routes.draw do
   # destroy
   delete '/projects/:id', to: 'projects#destroy', as: 'destroy_project'
 
-
   get '/projects/:project_slug/support_messages/', to: 'support_messages#index', as: 'support_messages'
+  get '/projects/:project_slug/support_messages/new/', to: 'support_messages#new', as: 'new_support_message'
+  post '/projects/:project_slug/support_messages/new/', to: 'support_messages#create', as: 'create_support_message'
+
+  get '/support_messages/change/:id/', to: 'support_messages#edit', as: 'edit_support_message'
+  patch '/support_messages/change/:id/', to: 'support_messages#update', as: 'change_support_message'
 
 end
