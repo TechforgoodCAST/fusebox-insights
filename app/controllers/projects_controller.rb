@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   end
   
   def new
-    # empty (for now)
+    @project = Project.new
   end
 
   def create
