@@ -1,4 +1,4 @@
-<%= simple_form_for(project) do |form| %>
+<%= simple_form_for(project) do |f| %>
   <% if project.errors.any? %>
     <div id="error_count"><p><%= pluralize(project.errors.count, 'error') %></p></div>
     <ul>
@@ -8,18 +8,18 @@
     </ul>
   <% end %>
   <p>
-    <%= form.label :name %><br>
-    <%= form.text_field :name %>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
   </p>
   <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
   </p>
   <p>
-    <%= form.label :private %><br>
-    <%= form.check_box :private %>
+    <%= f.label :private %><br>
+    <%= f.check_box :private %>
   </p>
   <div class="text-right">
-    <%= form.button :submit, data: { disable_with: 'Updating...' } %>
+    <%= f.button :submit, data: { disable_with: 'Updating...' } %>
   </div>
 <% end %>
