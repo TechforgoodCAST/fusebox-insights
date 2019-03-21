@@ -2,10 +2,10 @@
   
   <h1 class="fs20 bold mb30">My Projects</h1>
 
-  <% if @projects.count > 0 %>
+  <% if @projects.any? %>
     <table>
       <tbody>
-        <%= @projects.each do |project| %>
+        <%- @projects.each do |project| %>
           <% if project.slug %>
             <tr>
               <td><%= project.slug %></td>
