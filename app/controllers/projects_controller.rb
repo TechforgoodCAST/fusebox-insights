@@ -1,11 +1,8 @@
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!, :except => :show
-  before_action :can_access_admin_pages, :except => [:show, :new, :index, :create]
-  before_action :is_project_public, :only => :show
 
   def index
-    @user = current_user
     @projects = current_user.projects
   end
   
@@ -21,11 +18,13 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = current_user
     @project.generate_slug
+    
     if @project.save
-      redirect_to action: 'index', notice: 'Project created successfully.'
+      redirect_to projects_path(notice: 'Project created successfully.')
     else
       render :new
     end
+    
   end
 
   def edit
@@ -34,9 +33,8 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find_by(slug: params[:id])
-    
     if @project.update(project_params)
-      redirect_to edit_project_path, notice: 'Project updated successfully.'
+      redirect_to edit_project_path(notice: 'Project updated successfully.')
     else
       render :edit
     end
@@ -45,26 +43,13 @@ class ProjectsController < ApplicationController
   def destroy
     @project = Project.find_by(slug: params[:id])
     @project.destroy
-    redirect_to action: 'index'
+    redirect_to projects_path
   end
 
   private
 
   def project_params
     params.require(:project).permit(:name, :description, :private,)
-  end
-
-  def can_access_admin_pages
-    unless Project.find_by(slug: params[:id]).user == current_user
-      return head :forbidden
-    end
-  end
-
-  def is_project_public
-    @current_project = Project.find_by(slug: params[:id])
-    unless @current_project.private == false || @current_project.user == current_user
-      return head :forbidden
-    end
   end
 
 end
