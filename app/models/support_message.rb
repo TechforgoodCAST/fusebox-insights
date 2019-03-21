@@ -1,13 +1,12 @@
 
-@ALLOWED_STATUSES = [
-  'Pending',
-  'Incomplete',
-  'Complete',
-]
-
 
 class SupportMessage < ApplicationRecord
-  # TODO: add relation to projects
-  # TODO: add unique constraint to make sure order is unique with project
-  validates :status, :inclusion => { :in @ALLOWED_STATUSES }
+  @ALLOWED_STATUSES = [
+    'Pending',
+    'Incomplete',
+    'Complete',
+  ]
+  belongs_to :project, class_name: 'Project'
+  validates :status, inclusion: { :in => @ALLOWED_STATUSES }
+  validates :order, uniqueness: { scope: :project_id }
 end

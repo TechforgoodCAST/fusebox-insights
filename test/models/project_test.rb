@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
-  def setup 
+  setup do
     @user = build(:user)
     @subject = Project.create(name: 'test', slug: 'this-should-be-unique', user: @user)
     @subject.save
@@ -19,7 +19,6 @@ class ProjectTest < ActiveSupport::TestCase
 
   test 'slugs must be unique' do
     @project_1 = Project.create(name: 'test', user: @user, slug: 'test-slug')
-    # assert_raise ActiveRecord::RecordNotUnique do
     @project_2 = Project.create(name: 'test', user: @user, slug: 'test-slug')
     assert_equal(@project_2.valid?, false)
   end
