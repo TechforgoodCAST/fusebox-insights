@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_05_092221) do
+ActiveRecord::Schema.define(version: 2019_03_20_105711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 2019_03_05_092221) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["unknown_id"], name: "index_comments_on_unknown_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "triggerable_type"
+    t.bigint "triggerable_id"
+    t.string "event_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["triggerable_type", "triggerable_id"], name: "index_events_on_triggerable_type_and_triggerable_id"
   end
 
   create_table "foci", force: :cascade do |t|

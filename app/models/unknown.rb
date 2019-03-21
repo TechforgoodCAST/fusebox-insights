@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Unknown < ApplicationRecord
+  include Triggerable
+
   belongs_to :author, class_name: 'User'
 
   has_many :foci, dependent: :destroy
