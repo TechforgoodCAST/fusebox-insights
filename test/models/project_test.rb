@@ -36,4 +36,9 @@ class ProjectTest < ActiveSupport::TestCase
     assert_unique(:slug)
   end
 
+  test '#is_private has default' do
+    @project = Project.new(name: 'default is_private')
+    assert_equal(@project.is_private, true)
+  end
+
 end
