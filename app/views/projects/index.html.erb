@@ -3,21 +3,24 @@
   <h1 class="fs20 bold mb30">My Projects</h1>
 
   <% if @projects.any? %>
-    <table>
-      <tbody>
-        <%- @projects.each do |project| %>
-          <% if project.slug %>
-            <tr>
-              <td><%= project.slug %></td>
-              <td><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></td>
-              <td><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></td>
-              <td><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></td>
-              <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
-            </tr>
+    <%- @projects.each do |project| %>
+      <% if project.slug %>
+        <div>
+          <p><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></p>
+          <p><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></p>
+          <p><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></p>
+          <p><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></p>
+        </div>
+        <div>
+          <p><strong>Members</strong></p>
+          <%- ProjectMember.where(project: project).each do |member| %>
+            <p><%= member.user.username %> - <%= link_to 'Remove', project_member_path(slug: project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'} %> </p>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+        </div><br>
+        <p><%= link_to 'Add Member', new_project_member_path(slug: project.slug), class: 'add-member-link' %></p>
+        <hr>
+      <% end %>
+    <% end %>
   <% else %>
     <p>It seems like you don't have any projects yet.</p>
   <% end %>
