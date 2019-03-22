@@ -1,4 +1,4 @@
 <p><strong>Project Name: </strong><%= @project.name  %></p>
-<p><strong>Visibility: </strong><% if @project.private %>Private<% else %>Public<% end  %></p>
+<p><strong>Visibility: </strong><% if @project.is_private %>Private<% else %>Public<% end  %></p>
 <p><strong>Description: </strong><%= @project.description %></p>
 <%= link_to 'Back', projects_path %>

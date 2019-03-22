@@ -9,10 +9,10 @@
           <% if project.slug %>
             <tr>
               <td><%= project.slug %></td>
-              <td><strong><%= project.name %></strong><% if project.private %>(private)<% else %>(public)<% end %></td>
-              <td><%= link_to 'Show', project_path(slug: project.slug) %></td>
-              <td><%= link_to 'Edit', edit_project_path(slug: project.slug) %></td>
-            </div>
+              <td><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></td>
+              <td><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></td>
+              <td><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></td>
+              <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
             </tr>
           <% end %>
         <% end %>

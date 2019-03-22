@@ -1,10 +1,10 @@
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, :except => :show
+  before_action :authenticate_user!, only: %i[index new create edit update destroy]
   before_action :set_project
 
   def index
-    @projects = current_user.projects
+    @projects = current_user.created_projects
   end
   
   def show
@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = current_user    
     if @project.save
-      redirect_to projects_path(notice: 'Project created successfully.')
+      redirect_to projects_path, notice: 'Project created successfully.'
     else
       render :new
     end
@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
   def update
     authorize @project
     if @project.update(project_params)
-      redirect_to edit_project_path(notice: 'Project updated successfully.')
+      redirect_to edit_project_path, notice: 'Project updated successfully.'
     else
       render :edit
     end
@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
   def destroy
     authorize @project
     @project.destroy
-    redirect_to projects_path
+    redirect_to projects_path, notice: 'Project destroyed successfully.'
   end
 
   private

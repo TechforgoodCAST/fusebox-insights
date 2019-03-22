@@ -15,7 +15,10 @@ class Project < ApplicationRecord
   end
   
   def generate_slug
-    self.slug = self.name.parameterize
+    # only generate slug if no existing slug
+    if self.slug.blank?
+      self.slug = self.name.parameterize
+    end
   end
   
 end
