@@ -2,7 +2,11 @@ class ProjectPolicy < ApplicationPolicy
   
   def show?
     if user
-      user.id == record.user.id || !record.is_private
+      if ProjectMember.where(project: record, user: user).any?
+        true
+      else
+        user.id == record.user.id || !record.is_private
+      end
     else
       !record.is_private
     end
