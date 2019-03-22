@@ -11,9 +11,9 @@ class ProjectTest < ActiveSupport::TestCase
 
   test 'user has many projects' do
     @user = create(:user)
-    create(:project, user: @user, name: 'a')
-    create(:project, user: @user, name: 'b')
-    assert_equal(2, @user.projects.size)
+    @a = create(:project, user: @user, name: 'a')
+    @ab = create(:project, user: @user, name: 'b')
+    assert_equal(2, @user.created_projects.size)
   end
 
   test 'slug generation' do
