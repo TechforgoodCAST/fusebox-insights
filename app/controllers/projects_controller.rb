@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-      params.require(:project).permit(:name, :description, :private, :slug)
+      params.require(:project).permit(:name, :description, :is_private, :slug)
     end
 
 end

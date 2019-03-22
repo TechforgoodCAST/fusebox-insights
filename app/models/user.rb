@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   has_many :foci, dependent: :destroy
   has_many :in_focus, through: :foci, source: :unknown
-  has_many :projects, foreign_key: 'user_id'
+  has_many :projects
 
   validates :username, presence: true
 end
