@@ -1,9 +1,9 @@
 <div class="flow flow20">
   
   <h1 class="fs20 bold mb30">My Projects</h1>
-
-  <% if @projects.any? %>
-    <%- @projects.each do |project| %>
+  <h3>Created:</h3>
+  <% if @created_projects.any? %>
+    <%- @created_projects.each do |project| %>
       <% if project.slug %>
         <div>
           <p><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></p>
@@ -24,5 +24,20 @@
   <% else %>
     <p>It seems like you don't have any projects yet.</p>
   <% end %>
+
+  <div><%= link_to 'Create New Project', new_project_path %></div>
+
+  <h3>Member:</h3>
+  <% if @member_projects.any? %>
+    <%- @member_projects.each do |member_project| %>
+      <div>
+        <p><strong><%= member_project.name %></strong><% if member_project.is_private %>(private)<% else %>(public)<% end %></p>
+        <p><%= link_to 'Show', project_path(slug: member_project.slug), class: 'show-link' %></p>
+        <p><strong>Other Members</strong></p>
+        <%- ProjectMember.where(project: member_project).each do |member| %>
+          <p><%= member.user.username %></p>
+        <% end %>
+      </div><br>
+    <% end %>
+  <% end %>
 </div>
-<div><%= link_to 'Create New Project', new_project_path %></div>

@@ -8,17 +8,19 @@ class ProjectMembersController < ApplicationController
     @members = ProjectMember.find_by(project: @project)
   end
   
-  def show
-    
-  end
-  
   def new
+    if !is_user_project_creator
+      redirect_to projects_path, notice: 'You do not have perission to add members to this project.'
+    end
     @project_member = ProjectMember.new
     @current_project = Project.find_by(slug: params[:slug])
     @potential_users = User.all
   end
   
   def create
+    if !is_user_project_creator
+      redirect_to projects_path, notice: 'You do not have perission to add members to this project.'
+    end
     @current_project = Project.find_by(slug: params[:slug])
     @selected_user = User.find_by(id: project_member_params[:user])
     @project_member = ProjectMember.new(user: @selected_user, project: @current_project)
@@ -27,14 +29,6 @@ class ProjectMembersController < ApplicationController
     else
       render :new
     end
-  end
-  
-  def edit
-    
-  end
-  
-  def update
-    
   end
   
   def destroy
@@ -50,6 +44,10 @@ class ProjectMembersController < ApplicationController
 
     def set_project
       @project = Project.find_by(slug: params[:slug])
+    end
+
+    def is_user_project_creator
+      @project.user == current_user
     end
 
     def project_member_params
