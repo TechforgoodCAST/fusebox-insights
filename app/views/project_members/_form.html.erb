@@ -9,7 +9,7 @@
   <% end %>
   <p>
     <%= f.label :user %><br>
-        <%= f.select :user, @potential_users.collect {|m| [ m.username, m.id ]} %>
+    <%= f.select :user, @potential_users.collect {|m| [ m.username, m.id ]} %>
   </p>
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
