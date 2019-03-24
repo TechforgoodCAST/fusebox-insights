@@ -1,42 +1,36 @@
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, :except => :show
-  before_action :can_access_admin_pages, :except => [:show, :new, :index, :create]
-  before_action :is_project_public, :only => :show
+  before_action :authenticate_user!, only: %i[index new create edit update destroy]
+  before_action :set_project
 
   def index
-    @user = current_user
-    @projects = current_user.projects
+    @projects = current_user.created_projects
   end
   
   def show
-    @project = Project.find_by(slug: params[:id])
+    authorize @project
   end
   
   def new
-    # empty (for now)
+    @project = Project.new
   end
 
   def create
     @project = Project.new(project_params)
-    @project.user = current_user
-    # only create slug on create so it doesn't change if
-    # the project name changes (slugs shouldn't change)
-    @project.slug = @project.name.parameterize
+    @project.user = current_user    
     if @project.save
-      redirect_to action: 'index', notice: 'Project created successfully.'
+      redirect_to projects_path, notice: 'Project created successfully.'
     else
       render :new
     end
   end
 
   def edit
-    @project = Project.find_by(slug: params[:id])
+    authorize @project
   end
 
   def update
-    @project = Project.find_by(slug: params[:id])
-    
+    authorize @project
     if @project.update(project_params)
       redirect_to edit_project_path, notice: 'Project updated successfully.'
     else
@@ -45,28 +39,19 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find_by(slug: params[:id])
+    authorize @project
     @project.destroy
-    redirect_to action: 'index'
+    redirect_to projects_path, notice: 'Project destroyed successfully.'
   end
 
   private
 
-  def project_params
-    params.require(:project).permit(:name, :description, :private,)
-  end
-
-  def can_access_admin_pages
-    unless Project.find_by(slug: params[:id]).user == current_user
-      return head :forbidden
+    def set_project
+      @project = Project.find_by(slug: params[:slug])
     end
-  end
 
-  def is_project_public
-    @current_project = Project.find_by(slug: params[:id])
-    unless @current_project.private == false || @current_project.user == current_user
-      return head :forbidden
+    def project_params
+      params.require(:project).permit(:name, :description, :is_private, :slug)
     end
-  end
 
 end

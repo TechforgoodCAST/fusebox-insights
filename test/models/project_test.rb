@@ -2,9 +2,7 @@ require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
   setup do
-    @user = build(:user)
-    @subject = Project.create(name: 'test', slug: 'this-should-be-unique', user: @user)
-    @subject.save
+    @subject = build(:project)
   end
 
   test 'belongs to #user' do
@@ -12,15 +10,35 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   test 'user has many projects' do
-    @new_project = Project.create(name: 'test', user: @user, slug: '123')
-    @another_new_project = Project.create(name: 'test', user: @user, slug: '456')
-    assert_equal(3, @user.projects.size)
+    @user = create(:user)
+    @a = create(:project, user: @user, name: 'a')
+    @ab = create(:project, user: @user, name: 'b')
+    assert_equal(2, @user.created_projects.size)
   end
 
-  test 'slugs must be unique' do
-    @project_1 = Project.create(name: 'test', user: @user, slug: 'test-slug')
-    @project_2 = Project.create(name: 'test', user: @user, slug: 'test-slug')
-    assert_equal(@project_2.valid?, false)
+  test 'slug generation' do
+    @project_name = 'this is a test'
+    @new_project = build(:project, name: @project_name)
+    assert_equal(@new_project.valid?, true)
+    assert_equal(@project_name.parameterize, @new_project.slug)
+  end
+
+  test '#name unique to user' do
+    assert_unique(:name)
+  end
+
+  test '#is_private cannot be nil' do
+    @invalid_project = Project.new(name: 'invalid test', is_private: nil)
+    assert_equal(@invalid_project.valid?, false)
+  end
+
+  test '#slug is unique' do
+    assert_unique(:slug)
+  end
+
+  test '#is_private has default' do
+    @project = Project.new(name: 'default is_private')
+    assert_equal(@project.is_private, true)
   end
 
 end
