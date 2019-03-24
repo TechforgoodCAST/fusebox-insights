@@ -1,7 +1,7 @@
 
 class SupportMessagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :support_messsage_related_to_user, :except => [:new, :create, :index]
+  before_action :set_support_message
   
   def index
     @project = Project.find_by(slug: params[:project_slug])
@@ -9,11 +9,11 @@ class SupportMessagesController < ApplicationController
   end
 
   def show
-    @support_message = SupportMessage.find(id: params[:id])
+    # empty
   end
   
   def new
-    # empty (for now)
+    @support_message = SupportMessage.new
   end
   
   def create
@@ -22,18 +22,18 @@ class SupportMessagesController < ApplicationController
     @new_message.status = 'Pending'
     @new_message.project = @current_project
     if @new_message.save
-      redirect_to action: 'index', notice: 'Support message created successfully.'
+      redirect_to support_message_path, notice: 'Support message created successfully.'
     else
       render :new
     end
   end
 
   def edit
-    @support_message = SupportMessage.find_by(id: params[:id])
+    authorize @support_message
   end
   
   def update
-    @support_message = SupportMessage.find_by(id: params[:id])
+    authorize @support_message
     if @support_message.update(support_message_params)
       redirect_to edit_support_message_path, notice: 'Support message updated successfully.'
     else
@@ -42,21 +42,19 @@ class SupportMessagesController < ApplicationController
   end
   
   def destroy
-    @support_message = SupportMessage.find_by(id: params[:id])
+    authorize @support_message
     @support_message.destroy
-    redirect_to action: 'index'
+    redirect_to support_message_path, notice: 'Support message destroyed successfully.'
   end
   
   private
 
-    def support_message_params
-      params.require(:support_message).permit(:body, :order, :status)
+    def set_support_message
+      @support_message = SupportMessage.find_by(id: params[:id])
     end
 
-    def support_messsage_related_to_user
-      unless SupportMessage.find_by(id: params[:id]).project.user == current_user
-        return head :forbidden
-      end
+    def support_message_params
+      params.require(:support_message).permit(:body, :order, :status)
     end
 
 end

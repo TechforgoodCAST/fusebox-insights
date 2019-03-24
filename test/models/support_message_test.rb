@@ -4,9 +4,8 @@ class SupportMessageTest < ActiveSupport::TestCase
   
   setup do
     @user = build(:user)
-    @project = Project.create(name: 'test', slug: 'test', user: @user)
-    @project.save
-    @subject = SupportMessage.create(status: 'Pending', project: @project, body: 'test', order: 1)
+    @project = build(:project, user: @user)
+    @subject = build(:support_message, project: @project)
     @subject.save
   end
 
