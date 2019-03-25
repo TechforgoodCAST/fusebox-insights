@@ -14,7 +14,7 @@
         <div>
           <p><strong>Members</strong></p>
           <%- ProjectMember.where(project: project).each do |member| %>
-            <p><%= member.user.username %> - <%= link_to 'Remove', project_member_path(slug: project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'} %> </p>
+            <p><%= member.user.username %> - <%= link_to 'Remove', project_member_path(slug: project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'remove-member-link'%> </p>
           <% end %>
         </div><br>
         <p><%= link_to 'Add Member', new_project_member_path(slug: project.slug), class: 'add-member-link' %></p>
