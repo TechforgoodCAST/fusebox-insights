@@ -1,29 +1,4 @@
-<div>
-  <h1>Edit Support Message</h1>
 
-  <%= form_with(model: @support_message, local: true, url: change_support_message_path) do |form|  %>
-    <% if @support_message.errors.any? %>
-      <div id="error_count"><p><%= pluralize(@support_message.errors.count, 'error') %></p></div>
-      <ul>
-        <% @support_message.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    <% end %>
-    <p>
-      <%= form.label :body %>
-      <%= form.text_field :body, as: :trix_editor %>
-    </p>
-    <p>
-      <%= form.label :status %>
-      <%= form.select :status, ['Pending', 'Incomplete', 'Complete',] %>
-    </p>
-    <p>
-      <%= form.label :order %>
-      <%= form.number_field :order, input_html: { min: 1, step: 1 } %>
-    </p>
-    <p><%= form.submit %></p>
-    <% end %>
-</div>
-
-<%= link_to 'Back', support_messages_path(project_slug: @support_message.project.slug) %>
+<h1 class="fs20 bold mb30">Edit Support Message</h1>
+<%= render 'form', support_message: @support_message %>
+<%= link_to 'Back', projects_path %>

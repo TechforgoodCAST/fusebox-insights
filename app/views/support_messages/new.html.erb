@@ -1,13 +1,4 @@
 
-<h1>Create New Support Message</h1>
-<%= form_with scope: :support_message, local: true do |form| %>
-  <p>
-    <%= form.label :body %>
-    <%= form.text_field :body, as: :trix_editor %>
-  </p>
-  <p>
-    <%= form.label :order %>
-    <%= form.number_field :order, input_html: { min: 1, step: 1 } %>
-  </p>
-  <p><%= form.submit %></p>
-<% end %>
+<h1 class="fs20 bold mb30">Create New Support Message</h1>
+<%= render 'form', support_message: @support_message %>
+<%= link_to 'Back', projects_path %>

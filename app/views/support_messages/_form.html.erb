@@ -1,0 +1,19 @@
+<%= simple_form_for(support_message) do |f| %>
+  <% if support_message.errors.any? %>
+    <div id="error_count"><p><%= pluralize(support_message.errors.count, 'error') %></p></div>
+    <ul>
+      <%- support_message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <p>
+    <%= f.input :body, as: :trix_editor %>
+  </p>
+  <p>
+    <%= f.number_field :order,  min: 1, step: 1 %>
+  </p>
+  <div class="text-right">
+    <%= f.button :submit, data: { disable_with: 'Updating...' } %>
+  </div>
+<% end %>

@@ -2,7 +2,7 @@
   <% if project.errors.any? %>
     <div id="error_count"><p><%= pluralize(project.errors.count, 'error') %></p></div>
     <ul>
-      <% project.errors.full_messages.each do |message| %>
+      <%- project.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
