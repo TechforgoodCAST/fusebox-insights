@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class ProjectPolicy < ApplicationPolicy
-  
   def show?
     if user
       if ProjectMember.where(project: record, user: user).any?
@@ -23,5 +24,4 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     user.id == record.user.id
   end
-
 end
