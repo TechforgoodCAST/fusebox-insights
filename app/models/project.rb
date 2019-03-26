@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   has_many :project_members
   has_many :users, through: :project_members
   has_many :support_messages
+  has_many :events
 
   validates :name, presence: true, uniqueness: { scope: :user }
   validates :slug, uniqueness: true
