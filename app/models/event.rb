@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-VALID_EVENT_TYPES = ["create","read","update","delete"]
-
 class Event < ApplicationRecord
+    VALID_EVENT_TYPES = ["create","read","update","delete"]
+
     belongs_to :triggerable, :polymorphic => true
     belongs_to :project  
 
