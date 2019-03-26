@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_20_105711) do
+ActiveRecord::Schema.define(version: 2019_03_22_102532) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +28,11 @@ ActiveRecord::Schema.define(version: 2019_03_20_105711) do
   create_table "events", force: :cascade do |t|
     t.string "triggerable_type"
     t.bigint "triggerable_id"
+    t.bigint "project_id"
     t.string "event_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_events_on_project_id"
     t.index ["triggerable_type", "triggerable_id"], name: "index_events_on_triggerable_type_and_triggerable_id"
   end
 
@@ -50,6 +52,27 @@ ActiveRecord::Schema.define(version: 2019_03_20_105711) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_insights_on_author_id"
+  end
+
+  create_table "project_members", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_members_on_project_id"
+    t.index ["user_id"], name: "index_project_members_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.boolean "is_private", default: true, null: false
+    t.string "slug", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_projects_on_slug", unique: true
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "proofs", force: :cascade do |t|
@@ -87,6 +110,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_105711) do
   end
 
   add_foreign_key "comments", "unknowns"
+  add_foreign_key "events", "projects"
   add_foreign_key "foci", "unknowns"
   add_foreign_key "foci", "users"
   add_foreign_key "proofs", "insights"
