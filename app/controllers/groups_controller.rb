@@ -1,14 +1,13 @@
-class GroupController < ApplicationController
+class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_group, only: %i[show edit update destroy]
 
   def index
-    # TODO: spec
     @groups = Group.order(updated_at: :desc).page(params[:page])
   end
 
   def new
-    @groups = current_user.group.new
+    @group = current_user.groups.new
   end
 
   def create
