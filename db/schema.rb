@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2019_03_20_105711) do
   create_table "events", force: :cascade do |t|
     t.string "triggerable_type"
     t.bigint "triggerable_id"
-    t.string "event_type"
+    t.string "event_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["triggerable_type", "triggerable_id"], name: "index_events_on_triggerable_type_and_triggerable_id"
