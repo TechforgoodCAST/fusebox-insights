@@ -1,19 +1,19 @@
 class SupportMessagePolicy < ApplicationPolicy
 
   def new?
-    user.id === record.project.user.id
+    user.is_staff
   end
 
   def edit?
-    user.id == record.project.user.id
+    user.is_staff
   end
 
   def update?
-    user.id == record.project.user.id
+    user.is_staff
   end
 
   def destroy?
-    user.id == record.project.user.id
+    user.is_staff
   end
 
 end
