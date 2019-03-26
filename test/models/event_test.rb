@@ -3,10 +3,13 @@
 require 'test_helper'
 
 class EventTest < ActiveSupport::TestCase
-  setup { @subject = build(:event) }
+  setup do
+    @subject = create(:event)
+    @unknown = create(:unknown)
+  end
 
   test 'has one #triggerable' do
-    create(:unknown, triggerable: @subject)
-    assert_equal(1, @subject.triggerable.size)
+    @subject.triggerable = @unknown
+    assert_equal(@unknown, @subject.triggerable)
   end
 end
