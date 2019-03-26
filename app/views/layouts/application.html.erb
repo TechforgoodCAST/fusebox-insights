@@ -33,10 +33,8 @@
 
           <%- if user_signed_in? %>
             <%= simple_form_for :search, url: search_index_path, method: 'GET' do |f| %>
-             
-          
-                <%= f.input :query %>
-                <%= f.button :submit, 'Search', data: { disable_with: 'Searching...' } %>
+              <%= f.input :query %>
+              <%= f.button :submit, 'Search', data: { disable_with: 'Searching...' } %>
             <% end %>
           <% end %>
 

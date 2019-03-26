@@ -2,8 +2,9 @@
 
 class Unknown < ApplicationRecord
   include PgSearch
-  multisearchable :against => [:title]
-  
+
+  multisearchable against: [:title]
+
   belongs_to :author, class_name: 'User'
 
   has_many :foci, dependent: :destroy

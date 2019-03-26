@@ -23,7 +23,7 @@
       <% if policy(unknown).update? %>
         <%= link_to 'Edit', edit_unknown_path(unknown) %>
       <% end %>
-      
+
       <% if policy(unknown).destroy? %>
         <%= link_to 'Delete', unknown, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
       <% end %>

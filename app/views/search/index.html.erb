@@ -4,7 +4,6 @@
 
 <div class="flow flow20">
   <% @search_results.each do |result| %>
-      <%= render partial: 'card', locals: { edit: false, result: result } %>
+    <%= render partial: 'card', locals: { result: result } %>
   <% end %>
 </div>
-
