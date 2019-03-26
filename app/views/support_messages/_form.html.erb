@@ -11,7 +11,7 @@
     <%= f.input :body, as: :trix_editor %>
   </p>
   <p>
-    <%= f.number_field :order,  min: 1, step: 1 %>
+    <%= f.input :order,  min: 1, step: 1 %>
   </p>
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>

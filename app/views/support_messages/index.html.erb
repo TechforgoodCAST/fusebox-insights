@@ -1,21 +1,17 @@
-<h1>Support Messages for project: <%= @project.name  %></h1>
+<h1 class="fs20 bold mb30">Support Messages for project: <%= @project.name %></h1>
 
-<% if @support_messages.count > 0 %>
-  <br>
-  <table>
-    <tbody>
-      <%= @support_messages.each do |message| =%>
-        <tr>
-          <td><strong><%= message.order %></strong></td>
-          <td><strong><%= message.status %></strong></td>
-          <td><span class="my15 trix-formatted"><%= message.body %></span></td>
-          <td><p>TODO: call to action link</p></td>
-          <td><td><%= link_to 'Edit', edit_support_message_path(id: message.id) %></td></td>
-          <td><td><%= link_to 'Destroy', destroy_support_message_path(id: message.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<% if @support_messages.any? %>
+  <%- @support_messages.each do |message| =%>
+    <div>
+      <p><strong><%= message.order %></strong></p>
+      <p><strong><%= message.status %></strong></p><br>
+      <p><span class="my15 trix-formatted"><%= message.body.html_safe %></span></p><br>
+      <p><p>TODO: call to action link</p></p>
+      <p><td><%= link_to 'Edit', edit_support_message_path(id: message.id), class: 'edit-link' %></td></p>
+      <td><%= link_to 'Destroy', support_message_path(id: message.id, slug: message.project.slug), method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
+    </div>
+    <hr>
+  <% end %>
   <%= link_to 'Add another', new_support_message_path %>
 <% else %>
   <p>No support messages for this project!<p>
