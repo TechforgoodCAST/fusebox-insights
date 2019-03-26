@@ -14,7 +14,7 @@ class UnknownsController < ApplicationController
       'none' => 0, 'more' => 1, 'less' => -1
     }[params[:confidence]]
 
-    @comment = Comment.new(author: current_user, confidence: confidence)
+    @response = Response.new(author: current_user, confidence: confidence)
   end
 
   def new
@@ -23,7 +23,7 @@ class UnknownsController < ApplicationController
 
   def create
     @unknown = current_user.unknowns.new(unknown_params)
-
+    
     if @unknown.save
       redirect_to @unknown, notice: 'Unknown was successfully created.'
     else

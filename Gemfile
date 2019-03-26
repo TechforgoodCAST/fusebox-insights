@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.2.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -46,6 +46,7 @@ group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'rubocop', '~> 0.66.0', require: false
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
@@ -62,10 +63,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'devise', '~> 4.5.0'
+gem 'devise', '~> 4.6.0'
 gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
 gem 'trix-rails', '~> 2.0.0', require: 'trix'
 gem 'kaminari', '~> 1.1.0'
-gem "pundit"
+gem 'pundit'
 gem 'pg_search'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3' # TODO: remove

@@ -11,16 +11,16 @@ class ReflectionTest < ActiveSupport::TestCase
 
   test 'initialize without author' do
     @subject = Reflection.new
-    assert_equal(0, @subject.comments.size)
+    assert_equal(0, @subject.responses.size)
   end
 
-  test 'initialize with author builds comments' do
-    assert_equal(2, @subject.comments.size)
-    @subject.comments.each { |comment| assert_kind_of(Comment, comment) }
+  test 'initialize with author builds repsonses' do
+    assert_equal(2, @subject.responses.size)
+    @subject.responses.each { |response| assert_kind_of(Response, response) }
   end
 
   test '#save invalid' do
-    @subject.comments = { '0' => { 'confidence' => '1', 'title' => '' } }
+    @subject.responses = { '0' => { 'confidence' => '1', 'type' => 'Insight', 'description' => 'A reason' } }
     refute(@subject.save)
   end
 
@@ -28,7 +28,7 @@ class ReflectionTest < ActiveSupport::TestCase
     assert_equal(0, Insight.count)
     assert_equal(0, Proof.count)
 
-    @subject.comments = { '0' => { 'confidence' => '1', 'title' => 'title' } }
+    @subject.responses = { '0' => { 'confidence' => '1', 'title' => 'title', 'type' => 'Insight', 'description' => 'A reason' } }
     assert(@subject.save)
 
     assert_equal(1, Insight.count)

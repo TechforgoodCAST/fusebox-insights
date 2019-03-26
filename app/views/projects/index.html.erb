@@ -1,0 +1,25 @@
+<div class="flow flow20">
+  
+  <h1 class="fs20 bold mb30">My Projects</h1>
+
+  <% if @projects.any? %>
+    <table>
+      <tbody>
+        <%- @projects.each do |project| %>
+          <% if project.slug %>
+            <tr>
+              <td><%= project.slug %></td>
+              <td><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></td>
+              <td><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></td>
+              <td><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></td>
+              <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>It seems like you don't have any projects yet.</p>
+  <% end %>
+</div>
+<div><%= link_to 'Create New Project', new_project_path %></div>

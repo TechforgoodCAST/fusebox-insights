@@ -12,7 +12,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   test '#vote_path' do
-    path = '/unknowns/1?confidence=none#new_comment'
+    path = '/unknowns/1?confidence=none#new_response'
     assert_equal(path, vote_path(1, 'none'))
   end
 end
