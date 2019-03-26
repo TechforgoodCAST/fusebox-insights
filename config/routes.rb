@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :insights, :unknowns
   resources :projects, param: :slug
   resources :reflections, only: %i[new create]
-  resources :support_messages
+  resources :support_messages, path: '/projects/:slug/support_messages/'
 
   get   '/focus',        to: 'foci#index', as: 'in_focus'
   get   '/focus/change', to: 'foci#edit',  as: 'change_focus'
