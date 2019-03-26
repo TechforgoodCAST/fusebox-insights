@@ -2,6 +2,6 @@ module Triggerable
   extend ActiveSupport::Concern
 
   included do
-    has_one :events, :as => :triggerable
+    has_many :events, :as => :triggerable
   end
 end
