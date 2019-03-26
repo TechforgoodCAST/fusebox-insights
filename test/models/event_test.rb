@@ -7,8 +7,12 @@ class EventTest < ActiveSupport::TestCase
     @subject = build(:event, event_type: "create")
   end
 
-  test 'has #triggerable' do
+  test 'belongs_to #triggerable' do
     assert_not_nil(@subject.triggerable)
+  end
+
+  test 'has one project' do
+    assert_not_nil(@subject.project)
   end
 
   test 'event type validation' do
