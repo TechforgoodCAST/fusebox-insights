@@ -2,6 +2,7 @@
 
 class Unknown < ApplicationRecord
   belongs_to :author, class_name: 'User'
+  belongs_to :group
 
   has_many :foci, dependent: :destroy
   has_many :focussed_by, through: :foci, source: :user
