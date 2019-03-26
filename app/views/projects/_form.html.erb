@@ -1,25 +1,7 @@
 <%= simple_form_for(project) do |f| %>
-  <% if project.errors.any? %>
-    <div id="error_count"><p><%= pluralize(project.errors.count, 'error') %></p></div>
-    <ul>
-      <%- project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  <% end %>
-  <p><%= project.slug %></p>
-  <p>
-    <%= f.label :name %><br>
-    <%= f.input :name %>
-  </p>
-  <p>
-    <%= f.label :description %><br>
-    <%= f.input :description %>
-  </p>
-  <p>
-    <%= f.label :is_private %><br>
-    <%= f.input :is_private %>
-  </p>
+  <p><%= f.input :name %></p>
+  <p><%= f.input :description %></p>
+  <p><%= f.input :is_private %></p>
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
   </div>

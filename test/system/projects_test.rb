@@ -68,5 +68,4 @@ class ProjectsTest < ApplicationSystemTestCase
     visit project_path(@private_project)
     assert_text "Sorry, you don't have access to that"
   end
-
 end

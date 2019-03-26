@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class ProjectPolicy < ApplicationPolicy
-  
   def show?
     if user
       user.id == record.user.id || !record.is_private
@@ -19,5 +20,4 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     user.id == record.user.id
   end
-
 end
