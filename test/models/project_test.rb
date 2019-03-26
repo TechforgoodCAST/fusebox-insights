@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ProjectTest < ActiveSupport::TestCase
@@ -40,5 +42,4 @@ class ProjectTest < ActiveSupport::TestCase
     @project = Project.new(name: 'default is_private')
     assert_equal(@project.is_private, true)
   end
-
 end
