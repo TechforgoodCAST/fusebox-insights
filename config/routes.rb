@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :projects, param: :slug
   resources :reflections, only: %i[new create]
   resources :search, only: [:index]
+  resources :support_messages, path: '/projects/:slug/support-messages/'
 
   get   '/focus',        to: 'foci#index', as: 'in_focus'
   get   '/focus/change', to: 'foci#edit',  as: 'change_focus'
@@ -18,5 +19,4 @@ Rails.application.routes.draw do
 
   get  '/unknowns/:id', to: 'responses#new', as: 'unknown_responses'
   post '/unknowns/:id', to: 'responses#create'
-
 end
