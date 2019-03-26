@@ -13,10 +13,7 @@ class SupportMessagesController < ApplicationController
   end
   
   def new
-    if !is_user_project_creator
-      redirect_to support_messages_path, notice: 'You do not have perission to create support messages.'
-    end
-    @support_message = SupportMessage.new
+    authorize @support_message = SupportMessage.new(project: @project)
   end
   
   def create

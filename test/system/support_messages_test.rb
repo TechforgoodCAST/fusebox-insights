@@ -40,7 +40,7 @@ class SupportMessageTest < ApplicationSystemTestCase
     sign_in(@non_creator)
     visit support_messages_path(slug: @subject.project.slug)
     click_on 'Add another'
-    assert_text 'You do not have perission to create support messages.'
+    assert_text "Sorry, you don't have access to that"
   end
 
   test 'non-creator cannot edit' do

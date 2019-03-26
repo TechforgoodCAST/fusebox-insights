@@ -1,5 +1,9 @@
 class SupportMessagePolicy < ApplicationPolicy
 
+  def new?
+    user.id === record.project.user.id
+  end
+
   def edit?
     user.id == record.project.user.id
   end
