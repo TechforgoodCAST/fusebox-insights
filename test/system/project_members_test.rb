@@ -33,7 +33,7 @@ class ProjectMembersTest < ApplicationSystemTestCase
     visit projects_path
     sign_in(@non_creator)
     visit new_project_member_path(@project)
-    assert_text "You do not have perission to add members to this project."
+    assert_text "Sorry, you don't have access to that"
   end
 
   test 'anon-user access denied for create' do

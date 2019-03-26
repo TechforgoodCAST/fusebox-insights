@@ -10,11 +10,9 @@ class ProjectMembersController < ApplicationController
   
   def new
 
-    if !is_user_project_creator
-      redirect_to projects_path, notice: 'You do not have perission to add members to this project.'
-    end
-    
-    @project_member = ProjectMember.new
+    @project_member = ProjectMember.new(project: @project)
+    authorize @project_member
+
     @ids = ProjectMember.where(project: @project).pluck(:user_id)
 
     @ids.push(@project.user.id)
