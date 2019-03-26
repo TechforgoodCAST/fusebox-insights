@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root to: 'foci#index'
 
-  resources :insights, :unknowns
+  resources :insights, :unknowns, :groups
   resources :reflections, only: %i[new create]
 
   get   '/focus',        to: 'foci#index', as: 'in_focus'
