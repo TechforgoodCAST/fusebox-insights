@@ -31,6 +31,13 @@
           <p id="notice"><%= notice %></p>
           <p id="alert"><%= alert %></p>
 
+          <%- if user_signed_in? %>
+            <%= simple_form_for :search, url: search_index_path, method: 'GET' do |f| %>
+              <%= f.input :query %>
+              <%= f.button :submit, 'Search', data: { disable_with: 'Searching...' } %>
+            <% end %>
+          <% end %>
+
           <%- unless user_signed_in? %>
             <%= render partial: 'layouts/intro' %>
           <% end %>

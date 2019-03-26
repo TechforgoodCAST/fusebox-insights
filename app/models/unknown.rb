@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class Unknown < ApplicationRecord
+  include PgSearch
+  include Triggerable
+
+  multisearchable against: [:title]
+
   belongs_to :author, class_name: 'User'
   belongs_to :group, optional: true
 
