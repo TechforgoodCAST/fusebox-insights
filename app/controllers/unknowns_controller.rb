@@ -57,7 +57,7 @@ class UnknownsController < ApplicationController
     end
 
     def unknown_params
-      params.require(:unknown).permit(:title, :description)
+      params.require(:unknown).permit(:title, :description, :group_id)
     end
     
 end
