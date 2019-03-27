@@ -12,7 +12,8 @@ class SupportMessage < ApplicationRecord
     'Unknown',
   ]
 
-  @VALID_EVENT_TYPES = ['create',
+  @VALID_EVENT_TYPES = [
+    'create',
     'read',
     'update',
     'delete',
@@ -23,5 +24,5 @@ class SupportMessage < ApplicationRecord
   validates :order, uniqueness: { scope: :project_id }
   validates :rule_object_type, inclusion: { :in => @ALLOWED_OBJECTS }
   validates :rule_event_type, inclusion: { :in => @VALID_EVENT_TYPES}
-  validates :rule_occurrences, numerically: { :greater_than_or_equal_to => 0 }
+  validates :rule_occurrences, numericality: { :greater_than_or_equal_to => 0 }
 end
