@@ -20,12 +20,12 @@ class ProjectMembersController < ApplicationController
   end
   
   def create
-    if !is_user_project_creator
-      redirect_to projects_path, notice: 'You do not have perission to add members to this project.'
-    end
     @current_project = Project.find_by(slug: params[:slug])
     @selected_user = User.find_by(id: project_member_params[:user])
+    
     @project_member = ProjectMember.new(user: @selected_user, project: @current_project)
+    authorize @project_member
+
     if @project_member.save
       redirect_to projects_path, notice: 'Member added successfully.'
     else

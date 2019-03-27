@@ -4,6 +4,10 @@ class ProjectMemberPolicy < ApplicationPolicy
     user.id == record.project.user.id
   end
 
+  def create?
+    user.id == record.project.user.id
+  end
+
   def destroy?
     user.id == record.project.user.id
   end
