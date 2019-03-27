@@ -22,10 +22,11 @@ class EventCallbacks
     .where(
       'rule_occurrences >= ?', @events_of_same_project_and_type.count,
     )
-    #update status
+    
+    # iterate over relevant messages and update status
     @support_messages.each do |message| 
       message.status = 'Complete'
-      message.save!
+      message.save
     end
 
   end

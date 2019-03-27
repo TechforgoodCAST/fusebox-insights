@@ -39,6 +39,7 @@ class EventCallbacksTestCase < ActiveSupport::TestCase
       event_type: 'create',
       triggerable_type: 'Unknown',
     )
+    @related_message.reload
     assert_equal('Incomplete', @occurrences_too_high_message.status)
     assert_equal('Complete', @related_message.status)
   end

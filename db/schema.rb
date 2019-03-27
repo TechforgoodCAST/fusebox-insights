@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_104122) do
     t.datetime "updated_at", null: false
     t.bigint "project_id"
     t.string "rule_object_type", default: "None"
-    t.string "rule_event_type"
+    t.string "rule_event_type", default: 'create'
     t.integer "rule_occurrences", default: 1
   end
 
