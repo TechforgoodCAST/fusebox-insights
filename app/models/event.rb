@@ -6,7 +6,7 @@ class EventCallbacks
 
     # get events of same type, related object and project
     @events_of_same_project_and_type = Event.where(
-      project_id: new_event.project_id,
+      project_id: new_event.triggerable.author.project_id,
       event_type: new_event.event_type,
       triggerable_type: new_event.triggerable_type,
     )
@@ -35,11 +35,10 @@ end
 
 class Event < ApplicationRecord
   after_create EventCallbacks.new
-
-  VALID_EVENT_TYPES = ["create","read","update","delete"]
+  VALID_EVENT_TYPES = ["create","update","destroy"]
 
   belongs_to :triggerable, :polymorphic => true
-  belongs_to :project  
+  belongs_to :user  
 
   validates :event_type, :inclusion => { :in => VALID_EVENT_TYPES }
 end
