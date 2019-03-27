@@ -1,0 +1,17 @@
+<%= simple_form_for(project_member) do |f| %>
+  <% if project_member.errors.any? %>
+    <div id="error_count"><p><%= pluralize(project_member.errors.count, 'error') %></p></div>
+    <ul>
+      <% project_member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <p>
+    <%= f.label :user %><br>
+    <%= f.select :user, @potential_members.collect {|m| [ m.username, m.id ]} %>
+  </p>
+  <div class="text-right">
+    <%= f.button :submit, data: { disable_with: 'Updating...' } %>
+  </div>
+<% end %>

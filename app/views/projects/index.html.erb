@@ -1,25 +1,39 @@
 <div class="flow flow20">
-  
   <h1 class="fs20 bold mb30">My Projects</h1>
-
-  <% if @projects.any? %>
-    <table>
-      <tbody>
-        <%- @projects.each do |project| %>
-          <% if project.slug %>
-            <tr>
-              <td><%= project.slug %></td>
-              <td><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></td>
-              <td><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></td>
-              <td><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></td>
-              <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
-            </tr>
+  <% if @created_projects.any? %>
+    <%- @created_projects.each do |project| %>
+      <% if project.slug %>
+        <div class="card purple-border">
+          <p><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></p>
+          <p><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></p>
+          <p><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></p>
+          <p><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></p>
+          <hr>
+          <p><strong>Members</strong></p>
+          <%- ProjectMember.where(project: project).each do |member| %>
+            <p><%= member.user.username %> - <%= link_to 'Remove', project_member_path(slug: project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'remove-member-link'%> </p>
           <% end %>
-        <% end %>
-      </tbody>
-    </table>
+          <p><%= link_to 'Add Member', new_project_member_path(slug: project.slug), class: 'add-member-link' %></p>
+        </div>
+      <% end %>
+    <% end %>
   <% else %>
     <p>It seems like you don't have any projects yet.</p>
   <% end %>
+
+  <div><%= link_to 'Create New Project', new_project_path %></div>
+
+  <h3>Member:</h3>
+  <% if @member_projects.any? %>
+    <%- @member_projects.each do |member_project| %>
+      <div>
+        <p><strong><%= member_project.name %></strong><% if member_project.is_private %>(private)<% else %>(public)<% end %></p>
+        <p><%= link_to 'Show', project_path(slug: member_project.slug), class: 'show-link' %></p>
+        <p><strong>Other Members</strong></p>
+        <%- ProjectMember.where(project: member_project).each do |member| %>
+          <p><%= member.user.username %></p>
+        <% end %>
+      </div><br>
+    <% end %>
+  <% end %>
 </div>
-<div><%= link_to 'Create New Project', new_project_path %></div>
