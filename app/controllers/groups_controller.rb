@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_group, only: %i[show edit update destroy]
+  before_action :set_group, only: %i[edit update destroy]
 
   def index
     @groups = Group.order(updated_at: :desc).page(params[:page])
@@ -41,11 +43,11 @@ class GroupsController < ApplicationController
 
   private
 
-    def set_group
-      @group = Group.find(params[:id])
-    end
+  def set_group
+    @group = Group.find(params[:id])
+  end
 
-    def group_params
-      params.require(:group).permit(:title, :description, :summary)
-    end
+  def group_params
+    params.require(:group).permit(:title, :description, :summary)
+  end
 end

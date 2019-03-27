@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
@@ -13,6 +15,4 @@ class GroupTest < ActiveSupport::TestCase
   test('#title present') { assert_present(:title) }
   test('#description present') { assert_present(:description) }
   test('#summary present') { assert_present(:summary) }
-
-
 end

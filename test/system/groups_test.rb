@@ -51,5 +51,4 @@ class GroupsTest < ApplicationSystemTestCase
 
     assert_text 'Group was successfully destroyed'
   end
-  
 end
