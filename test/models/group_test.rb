@@ -13,6 +13,4 @@ class GroupTest < ActiveSupport::TestCase
   end
 
   test('#title present') { assert_present(:title) }
-  test('#description present') { assert_present(:description) }
-  test('#summary present') { assert_present(:summary) }
 end
