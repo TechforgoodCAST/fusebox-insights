@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :insights, :unknowns
   resources :projects, param: :slug
-  resources :project_members, path: 'members/project/:slug/'
+  resources :project_members, path: 'members/project/:slug'
   resources :reflections, only: %i[new create]
 
   get   '/focus',        to: 'foci#index', as: 'in_focus'
@@ -18,5 +18,4 @@ Rails.application.routes.draw do
 
   get  '/unknowns/:id', to: 'responses#new', as: 'unknown_responses'
   post '/unknowns/:id', to: 'responses#create'
-
 end

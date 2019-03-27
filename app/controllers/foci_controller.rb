@@ -17,7 +17,7 @@ class FociController < ApplicationController
 
   private
 
-    def form_params
-      params.require(:user).permit(in_focus_ids: [])
-    end
+  def form_params
+    params.require(:user).permit(in_focus_ids: [])
+  end
 end

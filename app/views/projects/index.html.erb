@@ -1,24 +1,20 @@
 <div class="flow flow20">
-  
   <h1 class="fs20 bold mb30">My Projects</h1>
-  <h3>Created:</h3>
   <% if @created_projects.any? %>
     <%- @created_projects.each do |project| %>
       <% if project.slug %>
-        <div>
+        <div class="card purple-border">
           <p><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></p>
           <p><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></p>
           <p><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></p>
           <p><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></p>
-        </div>
-        <div>
+          <hr>
           <p><strong>Members</strong></p>
           <%- ProjectMember.where(project: project).each do |member| %>
             <p><%= member.user.username %> - <%= link_to 'Remove', project_member_path(slug: project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'remove-member-link'%> </p>
           <% end %>
-        </div><br>
-        <p><%= link_to 'Add Member', new_project_member_path(slug: project.slug), class: 'add-member-link' %></p>
-        <hr>
+          <p><%= link_to 'Add Member', new_project_member_path(slug: project.slug), class: 'add-member-link' %></p>
+        </div>
       <% end %>
     <% end %>
   <% else %>

@@ -3,15 +3,14 @@
 require 'application_system_test_case'
 
 class ProjectMembersTest < ApplicationSystemTestCase
-
   setup do
     @creator = create(:user)
     @non_creator = create(:user)
     @member = create(:user)
-    
+
     @project = create(:project, user: @creator)
     @existing_member = create(:project_member, project: @project, user: @member)
-    
+
     visit projects_path
     sign_in(@creator)
   end
@@ -41,5 +40,4 @@ class ProjectMembersTest < ApplicationSystemTestCase
     visit new_project_member_path(@project)
     assert_text 'You need to sign in or sign up before continuing.'
   end
-
 end

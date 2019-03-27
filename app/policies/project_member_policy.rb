@@ -1,5 +1,6 @@
-class ProjectMemberPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class ProjectMemberPolicy < ApplicationPolicy
   def new?
     user.id == record.project.user.id
   end
@@ -11,5 +12,4 @@ class ProjectMemberPolicy < ApplicationPolicy
   def destroy?
     user.id == record.project.user.id
   end
-
 end
