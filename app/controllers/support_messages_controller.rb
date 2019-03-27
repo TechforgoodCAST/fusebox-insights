@@ -61,7 +61,15 @@ class SupportMessagesController < ApplicationController
     end
 
     def support_message_params
-      params.require(:support_message).permit(:body, :order, :status)
+      params.require(:support_message).permit(
+        :body,
+        :order,
+        :status,
+        :status,
+        :rule_object_type,
+        :rule_event_type,
+        :rule_occurrences,
+      ) 
     end
 
 end
