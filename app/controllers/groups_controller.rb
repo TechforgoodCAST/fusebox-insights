@@ -2,11 +2,13 @@
 
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_group, only: %i[edit update destroy]
+  before_action :set_group, only: %i[show edit update destroy]
 
   def index
     @groups = Group.order(updated_at: :desc).page(params[:page])
   end
+
+  def show; end
 
   def new
     @group = current_user.groups.new
