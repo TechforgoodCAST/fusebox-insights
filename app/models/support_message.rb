@@ -6,7 +6,22 @@ class SupportMessage < ApplicationRecord
     'Incomplete',
     'Complete',
   ]
+
+  @ALLOWED_OBJECTS = [
+    'None',
+    'Unknown',
+  ]
+
+  @VALID_EVENT_TYPES = ['create',
+    'read',
+    'update',
+    'delete',
+  ]
+
   belongs_to :project, class_name: 'Project'
   validates :status, inclusion: { :in => @ALLOWED_STATUSES }
   validates :order, uniqueness: { scope: :project_id }
+  validates :rule_object_type, inclusion: { :in => @ALLOWED_OBJECTS }
+  validates :rule_event_type, inclusion: { :in => @VALID_EVENT_TYPES}
+  validates :rule_occurrences, numerically: { :greater_than_or_equal_to => 0 }
 end

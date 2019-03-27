@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_165010) do
+ActiveRecord::Schema.define(version: 2019_03_27_104122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,9 @@ ActiveRecord::Schema.define(version: 2019_03_26_165010) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"
+    t.string "rule_object_type", default: "None"
+    t.string "rule_event_type"
+    t.integer "rule_occurrences", default: 1
   end
 
   create_table "unknowns", force: :cascade do |t|
