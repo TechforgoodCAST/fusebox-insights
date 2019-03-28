@@ -1,4 +1,4 @@
-<%= render partial: 'groups/card', locals: { edit: true, group: @group } %>
+<%= render partial: 'groups/card', locals: { edit: true, group: @group, project: @project } %>
 
 <ul class="history">
   <%- @group.unknowns.each do |unknown| %>
