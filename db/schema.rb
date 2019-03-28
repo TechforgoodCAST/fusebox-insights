@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_27_104122) do
+ActiveRecord::Schema.define(version: 2019_03_28_144241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_104122) do
     t.datetime "updated_at", null: false
     t.bigint "project_id"
     t.string "rule_object_type", default: "None"
-    t.string "rule_event_type", default: 'create'
+    t.string "rule_event_type", default: "create"
     t.integer "rule_occurrences", default: 1
   end
 
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 2019_03_27_104122) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "project_id"
     t.index ["author_id"], name: "index_unknowns_on_author_id"
   end
 
@@ -137,4 +138,5 @@ ActiveRecord::Schema.define(version: 2019_03_27_104122) do
   add_foreign_key "foci", "users"
   add_foreign_key "proofs", "insights"
   add_foreign_key "proofs", "unknowns"
+  add_foreign_key "unknowns", "projects"
 end
