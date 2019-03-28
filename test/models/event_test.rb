@@ -33,12 +33,6 @@ class EventCallbacksTestCase < ActiveSupport::TestCase
   end
 
   test 'related support message completed when event created' do
-    # @event = create(
-    #   :event,
-    #   user: @related_message.project.user,
-    #   event_type: 'create',
-    #   triggerable_type: 'Unknown',
-    # )
     @triggerable = create(:unknown, project: @related_message.project)
     @related_message.reload
     assert_equal('Incomplete', @occurrences_too_high_message.status)

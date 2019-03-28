@@ -3,16 +3,13 @@
 
 class EventCallbacks
   def after_create(new_event)
-
     if !new_event.triggerable.nil? && new_event.triggerable.project
       @related_project = new_event.triggerable.project
-
       # get events of same type, related object and project
       @events_of_same_project_and_type = Event.where(
         event_type: new_event.event_type,
         triggerable_type: new_event.triggerable_type,
       )
-
       @relevant_event_count = 0
       @events_of_same_project_and_type.each do |event|
         if !event.triggerable.nil?
@@ -31,7 +28,7 @@ class EventCallbacks
         rule_object_type: new_event.triggerable_type,
       )
       .where(
-        'rule_occurrences >= ?', @relevant_event_count,
+        'rule_occurrences <= ?', @relevant_event_count,
       )
       
       # iterate over relevant messages and update status
