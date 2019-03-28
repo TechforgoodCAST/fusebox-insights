@@ -11,6 +11,8 @@ class UnknownsTest < ApplicationSystemTestCase
     @other_user = create(:user)
     @others_unknown = create(:unknown, author: @other_user)
 
+    @group = create(:group, author: @user)
+
     visit unknowns_url
     sign_in
   end
@@ -101,5 +103,31 @@ class UnknownsTest < ApplicationSystemTestCase
     visit edit_unknown_path(@unknown)
     assert_equal(edit_unknown_path(@unknown), current_path)
 
+  end
+
+  test 'can  add an unknown to a group' do
+    visit edit_unknown_path(@unknown)
+    select @group.title, :from => 'Group'
+    click_on 'Update Unknown'
+
+    assert_text 'Unknown was successfully updated'
+
+    visit group_path(@group)
+
+    assert_text @group.title
+  end
+
+  test 'can remove an unknown from a group' do
+    visit edit_unknown_path(@unknown)
+    select @group.title, :from => 'Group'
+    click_on 'Update Unknown'
+
+    visit group_path(@group)
+
+    page.accept_confirm do
+      click_on 'Remove', match: :first
+    end
+
+    assert_text 'Assumption was successfully removed.'
   end
 end
