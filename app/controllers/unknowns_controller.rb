@@ -3,6 +3,7 @@
 class UnknownsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_unknown, only: %i[show edit update destroy]
+  before_action :projects_for_unknown, only: %i[new create edit update]
 
   def index
     # TODO: spec
@@ -19,6 +20,7 @@ class UnknownsController < ApplicationController
 
   def new
     @unknown = current_user.unknowns.new
+    @initially_selected_project = @projects_for_unknown.first
   end
 
   def create
@@ -33,6 +35,7 @@ class UnknownsController < ApplicationController
 
   def edit
     authorize @unknown
+    @initially_selected_project = @unknown.project
   end
 
   def update
@@ -56,8 +59,14 @@ class UnknownsController < ApplicationController
       @unknown = Unknown.find(params[:id])
     end
 
+    def projects_for_unknown
+      @owned_projects = Project.where(user: current_user)
+      @member_projects = Project.joins(:project_members).where(user: current_user)
+      @projects_for_unknown = @owned_projects + @member_projects
+    end
+
     def unknown_params
-      params.require(:unknown).permit(:title, :description)
+      params.require(:unknown).permit(:title, :description, :project_id)
     end
     
 end
