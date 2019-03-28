@@ -11,8 +11,8 @@ class EventTest < ActiveSupport::TestCase
     assert_not_nil(@subject.triggerable)
   end
 
-  test 'has one project' do
-    assert_not_nil(@subject.project)
+  test 'has one user' do
+    assert_not_nil(@subject.user)
   end
 
   test 'event type validation' do
@@ -35,7 +35,7 @@ class EventCallbacksTestCase < ActiveSupport::TestCase
   test 'related support message completed when event created' do
     @event = create(
       :event,
-      project: @related_message.project,
+      user: @related_message.project.user,
       event_type: 'create',
       triggerable_type: 'Unknown',
     )
