@@ -2,6 +2,8 @@
   <%= f.input :title %>
   <%= f.input :description %>
   <%= f.input :summary, as: :trix_editor %>
+  <%= f.association :project, collection: current_user.created_projects, required: false %>
+
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
   </div>
