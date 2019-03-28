@@ -5,6 +5,7 @@
 
 <div class="flow flow20">
   <% @unknowns.each do |unknown| %>
+    <p><%= unknown.project.name %></p>
     <%= render partial: 'card', locals: { edit: false, unknown: unknown } %>
   <% end %>
 </div>
