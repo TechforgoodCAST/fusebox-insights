@@ -5,7 +5,8 @@ class ProjectsController < ApplicationController
   before_action :set_project, except: %i[index new create]
 
   def index
-    @projects = current_user.created_projects
+    @created_projects = current_user.created_projects
+    @member_projects = current_user.projects
   end
 
   def show
