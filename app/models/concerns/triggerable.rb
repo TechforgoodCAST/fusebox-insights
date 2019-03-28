@@ -11,9 +11,11 @@ module Triggerable
   def log_create_event
     Event.create!(event_type: "create", user: self.author, triggerable: self)
   end
+
   def log_update_event
     Event.create!(event_type: "update", user: self.author, triggerable: self)
   end
+
   def log_destroy_event
     Event.create!(event_type: "destroy", user: self.author, triggerable: self)
   end
