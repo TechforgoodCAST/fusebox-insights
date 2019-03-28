@@ -14,6 +14,14 @@
             <p><%= member.user.username %> - <%= link_to 'Remove', project_member_path(slug: project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'remove-member-link'%> </p>
           <% end %>
           <p><%= link_to 'Add Member', new_project_member_path(slug: project.slug), class: 'add-member-link' %></p>
+          <hr>
+          <h3>Support Messages</h3>
+          <% if project.support_messages.any? %>
+            <%- project.support_messages.each do |message| %>
+              <p><%= message.status %></p>
+              <p><%= message.rule_event_type %> <%= message.rule_occurrences %> <%= message.rule_object_type %> </p>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     <% end %>
