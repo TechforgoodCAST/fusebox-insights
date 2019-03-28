@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :proofs, foreign_key: 'author_id'
   has_many :unknowns, foreign_key: 'author_id'
   has_many :comments, foreign_key: 'author_id'
-  has_many :events, foreign_key: 'user_id'
+  has_many :events, foreign_key: 'user_id', dependent: :destroy, inverse_of: :user
   has_many :groups, foreign_key: 'author_id'
 
   has_many :foci, dependent: :destroy
