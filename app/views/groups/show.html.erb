@@ -1,0 +1,8 @@
+<%= render partial: 'groups/card', locals: { edit: true, group: @group } %>
+
+<ul class="history">
+  <%- @group.unknowns.each do |unknown| %>
+    <li>Assumption <span class="medium"><%= link_to unknown.title, unknown %></span> by <%= unknown.author.username %> updated <%= time_ago_in_words(unknown.updated_at) %> ago.</li>
+  <% end %> 
+</ul>
+

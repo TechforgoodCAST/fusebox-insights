@@ -1,6 +1,8 @@
 <%= simple_form_for(unknown) do |f| %>
   <%= f.input :title %>
   <%= f.input :description, as: :trix_editor %>
+  <%= f.association :group, collection: current_user.groups, required: false %>
+
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
   </div>
