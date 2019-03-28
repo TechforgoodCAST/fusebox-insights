@@ -8,11 +8,7 @@ class GroupsController < ApplicationController
     @groups = Group.order(updated_at: :desc).page(params[:page])
   end
 
-  def show
-    if Project.exists?(id: @group.project_id)
-      @project = Project.find(@group.project_id)
-    end
-  end
+  def show; end
 
   def new
     @group = current_user.groups.new
