@@ -5,11 +5,17 @@ Rails.application.routes.draw do
 
   root to: 'foci#index'
 
-  resources :insights, :unknowns, :groups
+  resources :insights, :unknowns
   resources :projects, param: :slug
   resources :reflections, only: %i[new create]
   resources :search, only: [:index]
   resources :support_messages, path: '/projects/:slug/support-messages/'
+
+  resources :groups do
+    member do 
+      get 'detach'
+    end
+  end
 
   get   '/focus',        to: 'foci#index', as: 'in_focus'
   get   '/focus/change', to: 'foci#edit',  as: 'change_focus'

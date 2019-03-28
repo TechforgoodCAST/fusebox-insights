@@ -43,6 +43,13 @@ class GroupsController < ApplicationController
     redirect_to groups_url, notice: 'Group was successfully destroyed.'
   end
 
+  def detach
+    group = Group.find(params[:id])
+    unknown = Unknown.find(params[:unknown_id])
+    group.unknowns.delete(unknown)
+    redirect_to group,  notice: 'Assumption was successfully removed.'
+  end
+
   private
 
   def set_group
