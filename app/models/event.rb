@@ -24,10 +24,10 @@ class EventCallbacks
       # get relevant support messages that have also met the occurences
       # condition based on the previously existing matching event instances
       @support_messages = SupportMessage.where(
-          project_id: @related_project.id,
-          status: 'Incomplete',
-          rule_event_type: new_event.event_type,
-          rule_object_type: new_event.triggerable_type,
+        project_id: @related_project.id,
+        status: 'Incomplete',
+        rule_event_type: new_event.event_type,
+        rule_object_type: new_event.triggerable_type
       )
 
       # also check for the occurence count
