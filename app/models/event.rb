@@ -24,15 +24,17 @@ class EventCallbacks
       # get relevant support messages that have also met the occurences
       # condition based on the previously existing matching event instances
       @support_messages = SupportMessage.where(
-        project_id: @related_project.id,
-        status: 'Incomplete',
-        rule_event_type: new_event.event_type,
-        rule_object_type: new_event.triggerable_type
+          project_id: @related_project.id,
+          status: 'Incomplete',
+          rule_event_type: new_event.event_type,
+          rule_object_type: new_event.triggerable_type,
       )
-      .where('rule_occurrences <= ?', @relevant_event_count)
 
-      if @support_messages.any?
-        @support_messages.update_all(status: 'Complete')
+      # also check for the occurence count
+      @support_messages_occurences_met = @support_messages.where('rule_occurrences <= ?', @relevant_event_count)
+
+      if @support_messages_occurences_met.any?
+        @support_messages_occurences_met.update_all(status: 'Complete')
 
         # set accounted_for so the event logs for this action are not
         # counted for in the future, flag is only set if there are relevant
