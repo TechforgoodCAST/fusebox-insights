@@ -150,6 +150,6 @@ ActiveRecord::Schema.define(version: 2019_03_28_215644) do
   add_foreign_key "foci", "users"
   add_foreign_key "proofs", "insights"
   add_foreign_key "proofs", "unknowns"
-  add_foreign_key "unknowns", "projects"
   add_foreign_key "unknowns", "groups"
+  add_foreign_key "unknowns", "projects"
 end
