@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 class EventCallbacks
   def after_create(new_event)
     if !new_event.triggerable.nil? && new_event.triggerable.project
