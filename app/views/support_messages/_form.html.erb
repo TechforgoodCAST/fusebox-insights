@@ -19,7 +19,7 @@
   </p>
   <p>
     <%= f.label :rule_event_type %><br>
-    <%= f.select :rule_event_type, [ ['Create', 'create'], ['Read', 'read'], ['Update', 'update'], ['Delete', 'delete'] ] %>
+    <%= f.select :rule_event_type, [ ['Create', 'create'], ['Read', 'read'], ['Update', 'update'], ['Delete', 'delete'], ['Add To Group', 'add_to_group'] ] %>
   </p>
   <p><%= f.input :rule_occurrences, input_html: { min: '1', step: '1' } %></p>
   <div class="text-right">

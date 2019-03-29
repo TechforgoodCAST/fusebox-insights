@@ -17,5 +17,6 @@ class EventCallbacksTestCase < ActiveSupport::TestCase
     test 'un-related support message not completed when event created' do
       assert_equal('Pending', @un_related_message.status)
     end
+
   end
   

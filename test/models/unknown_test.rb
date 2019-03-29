@@ -58,4 +58,24 @@ class UnknownTest < ActiveSupport::TestCase
     @subject.destroy
     assert_equal(true, Event.where("event_type='destroy'").present?)
   end
+
+  test 'creates add_to_group event on create' do
+    @group = create(:group, title: 'test group')
+    @unknown = create(:unknown, group: @group)
+    assert_equal(1, Event.where(triggerable: @unknown, event_type: 'add_to_group').count)
+  end
+
+  test 'no group present does not create add_to_group event' do
+    @unknown = create(:unknown)
+    assert_equal(Event.where(triggerable: @unknown, event_type: 'add_to_group').any?, false)
+  end
+
+  test 'updating with group creates an add_to_group event' do
+    @group = create(:group, title: 'test group')
+    @unknown = create(:unknown)
+    @unknown.group_id = @group.id
+    @unknown.save!
+    assert_equal(1, Event.where(triggerable: @unknown, event_type: 'add_to_group').count)
+  end
+
 end
