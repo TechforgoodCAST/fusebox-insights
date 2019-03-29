@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :unknowns, foreign_key: 'author_id'
   has_many :comments, foreign_key: 'author_id'
   has_many :events, foreign_key: 'user_id'
+  has_many :groups, foreign_key: 'author_id'
 
   has_many :foci, dependent: :destroy
   has_many :in_focus, through: :foci, source: :unknown

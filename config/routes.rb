@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   root to: 'foci#index'
 
-  resources :insights, :unknowns
+  resources :insights, :unknowns, :groups
   resources :projects, param: :slug
   resources :project_members, path: 'members/project/:slug'
   resources :reflections, only: %i[new create]
@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   get  '/unknowns/:id', to: 'responses#new', as: 'unknown_responses'
   post '/unknowns/:id', to: 'responses#create'
+
+  get  '/groups/:id/:unknown_id', to: 'groups#detach', as: 'detach_group'
 end

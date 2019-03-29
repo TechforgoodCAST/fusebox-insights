@@ -8,6 +8,7 @@ class Unknown < ApplicationRecord
 
   belongs_to :author, class_name: 'User'
   belongs_to :project, class_name: 'Project'
+  belongs_to :group, optional: true
 
   has_many :foci, dependent: :destroy
   has_many :focussed_by, through: :foci, source: :user
