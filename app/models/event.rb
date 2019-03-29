@@ -33,7 +33,7 @@ class EventCallbacks
       .where(
         'rule_occurrences <= ?', @relevant_event_count,
       )
-      
+
       if @support_messages.any?
         @support_messages.update_all(status: 'Complete')
 

@@ -67,8 +67,8 @@ class SupportMessagesController < ApplicationController
         :status,
         :rule_object_type,
         :rule_event_type,
-        :rule_occurrences,
-      ) 
+        :rule_occurrences
+      )
     end
 
 end
