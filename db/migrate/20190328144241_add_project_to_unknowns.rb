@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddProjectToUnknowns < ActiveRecord::Migration[5.2]
   def change
     add_column :unknowns, :project_id, :bigint, null: true
