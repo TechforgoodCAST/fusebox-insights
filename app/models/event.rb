@@ -35,12 +35,6 @@ class EventCallbacks
       )
       
       if @support_messages.any?
-      
-        # iterate over relevant messages and update status
-        # @support_messages.each do |message| 
-        #   message.status = 'Complete'
-        #   message.save
-        # end
         @support_messages.update_all(status: 'Complete')
 
         # set accounted_for so the event logs for this action are not
