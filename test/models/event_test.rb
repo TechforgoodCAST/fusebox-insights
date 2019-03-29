@@ -11,8 +11,8 @@ class EventTest < ActiveSupport::TestCase
     assert_not_nil(@subject.triggerable)
   end
 
-  test 'has one project' do
-    assert_not_nil(@subject.project)
+  test 'has one user' do
+    assert_not_nil(@subject.user)
   end
 
   test 'event type validation' do
