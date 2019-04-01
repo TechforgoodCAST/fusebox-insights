@@ -6,6 +6,7 @@ class GroupsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
     @group = create(:group, author: @user)
+    @project = create(:project, user: @user)
     @new_group = build(:group, author: @user)
 
     visit groups_url
@@ -50,5 +51,16 @@ class GroupsTest < ApplicationSystemTestCase
     end
 
     assert_text 'Group was successfully destroyed'
+  end
+
+  test 'add a Project to a Group' do
+    visit groups_url
+    click_on @group.title
+    click_on 'Edit'
+
+    find('#group_project_id').select @project.name
+    click_on 'Update Group'
+
+    assert_text 'Group was successfully updated'
   end
 end
