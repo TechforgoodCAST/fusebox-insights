@@ -1,6 +1,8 @@
 <%= simple_form_for(unknown) do |f| %>
   <%= f.input :title %>
   <%= f.input :description, as: :trix_editor %>
+  <%= f.select :project_id, @projects_for_unknown.collect { |p| [p.name, p.id] }, :selected => @initially_selected_project.id %>
+  
   <%= f.association :group, collection: current_user.groups, required: false %>
 
   <div class="text-right">

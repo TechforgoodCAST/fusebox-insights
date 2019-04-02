@@ -5,8 +5,9 @@ require 'application_system_test_case'
 class UnknownsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @unknown = create(:unknown, author: @user)
-    @new_unknown = build(:unknown, author: @user)
+    @project = create(:project, name: 'test', user: @user)
+    @unknown = create(:unknown, author: @user, project: @project)
+    @new_unknown = build(:unknown, author: @user, project: @project)
 
     @other_user = create(:user)
     @others_unknown = create(:unknown, author: @other_user)

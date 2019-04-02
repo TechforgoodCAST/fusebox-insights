@@ -18,7 +18,6 @@ class SupportMessagesController < ApplicationController
   
   def create
     @support_message = SupportMessage.new(support_message_params)
-    @support_message.status = 'Pending'
     @support_message.project = @project
     if @support_message.save
       redirect_to support_messages_path, notice: 'Support message created successfully.'
@@ -61,7 +60,15 @@ class SupportMessagesController < ApplicationController
     end
 
     def support_message_params
-      params.require(:support_message).permit(:body, :order, :status)
+      params.require(:support_message).permit(
+        :body,
+        :order,
+        :status,
+        :status,
+        :rule_object_type,
+        :rule_event_type,
+        :rule_occurrences
+      )
     end
 
 end

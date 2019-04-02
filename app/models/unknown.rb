@@ -7,6 +7,7 @@ class Unknown < ApplicationRecord
   multisearchable against: [:title]
 
   belongs_to :author, class_name: 'User'
+  belongs_to :project, class_name: 'Project'
   belongs_to :group, optional: true
 
   has_many :foci, dependent: :destroy

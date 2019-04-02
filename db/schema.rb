@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_26_165010) do
+ActiveRecord::Schema.define(version: 2019_03_28_215644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_165010) do
     t.string "event_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "accounted_for", default: false
     t.index ["triggerable_type", "triggerable_id"], name: "index_events_on_triggerable_type_and_triggerable_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -112,6 +113,9 @@ ActiveRecord::Schema.define(version: 2019_03_26_165010) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"
+    t.string "rule_object_type", default: "None"
+    t.string "rule_event_type", default: "create"
+    t.integer "rule_occurrences", default: 1
   end
 
   create_table "unknowns", force: :cascade do |t|
@@ -120,6 +124,7 @@ ActiveRecord::Schema.define(version: 2019_03_26_165010) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "project_id"
     t.bigint "group_id"
     t.index ["author_id"], name: "index_unknowns_on_author_id"
     t.index ["group_id"], name: "index_unknowns_on_group_id"
@@ -146,4 +151,5 @@ ActiveRecord::Schema.define(version: 2019_03_26_165010) do
   add_foreign_key "proofs", "insights"
   add_foreign_key "proofs", "unknowns"
   add_foreign_key "unknowns", "groups"
+  add_foreign_key "unknowns", "projects"
 end

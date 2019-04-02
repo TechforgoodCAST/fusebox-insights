@@ -8,11 +8,20 @@
     </ul>
   <% end %>
   <p>
-    <%= f.input :body, as: :trix_editor %>
+    <%= f.label :status %><br>
+    <%= f.select :status, [ ['Pending', 'Pending'], ['Incomplete', 'Incomplete'], ['Complete', 'Complete'] ] %>
+  </p>
+  <p><%= f.input :body, as: :trix_editor %></p>
+  <p><%= f.input :order, input_html: { min: '1', step: '1' }%></p>
+  <p>
+    <%= f.label :rule_object_type %><br>
+    <%= f.select :rule_object_type, [ ['None', 'None'], ['Unknown', 'Unknown'] ] %>
   </p>
   <p>
-    <%= f.input :order,  min: 1, step: 1 %>
+    <%= f.label :rule_event_type %><br>
+    <%= f.select :rule_event_type, [ ['Create', 'create'], ['Read', 'read'], ['Update', 'update'], ['Delete', 'delete'] ] %>
   </p>
+  <p><%= f.input :rule_occurrences, input_html: { min: '1', step: '1' } %></p>
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
   </div>
