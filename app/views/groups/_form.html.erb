@@ -1,11 +1,8 @@
-<%= simple_form_for(group) do |f| %>
+<%= simple_form_for([@project, group]) do |f| %>
   <%= f.input :title %>
   <%= f.input :description %>
   <%= f.input :summary, as: :trix_editor %>
 
-  <% if group.project.blank? %>
-    <%= f.association :project, collection: current_user.created_projects, required: false %>
-  <% end %>
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
   </div>

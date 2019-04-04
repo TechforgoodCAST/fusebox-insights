@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 
   root to: 'foci#index'
 
-  resources :insights, :unknowns, :groups
-  resources :projects, param: :slug
+  resources :insights, :unknowns
+  resources :projects, param: :slug do
+    resources :groups
+  end
   resources :project_members, path: 'members/project/:slug'
   resources :reflections, only: %i[new create]
   resources :search, only: [:index]
