@@ -23,5 +23,5 @@ Rails.application.routes.draw do
   get  '/unknowns/:id', to: 'responses#new', as: 'unknown_responses'
   post '/unknowns/:id', to: 'responses#create'
 
-  get  '/groups/:id/:unknown_id', to: 'groups#detach', as: 'detach_group'
+  get  '/projects/:project_slug/groups/:id/:unknown_id', to: 'groups#detach', as: 'detach_group'
 end

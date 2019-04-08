@@ -50,7 +50,7 @@ class GroupsController < ApplicationController
     group = Group.find(params[:id])
     unknown = Unknown.find(params[:unknown_id])
     group.unknowns.delete(unknown)
-    redirect_to group,  notice: 'Assumption was successfully removed.'
+    redirect_to project_group_path(@project, group),  notice: 'Assumption was successfully removed.'
   end
 
   private

@@ -5,19 +5,16 @@ require 'application_system_test_case'
 class GroupsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @group = create(:group, author: @user)
     @project = create(:project, user: @user)
+    @group = create(:group, author: @user, project: @project)
     @new_group = build(:group, author: @user)
 
-    visit groups_url
+    visit projects_url
     sign_in
   end
 
-  test 'visiting the index' do
-    assert_selector 'h1', text: 'Groups'
-  end
-
   test 'creating a Group' do
+    click_on 'Show'
     click_on 'New Group'
 
     fill_in 'Title', with: @new_group.title
@@ -30,7 +27,7 @@ class GroupsTest < ApplicationSystemTestCase
   end
 
   test 'updating a Group' do
-    visit groups_url
+    visit project_group_path(@project, @group)
     click_on @group.title
     click_on 'Edit'
 
@@ -43,7 +40,7 @@ class GroupsTest < ApplicationSystemTestCase
   end
 
   test 'destroying a Group' do
-    visit groups_url
+    visit project_group_path(@project, @group)
     click_on @group.title
 
     page.accept_confirm do
@@ -51,16 +48,5 @@ class GroupsTest < ApplicationSystemTestCase
     end
 
     assert_text 'Group was successfully destroyed'
-  end
-
-  test 'add a Project to a Group' do
-    visit groups_url
-    click_on @group.title
-    click_on 'Edit'
-
-    find('#group_project_id').select @project.name
-    click_on 'Update Group'
-
-    assert_text 'Group was successfully updated'
   end
 end
