@@ -5,7 +5,7 @@
     <li>
       Assumption <span class="medium"><%= link_to unknown.title, unknown %></span> by <%= unknown.author.username %> updated <%= time_ago_in_words(unknown.updated_at) %> ago.
       <div class="fs14 text-right">
-      <%= link_to 'Remove', detach_group_path(@group, unknown_id: unknown.id), data: { confirm: 'This action is irreversible, are you sure?' }%>
+      <%= link_to 'Remove', detach_group_path(@project, @group, unknown_id: unknown.id), data: { confirm: 'This action is irreversible, are you sure?' }%>
       </div>
     </li>
   <% end %> 

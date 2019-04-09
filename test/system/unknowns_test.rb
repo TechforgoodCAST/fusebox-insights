@@ -12,7 +12,8 @@ class UnknownsTest < ApplicationSystemTestCase
     @other_user = create(:user)
     @others_unknown = create(:unknown, author: @other_user)
 
-    @group = create(:group, author: @user)
+    @project = create(:project, user: @user)
+    @group = create(:group, author: @user, project: @project)
 
     visit unknowns_url
     sign_in
@@ -113,7 +114,7 @@ class UnknownsTest < ApplicationSystemTestCase
 
     assert_text 'Unknown was successfully updated'
 
-    visit group_path(@group)
+    visit project_group_path(@project, @group)
 
     assert_text @group.title
   end
@@ -123,7 +124,7 @@ class UnknownsTest < ApplicationSystemTestCase
     select @group.title, :from => 'Group'
     click_on 'Update Unknown'
 
-    visit group_path(@group)
+    visit project_group_path(@project, @group)
 
     page.accept_confirm do
       click_on 'Remove', match: :first

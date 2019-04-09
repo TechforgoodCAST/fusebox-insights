@@ -2,3 +2,10 @@
 <p><strong>Visibility: </strong><% if @project.is_private %>Private<% else %>Public<% end  %></p>
 <p><strong>Description: </strong><%= @project.description %></p>
 <%= link_to 'Back', projects_path %>
+<%= link_to 'New Group', new_project_group_path(@project.slug), class: 'medium' %>
+
+<div class="flow flow20">
+  <% @project.groups.each do |group| %>
+    <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
+  <% end %>
+</div>
