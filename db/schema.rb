@@ -28,12 +28,13 @@ ActiveRecord::Schema.define(version: 2019_04_09_082407) do
   create_table "events", force: :cascade do |t|
     t.string "triggerable_type"
     t.bigint "triggerable_id"
-    t.bigint "project_id"
+    t.bigint "user_id"
     t.string "event_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_events_on_project_id"
+    t.boolean "accounted_for", default: false
     t.index ["triggerable_type", "triggerable_id"], name: "index_events_on_triggerable_type_and_triggerable_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "foci", force: :cascade do |t|
@@ -114,6 +115,9 @@ ActiveRecord::Schema.define(version: 2019_04_09_082407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"
+    t.string "rule_object_type", default: "None"
+    t.string "rule_event_type", default: "create"
+    t.integer "rule_occurrences", default: 1
   end
 
   create_table "unknowns", force: :cascade do |t|
@@ -122,6 +126,7 @@ ActiveRecord::Schema.define(version: 2019_04_09_082407) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "project_id"
     t.bigint "group_id"
     t.index ["author_id"], name: "index_unknowns_on_author_id"
     t.index ["group_id"], name: "index_unknowns_on_group_id"
@@ -142,10 +147,11 @@ ActiveRecord::Schema.define(version: 2019_04_09_082407) do
   end
 
   add_foreign_key "comments", "unknowns"
-  add_foreign_key "events", "projects"
+  add_foreign_key "events", "users"
   add_foreign_key "foci", "unknowns"
   add_foreign_key "foci", "users"
   add_foreign_key "groups", "projects"
   add_foreign_key "proofs", "insights"
   add_foreign_key "proofs", "unknowns"
+  add_foreign_key "unknowns", "projects"
 end

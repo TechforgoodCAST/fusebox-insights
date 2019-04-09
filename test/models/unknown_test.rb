@@ -41,4 +41,21 @@ class UnknownTest < ActiveSupport::TestCase
   end
 
   test('valid') { assert(@subject.valid?) }
+
+  test 'creates create event' do
+    @subject.save!
+    assert_equal(true, @subject.events.where("event_type='create'").present?)
+  end
+
+  test 'creates update event' do
+    @subject.save!
+    @subject.title = 'test'
+    @subject.save!
+    assert_equal(true, @subject.events.where("event_type='update'").present?)
+  end
+
+  test 'creates destroy event' do
+    @subject.destroy
+    assert_equal(true, Event.where("event_type='destroy'").present?)
+  end
 end

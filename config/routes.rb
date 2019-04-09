@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :project_members, path: 'members/project/:slug'
   resources :reflections, only: %i[new create]
   resources :search, only: [:index]
-  resources :support_messages, path: '/projects/:slug/support-messages/'
+  resources :support_messages, path: '/projects/:slug/support-messages'
 
   get   '/focus',        to: 'foci#index', as: 'in_focus'
   get   '/focus/change', to: 'foci#edit',  as: 'change_focus'
