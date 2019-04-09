@@ -40,6 +40,7 @@ class GroupsTest < ApplicationSystemTestCase
   end
 
   test 'destroying a Group' do
+    @group.update!(unknowns: create_list(:unknown, 2))
     visit project_group_path(@project, @group)
     click_on @group.title
 
