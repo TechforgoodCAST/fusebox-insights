@@ -9,6 +9,10 @@ class GroupsTest < ApplicationSystemTestCase
     @group = create(:group, author: @user, project: @project)
     @new_group = build(:group, author: @user)
 
+    @other_user = create(:user)
+    @others_project = create(:project, user: @other_user)
+    @others_group = create(:group, author: @other_user, project: @others_project)
+
     visit projects_url
     sign_in
   end
@@ -49,5 +53,25 @@ class GroupsTest < ApplicationSystemTestCase
     end
 
     assert_text 'Group was successfully destroyed'
+  end
+
+  test 'cant add a group when not an admin' do
+    visit project_path(@others_project)
+    click_on 'New Group'
+
+    assert_text "Sorry, you don't have access to that"
+  end
+
+  test 'cant edit or remove a group when not an admin' do
+    visit project_path(@others_project)
+    click_on @others_group.title
+
+    assert_no_text 'Edit'
+    assert_no_text 'Delete'
+  end
+
+  test 'cant edit a group when not an admin through url' do
+    visit edit_project_path(@others_project, @others_group)
+    assert_text "Sorry, you don't have access to that"
   end
 end

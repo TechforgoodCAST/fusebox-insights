@@ -13,12 +13,17 @@ class GroupsController < ApplicationController
 
   def new
     @group = current_user.groups.new
+    @group.project_id = @project.id
+
+    authorize @group
   end
 
   def create
     @group = current_user.groups.new(group_params)
 
     @group.project_id = @project.id
+
+    authorize @group
 
     if @group.save
       redirect_to project_group_path(@project, @group), notice: 'Group was successfully created.'
