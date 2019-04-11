@@ -2,14 +2,32 @@
 
 class ProjectMemberPolicy < ApplicationPolicy
   def new?
-    user.id == record.project.user.id
+    if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
+      true
+    elsif ProjectMember.where(project: record.project, user: user, role: "Collaborator").any?
+      true
+    else
+      user.id == record.project.user.id
+    end
   end
 
   def create?
-    user.id == record.project.user.id
+    if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
+      true
+    elsif ProjectMember.where(project: record.project, user: user, role: "Collaborator").any?
+      true
+    else
+      user.id == record.project.user.id
+    end
   end
 
   def destroy?
-    user.id == record.project.user.id
+    if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
+      true
+    elsif ProjectMember.where(project: record.project, user: user, role: "Collaborator").any?
+      true
+    else
+      user.id == record.project.user.id
+    end
   end
 end

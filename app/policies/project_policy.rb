@@ -14,14 +14,26 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.id == record.user.id
+    if ProjectMember.where(project: record, user: user, role: "Admin").any?
+      true
+    else
+      user.id == record.user.id
+    end
   end
 
   def update?
-    user.id == record.user.id
+    if ProjectMember.where(project: record, user: user, role: "Admin").any?
+      true
+    else
+      user.id == record.user.id
+    end
   end
 
   def destroy?
-    user.id == record.user.id
+    if ProjectMember.where(project: record, user: user, role: "Admin").any?
+      true
+    else
+      user.id == record.user.id
+    end
   end
 end
