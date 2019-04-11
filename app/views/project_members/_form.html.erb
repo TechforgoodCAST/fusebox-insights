@@ -10,6 +10,7 @@
   <p>
     <%= f.label :user %><br>
     <%= f.select :user, @potential_members.collect {|m| [ m.username, m.id ]} %>
+    <%= f.select :role, collection: ["Admin", "Collaborator", "Viewer"] %>
   </p>
   <div class="text-right">
     <%= f.button :submit, data: { disable_with: 'Updating...' } %>
