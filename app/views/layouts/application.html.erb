@@ -8,47 +8,22 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'print', media: 'print' %>
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <header class="mx15 my15 text-right grey">
-      <%- if user_signed_in? %>
-        Signed in as <%= current_user&.username %> ·
-        <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'medium grey' %>
-      <% end %>
-    </header>
 
-    <main>
-      <div class="flex flex-wrap">
-        <nav class="col1 md">
-          <%= link_to 'In focus', in_focus_path, class: current_controller?('foci') %>
-          <%= link_to 'Unknowns', unknowns_path, class: current_controller?('unknowns') %>
-          <%= link_to 'Insights', insights_path, class: current_controller?('insights') %>
-        </nav>
+    <%= render partial: 'layouts/header' %>
 
-        <div class="col3 mx15">
-          <p id="notice"><%= notice %></p>
-          <p id="alert"><%= alert %></p>
+    <main class="container">
 
-          <%- if user_signed_in? %>
-            <%= simple_form_for :search, url: search_index_path, method: 'GET' do |f| %>
-              <%= f.input :query %>
-              <%= f.button :submit, 'Search', data: { disable_with: 'Searching...' } %>
-            <% end %>
-          <% end %>
+      <%= yield %>
 
-          <%- unless user_signed_in? %>
-            <%= render partial: 'layouts/intro' %>
-          <% end %>
-
-          <%= yield %>
-        </div>
-      </div>
     </main>
 
-    <footer class="mx15 my30 fs14 grey text-center">
-      This is a prototype, <%= mail_to 'suraj@wearecast.org.uk', 'your feedback will help us improve this service', subject: 'Feedback fusebox-insights', class: 'grey medium' %>.
-    </footer>
+    <%= render partial: 'layouts/footer' %>
+
   </body>
 </html>

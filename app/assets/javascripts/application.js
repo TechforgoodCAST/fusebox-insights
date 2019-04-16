@@ -14,8 +14,11 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require popper
+//= require bootstrap
 //= require trix
 //= require_tree .
+
 document.addEventListener('turbolinks:load', function() {
 
     $(function() {

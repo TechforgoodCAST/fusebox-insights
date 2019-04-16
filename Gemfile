@@ -70,4 +70,8 @@ gem 'trix-rails', '~> 2.0.0', require: 'trix'
 gem 'kaminari', '~> 1.1.0'
 gem 'pundit'
 gem 'pg_search'
-gem 'jquery-rails', '~> 4.3', '>= 4.3.3' # TODO: remove
+
+gem 'haml-rails'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'bootstrap'
+gem "bootstrap_form", ">= 4.2.0"

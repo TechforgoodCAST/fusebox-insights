@@ -1,0 +1,17 @@
+%header
+  .container
+    - if user_signed_in?
+      ="Signed in as #{current_user&.username}"
+      =link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'medium grey'
+
+= render partial: 'layouts/navigation' if user_signed_in?
+
+- if user_signed_in?
+  =simple_form_for :search, url: search_index_path, method: 'GET' do |f|
+    =f.input :query
+    =f.button :submit, 'Search', data: { disable_with: 'Searching...' }
+
+%section
+  .container
+    %p#notice=notice
+    %p#alert=alert
