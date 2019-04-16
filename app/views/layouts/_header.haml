@@ -39,11 +39,8 @@
       %nav.navbar.navbar-expand-lg.navbar-light
         %h1.mb-0.navbar-brand.pr-3=link_to "Fusebox", root_path
         .ml-auto
-          -if controller_name == "sessions"
-            =link_to "Sign up", new_user_registration_path, class: "btn btn-primary"
-          -else
-            =link_to "Sign in", new_user_session_path, class: "btn btn-primary"
-
+          =link_to "Sign in", new_user_session_path, class: "btn btn-primary mr-3"
+          =link_to "Sign up", new_user_registration_path, class: "btn btn-outline-primary"
 
 %section#alerts
   .container
