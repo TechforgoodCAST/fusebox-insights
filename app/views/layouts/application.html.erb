@@ -20,9 +20,19 @@
 
     <%= render partial: 'layouts/header' %>
 
-    <main class="container py-5 mb-5">
+    <main>
 
-      <%= yield %>
+      <% if user_signed_in? %>
+
+        <section class="container">
+          <%= yield %>
+        </section>
+
+      <% else %>
+
+        <%= yield %>
+
+      <% end %>
 
     </main>
 
