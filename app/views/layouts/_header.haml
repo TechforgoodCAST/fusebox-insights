@@ -4,7 +4,7 @@
     .container.py-3
 
       %nav.navbar.navbar-expand-lg.navbar-light
-        %h1.mb-0.navbar-brand.pr-3 Fusebox
+        %h1.mb-0.navbar-brand.pr-3=link_to "Fusebox", root_path
 
         %button.navbar-toggler{type: "button", "data-toggle": "collapse", "data-target": "#navbarNavAltMarkup", "aria-controls": "navbarNavAltMarkup", "aria-expanded": "false", "aria-label": "Toggle navigation" }
           %span.navbar-toggler-icon
@@ -12,9 +12,10 @@
         .collapse.navbar-collapse#navbarNavAltMarkup
 
           %ul.navbar-nav
+            %li.nav-item.mr-5=link_to 'Projects', projects_path
             %li.nav-item.mr-3= link_to 'In focus', in_focus_path, class: current_controller?('foci')
             %li.nav-item.mr-3= link_to 'Unknowns', unknowns_path, class: current_controller?('unknowns')
-            %li.nav-item.mr-3= link_to 'Insights', insights_path, class: current_controller?('insights')
+            %li.nav-item.mr-5= link_to 'Insights', insights_path, class: current_controller?('insights')
             %li.nav-item.dropdown
               %a.dropdown-toggle#navbarDropdown{ href: "#", role: "button", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }
                 ="#{current_user&.username}"
@@ -36,9 +37,12 @@
     .container.py-3
 
       %nav.navbar.navbar-expand-lg.navbar-light
-        %h1.mb-0.navbar-brand.pr-3 Fusebox
+        %h1.mb-0.navbar-brand.pr-3=link_to "Fusebox", root_path
         .ml-auto
-          =link_to "Sign in", new_user_session_path, class: "btn btn-primary"
+          -if controller_name == "sessions"
+            =link_to "Sign up", new_user_registration_path, class: "btn btn-primary"
+          -else
+            =link_to "Sign in", new_user_session_path, class: "btn btn-primary"
 
 
 %section#alerts

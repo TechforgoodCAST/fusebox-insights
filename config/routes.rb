@@ -3,8 +3,6 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root to: 'foci#index'
-
   resources :insights, :unknowns
   resources :projects, param: :slug do
     resources :groups
@@ -24,4 +22,15 @@ Rails.application.routes.draw do
   post '/unknowns/:id', to: 'responses#create'
 
   get  '/projects/:project_slug/groups/:id/:unknown_id', to: 'groups#detach', as: 'detach_group'
+
+  get "privacy", to: "statics#privacy"
+  get "terms", to: "statics#terms"
+  get "home", to: "statics#home"
+
+  authenticated :user do
+    root 'foci#index', as: :authenticated_root
+  end
+
+  root to: 'statics#home'
+
 end
