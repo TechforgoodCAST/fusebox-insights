@@ -24,8 +24,8 @@ $line-height-base: 1.6 !default;
 $theme-colors: (
   "primary": $color--medium-blue,
   "danger": $color--red,
-  "light": white,
+  "light": $color--light-grey,
   "secondary": $color--light-grey,
-  "info": $color--medium-blue,
+  "info": $color--orange,
   "dark": $color--dark-grey
 );

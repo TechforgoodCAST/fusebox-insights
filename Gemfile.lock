@@ -84,6 +84,7 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    devise-bootstrap-views (1.1.0)
     erubi (1.8.0)
     erubis (2.7.0)
     execjs (2.7.0)
@@ -301,6 +302,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   devise (~> 4.6.0)
+  devise-bootstrap-views (~> 1.0)
   factory_bot_rails (~> 4.11.1)
   haml-rails
   jbuilder (~> 2.5)
