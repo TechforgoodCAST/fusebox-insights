@@ -45,9 +45,13 @@
 
         <p><strong>Other Members</strong></p>
         <%- ProjectMember.where(project: member_project).each do |member| %>
-          <p><%= member.user.username %></p>
+          <p><%= member.user.username %> 
+          <% if policy(get_membership(member_project)).edit? %>
+            - <%= link_to 'Remove', project_member_path(slug: member_project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'remove-member-link'%>
+          <% end %>
+          </p>
         <% end %>
-        <% if policy(@member).edit? %>
+        <% if policy(member_project).edit? %>
           <p><%= link_to 'Add Member', new_project_member_path(slug: member_project.slug), class: 'add-member-link' %></p>
         <% end %>
       </div><br>

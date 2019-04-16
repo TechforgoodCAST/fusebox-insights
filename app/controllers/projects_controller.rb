@@ -7,7 +7,6 @@ class ProjectsController < ApplicationController
   def index
     @created_projects = current_user.created_projects
     @member_projects = current_user.projects
-    @member = ProjectMember.where(project: @project, user: current_user)
   end
 
   def show

@@ -4,5 +4,6 @@ FactoryBot.define do
   factory :project_member do
     user
     project
+    role { 'Admin' }
   end
 end
