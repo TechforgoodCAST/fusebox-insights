@@ -43,20 +43,20 @@ class UnknownsTest < ApplicationSystemTestCase
     assert_text 'Unknown was successfully updated'
   end
 
-  test 'nagivate pagination for more than 10 unknowns' do 
+  test 'nagivate pagination for more than 10 unknowns' do
     @unknowns_list = create_list(:unknown, 11, author: @user)
     click_link 'Unknowns'
 
     assert_text 'Next'
-    click_on '2'
+    click_on 'Next'
 
     assert_text 'Prev'
-    click_on '1'
+    click_on 'Prev'
 
     assert_text 'Next'
   end
 
-  test 'limit page to 10 records' do 
+  test 'limit page to 10 records' do
     @unknowns_list = create_list(:unknown, 11, author: @user)
     click_link 'Unknowns'
 
@@ -77,7 +77,7 @@ class UnknownsTest < ApplicationSystemTestCase
 
     assert_text 'Unknown was successfully destroyed'
   end
-  
+
   test 'cant edit or delete a different users unknown' do
     click_link 'Unknowns'
     click_on @others_unknown.title
@@ -101,7 +101,7 @@ class UnknownsTest < ApplicationSystemTestCase
 
   end
 
-  test 'can visit unknown path if author' do    
+  test 'can visit unknown path if author' do
     visit edit_unknown_path(@unknown)
     assert_equal(edit_unknown_path(@unknown), current_path)
 

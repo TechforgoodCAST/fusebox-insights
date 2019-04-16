@@ -12,7 +12,8 @@ class InsightsTest < ApplicationSystemTestCase
     @others_insight = create(:insight, author: @other_user)
 
     visit insights_url
-    sign_in
+    sign_in(@user)
+
   end
 
   test 'visiting the index' do
@@ -39,20 +40,20 @@ class InsightsTest < ApplicationSystemTestCase
     assert_text 'Insight was successfully updated'
   end
 
-  test 'nagivate pagination for more than 10 unknowns' do 
+  test 'nagivate pagination for more than 10 insights' do
     @insights_list = create_list(:insight, 11, author: @user)
     click_link 'Insights'
 
     assert_text 'Next'
-    click_on '2'
+    click_on 'Next'
 
     assert_text 'Prev'
-    click_on '1'
+    click_on 'Prev'
 
     assert_text 'Next'
   end
 
-  test 'limit page to 10 records' do 
+  test 'limit page to 10 records' do
     @insights_list = create_list(:insight, 11, author: @user)
     click_link 'Insights'
 

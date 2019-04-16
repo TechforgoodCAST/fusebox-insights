@@ -1,0 +1,39 @@
+.icon-circle {
+  height: 2em;
+  width: 2em;
+  line-height: 1.9em;
+  border-radius: 100%;
+  display: inline-block;
+  text-align: center;
+}
+
+.link-border {
+  padding-bottom: 0.15em;
+  border-bottom: 2px solid $color--blue !important;
+}
+
+.boxed-border {
+  position: relative;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -0.25em;
+    left: -0.4em;
+    border-top: 3px solid $color--yellow;
+    border-left: 3px solid $color--yellow;
+    height: 0.5em;
+    width: 0.5em;
+  }
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -0.1em;
+    right: -0.325em;
+    border-bottom: 3px solid $color--yellow;
+    border-right: 3px solid $color--yellow;
+    height: 0.5em;
+    width: 0.5em;
+  }
+}

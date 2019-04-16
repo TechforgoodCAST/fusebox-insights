@@ -1,0 +1,60 @@
+- if user_signed_in?
+
+  %header.bg-light.mb-3
+    .container.py-4
+
+      %nav.navbar.navbar-expand-lg.navbar-light.p-0
+        %h1.mb-0.navbar-brand.pr-5
+          =link_to root_path, class: "text-dark" do
+            %span<
+              %span> Fuse
+              %span.boxed-border> box
+
+        %button.navbar-toggler{type: "button", "data-toggle": "collapse", "data-target": "#navbarNavAltMarkup", "aria-controls": "navbarNavAltMarkup", "aria-expanded": "false", "aria-label": "Toggle navigation" }
+          %span.navbar-toggler-icon
+
+        .collapse.navbar-collapse#navbarNavAltMarkup
+
+          %ul.navbar-nav
+            %li.nav-item.mr-3=link_to 'Projects', projects_path, class: 'text-dark link-border'
+            %li.nav-item.mr-3= link_to 'In focus', in_focus_path, class: 'text-dark link-border'
+            %li.nav-item.mr-3= link_to 'Unknowns', unknowns_path, class: 'text-dark link-border'
+            %li.nav-item.mr-5= link_to 'Insights', insights_path, class: 'text-dark link-border'
+
+          .ml-auto
+
+            =form_for :search, url: search_index_path, method: 'GET', html: { class: 'form-inline' } do |f|
+              =f.text_field :query, class: 'form-control mr-sm-2'
+              =f.submit 'Search', data: { disable_with: 'Searching...' }, class: 'btn btn-outline-dark input-sm'
+
+          .nav-item.dropdown.ml-4
+            %a.dropdown-toggle.text-dark#navbarDropdown{ href: "#", role: "button", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }
+              .icon-circle.bg-dark
+                %em.fa.fa-user.text-light
+            %ul.dropdown-menu{"aria-labelledby": "navbarDropdown"}
+              .dropdown-item="#{current_user&.username}"
+              .dropdown-divider
+              %li.dropdown-item=link_to 'Edit profile', edit_user_registration_path
+              %li.dropdown-item=link_to 'Sign out', destroy_user_session_path, method: :delete
+
+-else
+
+  %header
+    .container.py-4
+
+      %nav.navbar.navbar-expand-lg.navbar-light.p-0
+        %h1.mb-0.navbar-brand.pr-3
+          =link_to root_path, class: "text-dark" do
+            %span<
+              %span> Fuse
+              %span.boxed-border> box
+        .ml-auto
+          =link_to "Sign in", new_user_session_path, class: "btn btn-primary mr-3"
+          =link_to "Sign up", new_user_registration_path, class: "btn btn-outline-dark"
+
+%section#alerts
+  .container
+    -if notice.present?
+      %p.alert.alert-primary=notice
+    -if alert.present?
+      %p.alert.alert-warning=alert

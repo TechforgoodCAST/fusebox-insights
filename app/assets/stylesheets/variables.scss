@@ -1,0 +1,35 @@
+$color--green: #00aaa6;
+$color--blue: #3A85F7;
+$color--medium-blue: #3A85F7;
+$color--light-blue: #5090c8;
+$color--light-grey: #ededed;
+$color--medium-grey: #6c757d;
+$color--dark-grey: #192D44;
+$color--grey: #EBECEE;
+$color--black: #000000;
+$color--yellow: #F5AE30;
+$color--orange: #F6754A;
+$color--light-orange: #F6754A;
+$color--red: #FF473D;
+
+$link-color: $color--medium-blue;
+$link-hover-color: $color--medium-blue;
+$link-hover-decoration: none;
+
+$headings-font-family: 'Abril Fatface', cursive;
+$font-family-base: 'Inter var', sans-serif;
+
+$font-size-base: 14;
+$line-height-base: 1.6 !default;
+
+$btn-font-weight: 500;
+
+$theme-colors: (
+  "primary": $color--medium-blue,
+  "danger": $color--red,
+  "light": $color--light-grey,
+  "secondary": $color--light-grey,
+  "info": $color--orange,
+  "dark": $color--dark-grey,
+  "yellow": $color--yellow
+);
