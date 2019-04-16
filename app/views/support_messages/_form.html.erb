@@ -22,7 +22,5 @@
     <%= f.select :rule_event_type, [ ['Create', 'create'], ['Read', 'read'], ['Update', 'update'], ['Delete', 'delete'] ] %>
   </p>
   <p><%= f.input :rule_occurrences, input_html: { min: '1', step: '1' } %></p>
-  <div class="text-right">
-    <%= f.button :submit, data: { disable_with: 'Updating...' } %>
-  </div>
+  <%= f.button :submit, data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
 <% end %>
