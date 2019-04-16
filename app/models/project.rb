@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
-  belongs_to :user
+  belongs_to :author, class_name: 'User'
 
   has_many :project_members
   has_many :users, through: :project_members
@@ -10,7 +10,7 @@ class Project < ApplicationRecord
   has_many :groups
   has_many :unknowns
 
-  validates :name, presence: true, uniqueness: { scope: :user }
+  validates :name, presence: true, uniqueness: { scope: :author }
   validates :slug, uniqueness: true
   validates :is_private, inclusion: { in: [true, false] }, allow_nil: false
 

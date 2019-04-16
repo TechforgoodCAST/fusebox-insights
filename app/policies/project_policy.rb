@@ -17,7 +17,7 @@ class ProjectPolicy < ApplicationPolicy
     if ProjectMember.where(project: record, user: user, role: "Admin").any?
       true
     else
-      user.id == record.user.id
+      user.id == record.author.id
     end
   end
 

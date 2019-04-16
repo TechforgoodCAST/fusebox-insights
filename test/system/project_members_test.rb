@@ -8,7 +8,7 @@ class ProjectMembersTest < ApplicationSystemTestCase
     @non_creator = create(:user)
     @member = create(:user)
 
-    @project = create(:project, user: @creator)
+    @project = create(:project, author: @creator)
     @existing_member = create(:project_member, project: @project, user: @member)
 
     @admin = create(:user)

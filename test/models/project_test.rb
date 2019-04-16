@@ -7,15 +7,13 @@ class ProjectTest < ActiveSupport::TestCase
     @subject = build(:project)
   end
 
-  test 'belongs to #user' do
-    assert_kind_of(User, @subject.user)
+  test 'belongs to #author' do
+    assert_kind_of(User, @subject.author)
   end
 
   test 'user has many projects' do
-    @user = create(:user)
-    @a = create(:project, user: @user, name: 'a')
-    @ab = create(:project, user: @user, name: 'b')
-    assert_equal(2, @user.created_projects.size)
+    @user = create(:user, projects: build_list(:project, 2))
+    assert_equal(2, @user.projects.size)
   end
 
   test 'slug generation' do
