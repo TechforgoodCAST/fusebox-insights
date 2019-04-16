@@ -45,7 +45,7 @@ class ProjectsTest < ApplicationSystemTestCase
   test 'anon user cannot view private project' do
     sign_out
     visit project_path(@private_project)
-    assert_text 'You need to sign in or sign up before continuing.'
+    assert_text "Sorry, you don't have access to that"
   end
 
   test 'anon user can view public project' do

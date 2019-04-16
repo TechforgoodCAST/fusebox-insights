@@ -6,7 +6,7 @@ class FociTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
     @unknown = create(:unknown, author: @user)
-    visit root_path
+    visit new_user_session_path
     sign_in
   end
 

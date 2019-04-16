@@ -1,7 +1,7 @@
 require 'application_system_test_case'
 
 class SupportMessageTest < ApplicationSystemTestCase
-  
+
   setup do
     @staff_user = create(:user, is_staff: true)
     @non_staff_user = create(:user)
@@ -37,6 +37,7 @@ class SupportMessageTest < ApplicationSystemTestCase
 
   test 'non_staff_user cannot add message' do
     sign_out
+    visit new_user_session_path
     sign_in(@non_staff_user)
     visit support_messages_path(slug: @subject.project.slug)
     click_on 'Add another'
@@ -45,6 +46,7 @@ class SupportMessageTest < ApplicationSystemTestCase
 
   test 'non_staff_user cannot edit' do
     sign_out
+    visit new_user_session_path
     sign_in(@non_staff_user)
     visit support_messages_path(slug: @subject.project.slug)
     first('.edit-link').click
@@ -53,11 +55,12 @@ class SupportMessageTest < ApplicationSystemTestCase
 
   test 'non_staff_user cannot delete' do
     sign_out
+    visit new_user_session_path
     sign_in(@non_staff_user)
     visit support_messages_path(slug: @subject.project.slug)
     first('.destroy-link').click
     page.driver.browser.switch_to.alert.accept
     assert_text "Sorry, you don't have access to that"
   end
-  
+
 end

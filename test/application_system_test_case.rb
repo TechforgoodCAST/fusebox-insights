@@ -12,6 +12,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   end
 
   def sign_out
+    click_link('navbarDropdown')
     click_link('Sign out')
   end
 end

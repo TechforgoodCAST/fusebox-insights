@@ -1,6 +1,10 @@
-<div class="flex mb30 justify-between items-center">
-  <h1 class="fs20 bold">Unknowns</h1>
-  <%= link_to 'New Unknown', new_unknown_path, class: 'medium' %>
+<div class="row pb-3">
+  <div class="col-6">
+    <h1>Unknowns</h1>
+  </div>
+  <div class="col-6 text-right">
+    <%= link_to 'New Unknown', new_unknown_path, class: 'btn btn-primary' %>
+  </div>
 </div>
 
 <div class="flow flow20">
@@ -10,4 +14,3 @@
 </div>
 
 <%= paginate @unknowns %>
-
