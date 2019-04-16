@@ -22,18 +22,10 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    if ProjectMember.where(project: record, user: user, role: "Admin").any?
-      true
-    else
-      user.id == record.user.id
-    end
+    edit?
   end
 
   def destroy?
-    if ProjectMember.where(project: record, user: user, role: "Admin").any?
-      true
-    else
-      user.id == record.user.id
-    end
+    edit?
   end
 end
