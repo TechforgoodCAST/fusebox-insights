@@ -8,7 +8,7 @@
   <%= private_label(@project) %>
   <%- if policy(get_membership(@project)).edit? %>
     •
-    Settings
+    <%= link_to 'Settings', edit_project_path(@project) %>
   <% end %>
 </small>
 

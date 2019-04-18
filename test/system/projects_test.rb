@@ -5,8 +5,8 @@ require 'application_system_test_case'
 class ProjectsTest < ApplicationSystemTestCase
   setup do
     @creator = create(:user)
-    @public_project = create(:project, author: @creator, is_private: false)
-    @private_project = create(:project, author: @creator, is_private: true)
+    @public_project = create(:project, author: @creator, users: [@creator], is_private: false)
+    @private_project = create(:project, author: @creator, users: [@creator], is_private: true)
 
     @new_project = build(:project, author: @creator)
 
@@ -46,7 +46,9 @@ class ProjectsTest < ApplicationSystemTestCase
   end
 
   test 'destroy project' do
-    first('.destroy-link').click
+    click_on(@public_project.name)
+    click_on('Settings')
+    click_on('Delete project')
     page.driver.browser.switch_to.alert.accept
     assert_text 'Project destroyed successfully.'
   end
@@ -59,7 +61,7 @@ class ProjectsTest < ApplicationSystemTestCase
 
   test 'anon user can view public project' do
     visit project_path(@public_project)
-    assert_text 'Project Name'
+    assert_text @public_project.name
   end
 
   test 'non-creator cannot access edit project' do
