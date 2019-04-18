@@ -5,10 +5,10 @@ require 'application_system_test_case'
 class ProjectsTest < ApplicationSystemTestCase
   setup do
     @creator = create(:user)
-    @public_project = create(:project, user: @creator, is_private: false)
-    @private_project = create(:project, user: @creator, is_private: true)
+    @public_project = create(:project, author: @creator, is_private: false)
+    @private_project = create(:project, author: @creator, is_private: true)
 
-    @new_project = build(:project, user: @creator)
+    @new_project = build(:project, author: @creator)
 
     @non_creator = create(:user)
 

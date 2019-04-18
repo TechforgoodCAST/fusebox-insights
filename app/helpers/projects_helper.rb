@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module ProjectsHelper
-  def get_membership(project)
-    @member = ProjectMember.where(project: project, user: current_user).first
+  def get_membership(project, user = current_user)
+    @member = ProjectMember.where(project: project, user: user).first
   end
 
   def private_label(project)

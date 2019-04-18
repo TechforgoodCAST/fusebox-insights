@@ -60,8 +60,8 @@ class UnknownsController < ApplicationController
     end
 
     def projects_for_unknown
-      @owned_projects = Project.where(user: current_user)
-      @member_projects = Project.joins(:project_members).where(user: current_user)
+      @owned_projects = Project.where(author: current_user)
+      @member_projects = Project.joins(:project_members).where(author: current_user)
       @projects_for_unknown = @owned_projects + @member_projects
     end
 

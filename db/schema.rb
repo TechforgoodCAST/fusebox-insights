@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 2019_04_16_101328) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "group_id"
     t.bigint "project_id"
+    t.bigint "group_id"
     t.index ["author_id"], name: "index_unknowns_on_author_id"
     t.index ["group_id"], name: "index_unknowns_on_group_id"
   end
