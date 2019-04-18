@@ -7,7 +7,7 @@ class ProjectMemberPolicy < ApplicationPolicy
     elsif ProjectMember.where(project: record.project, user: user, role: "Collaborator").any?
       true
     else
-      user.id == record.project.user.id
+      user.id == record.project.author.id
     end
   end
 

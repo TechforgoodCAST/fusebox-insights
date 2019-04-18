@@ -5,14 +5,14 @@ require 'application_system_test_case'
 class UnknownsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @project = create(:project, name: 'test', user: @user)
+    @project = create(:project, name: 'test', author: @user)
     @unknown = create(:unknown, author: @user, project: @project)
     @new_unknown = build(:unknown, author: @user, project: @project)
 
     @other_user = create(:user)
     @others_unknown = create(:unknown, author: @other_user)
 
-    @project = create(:project, user: @user)
+    @project = create(:project, author: @user)
     @group = create(:group, author: @user, project: @project)
 
     visit unknowns_url

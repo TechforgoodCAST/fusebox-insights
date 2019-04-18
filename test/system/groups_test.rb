@@ -5,12 +5,12 @@ require 'application_system_test_case'
 class GroupsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @project = create(:project, user: @user)
+    @project = create(:project, author: @user)
     @group = create(:group, author: @user, project: @project)
     @new_group = build(:group, author: @user)
 
     @other_user = create(:user)
-    @others_project = create(:project, user: @other_user)
+    @others_project = create(:project, author: @other_user)
     @others_group = create(:group, author: @other_user, project: @others_project)
 
     visit projects_url
@@ -18,7 +18,7 @@ class GroupsTest < ApplicationSystemTestCase
   end
 
   test 'creating a Group' do
-    click_on 'Show'
+    visit project_path(@project)
     click_on 'New Group'
 
     fill_in 'Title', with: @new_group.title

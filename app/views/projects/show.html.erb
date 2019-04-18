@@ -1,11 +1,28 @@
-<p><strong>Project Name: </strong><%= @project.name  %></p>
-<p><strong>Visibility: </strong><% if @project.is_private %>Private<% else %>Public<% end  %></p>
-<p><strong>Description: </strong><%= @project.description %></p>
 <%= link_to 'Back', projects_path %>
-<%= link_to 'New Group', new_project_group_path(@project.slug), class: 'medium' %>
 
-<div class="flow flow20">
-  <% @project.groups.each do |group| %>
-    <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
+<h1><%= @project.name %></h1>
+
+<small>
+  <%= pluralize(@project.users.size, 'collaborator') %>
+  •
+  <%= private_label(@project) %>
+  <%- if policy(@project).edit? %>
+    •
+    <%= link_to 'Settings', edit_project_path(@project) %>
   <% end %>
-</div>
+</small>
+
+<p><%= @project.description %></p>
+
+<nav>
+  <%= link_to 'Overview', '#todo' %>
+  <%= link_to 'Assumptions', '#todo' %>
+  <%= link_to 'Knowledge board', '#todo' %>
+  <%= link_to 'Support', '#' %>
+</nav>
+
+<%- @project.groups.each do |group| %>
+  <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
+<% end %>
+
+<%= link_to 'New Group', new_project_group_path(@project.slug) %>

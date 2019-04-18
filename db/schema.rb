@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_10_152605) do
+ActiveRecord::Schema.define(version: 2019_04_16_101328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 2019_04_10_152605) do
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role"
+    t.string "role", default: "Admin"
     t.index ["project_id"], name: "index_project_members_on_project_id"
     t.index ["user_id"], name: "index_project_members_on_user_id"
   end
@@ -90,11 +90,11 @@ ActiveRecord::Schema.define(version: 2019_04_10_152605) do
     t.text "description"
     t.boolean "is_private", default: true, null: false
     t.string "slug", null: false
-    t.bigint "user_id", null: false
+    t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
-    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "proofs", force: :cascade do |t|

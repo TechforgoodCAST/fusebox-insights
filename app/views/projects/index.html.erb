@@ -1,60 +1,21 @@
-<div class="flow flow20">
-  <h1 class="fs20 bold mb30">My Projects</h1>
-  <% if @created_projects.any? %>
-    <%- @created_projects.each do |project| %>
-      <% if project.slug %>
-        <div class="card purple-border">
-          <p><strong><%= project.name %></strong><% if project.is_private %>(private)<% else %>(public)<% end %></p>
-          <p><%= link_to 'Show', project_path(slug: project.slug), class: 'show-link' %></p>
-          <p><%= link_to 'Edit', edit_project_path(slug: project.slug), class: 'edit-link' %></p>
-          <p><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></p>
-          <hr>
-          <p><strong>Members</strong></p>
-          <%- ProjectMember.where(project: project).each do |member| %>
-            <p><%= member.user.username %> - <%= link_to 'Remove', project_member_path(slug: project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'remove-member-link'%> </p>
-          <% end %>
-          <p><%= link_to 'Add Member', new_project_member_path(slug: project.slug), class: 'add-member-link' %></p>
-          <hr>
-          <h3>Support Messages</h3>
-          <% if project.support_messages.any? %>
-            <%- project.support_messages.each do |message| %>
-              <p><%= message.status %></p>
-              <p><%= message.rule_event_type %> <%= message.rule_occurrences %> <%= message.rule_object_type %> </p>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  <% else %>
-    <p>It seems like you don't have any projects yet.</p>
-  <% end %>
+<h1>My Projects</h1>
 
-  <div><%= link_to 'Create New Project', new_project_path %></div>
+<%- if @projects.any? %>
 
-  <h3>Member:</h3>
-  <% if @member_projects.any? %>
-    <%- @member_projects.each do |member_project| %>
-      <div>
-        <p><strong><%= member_project.name %></strong><% if member_project.is_private %>(private)<% else %>(public)<% end %></p>
-        <p><%= link_to 'Show', project_path(slug: member_project.slug), class: 'show-link' %></p>
-
-        <% if policy(member_project).edit? %>
-          <p><%= link_to 'Edit', edit_project_path(slug: member_project.slug), class: 'edit-link' %></p>
-          <p><%= link_to 'Destroy', member_project, method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></p>
-        <% end %>
-
-        <p><strong>Other Members</strong></p>
-        <%- ProjectMember.where(project: member_project).each do |member| %>
-          <p><%= member.user.username %> 
-          <% if policy(get_membership(member_project)).edit? %>
-            - <%= link_to 'Remove', project_member_path(slug: member_project.slug, id: member.id), method: :delete, data: {confirm: 'Are you sure?'}, class: 'remove-member-link'%>
-          <% end %>
-          </p>
-        <% end %>
-        <% if policy(member_project).edit? %>
-          <p><%= link_to 'Add Member', new_project_member_path(slug: member_project.slug), class: 'add-member-link' %></p>
-        <% end %>
-      </div><br>
+  <%- @projects.each do |project| %>
+    <%= link_to project_path(slug: project.slug) do %>
+      <div class="card">
+        <h2><strong><%= project.name %></strong></h2>
+        <p><%= get_membership(project).role %></p>
+        <em><%= private_label(project) %></em>
+      </div>
     <% end %>
   <% end %>
-</div>
+
+<% else %>
+
+  <p>It seems like you don't have any projects yet.</p>
+
+<% end %>
+
+<%= link_to 'Create New Project', new_project_path %>

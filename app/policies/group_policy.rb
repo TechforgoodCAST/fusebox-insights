@@ -3,7 +3,7 @@ class GroupPolicy < ApplicationPolicy
     if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
       true
     else
-      user.id == record.project.user.id
+      user.id == record.project.author.id
     end
   end
 
@@ -11,25 +11,16 @@ class GroupPolicy < ApplicationPolicy
     if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
       true
     else
-      user.id == record.project.user.id
+      user.id == record.project.author.id
     end
   end
 
 
   def update?
-    if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
-      true
-    else
-      user.id == record.project.user.id
-    end
-
+    edit?
   end
 
   def destroy?
-    if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
-      true
-    else
-      user.id == record.project.user.id
-    end
+    edit?
   end
 end

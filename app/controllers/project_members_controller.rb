@@ -15,7 +15,7 @@ class ProjectMembersController < ApplicationController
 
     @ids = ProjectMember.where(project: @project).pluck(:user_id)
 
-    @ids.push(@project.user.id)
+    @ids.push(@project.author.id)
     @potential_members = User.where.not(id: @ids)
   end
 

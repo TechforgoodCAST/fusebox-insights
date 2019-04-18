@@ -5,8 +5,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, except: %i[index new create]
 
   def index
-    @created_projects = current_user.created_projects
-    @member_projects = current_user.projects
+    @projects = current_user.projects
   end
 
   def show
@@ -14,12 +13,14 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
+    @project = current_user.projects.new
   end
 
   def create
-    @project = Project.new(project_params)
-    @project.user = current_user
+    @project = current_user.projects.new(project_params)
+    @project.users = [current_user]
+    @project.author = current_user
+
     if @project.save
       redirect_to projects_path, notice: 'Project created successfully.'
     else
