@@ -38,7 +38,7 @@ class ProjectsTest < ApplicationSystemTestCase
   end
 
   test 'update project' do
-    first('.edit-link').click
+    visit edit_project_path(@private_project)
     fill_in 'project[name]', with: @new_project.name
     fill_in 'project[description]', with: @new_project.description
     click_on 'Update Project'
@@ -84,8 +84,8 @@ class ProjectsTest < ApplicationSystemTestCase
     sign_out
     visit projects_path
     sign_in(@collaborator)
-    assert_no_text 'Edit'
-    assert_no_text 'Destroy'
+    visit project_path(@private_project)
+    assert_no_text 'Settings'
 
     visit edit_project_path(@private_project)
     assert_text "Sorry, you don't have access to that"
@@ -93,8 +93,8 @@ class ProjectsTest < ApplicationSystemTestCase
     sign_out
     visit projects_path
     sign_in(@viewer)
-    assert_no_text 'Edit'
-    assert_no_text 'Destroy'
+    visit project_path(@private_project)
+    assert_no_text 'Settings'
 
     visit edit_project_path(@private_project)
     assert_text "Sorry, you don't have access to that"
@@ -115,7 +115,8 @@ class ProjectsTest < ApplicationSystemTestCase
     sign_out
     visit projects_path
     sign_in(@admin)
-    first('.destroy-link').click
+    visit edit_project_path(@private_project)
+    click_on 'Delete project'
     page.driver.browser.switch_to.alert.accept
     assert_text 'Project destroyed successfully.'
   end

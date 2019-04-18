@@ -6,7 +6,7 @@
   <%= pluralize(@project.users.size, 'collaborator') %>
   •
   <%= private_label(@project) %>
-  <%- if policy(get_membership(@project)).edit? %>
+  <%- if policy(@project).edit? %>
     •
     <%= link_to 'Settings', edit_project_path(@project) %>
   <% end %>
