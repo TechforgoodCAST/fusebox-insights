@@ -1,6 +1,11 @@
-<%= link_to 'Back', projects_path %>
-
-<h1><%= @project.name %></h1>
+<div class="row pb-3">
+  <div class="col-6">
+    <h1><%= @project.name %></h1>
+  </div>
+  <div class="col-6 text-right">
+    <%= link_to 'Add Assumption', new_project_unknown_path(@project), class: 'btn btn-primary' %>
+  </div>
+</div>
 
 <small>
   <%= pluralize(@project.users.size, 'collaborator') %>
@@ -14,15 +19,17 @@
 
 <p><%= @project.description %></p>
 
-<nav>
-  <%= link_to 'Overview', '#todo' %>
-  <%= link_to 'Assumptions', '#todo' %>
-  <%= link_to 'Knowledge board', '#todo' %>
-  <%= link_to 'Support', '#' %>
+<nav class="mb-5">
+  <ul class="nav">
+    <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link link-border" %></li>
+    <li class="nav-item mr-3"><%= link_to 'Assumptions', project_unknowns_path(@project), class: "nav-link link-border" %>
+    <li class="nav-item mr-3"><%= link_to 'Knowledge board', project_knowledge_board_path(@project), class: "nav-link link-border" %>
+    <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link link-border" %>
+  </ul>
 </nav>
 
 <%- @project.groups.each do |group| %>
   <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
 <% end %>
 
-<%= link_to 'New Group', new_project_group_path(@project.slug) %>
+<%= link_to 'New Group', new_project_group_path(@project.slug), class: "btn btn-info" %>

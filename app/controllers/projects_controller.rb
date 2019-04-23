@@ -8,6 +8,10 @@ class ProjectsController < ApplicationController
     @projects = current_user.projects
   end
 
+  def knowledge_board
+
+  end
+
   def show
     authorize @project
   end

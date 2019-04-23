@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 class UnknownsController < ApplicationController
+
   before_action :authenticate_user!
   before_action :set_unknown, only: %i[show edit update destroy]
+  before_action :set_project
   before_action :projects_for_unknown, only: %i[new create edit update]
 
   def index
@@ -20,12 +22,11 @@ class UnknownsController < ApplicationController
 
   def new
     @unknown = current_user.unknowns.new
-    @initially_selected_project = @projects_for_unknown.first
   end
 
   def create
     @unknown = current_user.unknowns.new(unknown_params)
-    
+
     if @unknown.save
       redirect_to @unknown, notice: 'Unknown was successfully created.'
     else
@@ -35,7 +36,6 @@ class UnknownsController < ApplicationController
 
   def edit
     authorize @unknown
-    @initially_selected_project = @unknown.project
   end
 
   def update
@@ -54,6 +54,10 @@ class UnknownsController < ApplicationController
   end
 
   private
+
+    def set_project
+      @project = Project.find_by(slug: params[:project_slug])
+    end
 
     def set_unknown
       @unknown = Unknown.find(params[:id])

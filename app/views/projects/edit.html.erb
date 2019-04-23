@@ -1,8 +1,4 @@
-<div>
-  <h1 class="fs20 bold mb30">Edit Project: <%= @project.name %></h1>
-  <%= render 'form', project: @project %>
-</div>
+<h1 class="mb-4">Edit Project: <%= @project.name %></h1>
+<%= render 'form', project: @project %>
 
 <%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
-
-<%= link_to 'Back', projects_path %>
