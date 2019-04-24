@@ -26,9 +26,10 @@ class UnknownsController < ApplicationController
 
   def create
     @unknown = current_user.unknowns.new(unknown_params)
+    @unknown.project = @project
 
     if @unknown.save
-      redirect_to @unknown, notice: 'Unknown was successfully created.'
+      redirect_to project_unknown_path(@project, @unknown), notice: 'Unknown was successfully created.'
     else
       render :new
     end
@@ -41,7 +42,7 @@ class UnknownsController < ApplicationController
   def update
     authorize @unknown
     if @unknown.update(unknown_params)
-      redirect_to @unknown, notice: 'Unknown was successfully updated.'
+      redirect_to project_unknown_path(@project, @unknown), notice: 'Unknown was successfully updated.'
     else
       render :edit
     end
@@ -50,7 +51,7 @@ class UnknownsController < ApplicationController
   def destroy
     authorize @unknown
     @unknown.destroy
-    redirect_to unknowns_url, notice: 'Unknown was successfully destroyed.'
+    redirect_to project_path(@project), notice: 'Unknown was successfully destroyed.'
   end
 
   private

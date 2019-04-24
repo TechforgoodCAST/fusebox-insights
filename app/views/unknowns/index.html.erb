@@ -1,4 +1,6 @@
-<div class="row pb-3">
+<%= render "projects/header" %>
+
+<div class="row pb-5">
   <div class="col-6">
     <h1>Assumptions</h1>
   </div>
@@ -7,9 +9,11 @@
   </div>
 </div>
 
-<div class="flow flow20">
+<div class="row">
   <% @unknowns.each do |unknown| %>
-    <%= render partial: 'card', locals: { edit: false, unknown: unknown } %>
+    <div class="col-md-3">
+      <%= render partial: 'card', locals: { edit: false, unknown: unknown } %>
+    </div>
   <% end %>
 </div>
 

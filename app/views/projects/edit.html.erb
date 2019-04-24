@@ -1,4 +1,7 @@
 <h1 class="mb-4">Edit Project: <%= @project.name %></h1>
-<%= render 'form', project: @project %>
+
+<div class="w-50">
+  <%= render 'form', project: @project %>
+</div>
 
 <%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>

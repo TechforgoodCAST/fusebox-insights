@@ -1,6 +1,6 @@
-<%= simple_form_for([@project, group]) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :summary, as: :trix_editor %>
-  <%= f.button :submit, data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+<%= bootstrap_form_for([@project, group]) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_field :description %>
+  <%= f.text_area :summary, as: :trix_editor %>
+  <%= f.submit "Save group", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
 <% end %>

@@ -1,6 +1,8 @@
-<%= simple_form_for(project) do |f| %>
-  <p><%= f.input :name %></p>
-  <p><%= f.input :description %></p>
-  <p><%= f.input :is_private %></p>
-  <%= f.button :submit, data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+<%= bootstrap_form_for(project) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_area :description %>
+  <%= f.check_box :is_private %>
+  <div class="actions pt-4">
+    <%= f.submit "Save project", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+  </div>
 <% end %>

@@ -1,6 +1,5 @@
-<div class="flex mb30 justify-between items-center">
-  <h1 class="fs20 bold">Editing Group</h1>
-  <%= link_to 'Back', project_group_path(@project, @group), class: 'medium' %>
-</div>
+<h1>Editing Group</h1>
 
-<%= render 'form', group: @group %>
+<div class="w-75 pt-4">
+  <%= render 'form', group: @group %>
+</div>
