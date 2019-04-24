@@ -14,6 +14,23 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
   </head>
 
   <body>
@@ -27,7 +44,27 @@
         <nav aria-label="breadcrumb" class="mb-4">
           <div class="container">
             <ol class="breadcrumb bg-white pl-0 mt-2">
-              <li class="breadcrumb-item active" aria-current="page"><%= link_to "Projects", projects_path, class: "link-border text-dark" %></li>
+
+              <li class="breadcrumb-item active" aria-current="page">
+                <%= link_to "Projects", projects_path, class: "link-border text-dark" %>
+              </li>
+
+              <% if @project.present? && action_name == "show" && controller_name == "projects" %>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span class="text-dark"><%= @project.name %></span>
+                </li>
+              <% elsif @project.present? && (action_name != "new" || controller_name != "projects") %>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <%= link_to @project.name, project_path(@project), class: "link-border text-dark" %>
+                </li>
+              <% end %>
+
+              <% if action_name == "edit" || action_name == "new" %>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span class="text-dark"><%= action_name.humanize %> <%= controller_name.singularize.humanize %></span>
+                </li>
+              <% end %>
+
             </ol>
           </div>
         </nav>
