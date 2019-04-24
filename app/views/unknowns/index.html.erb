@@ -1,14 +1,5 @@
 <%= render "projects/header" %>
 
-<div class="row pb-5">
-  <div class="col-6">
-    <h1>Assumptions</h1>
-  </div>
-  <div class="col-6 text-right">
-    <%= link_to 'Add Assumption', new_project_unknown_path(@project), class: 'btn btn-primary' %>
-  </div>
-</div>
-
 <div class="row">
   <% @unknowns.each do |unknown| %>
     <div class="col-md-3">

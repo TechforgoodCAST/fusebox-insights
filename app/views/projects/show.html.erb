@@ -1,5 +1,9 @@
 <%= render "projects/header" %>
 
+<%- @project.groups.each do |group| %>
+  <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
+<% end %>
+
 <div class="text-center">
   <%= link_to 'New Group', new_project_group_path(@project.slug), class: "btn btn-primary" %>
 </div>

@@ -1,3 +1,5 @@
+<%= render "projects/header" %>
+
 <%= render partial: 'groups/card', locals: { edit: true, group: @group } %>
 
 <ul class="history">
@@ -8,6 +10,5 @@
       <%= link_to 'Remove', detach_group_path(@project, @group, unknown_id: unknown.id), data: { confirm: 'This action is irreversible, are you sure?' }%>
       </div>
     </li>
-  <% end %> 
+  <% end %>
 </ul>
-

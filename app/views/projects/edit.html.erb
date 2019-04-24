@@ -1,7 +1,11 @@
-<h1 class="mb-4">Edit Project: <%= @project.name %></h1>
+<h1 class="mb-4 text-center">Edit Project</h1>
 
-<div class="w-50">
-  <%= render 'form', project: @project %>
+<div class="row justify-content-center pb-5">
+  <div class="col-6">
+    <%= render 'form', project: @project %>
+  </div>
 </div>
 
-<%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
+<div class="text-center pt-4">
+  <%= link_to 'Delete project', project_path(@project), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' }, class: "btn btn-warning" %>
+</div>

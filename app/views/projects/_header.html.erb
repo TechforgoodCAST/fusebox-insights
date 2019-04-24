@@ -33,7 +33,3 @@
     <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link link-border" %>
   </ul>
 </nav>
-
-<%- @project.groups.each do |group| %>
-  <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
-<% end %>
