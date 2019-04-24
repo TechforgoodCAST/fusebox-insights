@@ -1,5 +1,4 @@
-<div class="card purple-border">
-  <div class="flex justify-between">
+<div class="card mb-4">
     <span>
       <p class="fs14 grey mb10">
         <%= group.author.username %> · Updated <%= time_ago_in_words(group.updated_at) %> ago
@@ -7,8 +6,6 @@
 
       <h3><%= link_to group.title, project_group_path(@project, group), class: 'fs18 medium black' %></h3>
     </span>
-
-  </div>
 
   <%- if edit %>
     <div class="my15"><i><%= raw(group.description) %></i></div>
@@ -18,7 +15,7 @@
       <% if policy(group).update? %>
         <%= link_to 'Edit', edit_project_group_path(@project, group) %>
       <% end %>
-      
+
       <% if policy(group).destroy? %>
         <%= link_to 'Delete', project_group_path(@project, group), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
       <% end %>

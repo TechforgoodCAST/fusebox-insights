@@ -20,17 +20,29 @@
 
     <%= render partial: 'layouts/header' %>
 
-    <main class="pt-4">
+    <main>
 
       <% if user_signed_in? %>
 
+        <nav aria-label="breadcrumb" class="mb-4">
+          <div class="container">
+            <ol class="breadcrumb bg-white pl-0 mt-2">
+              <li class="breadcrumb-item active" aria-current="page"><%= link_to "Projects", projects_path, class: "link-border text-dark" %></li>
+            </ol>
+          </div>
+        </nav>
+
         <section class="container pt-3 pb-5 mb-5">
+
           <%= yield %>
+
         </section>
 
       <% else %>
 
-        <%= yield %>
+        <div class="pt-4">
+          <%= yield %>
+        </div>
 
       <% end %>
 

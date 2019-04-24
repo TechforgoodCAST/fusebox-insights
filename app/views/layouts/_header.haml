@@ -1,6 +1,6 @@
 - if user_signed_in?
 
-  %header.bg-light.mb-3
+  %header.bg-light
     .container.py-4
 
       %nav.navbar.navbar-expand-lg.navbar-light.p-0
@@ -52,9 +52,10 @@
           =link_to "Sign in", new_user_session_path, class: "btn btn-primary mr-3"
           =link_to "Sign up", new_user_registration_path, class: "btn btn-outline-dark"
 
-%section#alerts
-  .container
-    -if notice.present?
-      %p.alert.alert-primary=notice
-    -if alert.present?
-      %p.alert.alert-warning=alert
+-if notice.present? || alert.present?
+  %section#alerts
+    .container
+      -if notice.present?
+        %p.alert.alert-primary=notice
+      -if alert.present?
+        %p.alert.alert-warning=alert
