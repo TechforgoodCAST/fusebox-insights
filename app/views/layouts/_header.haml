@@ -24,8 +24,12 @@
           .ml-auto
 
             =form_for :search, url: search_index_path, method: 'GET', html: { class: 'form-inline' } do |f|
-              =f.text_field :query, class: 'form-control mr-sm-2'
-              =f.submit 'Search', data: { disable_with: 'Searching...' }, class: 'btn btn-outline-dark input-sm'
+              .input-group
+                =f.text_field :query, class: 'form-control'
+                .input-group-append
+                  =f.button type: "submit", class: 'btn btn-dark input-sm' do |button|
+                    %em.fa.fa-search
+
 
           .nav-item.dropdown.ml-4
             %a.dropdown-toggle.text-dark#navbarDropdown{ href: "#", role: "button", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }

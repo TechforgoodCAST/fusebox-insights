@@ -41,33 +41,7 @@
 
       <% if user_signed_in? %>
 
-        <nav aria-label="breadcrumb" class="mb-4">
-          <div class="container">
-            <ol class="breadcrumb bg-white pl-0 mt-2">
-
-              <li class="breadcrumb-item active" aria-current="page">
-                <%= link_to "Projects", projects_path, class: "link-border text-dark" %>
-              </li>
-
-              <% if @project.present? && action_name == "show" && controller_name == "projects" %>
-                <li class="breadcrumb-item active" aria-current="page">
-                  <span class="text-dark"><%= @project.name %></span>
-                </li>
-              <% elsif @project.present? && (action_name != "new" || controller_name != "projects") %>
-                <li class="breadcrumb-item active" aria-current="page">
-                  <%= link_to @project.name, project_path(@project), class: "link-border text-dark" %>
-                </li>
-              <% end %>
-
-              <% if action_name == "edit" || action_name == "new" %>
-                <li class="breadcrumb-item active" aria-current="page">
-                  <span class="text-dark"><%= action_name.humanize %> <%= controller_name.singularize.humanize %></span>
-                </li>
-              <% end %>
-
-            </ol>
-          </div>
-        </nav>
+        <%= render "layouts/breadcrumb" %>
 
         <section class="container pt-3 pb-5 mb-5">
 

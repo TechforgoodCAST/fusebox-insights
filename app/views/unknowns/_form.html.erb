@@ -5,7 +5,7 @@
       <%= f.text_field :title %>
     </div>
     <div class="col-md-6">
-      <%= f.select :group, current_user.groups %>
+      <%= f.select :group, current_user.groups.map{ |s| [s.title.humanize, s.id] } %>
     </div>
   </div>
 
