@@ -1,15 +1,10 @@
-<div class="row pb-3">
-  <div class="col-6">
-    <h1>Unknowns</h1>
-  </div>
-  <div class="col-6 text-right">
-    <%= link_to 'New Unknown', new_unknown_path, class: 'btn btn-primary' %>
-  </div>
-</div>
+<%= render "projects/header" %>
 
-<div class="flow flow20">
+<div class="row">
   <% @unknowns.each do |unknown| %>
-    <%= render partial: 'card', locals: { edit: false, unknown: unknown } %>
+    <div class="col-md-3">
+      <%= render partial: 'card', locals: { edit: false, unknown: unknown } %>
+    </div>
   <% end %>
 </div>
 

@@ -1,10 +1,17 @@
-<%= simple_form_for(unknown) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description, as: :trix_editor %>
-  <%= f.select :project_id, @projects_for_unknown.collect { |p| [p.name, p.id] }, :selected => @initially_selected_project.id %>
+<%= bootstrap_form_for([@project, unknown]) do |f| %>
 
-  <%= f.association :group, collection: current_user.groups, required: false %>
+  <%= f.text_field :title %>
 
-  <%= f.button :submit, data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+  <div class="form-row">
+    <div class="col-md-6">
+      <%= f.select :certainty, Unknown.certainties.keys.map{ |s| [s.humanize, s] } %>
+    </div>
+    <div class="col-md-6">
+      <%= f.select :group, current_user.groups.map{ |s| [s.title.humanize, s.id] } %>
+    </div>
+  </div>
+
+  <%= f.text_area :description, as: :trix_editor %>
+  <%= f.submit "Save assumption", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
 
 <% end %>

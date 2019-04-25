@@ -6,6 +6,6 @@ module ApplicationHelper
   end
 
   def vote_path(unknown, confidence)
-    unknown_path(unknown, confidence: confidence, anchor: 'new_response')
+    project_unknown_path(unknown.project, unknown, confidence: confidence, anchor: 'new_response')
   end
 end

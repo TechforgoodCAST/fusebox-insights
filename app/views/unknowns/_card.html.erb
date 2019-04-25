@@ -1,14 +1,14 @@
-<div class="card">
+<div class="card mb-4">
 
   <div class="card-body">
     <div class="row">
       <div class="col-md-8">
         <span>
-          <p class="fs14 grey mb10">
+          <p>
             <%= unknown.author.username %> · Updated <%= time_ago_in_words(unknown.updated_at) %> ago
           </p>
 
-          <h3><%= link_to unknown.title, unknown, class: 'fs18 medium black' %></h3>
+          <p><%= link_to unknown.title, project_unknown_path(@project, unknown), class: 'fs18 medium black' %></p>
         </span>
       </div>
 
@@ -25,11 +25,11 @@
     <div class="fs14 text-right">
 
       <% if policy(unknown).update? %>
-        <%= link_to 'Edit', edit_unknown_path(unknown) %>
+        <%= link_to 'Edit', edit_project_unknown_path(@project, unknown) %>
       <% end %>
 
       <% if policy(unknown).destroy? %>
-        <%= link_to 'Delete', unknown, method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
+        <%= link_to 'Delete', project_unknown_path(@project, unknown), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
       <% end %>
     </div>
   <% else %>

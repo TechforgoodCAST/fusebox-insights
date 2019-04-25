@@ -1,27 +1,27 @@
-<div class="card purple-border">
-  <div class="flex justify-between">
-    <span>
-      <p class="fs14 grey mb10">
-        <%= group.author.username %> · Updated <%= time_ago_in_words(group.updated_at) %> ago
-      </p>
+<div class="card mb-4">
 
-      <h3><%= link_to group.title, project_group_path(@project, group), class: 'fs18 medium black' %></h3>
-    </span>
+    <div class="card-body">
+      <span>
+        <p class="fs14 grey mb10">
+          <%= group.author.username %> · Updated <%= time_ago_in_words(group.updated_at) %> ago
+        </p>
 
+        <h3><%= link_to group.title, project_group_path(@project, group), class: 'fs18 medium black' %></h3>
+      </span>
+
+    <%- if edit %>
+      <div class="my15"><i><%= raw(group.description) %></i></div>
+      <div class="my15 trix-formatted"><%= raw(group.summary) %></div>
+      <div class="fs14 text-right">
+
+        <% if policy(group).update? %>
+          <%= link_to 'Edit', edit_project_group_path(@project, group) %>
+        <% end %>
+
+        <% if policy(group).destroy? %>
+          <%= link_to 'Delete', project_group_path(@project, group), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-
-  <%- if edit %>
-    <div class="my15"><i><%= raw(group.description) %></i></div>
-    <div class="my15 trix-formatted"><%= raw(group.summary) %></div>
-    <div class="fs14 text-right">
-
-      <% if policy(group).update? %>
-        <%= link_to 'Edit', edit_project_group_path(@project, group) %>
-      <% end %>
-      
-      <% if policy(group).destroy? %>
-        <%= link_to 'Delete', project_group_path(@project, group), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
-      <% end %>
-    </div>
-  <% end %>
 </div>

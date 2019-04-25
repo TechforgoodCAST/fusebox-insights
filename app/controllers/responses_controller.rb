@@ -11,9 +11,9 @@ class ResponsesController < ApplicationController
     @response.unknown = @unknown
 
     if @response.save
-      redirect_to unknown_path(@unknown), notice: 'Response successfully added.'
+      redirect_to project_unknown_path(@unknown.project,@unknown), notice: 'Response successfully added.'
     else
-      render 'unknowns/show'
+      render @unknown
     end
   end
 
