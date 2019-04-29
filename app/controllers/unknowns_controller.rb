@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class UnknownsController < ApplicationController
-
   before_action :authenticate_user!
   before_action :set_unknown, only: %i[show edit update destroy]
   before_action :set_project
@@ -56,21 +55,21 @@ class UnknownsController < ApplicationController
 
   private
 
-    def set_project
-      @project = Project.find_by(slug: params[:project_slug])
-    end
+  def set_project
+    @project = Project.find_by(slug: params[:project_slug])
+  end
 
-    def set_unknown
-      @unknown = Unknown.find(params[:id])
-    end
+  def set_unknown
+    @unknown = Unknown.find(params[:id])
+  end
 
-    def projects_for_unknown
-      @owned_projects = Project.where(author: current_user)
-      @member_projects = Project.joins(:project_members).where(author: current_user)
-      @projects_for_unknown = @owned_projects + @member_projects
-    end
+  def projects_for_unknown
+    @owned_projects = Project.where(author: current_user)
+    @member_projects = Project.joins(:project_members).where(author: current_user)
+    @projects_for_unknown = @owned_projects + @member_projects
+  end
 
-    def unknown_params
-      params.require(:unknown).permit(:title, :description, :group_id, :project_id, :certainty)
-    end
+  def unknown_params
+    params.require(:unknown).permit(:title, :description, :group_id, :project_id, :certainty)
+  end
 end

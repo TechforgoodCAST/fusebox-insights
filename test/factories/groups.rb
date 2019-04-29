@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :group do
     association :author, factory: :user
     association :project, factory: :project
-    title { 'Problem Area' }
+    title { 'Problem area' }
     description { 'How can we' }
     summary { 'This group is for' }
   end

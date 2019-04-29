@@ -15,37 +15,36 @@ class UnknownsTest < ApplicationSystemTestCase
     @project = create(:project, author: @user)
     @group = create(:group, author: @user, project: @project)
 
-    visit unknowns_url
+    visit project_unknowns_url(@project)
     sign_in
   end
 
   test 'visiting the index' do
-    assert_selector 'h1', text: 'Unknowns'
+    assert_selector 'li', text: 'Assumptions'
   end
 
   test 'creating a Unknown' do
-    click_on 'New Unknown'
+    click_on 'Add Assumption'
 
     fill_in 'Title', with: @new_unknown.title
-    click_on 'Create Unknown'
+    click_on 'Save assumption'
 
     assert_text 'Unknown was successfully created'
   end
 
   test 'updating a Unknown' do
-    click_link 'Unknowns'
     click_on @unknown.title
     click_on 'Edit'
 
     fill_in 'Title', with: @new_unknown.title
-    click_on 'Update Unknown'
+    click_on 'Save assumption'
 
     assert_text 'Unknown was successfully updated'
   end
 
   test 'nagivate pagination for more than 10 unknowns' do
     @unknowns_list = create_list(:unknown, 11, author: @user)
-    click_link 'Unknowns'
+    visit project_unknowns_url(@project)
 
     assert_text 'Next'
     click_on 'Next'
@@ -58,17 +57,15 @@ class UnknownsTest < ApplicationSystemTestCase
 
   test 'limit page to 10 records' do
     @unknowns_list = create_list(:unknown, 11, author: @user)
-    click_link 'Unknowns'
+    visit project_unknowns_url(@project)
 
     assert_selector('div.card', maximum: 10)
 
     click_on '2'
     assert_selector('div.card', maximum: 10)
-
   end
 
   test 'destroying a Unknown' do
-    click_link 'Unknowns'
     click_on @unknown.title
 
     page.accept_confirm do
@@ -79,7 +76,6 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'cant edit or delete a different users unknown' do
-    click_link 'Unknowns'
     click_on @others_unknown.title
 
     assert_no_text 'Edit'
@@ -87,30 +83,26 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'can edit and delete your own unknown' do
-    click_link 'Unknowns'
     click_on @unknown.title
 
     assert_text 'Edit'
     assert_text 'Delete'
-
   end
 
   test 'cannot visit unknown path if not author' do
-    visit edit_unknown_path(@others_unknown)
+    visit edit_project_unknown_path(@project, @others_unknown)
     assert_equal('/', current_path)
-
   end
 
   test 'can visit unknown path if author' do
-    visit edit_unknown_path(@unknown)
-    assert_equal(edit_unknown_path(@unknown), current_path)
-
+    visit edit_project_unknown_path(@project, @unknown)
+    assert_equal(edit_project_unknown_path(@project, @unknown), current_path)
   end
 
   test 'can  add an unknown to a group' do
-    visit edit_unknown_path(@unknown)
-    select @group.title, :from => 'Group'
-    click_on 'Update Unknown'
+    visit edit_project_unknown_path(@project, @unknown)
+    select @group.title
+    click_on 'Save assumption'
 
     assert_text 'Unknown was successfully updated'
 
@@ -120,9 +112,9 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'can remove an unknown from a group' do
-    visit edit_unknown_path(@unknown)
-    select @group.title, :from => 'Group'
-    click_on 'Update Unknown'
+    visit edit_project_unknown_path(@project, @unknown)
+    select @group.title
+    click_on 'Save assumption'
 
     visit project_group_path(@project, @group)
 

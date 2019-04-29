@@ -7,7 +7,7 @@
       <%= f.select :certainty, Unknown.certainties.keys.map{ |s| [s.humanize, s] } %>
     </div>
     <div class="col-md-6">
-      <%= f.select :group, current_user.groups.map{ |s| [s.title.humanize, s.id] } %>
+      <%= f.select :group_id, current_user.groups.map{ |s| [s.title.humanize, s.id] } %>
     </div>
   </div>
 
