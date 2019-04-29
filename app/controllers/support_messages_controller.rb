@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class SupportMessagesController < ApplicationController
   before_action :authenticate_user!
@@ -6,10 +7,6 @@ class SupportMessagesController < ApplicationController
 
   def index
     @support_messages = @project.support_messages.order(:order)
-  end
-
-  def show
-    # empty
   end
 
   def new
@@ -33,7 +30,7 @@ class SupportMessagesController < ApplicationController
   def update
     authorize @support_message
     if @support_message.update(support_message_params)
-      redirect_to project_support_message_path(@project, @support_message), notice: 'Support message updated successfully.'
+      redirect_to project_support_messages_path(@project, @support_message), notice: 'Support message updated successfully.'
     else
       render :edit
     end
@@ -47,28 +44,23 @@ class SupportMessagesController < ApplicationController
 
   private
 
-    def set_support_message
-      @support_message = SupportMessage.find_by(id: params[:id])
-    end
+  def set_support_message
+    @support_message = SupportMessage.find_by(id: params[:id])
+  end
 
-    def set_project
-      @project = Project.find_by(slug: params[:project_slug])
-    end
+  def set_project
+    @project = Project.find_by(slug: params[:project_slug])
+  end
 
-    def is_user_project_creator
-      current_user == @project.user
-    end
-
-    def support_message_params
-      params.require(:support_message).permit(
-        :body,
-        :order,
-        :status,
-        :status,
-        :rule_object_type,
-        :rule_event_type,
-        :rule_occurrences
-      )
-    end
-
+  def support_message_params
+    params.require(:support_message).permit(
+      :body,
+      :order,
+      :status,
+      :status,
+      :rule_object_type,
+      :rule_event_type,
+      :rule_occurrences
+    )
+  end
 end

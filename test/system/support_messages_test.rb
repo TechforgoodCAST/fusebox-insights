@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 require 'application_system_test_case'
 
 class SupportMessageTest < ApplicationSystemTestCase
-
   setup do
     @staff_user = create(:user, is_staff: true)
     @non_staff_user = create(:user)
     @project = create(:project)
     @subject = create(:support_message, project: @project)
-    visit support_messages_path(slug: @subject.project.slug)
+    visit project_support_messages_path(@project)
     sign_in(@staff_user)
   end
 
@@ -39,7 +40,7 @@ class SupportMessageTest < ApplicationSystemTestCase
     sign_out
     visit new_user_session_path
     sign_in(@non_staff_user)
-    visit support_messages_path(slug: @subject.project.slug)
+    visit project_support_messages_path(@project)
     click_on 'Add another'
     assert_text "Sorry, you don't have access to that"
   end
@@ -48,7 +49,7 @@ class SupportMessageTest < ApplicationSystemTestCase
     sign_out
     visit new_user_session_path
     sign_in(@non_staff_user)
-    visit support_messages_path(slug: @subject.project.slug)
+    visit project_support_messages_path(@project)
     first('.edit-link').click
     assert_text "Sorry, you don't have access to that"
   end
@@ -57,10 +58,9 @@ class SupportMessageTest < ApplicationSystemTestCase
     sign_out
     visit new_user_session_path
     sign_in(@non_staff_user)
-    visit support_messages_path(slug: @subject.project.slug)
+    visit project_support_messages_path(@project)
     first('.destroy-link').click
     page.driver.browser.switch_to.alert.accept
     assert_text "Sorry, you don't have access to that"
   end
-
 end
