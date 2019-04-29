@@ -16,10 +16,10 @@ class ProjectsTest < ApplicationSystemTestCase
     @admin_member = create(:project_member, user: @admin, project: @private_project)
 
     @collaborator = create(:user)
-    @collaborator_member = create(:project_member, user: @collaborator, project: @private_project, role: "Collaborator")
+    @collaborator_member = create(:project_member, user: @collaborator, project: @private_project, role: 'Collaborator')
 
     @viewer = create(:user)
-    @admin_member = create(:project_member, user: @admin, project: @private_project, role: "Viewer")
+    @admin_member = create(:project_member, user: @admin, project: @private_project, role: 'Viewer')
 
     visit projects_path
     sign_in(@creator)
@@ -30,10 +30,10 @@ class ProjectsTest < ApplicationSystemTestCase
   end
 
   test 'create project' do
-    click_link 'Create New Project'
+    click_link 'New project'
     fill_in 'project[name]', with: @new_project.name
     fill_in 'project[description]', with: @new_project.description
-    click_on 'Create Project'
+    click_on 'Save project'
     assert_text 'Project created successfully.'
   end
 
@@ -41,7 +41,7 @@ class ProjectsTest < ApplicationSystemTestCase
     visit edit_project_path(@private_project)
     fill_in 'project[name]', with: @new_project.name
     fill_in 'project[description]', with: @new_project.description
-    click_on 'Update Project'
+    click_on 'Save project'
     assert_text 'Project updated successfully.'
   end
 
@@ -107,7 +107,7 @@ class ProjectsTest < ApplicationSystemTestCase
     visit edit_project_path(@private_project)
     fill_in 'project[name]', with: @new_project.name
     fill_in 'project[description]', with: @new_project.description
-    click_on 'Update Project'
+    click_on 'Save project'
     assert_text 'Project updated successfully.'
   end
 
