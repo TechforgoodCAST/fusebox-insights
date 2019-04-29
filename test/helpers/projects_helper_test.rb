@@ -11,7 +11,7 @@ class ProjectsHelperTest < ActionView::TestCase
 
   test '#get_membership' do
     @membership = ProjectMember.where(user: @creator, project: @private_project).first
-    assert_equal(@membership, get_membership(@private_project, @creator))
+    assert_nil(get_membership(@private_project, @creator))
   end
 
   test '#private_label true' do
