@@ -1,20 +1,19 @@
 <div class="card">
   <div class="card-body">
     <p class="fs14 grey mb10">Contributing to <%= pluralize(insight.unknowns.size, 'unknown') %> · <%= insight.author.username %> updated <%= time_ago_in_words(insight.updated_at) %> ago</p>
-    <h3><%= link_to insight.title, insight, class: 'fs18 medium black' %></h3>
+    <h3><%= link_to insight.title, project_insight_path(@project, insight), class: 'fs18 medium black' %></h3>
 
     <%- if edit %>
       <div class="my15 trix-formatted"><%= raw(insight.description) %></div>
       <div class="fs14 text-right">
 
         <% if policy(insight).update? %>
-          <%= link_to 'Edit', edit_insight_path(insight) %>
+          <%= link_to 'Edit', edit_project_insight_path(@project, insight) %>
         <% end %>
 
         <% if policy(insight).destroy? %>
-          <%= link_to 'Delete', insight, method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
+          <%= link_to 'Delete', [@project, insight], method: :delete, data: { confirm: 'This actinon is irreversible, are you sure?' } %>
         <% end %>
-
       </div>
     <% end %>
   </div>

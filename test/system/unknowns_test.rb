@@ -15,7 +15,7 @@ class UnknownsTest < ApplicationSystemTestCase
     @project = create(:project, author: @user)
     @group = create(:group, author: @user, project: @project)
 
-    visit project_unknowns_url(@project)
+    visit project_unknowns_path(@project)
     sign_in
   end
 

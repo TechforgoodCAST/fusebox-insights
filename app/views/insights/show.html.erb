@@ -2,6 +2,6 @@
 
 <ul class="history">
   <%- @insight.proofs.each do |proof| %>
-    <li>Contributing <strong><%= proof.confidence %></strong> confidence to Unknown <span class="medium"><%= link_to proof.unknown.title, proof.unknown %></span> <%= time_ago_in_words(proof.updated_at) %> ago.</li>
+    <li>Contributing <strong><%= proof.confidence %></strong> confidence to Unknown <span class="medium"><%= link_to proof.unknown.title, [@project, proof.unknown] %></span> <%= time_ago_in_words(proof.updated_at) %> ago.</li>
   <% end %>
 </ul>

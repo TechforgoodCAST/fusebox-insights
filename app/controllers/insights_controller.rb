@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class InsightsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_insight, only: %i[show edit update destroy]
+  before_action :authenticate_user!, :load_project
+  before_action :load_insight, except: %i[index new]
 
   def index
     # TODO: spec
@@ -17,7 +17,7 @@ class InsightsController < ApplicationController
     @insight = current_user.insights.new(insight_params)
 
     if @insight.save
-      redirect_to @insight, notice: 'Insight was successfully created.'
+      redirect_to [@project, @insight], notice: 'Insight was successfully created.'
     else
       render :new
     end
@@ -30,7 +30,7 @@ class InsightsController < ApplicationController
   def update
     authorize @insight
     if @insight.update(insight_params)
-      redirect_to @insight, notice: 'Insight was successfully updated.'
+      redirect_to [@project, @insight], notice: 'Insight was successfully updated.'
     else
       render :edit
     end
@@ -39,16 +39,20 @@ class InsightsController < ApplicationController
   def destroy
     authorize @insight
     @insight.destroy
-    redirect_to insights_url, notice: 'Insight was successfully destroyed.'
+    redirect_to project_insights_path(@project), notice: 'Insight was successfully destroyed.'
   end
 
   private
 
-    def set_insight
-      @insight = Insight.find(params[:id])
-    end
+  def insight_params
+    params.require(:insight).permit(:title, :description)
+  end
 
-    def insight_params
-      params.require(:insight).permit(:title, :description)
-    end
+  def load_insight
+    @insight = Insight.find(params[:id])
+  end
+
+  def load_project
+    @project = Project.find_by(slug: params[:project_slug])
+  end
 end
