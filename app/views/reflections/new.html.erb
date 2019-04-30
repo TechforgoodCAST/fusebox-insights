@@ -9,7 +9,9 @@
       <%- unknown = @reflection.unknowns[index] %>
 
       <div class="flow20">
-        <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+        <p><%= unknown.author.username %> · Updated <%= time_ago_in_words(unknown.updated_at) %> ago</p>
+
+        <h3><%= unknown.title %></h3>
 
         <div class="form">
           <%= simple_fields_for :responses, response do |c| %>

@@ -12,7 +12,7 @@ class ReflectionsTest < ApplicationSystemTestCase
   end
 
   test 'can create reflection' do
-    @unknowns.each { |unknown| assert_link unknown.title }
+    @unknowns.each { |unknown| assert_text unknown.title }
     submit_form(@unknowns)
     assert_text 'Reflections successfully added'
   end
@@ -30,7 +30,7 @@ class ReflectionsTest < ApplicationSystemTestCase
   end
 
   def submit_form(unknowns, title: 'Some new insight', confidence: 'More confident')
-    unknowns.each_with_index do |u, i|
+    unknowns.each_with_index do |_, i|
       fill_in "responses_#{i}_title", with: title
       choose "responses_#{i}_confidence_#{Response::CONFIDENCE[confidence]}"
       find_by_id("responses_#{i}_description").click.set('A reason')

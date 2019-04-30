@@ -21,7 +21,7 @@ class ReflectionTest < ActiveSupport::TestCase
 
   test '#save invalid' do
     @subject.responses = { '0' => { 'confidence' => '1', 'type' => 'Insight', 'description' => 'A reason' } }
-    refute(@subject.save)
+    assert_not(@subject.save)
   end
 
   test '#save valid' do
