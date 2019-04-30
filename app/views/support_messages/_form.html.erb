@@ -1,4 +1,5 @@
-<%= simple_form_for([@project, support_message]) do |f| %>
+<%= bootstrap_form_for([@project, support_message]) do |f| %>
+
   <% if support_message.errors.any? %>
     <div id="error_count"><p><%= pluralize(support_message.errors.count, 'error') %></p></div>
     <ul>
@@ -7,20 +8,12 @@
       <% end %>
     </ul>
   <% end %>
-  <p>
-    <%= f.label :status %><br>
-    <%= f.select :status, [ ['Pending', 'Pending'], ['Incomplete', 'Incomplete'], ['Complete', 'Complete'] ] %>
-  </p>
-  <p><%= f.input :body, as: :trix_editor %></p>
-  <p><%= f.input :order, input_html: { min: '1', step: '1' }%></p>
-  <p>
-    <%= f.label :rule_object_type %><br>
-    <%= f.select :rule_object_type, [ ['None', 'None'], ['Unknown', 'Unknown'] ] %>
-  </p>
-  <p>
-    <%= f.label :rule_event_type %><br>
-    <%= f.select :rule_event_type, [ ['Create', 'create'], ['Read', 'read'], ['Update', 'update'], ['Delete', 'delete'] ] %>
-  </p>
-  <p><%= f.input :rule_occurrences, input_html: { min: '1', step: '1' } %></p>
-  <%= f.button :submit, data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+
+  <%= f.select :status, [ ['Pending', 'Pending'], ['Incomplete', 'Incomplete'], ['Complete', 'Complete'] ] %>
+  <%= f.text_field :subject %>
+  <%= f.text_area :body %>
+  <%= f.text_area :order, input_html: { min: '1', step: '1' }%>
+
+  <%= f.submit "Post", data: { disable_with: 'Saving...' }, class: 'btn btn-info' %>
+
 <% end %>

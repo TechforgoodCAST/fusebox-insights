@@ -1,16 +1,15 @@
 <%= render "projects/header" %>
 
-<h1 class="fs20 bold mb30">Support Messages for project: <%= @project.name %></h1>
+<h1>Support Messages</h1>
 
 <% if @support_messages.any? %>
   <%- @support_messages.each do |message| =%>
     <div>
       <p><strong><%= message.order %></strong></p>
       <p><strong><%= message.status %></strong></p><br>
-      <p><span class="my15 trix-formatted"><%= message.body.html_safe %></span></p><br>
-      <p>TODO: call to action link</p>
+      <p><strong><%= link_to message.subject, project_support_message_path(@project, message) %></strong></p>
       <p><td><%= link_to 'Edit', edit_project_support_message_path(@project, message), class: 'edit-link' %></td></p>
-      <td><%= link_to 'Destroy', project_support_message_path(@project, message), method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
+      <td><%= link_to 'Delete', project_support_message_path(@project, message), method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
     </div>
     <hr>
   <% end %>

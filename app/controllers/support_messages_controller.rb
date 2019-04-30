@@ -9,6 +9,9 @@ class SupportMessagesController < ApplicationController
     @support_messages = @project.support_messages.order(:order)
   end
 
+  def show
+  end
+
   def new
     authorize @support_message = SupportMessage.new(project: @project)
   end
@@ -58,6 +61,7 @@ class SupportMessagesController < ApplicationController
       :order,
       :status,
       :status,
+      :subject,
       :rule_object_type,
       :rule_event_type,
       :rule_occurrences
