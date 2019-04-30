@@ -23,22 +23,22 @@ class GroupsTest < ApplicationSystemTestCase
 
     fill_in 'Title', with: @new_group.title
     fill_in 'Description', with: @new_group.description
-    find('trix-editor').click.set('A reason')
+    fill_in 'Summary', with: @new_group.summary
 
-    click_on 'Create Group'
+    click_on 'Save group'
 
     assert_text 'Group was successfully created'
   end
 
   test 'updating a Group' do
-    visit project_group_path(@project, @group)
+    visit project_path(@project)
     click_on @group.title
     click_on 'Edit'
 
     fill_in 'Title', with: @new_group.title
     fill_in 'Description', with: @new_group.description
-    find('trix-editor').click.set('A reason')
-    click_on 'Update Group'
+    fill_in 'Summary', with: @new_group.summary
+    click_on 'Save group'
 
     assert_text 'Group was successfully updated'
   end
