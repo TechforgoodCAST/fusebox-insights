@@ -10,7 +10,7 @@
 <%= render partial: 'unknowns/card', locals: { edit: true, unknown: @unknown } %>
 
 <ul class="history">
-  <%- @unknown.get_responses.each do |response| %>
+  <%- @unknown.responses.each do |response| %>
     <%- if response.class.name == "Proof" %>
       <li>Insight <span class="medium"><%= link_to response.insight.title, [@project, response.insight] %></span> by <%= response.author.username %> contributed <strong><%= response.confidence %></strong> confidence <%= time_ago_in_words(response.updated_at) %> ago.</li>
     <%- else %>

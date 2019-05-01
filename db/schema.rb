@@ -21,13 +21,14 @@ ActiveRecord::Schema.define(version: 2019_05_08_100956) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "project_id"
     t.bigint "group_id"
+    t.bigint "project_id", null: false
     t.integer "certainty", default: 0
     t.datetime "deleted_at"
     t.index ["author_id"], name: "index_assumptions_on_author_id"
     t.index ["deleted_at"], name: "index_assumptions_on_deleted_at"
     t.index ["group_id"], name: "index_assumptions_on_group_id"
+    t.index ["project_id"], name: "index_assumptions_on_project_id"
   end
 
   create_table "audits", force: :cascade do |t|
@@ -113,7 +114,10 @@ ActiveRecord::Schema.define(version: 2019_05_08_100956) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "unknown_id"
+    t.integer "confidence", default: 0, null: false
     t.index ["author_id"], name: "index_insights_on_author_id"
+    t.index ["unknown_id"], name: "index_insights_on_unknown_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -194,6 +198,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_100956) do
   add_foreign_key "foci", "assumptions"
   add_foreign_key "foci", "users"
   add_foreign_key "groups", "projects"
+  add_foreign_key "insights", "assumptions", column: "unknown_id"
   add_foreign_key "proofs", "assumptions"
   add_foreign_key "proofs", "insights"
 end

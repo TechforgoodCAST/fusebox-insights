@@ -7,6 +7,8 @@ class AssumptionTest < ActiveSupport::TestCase
 
   test('belongs to #author') { assert_kind_of(User, @subject.author) }
 
+  test('belongs to #project') { assert_kind_of(Project, @subject.project) }
+
   test 'has many #focussed_by' do
     create(:focus, user: @subject.author, unknown: @subject)
     create(:focus, user: create(:user), unknown: @subject)

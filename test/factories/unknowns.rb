@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :unknown do
     association :author, factory: :user
-    association :project, factory: :project
+    association :project
     sequence(:title) { |n| "How might we... #{n}" }
   end
 end
