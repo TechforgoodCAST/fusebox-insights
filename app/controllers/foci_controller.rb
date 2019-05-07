@@ -9,7 +9,7 @@ class FociController < ApplicationController
 
   def update
     if current_user.update(form_params)
-      redirect_to in_focus_path, notice: 'Focus successfully updated.'
+      redirect_to foci_path, notice: 'Focus successfully updated.'
     else
       render :edit
     end

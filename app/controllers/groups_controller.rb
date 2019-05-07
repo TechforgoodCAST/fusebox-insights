@@ -5,22 +5,17 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
   before_action :set_project
 
-  def index
-    @groups = Group.order(updated_at: :desc).page(params[:page])
+  def show
   end
-
-  def show; end
 
   def new
     @group = current_user.groups.new
     @group.project_id = @project.id
-
     authorize @group
   end
 
   def create
     @group = current_user.groups.new(group_params)
-
     @group.project_id = @project.id
 
     authorize @group
@@ -49,13 +44,6 @@ class GroupsController < ApplicationController
     authorize @group
     @group.destroy
     redirect_to @project, notice: 'Group was successfully destroyed.'
-  end
-
-  def detach
-    group = Group.find(params[:id])
-    unknown = Unknown.find(params[:unknown_id])
-    group.unknowns.delete(unknown)
-    redirect_to project_group_path(@project, group),  notice: 'Assumption was successfully removed.'
   end
 
   private

@@ -2,7 +2,7 @@
 
 class SupportMessage < ApplicationRecord
   ALLOWED_STATUSES = ['Pending', 'Incomplete', 'Complete'].freeze
-  ALLOWED_OBJECTS = ['None', 'Unknown'].freeze
+  ALLOWED_OBJECTS = ['None', 'Assumption'].freeze
   VALID_EVENT_TYPES = ['create', 'read', 'update', 'delete'].freeze
 
   belongs_to :project, class_name: 'Project'

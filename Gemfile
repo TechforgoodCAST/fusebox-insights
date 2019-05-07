@@ -71,6 +71,7 @@ gem 'kaminari', '~> 1.1.0'
 gem 'pundit'
 gem 'pg_search'
 
+gem 'acts_as_paranoid', '~> 0.6.0'
 gem 'haml-rails'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'bootstrap'

@@ -5,7 +5,7 @@ require 'application_system_test_case'
 class FociTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @unknown = create(:unknown, author: @user)
+    @assumption = create(:unknown, author: @user)
     visit new_user_session_path
     sign_in
   end
@@ -17,10 +17,10 @@ class FociTest < ApplicationSystemTestCase
   test 'change focus' do
     click_on 'Change focus'
 
-    select(@unknown.title)
+    select(@assumption.title)
     click_on 'Change focus'
 
     assert_text 'Focus successfully updated.'
-    assert_text @unknown.title
+    assert_text @assumption.title
   end
 end

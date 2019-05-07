@@ -3,7 +3,7 @@
     <h1><%= @project.name %></h1>
   </div>
   <div class="col-6 text-right">
-    <%= link_to 'Add Assumption', new_project_unknown_path(@project), class: 'btn btn-primary' %>
+    <%= link_to 'Add Assumption', new_project_assumption_path(@project), class: 'btn btn-primary' %>
   </div>
 </div>
 
@@ -22,7 +22,7 @@
 <nav class="mb-5 pt-3">
   <ul class="nav">
     <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link link-border" %></li>
-    <li class="nav-item mr-3"><%= link_to 'Assumptions', project_unknowns_path(@project), class: "nav-link link-border" %>
+    <li class="nav-item mr-3"><%= link_to 'Assumptions', project_assumptions_path(@project), class: "nav-link link-border" %>
     <li class="nav-item mr-3"><%= link_to 'Knowledge board', project_knowledge_board_path(@project), class: "nav-link link-border" %>
     <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link link-border" %>
   </ul>

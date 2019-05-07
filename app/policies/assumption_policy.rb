@@ -1,4 +1,4 @@
-class UnknownPolicy < ApplicationPolicy
+class AssumptionPolicy < ApplicationPolicy
     def update?
         user.id == record.author_id
     end
@@ -6,5 +6,5 @@ class UnknownPolicy < ApplicationPolicy
     def destroy?
         user.id == record.author_id
     end
-    
+
 end

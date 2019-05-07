@@ -1,15 +1,15 @@
 <h1 class="fs20 bold mb10">New reflection</h1>
 
-<p class="fs15 mb30">You have the following unknowns <%= link_to 'in focus', in_focus_path %>, reflect on how your confidence in each has changed.</p>
+<p class="fs15 mb30">You have the following assumptions <%= link_to 'in focus', foci_path %>, reflect on how your confidence in each has changed.</p>
 
 <%= simple_form_for @reflection, html: { class: nil } do |f| %>
 
   <div class="flow mb20">
     <%- f.object.responses.each_with_index do |response, index| %>
-      <%- unknown = @reflection.unknowns[index] %>
+      <%- assumption = @reflection.assumptions[index] %>
 
       <div class="flow20">
-        <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+        <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
 
         <div class="form">
           <%= simple_fields_for :responses, response do |c| %>
@@ -37,6 +37,6 @@
     <% end %>
   </div>
 
-  <%= f.button :submit, 'Submit reflection', data: { disable_with: 'Submitting...' }, class: 'btn btn-info' %>
+  <%= f.button :submit, 'Post reflection', data: { disable_with: 'Submitting...' }, class: 'btn btn-info' %>
 
 <% end %>

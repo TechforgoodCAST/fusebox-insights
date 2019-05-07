@@ -2,6 +2,8 @@
 
 class Project < ApplicationRecord
 
+  acts_as_paranoid
+
   belongs_to :author, class_name: 'User'
 
   has_many :project_members
@@ -9,7 +11,7 @@ class Project < ApplicationRecord
   has_many :support_messages
   has_many :events
   has_many :groups, dependent: :destroy
-  has_many :unknowns
+  has_many :assumptions
 
   validates :name, presence: true, uniqueness: { scope: :author }
   validates :slug, uniqueness: true

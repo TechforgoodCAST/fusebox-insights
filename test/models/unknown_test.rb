@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class UnknownTest < ActiveSupport::TestCase
+class AssumptionTest < ActiveSupport::TestCase
   setup { @subject = build(:unknown) }
 
   test('belongs to #author') { assert_kind_of(User, @subject.author) }

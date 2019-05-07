@@ -9,9 +9,9 @@ class ProjectsController < ApplicationController
   end
 
   def knowledge_board
-    @unknowns = Unknown.we_do_not_know.order(updated_at: :desc)
-    @think_knowns = Unknown.we_think_we_know.order(updated_at: :desc)
-    @knowns = Unknown.we_know.order(updated_at: :desc)
+    @assumptions = Assumption.we_do_not_know.order(updated_at: :desc)
+    @think_knowns = Assumption.we_think_we_know.order(updated_at: :desc)
+    @knowns = Assumption.we_know.order(updated_at: :desc)
   end
 
   def show

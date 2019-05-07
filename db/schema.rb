@@ -10,19 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_30_133219) do
+ActiveRecord::Schema.define(version: 2019_05_05_120039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "assumptions", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.bigint "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.bigint "group_id"
+    t.integer "certainty", default: 0
+    t.index ["author_id"], name: "index_assumptions_on_author_id"
+    t.index ["group_id"], name: "index_assumptions_on_group_id"
+  end
+
   create_table "comments", force: :cascade do |t|
-    t.bigint "unknown_id"
+    t.bigint "assumption_id"
     t.bigint "author_id", null: false
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["assumption_id"], name: "index_comments_on_assumption_id"
     t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["unknown_id"], name: "index_comments_on_unknown_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -39,10 +52,10 @@ ActiveRecord::Schema.define(version: 2019_04_30_133219) do
 
   create_table "foci", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "unknown_id"
+    t.bigint "assumption_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["unknown_id"], name: "index_foci_on_unknown_id"
+    t.index ["assumption_id"], name: "index_foci_on_assumption_id"
     t.index ["user_id"], name: "index_foci_on_user_id"
   end
 
@@ -99,14 +112,14 @@ ActiveRecord::Schema.define(version: 2019_04_30_133219) do
 
   create_table "proofs", force: :cascade do |t|
     t.bigint "insight_id"
-    t.bigint "unknown_id"
+    t.bigint "assumption_id"
     t.bigint "author_id", null: false
     t.integer "confidence", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["assumption_id"], name: "index_proofs_on_assumption_id"
     t.index ["author_id"], name: "index_proofs_on_author_id"
     t.index ["insight_id"], name: "index_proofs_on_insight_id"
-    t.index ["unknown_id"], name: "index_proofs_on_unknown_id"
   end
 
   create_table "support_messages", force: :cascade do |t|
@@ -120,19 +133,6 @@ ActiveRecord::Schema.define(version: 2019_04_30_133219) do
     t.string "rule_event_type", default: "create"
     t.integer "rule_occurrences", default: 1
     t.string "subject"
-  end
-
-  create_table "unknowns", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description"
-    t.bigint "author_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.bigint "group_id"
-    t.integer "certainty", default: 0
-    t.index ["author_id"], name: "index_unknowns_on_author_id"
-    t.index ["group_id"], name: "index_unknowns_on_group_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -149,12 +149,12 @@ ActiveRecord::Schema.define(version: 2019_04_30_133219) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "unknowns"
+  add_foreign_key "assumptions", "projects"
+  add_foreign_key "comments", "assumptions"
   add_foreign_key "events", "users"
-  add_foreign_key "foci", "unknowns"
+  add_foreign_key "foci", "assumptions"
   add_foreign_key "foci", "users"
   add_foreign_key "groups", "projects"
+  add_foreign_key "proofs", "assumptions"
   add_foreign_key "proofs", "insights"
-  add_foreign_key "proofs", "unknowns"
-  add_foreign_key "unknowns", "projects"
 end

@@ -5,15 +5,15 @@ class ResponsesController < ApplicationController
 
   def create
     @response = Response.new(response_params)
-    @unknown = Unknown.find_by(id: params[:id])
+    @assumption = Assumption.find_by(id: params[:id])
 
     @response.author = current_user
-    @response.unknown = @unknown
+    @response.assumption = @assumption
 
     if @response.save
-      redirect_to project_unknown_path(@unknown.project,@unknown), notice: 'Response successfully added.'
+      redirect_to project_assumption_path(@assumption.project,@assumption), notice: 'Response successfully added.'
     else
-      render @unknown
+      render @assumption
     end
   end
 

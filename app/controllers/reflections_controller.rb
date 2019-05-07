@@ -12,7 +12,7 @@ class ReflectionsController < ApplicationController
     @reflection.author = current_user
 
     if @reflection.save
-      redirect_to in_focus_path, notice: 'Reflections successfully added.'
+      redirect_to foci_path, notice: 'Reflections successfully added.'
     else
       render :new
     end
@@ -22,6 +22,6 @@ class ReflectionsController < ApplicationController
 
     # TODO: Unpermitted parameters: :utf8, :authenticity_token, :commit
     def form_params
-      params.permit(responses: %i[confidence description title unknown_id])
+      params.permit(responses: %i[confidence description title assumption_id])
     end
 end

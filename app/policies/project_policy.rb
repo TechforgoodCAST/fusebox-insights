@@ -16,7 +16,7 @@ class ProjectPolicy < ApplicationPolicy
   def edit?
     if ProjectMember.where(project: record, user: user, role: "Admin").any?
       true
-    else
+    elsif record.is_private
       user.id == record.author.id
     end
   end

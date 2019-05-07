@@ -1,0 +1,11 @@
+<%= render "projects/header" %>
+
+<div class="row">
+  <% @assumptions.each do |assumption| %>
+    <div class="col-md-3">
+      <%= render partial: 'card', locals: { edit: false, assumption: assumption } %>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @assumptions %>

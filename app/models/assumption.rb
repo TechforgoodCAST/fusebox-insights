@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-class Unknown < ApplicationRecord
+class Assumption < ApplicationRecord
   include PgSearch
   include Triggerable
+
+  acts_as_paranoid
 
   enum certainty: [:we_do_not_know, :we_think_we_know, :we_know]
 

@@ -15,12 +15,6 @@
 
         .collapse.navbar-collapse#navbarNavAltMarkup
 
-          %ul.navbar-nav
-            //%li.nav-item.mr-3=link_to 'Projects', projects_path, class: 'text-dark link-border'
-            //%li.nav-item.mr-3= link_to 'In focus', in_focus_path, class: 'text-dark link-border'
-            //%li.nav-item.mr-3= link_to 'Unknowns', unknowns_path, class: 'text-dark link-border'
-            //%li.nav-item.mr-5= link_to 'Insights', insights_path, class: 'text-dark link-border'
-
           .ml-auto
 
             =form_for :search, url: search_index_path, method: 'GET', html: { class: 'form-inline' } do |f|
@@ -36,9 +30,11 @@
               .icon-circle.bg-dark
                 %em.fa.fa-user.text-light
             %ul.dropdown-menu.dropdown-menu-right.mt-2{"aria-labelledby": "navbarDropdown"}
-              .dropdown-item="#{current_user&.username}"
+              .px-4="#{current_user&.username}"
               .dropdown-divider
-              %li.dropdown-item=link_to 'Edit profile', edit_user_registration_path
+              %li.dropdown-item= link_to 'My Focus', foci_path
+              .dropdown-divider
+              %li.dropdown-item=link_to 'Profile', edit_user_registration_path
               %li.dropdown-item=link_to 'Sign out', destroy_user_session_path, method: :delete
 
 -else
