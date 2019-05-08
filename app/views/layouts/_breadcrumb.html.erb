@@ -10,7 +10,7 @@
         <li class="breadcrumb-item active" aria-current="page">
           <span class="text-dark"><%= @project.name %></span>
         </li>
-      <% elsif @project.present? && (action_name != "new" || controller_name != "projects") %>
+      <% elsif @project.present? && @project.id.present? && (action_name != "new" || controller_name != "projects") %>
         <li class="breadcrumb-item active" aria-current="page">
           <%= link_to @project.name, project_path(@project), class: "link-border text-dark" %>
         </li>

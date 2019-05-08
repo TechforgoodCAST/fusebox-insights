@@ -2,7 +2,7 @@
 
 <p class="lead">You’re focussing on the following assumptions. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can <%= link_to 'add new reflections', new_reflection_path %> any time.</p>
 
-<div class="flow flow20">
+<div class="pt-3">
   <%- if @foci.any? %>
     <% @foci.each do |assumption| %>
       <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>

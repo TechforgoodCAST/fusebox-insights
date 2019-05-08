@@ -22,11 +22,19 @@
 <ul class="history">
   <%- @assumption.get_responses.each do |response| %>
     <%- if response.class.name == "Proof" %>
-      <li>Insight <span class="medium"><%= link_to response.insight.title, response.insight %></span> by <%= response.author.username %> contributed <strong><%= response.confidence %></strong> confidence <%= time_ago_in_words(response.updated_at) %> ago.</li>
+      <li>
+        <h4>
+          Insight: <%= response.insight.title %>
+          <small>by <%= response.author.username %> contributed <strong><%= response.confidence %></strong> confidence <%= time_ago_in_words(response.updated_at) %> ago.</small>
+        </h4>
+        <%= simple_format response.insight.description %>
     <%- else %>
       <li>
-        <span class="medium"><%= response.author.username %></span> commented <%= time_ago_in_words(response.updated_at) %> ago.<br>
-        <span class="my15 trix-formatted" style="padding: 20px"><%= raw(response.description) %></span>
+        <h4>
+          <span>Comment by <%= response.author.username %></span>
+          <small>commented <%= time_ago_in_words(response.updated_at) %> ago.</small>
+        </h4>
+        <%= simple_format(raw(response.description)) %>
       </li>
     <% end %>
   <% end %>
@@ -35,14 +43,17 @@
 <div class="form">
   <h4 class="grey bold mb10">Add a...</h4>
 
-  <%= simple_form_for @response, url: project_assumption_responses_path(@project, @assumption), html: { class: nil } do |f| %>
-    <%= f.input :type, as: :radio_buttons, collection: ["Insight", "Comment"], label: false%>
-    <%= f.input :confidence, as: :radio_buttons, collection: Response::CONFIDENCE %>
-    <%= f.input :title %>
-    <%= f.input :description, as: :trix_editor %>
-
-    <div class="text-right">
-      <%= f.button :submit, 'Comment', data: { disable_with: 'Commenting...' } %>
+  <%= bootstrap_form_for @response, url: project_assumption_responses_path(@project, @assumption) do |f| %>
+    <div class="row">
+      <div class="col-6">
+        <%= f.collection_radio_buttons :type, [['Insight', 'Insight'] ,['Comment', 'Comment']], :first, :last %>
+      </div>
+      <div class="col-6">
+        <%= f.select :confidence, Response::CONFIDENCE %>
+      </div>
     </div>
+    <%= f.text_field :title %>
+    <%= f.text_area :description %>
+    <%= f.submit 'Post', data: { disable_with: 'Commenting...' }, class: "btn btn-info" %>
   <% end %>
 </div>

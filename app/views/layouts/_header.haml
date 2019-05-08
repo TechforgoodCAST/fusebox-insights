@@ -53,7 +53,7 @@
           =link_to "Sign up", new_user_registration_path, class: "btn btn-outline-dark"
 
 -if notice.present? || alert.present?
-  %section#alerts
+  %section#alerts.pt-4
     .container
       -if notice.present?
         %p.alert.alert-primary=notice

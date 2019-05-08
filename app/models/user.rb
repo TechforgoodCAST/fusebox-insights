@@ -19,4 +19,9 @@ class User < ApplicationRecord
   has_many :projects, through: :project_members
 
   validates :username, presence: true
+
+  def initials
+    self.username.split('')[0]
+  end
+
 end

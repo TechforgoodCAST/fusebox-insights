@@ -23,7 +23,7 @@
 <div class="mb-4 mt-4">
   <%- if @project.project_members.any? %>
     <%- @project.project_members.each do |member| %>
-      <p><%= member.user.username %></p>
+      <p><%= render partial: "project_members/profile_link", locals: { project_member: member } %></p>
     <% end %>
   <% end %>
   <%= link_to "Add project member", new_project_project_member_path(@project) %>

@@ -10,7 +10,7 @@ class ProjectMembersController < ApplicationController
   end
 
   def new
-    @project_member = ProjectMember.new(project: @project)
+    @project_member = @project.project_members.new
     authorize @project_member
 
     @ids = ProjectMember.where(project: @project).pluck(:user_id)
@@ -23,11 +23,11 @@ class ProjectMembersController < ApplicationController
 
     @selected_user = User.find_by(id: project_member_params[:user])
 
-    @project_member = ProjectMember.new(user: @selected_user, project: @project, role: project_member_params[:role])
+    @project_member = @project.project_members.new(user: @selected_user, role: project_member_params[:role])
     authorize @project_member
 
     if @project_member.save
-      redirect_to projects_path, notice: 'Member added successfully.'
+      redirect_to project_path(@project), notice: 'Member added successfully.'
     else
       render :new
     end
@@ -35,7 +35,7 @@ class ProjectMembersController < ApplicationController
 
   def destroy
     @project_member.destroy
-    redirect_to projects_path, notice: 'Member removed successfully.'
+    redirect_to project_path(@project), notice: 'Member removed successfully.'
   end
 
   private
