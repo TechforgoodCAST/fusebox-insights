@@ -6,4 +6,7 @@ class Group < ApplicationRecord
 
   has_many :assumptions
   validates :title, presence: true
+
+  acts_as_paranoid
+
 end
