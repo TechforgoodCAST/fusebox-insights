@@ -1,5 +1,9 @@
 class SupportMessagePolicy < ApplicationPolicy
 
+  def index?
+    user.is_staff
+  end
+
   def new?
     user.is_staff
   end
