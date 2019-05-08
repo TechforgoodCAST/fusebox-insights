@@ -57,7 +57,7 @@ class AssumptionsController < ApplicationController
   private
 
   def set_project
-    @project = Project.find_by(slug: params[:project_slug])
+    @project = Project.friendly.find(params[:project_id])
   end
 
   def set_assumption

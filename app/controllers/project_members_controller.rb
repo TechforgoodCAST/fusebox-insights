@@ -20,10 +20,10 @@ class ProjectMembersController < ApplicationController
   end
 
   def create
-    @current_project = Project.find_by(slug: params[:slug])
+
     @selected_user = User.find_by(id: project_member_params[:user])
 
-    @project_member = ProjectMember.new(user: @selected_user, project: @current_project, role: project_member_params[:role])
+    @project_member = ProjectMember.new(user: @selected_user, project: @project, role: project_member_params[:role])
     authorize @project_member
 
     if @project_member.save
@@ -45,7 +45,7 @@ class ProjectMembersController < ApplicationController
   end
 
   def set_project
-    @project = Project.find_by(slug: params[:slug])
+    @project = Project.friendly.find(params[:project_id])
   end
 
   def project_member_params

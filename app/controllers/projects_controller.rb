@@ -67,8 +67,7 @@ class ProjectsController < ApplicationController
   private
 
   def set_project
-    slug = (params[:slug].present?) ? params[:slug] : params[:project_slug]
-    @project = Project.find_by(slug: slug)
+    @project = Project.friendly.find(params[:id])
   end
 
   def project_params

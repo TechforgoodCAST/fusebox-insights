@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   # Core application routes
 
-  resources :projects, param: :slug do
+  resources :projects do
     resources :groups
     resources :insights
     resources :assumptions, :except => [:index] do

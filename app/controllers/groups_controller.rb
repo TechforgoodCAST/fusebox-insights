@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  
+
   before_action :authenticate_user!, except: %i[show]
   before_action :set_group, only: %i[show edit update destroy]
   before_action :set_project
@@ -57,7 +57,7 @@ class GroupsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find_by(slug: params[:project_slug])
+    @project = Project.friendly.find(params[:project_id])
   end
 
   def group_params

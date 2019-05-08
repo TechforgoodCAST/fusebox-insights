@@ -52,7 +52,7 @@ class SupportMessagesController < ApplicationController
   end
 
   def set_project
-    @project = Project.find_by(slug: params[:project_slug])
+    @project = Project.friendly.find(params[:project_id])
   end
 
   def support_message_params
