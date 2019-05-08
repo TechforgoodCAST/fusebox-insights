@@ -13,9 +13,21 @@
   <%= pluralize(@project.users.size, 'collaborator') %>
   <%= private_label(@project) %>
   <%- if policy(@project).edit? %>
-    <%= link_to 'Settings', edit_project_path(@project) %>
+    <%= link_to 'Edit', edit_project_path(@project) %>
+  <% end %>
+  <%- if policy(@project).destroy? %>
+    <%= link_to 'Archive project', project_path(@project), method: :delete, data: { confirm: 'Are you sure you wish to archive this project?' } %>
   <% end %>
 </small>
+
+<div class="mb-4 mt-4">
+  <%- if @project.project_members.any? %>
+    <%- @project.project_members.each do |member| %>
+      <p><%= member.user.username %></p>
+    <% end %>
+  <% end %>
+  <%= link_to "Add project member", new_project_project_member_path(@project) %>
+</div>
 
 <p><%= @project.description %></p>
 

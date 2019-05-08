@@ -34,4 +34,8 @@ class AssumptionPolicy < ApplicationPolicy
       end
     end
 
+    def focus?
+      show?
+    end
+
 end

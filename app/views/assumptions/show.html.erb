@@ -7,6 +7,12 @@
   </p>
 <% end %>
 
+<% if policy(@assumption).focus? %>
+  <div class="col-12 text-right mb-4">
+    <%= link_to 'Add as focus', new_focus_path, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
 <%= render partial: 'assumptions/card', locals: { edit: true, assumption: @assumption } %>
 
 <ul class="history">
