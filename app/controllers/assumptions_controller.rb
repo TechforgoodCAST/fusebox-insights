@@ -3,9 +3,19 @@
 class AssumptionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show]
-  before_action :set_assumption, only: %i[show edit update destroy]
+  before_action :set_assumption, only: %i[show edit update destroy focus unfocus]
   before_action :set_project
   before_action :projects_for_assumption, only: %i[new create edit update]
+
+  def focus
+    current_user.in_focus << @assumption unless current_user.in_focus.include?(@assumption)
+    redirect_to foci_path
+  end
+
+  def unfocus
+    current_user.in_focus.delete(@assumption)
+    redirect_to project_assumption_path(@assumption.project, @assumption)
+  end
 
   def index
     @assumptions = Assumption.order(updated_at: :desc).page(params[:page])
@@ -61,7 +71,8 @@ class AssumptionsController < ApplicationController
   end
 
   def set_assumption
-    @assumption = Assumption.find(params[:id])
+    aid = (params[:assumption_id].present?) ? params[:assumption_id] : params[:id]
+    @assumption = Assumption.find(aid)
   end
 
   def projects_for_assumption

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :groups
     resources :insights
     resources :assumptions, :except => [:index] do
+      get 'focus'
+      get 'unfocus'
       resources :responses
     end
     resources :project_members
@@ -24,7 +26,7 @@ Rails.application.routes.draw do
 
   # Focus and Reflections
 
-  resources :foci
+  resources :foci, only: %i[index]
   resources :reflections, only: %i[new create]
 
   # Statics

@@ -67,7 +67,8 @@ class ProjectsController < ApplicationController
   private
 
   def set_project
-    @project = Project.friendly.find(params[:id])
+    pid = (params[:project_id].present?) ? params[:project_id] : params[:id]
+    @project = Project.friendly.find(pid)
   end
 
   def project_params

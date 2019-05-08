@@ -9,7 +9,11 @@
 
 <% if policy(@assumption).focus? %>
   <div class="col-12 text-right mb-4">
-    <%= link_to 'Add as focus', new_focus_path, class: 'btn btn-primary' %>
+    <%- if current_user.in_focus.include?(@assumption) %>
+      <%= link_to 'Remove focus', project_assumption_unfocus_path(@assumption.project, @assumption), class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to 'Add as focus', project_assumption_focus_path(@assumption.project, @assumption), class: 'btn btn-primary' %>
+    <% end %>
   </div>
 <% end %>
 
