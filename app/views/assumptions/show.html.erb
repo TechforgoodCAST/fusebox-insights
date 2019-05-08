@@ -25,7 +25,7 @@
 <div class="form">
   <h4 class="grey bold mb10">Add a...</h4>
 
-  <%= simple_form_for @response, url: assumption_responses_path(@assumption), html: { class: nil } do |f| %>
+  <%= simple_form_for @response, url: project_assumption_responses_path(@project, @assumption), html: { class: nil } do |f| %>
     <%= f.input :type, as: :radio_buttons, collection: ["Insight", "Comment"], label: false%>
     <%= f.input :confidence, as: :radio_buttons, collection: Response::CONFIDENCE %>
     <%= f.input :title %>

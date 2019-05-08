@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_05_120039) do
+ActiveRecord::Schema.define(version: 2019_05_08_081903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,9 @@ ActiveRecord::Schema.define(version: 2019_05_05_120039) do
     t.bigint "project_id"
     t.bigint "group_id"
     t.integer "certainty", default: 0
+    t.datetime "deleted_at"
     t.index ["author_id"], name: "index_assumptions_on_author_id"
+    t.index ["deleted_at"], name: "index_assumptions_on_deleted_at"
     t.index ["group_id"], name: "index_assumptions_on_group_id"
   end
 
@@ -106,7 +108,9 @@ ActiveRecord::Schema.define(version: 2019_05_05_120039) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["author_id"], name: "index_projects_on_author_id"
+    t.index ["deleted_at"], name: "index_projects_on_deleted_at"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 

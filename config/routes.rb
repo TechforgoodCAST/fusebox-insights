@@ -9,12 +9,13 @@ Rails.application.routes.draw do
   resources :projects, param: :slug do
     resources :groups
     resources :insights
-    resources :assumptions do
+    resources :assumptions, :except => [:index] do
       resources :responses
     end
     resources :project_members
     resources :support_messages
     get 'knowledge_board'
+    get 'assumptions'
   end
 
   # Search

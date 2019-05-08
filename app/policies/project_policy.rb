@@ -21,6 +21,14 @@ class ProjectPolicy < ApplicationPolicy
     end
   end
 
+  def knowledge_board?
+    show?
+  end
+
+  def assumptions?
+    show?
+  end
+
   def update?
     edit?
   end

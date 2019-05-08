@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
 class AssumptionsController < ApplicationController
-  before_action :authenticate_user!
+
+  before_action :authenticate_user!, except: %i[show]
   before_action :set_assumption, only: %i[show edit update destroy]
   before_action :set_project
   before_action :projects_for_assumption, only: %i[new create edit update]
 
   def index
-    # TODO: spec
     @assumptions = Assumption.order(updated_at: :desc).page(params[:page])
   end
 
   def show
+    authorize @assumption
     confidence = {
       'none' => 0, 'more' => 1, 'less' => -1
     }[params[:confidence]]

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show]
+  before_action :authenticate_user!, except: %i[show knowledge_board assumptions]
   before_action :set_project, except: %i[index new create]
 
   def index
@@ -9,9 +9,20 @@ class ProjectsController < ApplicationController
   end
 
   def knowledge_board
-    @assumptions = Assumption.we_do_not_know.order(updated_at: :desc)
-    @think_knowns = Assumption.we_think_we_know.order(updated_at: :desc)
-    @knowns = Assumption.we_know.order(updated_at: :desc)
+
+    authorize @project
+
+    @assumptions = @project.assumptions.we_do_not_know.order(updated_at: :desc)
+    @think_knowns = @project.assumptions.we_think_we_know.order(updated_at: :desc)
+    @knowns = @project.assumptions.we_know.order(updated_at: :desc)
+
+  end
+
+  def assumptions
+
+    authorize @project
+    @assumptions = @project.assumptions.order(updated_at: :desc).page(params[:page])
+
   end
 
   def show

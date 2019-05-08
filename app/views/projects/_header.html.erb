@@ -2,17 +2,17 @@
   <div class="col-6">
     <h1><%= @project.name %></h1>
   </div>
-  <div class="col-6 text-right">
-    <%= link_to 'Add Assumption', new_project_assumption_path(@project), class: 'btn btn-primary' %>
-  </div>
+  <% if policy(@project.assumptions.new).new? %>
+    <div class="col-6 text-right">
+      <%= link_to 'Add Assumption', new_project_assumption_path(@project), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 </div>
 
 <small>
   <%= pluralize(@project.users.size, 'collaborator') %>
-  •
   <%= private_label(@project) %>
   <%- if policy(@project).edit? %>
-    •
     <%= link_to 'Settings', edit_project_path(@project) %>
   <% end %>
 </small>
@@ -24,6 +24,8 @@
     <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link link-border" %></li>
     <li class="nav-item mr-3"><%= link_to 'Assumptions', project_assumptions_path(@project), class: "nav-link link-border" %>
     <li class="nav-item mr-3"><%= link_to 'Knowledge board', project_knowledge_board_path(@project), class: "nav-link link-border" %>
-    <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link link-border" %>
+    <% if policy(SupportMessage).index? %>
+      <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link link-border" %>
+    <% end %>
   </ul>
 </nav>
