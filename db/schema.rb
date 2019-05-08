@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_100957) do
+ActiveRecord::Schema.define(version: 2019_05_08_155048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,9 @@ ActiveRecord::Schema.define(version: 2019_05_08_100957) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "assumption_id"
+    t.integer "confidence", default: 0, null: false
+    t.index ["assumption_id"], name: "index_insights_on_assumption_id"
     t.index ["author_id"], name: "index_insights_on_author_id"
   end
 
@@ -195,6 +198,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_100957) do
   add_foreign_key "foci", "assumptions"
   add_foreign_key "foci", "users"
   add_foreign_key "groups", "projects"
+  add_foreign_key "insights", "assumptions"
   add_foreign_key "proofs", "assumptions"
   add_foreign_key "proofs", "insights"
 end

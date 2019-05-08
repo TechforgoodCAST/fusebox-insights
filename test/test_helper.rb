@@ -7,8 +7,22 @@ require 'rails/test_help'
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
+  def assert_destroys(key, count: 1, subject: @subject)
+    subject.send("#{key}=", create_list(key.to_s.singularize.to_sym, count))
+    subject.save!
+    assert_equal(count, subject.send(key).count)
+    @subject.destroy
+    assert_equal(0, subject.send(key).count)
+  end
+
   def assert_error(key, msg, subject: @subject)
     assert_includes(subject.errors[key], msg)
+  end
+
+  def assert_has_many(key, count: 2, subject: @subject)
+    subject.send("#{key}=", create_list(key.to_s.singularize.to_sym, count))
+    subject.save!
+    assert_equal(count, subject.send(key).count)
   end
 
   def assert_present(key, msg: "can't be blank", subject: @subject, value: nil)

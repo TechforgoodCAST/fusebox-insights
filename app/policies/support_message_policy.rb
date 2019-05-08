@@ -1,23 +1,19 @@
+# frozen_string_literal: true
+
 class SupportMessagePolicy < ApplicationPolicy
-
   def index?
-    user.is_staff
+    user&.is_staff
   end
 
-  def new?
-    user.is_staff
-  end
-
-  def edit?
-    user.is_staff
+  def create?
+    user&.is_staff
   end
 
   def update?
-    user.is_staff
+    user&.is_staff
   end
 
   def destroy?
-    user.is_staff
+    user&.is_staff
   end
-
 end

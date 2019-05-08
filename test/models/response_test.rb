@@ -23,10 +23,8 @@ class ResponseTest < ActiveSupport::TestCase
 
   test '#save valid' do
     assert_equal(0, Insight.count)
-    assert_equal(0, Proof.count)
     assert(@subject.save)
     assert_equal(1, Insight.count)
-    assert_equal(1, Proof.count)
   end
 
   test '#save invalid' do

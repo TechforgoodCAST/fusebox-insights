@@ -10,10 +10,10 @@ class Response
   attr_accessor :author, :confidence, :description, :title, :assumption, :type
 
   validates :author, :assumption, :description, presence: true
-  validates :title, :confidence, presence: true, if: :is_insight?
+  validates :title, :confidence, presence: true, if: :insight?
 
   def valid?
-    if is_insight?
+    if insight?
       if Insight.where(title: title).any?
         super
         errors.add(:title, 'has already been taken')
@@ -28,23 +28,26 @@ class Response
 
   def save
     if valid?
-      if is_insight?
-        insight = author.insights.create!(title: title, description: description)
-        author.proofs.create!(
-          confidence: confidence, insight: insight, assumption: assumption
+      if insight?
+        author.insights.create!(
+          confidence: confidence,
+          description: description,
+          assumption: assumption,
+          title: title
         )
-      elsif is_comment?
+      elsif comment?
         author.comments.create!(description: description, assumption: assumption)
       end
     end
   end
 
   private
-    def is_insight?
-      type == 'Insight'
-    end
 
-    def is_comment?
-      type == 'Comment'
-    end
+  def insight?
+    type == 'Insight'
+  end
+
+  def comment?
+    type == 'Comment'
+  end
 end

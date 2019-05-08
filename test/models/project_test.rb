@@ -2,6 +2,7 @@
 
 require 'test_helper'
 
+# TODO: update tests
 class ProjectTest < ActiveSupport::TestCase
   setup do
     @subject = build(:project)
@@ -10,6 +11,10 @@ class ProjectTest < ActiveSupport::TestCase
   test 'belongs to #author' do
     assert_kind_of(User, @subject.author)
   end
+
+  test('has many #groups') { assert_has_many(:groups) }
+
+  test('destroys #groups') { assert_destroys(:groups) }
 
   test 'user has many projects' do
     @user = create(:user, projects: build_list(:project, 2))

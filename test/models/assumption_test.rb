@@ -9,26 +9,20 @@ class AssumptionTest < ActiveSupport::TestCase
 
   test('belongs to #project') { assert_kind_of(Project, @subject.project) }
 
+  test('has many #comments') { assert_has_many(:comments) }
+
+  test('destroys #comments') { assert_destroys(:comments) }
+
+  test('destroys #insights') { assert_destroys(:insights) }
+
   test 'has many #focussed_by' do
     create(:focus, user: @subject.author, assumption: @subject)
     create(:focus, user: create(:user), assumption: @subject)
     assert_equal(2, @subject.focussed_by.size)
   end
 
-  test 'has many #proofs' do
-    create_list(:proof, 2, assumption: @subject)
-    assert_equal(2, @subject.proofs.size)
-  end
-
-  test 'destroys #proofs' do
-    create(:proof, assumption: @subject)
-    assert_equal(1, Proof.count)
-    @subject.destroy
-    assert_equal(0, Proof.count)
-  end
-
-  test 'has many #insights through #proofs' do
-    create_list(:proof, 2, assumption: @subject)
+  test 'has many #insights' do
+    create_list(:insight, 2, assumption: @subject)
     assert_equal(2, @subject.insights.size)
   end
 

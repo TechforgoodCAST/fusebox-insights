@@ -26,13 +26,11 @@ class ReflectionTest < ActiveSupport::TestCase
 
   test '#save valid' do
     assert_equal(0, Insight.count)
-    assert_equal(0, Proof.count)
 
     @subject.responses = { '0' => { 'confidence' => '1', 'title' => 'title', 'type' => 'Insight', 'description' => 'A reason' } }
     assert(@subject.save)
 
     assert_equal(1, Insight.count)
-    assert_equal(1, Proof.count)
   end
 
   test '#assumptions default' do

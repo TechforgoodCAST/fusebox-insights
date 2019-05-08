@@ -10,11 +10,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal(2, @subject.insights.size)
   end
 
-  test('has many #proofs') do
-    create_list(:proof, 2, author: @subject)
-    assert_equal(2, @subject.proofs.size)
-  end
-
   test('has many #assumptions') do
     create_list(:assumption, 2, author: @subject)
     assert_equal(2, @subject.assumptions.size)

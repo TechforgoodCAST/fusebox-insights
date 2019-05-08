@@ -20,7 +20,7 @@
 <%= render partial: 'assumptions/card', locals: { edit: true, assumption: @assumption } %>
 
 <ul class="history">
-  <%- @assumption.get_responses.each do |response| %>
+  <%- @assumption.responses.each do |response| %>
     <%- if response.class.name == "Proof" %>
       <li>
         <h4>

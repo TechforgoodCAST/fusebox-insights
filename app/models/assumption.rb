@@ -16,16 +16,14 @@ class Assumption < ApplicationRecord
   belongs_to :project
 
   has_many :comments, dependent: :destroy
+  has_many :insights, dependent: :destroy
 
   has_many :foci, dependent: :destroy
   has_many :focussed_by, through: :foci, source: :user
 
-  has_many :proofs, dependent: :destroy
-  has_many :insights, through: :proofs
-
   validates :title, presence: true, uniqueness: { scope: :project }
 
   def responses
-    (comments + proofs).sort_by(&:updated_at)
+    (comments + insights).sort_by(&:updated_at)
   end
 end

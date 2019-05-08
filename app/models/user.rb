@@ -10,7 +10,6 @@ class User < ApplicationRecord
   has_many :events, foreign_key: 'user_id', dependent: :destroy, inverse_of: :user
   has_many :groups, foreign_key: 'author_id'
   has_many :insights, foreign_key: 'author_id'
-  has_many :proofs, foreign_key: 'author_id'
 
   has_many :foci, dependent: :destroy
   has_many :in_focus, through: :foci, source: :assumption

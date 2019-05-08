@@ -6,9 +6,7 @@ class Insight < ApplicationRecord
   multisearchable against: [:title]
 
   belongs_to :author, class_name: 'User'
-
-  has_many :proofs, dependent: :destroy
-  has_many :assumptions, through: :proofs
+  belongs_to :assumption, optional: true
 
   validates :title, presence: true, uniqueness: { scope: :author }
 end
