@@ -5,6 +5,7 @@ class Assumption < ApplicationRecord
   include Triggerable
 
   acts_as_paranoid
+  audited
 
   enum certainty: [:we_do_not_know, :we_think_we_know, :we_know]
 

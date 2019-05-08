@@ -71,6 +71,7 @@ gem 'kaminari', '~> 1.1.0'
 gem 'pundit'
 gem 'pg_search'
 
+gem "audited", "~> 4.7"
 gem 'friendly_id', '~> 5.2.4'
 gem 'acts_as_paranoid', '~> 0.6.0'
 gem 'haml-rails'
