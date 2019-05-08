@@ -9,5 +9,5 @@ class ProofTest < ActiveSupport::TestCase
 
   test('belongs to #insight') { assert_kind_of(Insight, @subject.insight) }
 
-  test('belongs to #unknown') { assert_kind_of(Assumption, @subject.unknown) }
+  test('belongs to #assumption') { assert_kind_of(Assumption, @subject.assumption) }
 end

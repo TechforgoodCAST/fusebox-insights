@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
+  extend FriendlyId
 
   acts_as_paranoid
-  
-  extend FriendlyId
   friendly_id :name, use: :slugged
 
   belongs_to :author, class_name: 'User'
@@ -24,16 +23,17 @@ class Project < ApplicationRecord
 
   private
 
-    def create_default_groups
-      if self.groups.empty?
-        self.groups.create!([
-          { title: "Problem Statement", author: self.author },
-          { title: "Problem Area", author: self.author },
-          { title: "User Value", author: self.author },
-          { title: "Social Value", author: self.author },
-          { title: "Financial Value", author: self.author }
-        ])
-      end
+  def create_default_groups
+    if groups.empty?
+      groups.create!(
+        [
+          { title: 'Problem Statement', author: author },
+          { title: 'Problem Area', author: author },
+          { title: 'User Value', author: author },
+          { title: 'Social Value', author: author },
+          { title: 'Financial Value', author: author }
+        ]
+      )
     end
-
+  end
 end

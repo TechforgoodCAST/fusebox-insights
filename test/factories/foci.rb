@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :focus do
-    association :unknown, factory: :unknown
-    association :user, factory: :user
+    assumption
+    user
   end
 end

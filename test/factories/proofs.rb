@@ -5,6 +5,6 @@ FactoryBot.define do
     association :author, factory: :user
     confidence { 1 }
     insight
-    unknown
+    assumption
   end
 end

@@ -9,9 +9,9 @@ class GroupTest < ActiveSupport::TestCase
 
   test('belongs to #project') { assert_kind_of(Project, @subject.project) }
 
-  test 'has many #unknowns' do
-    create_list(:unknown, 2, group: @subject)
-    assert_equal(2, @subject.unknowns.size)
+  test 'has many #assumptions' do
+    create_list(:assumption, 2, group: @subject)
+    assert_equal(2, @subject.assumptions.size)
   end
 
   test('#title present') { assert_present(:title) }

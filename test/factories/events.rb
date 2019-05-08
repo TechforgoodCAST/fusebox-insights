@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :event do
-    association :triggerable, factory: :unknown
-    association :user, factory: :user
+    association :triggerable, factory: :assumption
+    user
   end
 end

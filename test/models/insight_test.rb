@@ -19,9 +19,9 @@ class InsightTest < ActiveSupport::TestCase
     assert_equal(0, Proof.count)
   end
 
-  test 'has many #unknowns through #proofs' do
+  test 'has many #assumptions through #proofs' do
     create_list(:proof, 2, insight: @subject)
-    assert_equal(2, @subject.unknowns.size)
+    assert_equal(2, @subject.assumptions.size)
   end
 
   test('#title present') { assert_present(:title) }
@@ -30,7 +30,7 @@ class InsightTest < ActiveSupport::TestCase
 
   test 'identical #title for different author' do
     @subject.save!
-    dup = build(:unknown, title: @subject.title)
+    dup = build(:assumption, title: @subject.title)
     assert(dup.valid?)
   end
 

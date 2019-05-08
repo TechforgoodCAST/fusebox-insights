@@ -11,12 +11,12 @@ class ResponseTest < ActiveSupport::TestCase
 
   test('#valid? invalid') do
     @subject.title = nil
-    refute(@subject.valid?)
+    assert_not(@subject.valid?)
   end
 
   test '#valid? invalid duplicate title' do
     create(:insight, title: 'Title')
-    refute(@subject.valid?)
+    assert_not(@subject.valid?)
   end
 
   test('#valid? valid') { assert(@subject.valid?) }
@@ -31,6 +31,6 @@ class ResponseTest < ActiveSupport::TestCase
 
   test '#save invalid' do
     @subject.title = nil
-    refute(@subject.save)
+    assert_not(@subject.save)
   end
 end

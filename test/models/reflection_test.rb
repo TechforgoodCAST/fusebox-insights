@@ -35,13 +35,13 @@ class ReflectionTest < ActiveSupport::TestCase
     assert_equal(1, Proof.count)
   end
 
-  test '#unknowns default' do
+  test '#assumptions default' do
     @subject = Reflection.new
-    assert_equal(0, @subject.unknowns.size)
+    assert_equal(0, @subject.assumptions.size)
   end
 
-  test '#unknowns with author' do
-    assert_equal(2, @subject.unknowns.size)
-    @subject.unknowns.each { |unknown| assert_kind_of(Assumption, unknown) }
+  test '#assumptions with author' do
+    assert_equal(2, @subject.assumptions.size)
+    @subject.assumptions.each { |assumption| assert_kind_of(Assumption, assumption) }
   end
 end
