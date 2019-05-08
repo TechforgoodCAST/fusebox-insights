@@ -39,4 +39,9 @@ document.addEventListener('turbolinks:load', function() {
             $('.input.radio_buttons.optional.response_confidence').show();
         }
     });
+
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+
 });

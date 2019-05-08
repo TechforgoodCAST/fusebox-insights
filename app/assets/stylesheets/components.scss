@@ -17,3 +17,21 @@
     color: white;
   }
 }
+
+.card-deck {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
+
+.card-deck .card {
+  display: block;
+  flex-basis: 20%;
+}
+
+.vertical-center {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+}
