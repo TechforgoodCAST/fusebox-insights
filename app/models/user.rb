@@ -7,16 +7,21 @@ class User < ApplicationRecord
 
   has_many :insights, foreign_key: 'author_id'
   has_many :proofs, foreign_key: 'author_id'
-  has_many :unknowns, foreign_key: 'author_id'
+  has_many :assumptions, foreign_key: 'author_id'
   has_many :comments, foreign_key: 'author_id'
   has_many :events, foreign_key: 'user_id', dependent: :destroy, inverse_of: :user
   has_many :groups, foreign_key: 'author_id'
 
   has_many :foci, dependent: :destroy
-  has_many :in_focus, through: :foci, source: :unknown
+  has_many :in_focus, through: :foci, source: :assumption
 
   has_many :project_members
   has_many :projects, through: :project_members
 
   validates :username, presence: true
+
+  def initials
+    self.username.split('')[0]
+  end
+
 end

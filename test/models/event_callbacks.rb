@@ -2,8 +2,8 @@
 
 class EventCallbacksTestCase < ActiveSupport::TestCase
     setup do
-      @related_message = create(:support_message, rule_object_type: 'Unknown', rule_event_type: 'create', status: 'Incomplete', rule_occurrences: 1)
-      @occurrences_too_high_message = create(:support_message, rule_object_type: 'Unknown', rule_event_type: 'create', status: 'Incomplete', rule_occurrences: 100)
+      @related_message = create(:support_message, rule_object_type: 'Assumption', rule_event_type: 'create', status: 'Incomplete', rule_occurrences: 1)
+      @occurrences_too_high_message = create(:support_message, rule_object_type: 'Assumption', rule_event_type: 'create', status: 'Incomplete', rule_occurrences: 100)
       @un_related_message = create(:support_message, rule_object_type: 'None', rule_event_type: 'create', rule_occurrences: 1)
     end
   

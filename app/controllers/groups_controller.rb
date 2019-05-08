@@ -1,26 +1,25 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :authenticate_user!
+
+  before_action :authenticate_user!, except: %i[show]
   before_action :set_group, only: %i[show edit update destroy]
   before_action :set_project
 
-  def index
-    @groups = Group.order(updated_at: :desc).page(params[:page])
-  end
+  def show
 
-  def show; end
+    authorize @group
+
+  end
 
   def new
     @group = current_user.groups.new
     @group.project_id = @project.id
-
     authorize @group
   end
 
   def create
     @group = current_user.groups.new(group_params)
-
     @group.project_id = @project.id
 
     authorize @group
@@ -51,13 +50,6 @@ class GroupsController < ApplicationController
     redirect_to @project, notice: 'Group was successfully destroyed.'
   end
 
-  def detach
-    group = Group.find(params[:id])
-    unknown = Unknown.find(params[:unknown_id])
-    group.unknowns.delete(unknown)
-    redirect_to project_group_path(@project, group),  notice: 'Assumption was successfully removed.'
-  end
-
   private
 
   def set_group
@@ -65,7 +57,7 @@ class GroupsController < ApplicationController
   end
 
   def set_project
-    @project = Project.find_by(slug: params[:project_slug])
+    @project = Project.friendly.find(params[:project_id])
   end
 
   def group_params

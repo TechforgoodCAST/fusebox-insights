@@ -5,9 +5,8 @@ require 'application_system_test_case'
 class ResponsesTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @project = create(:project, author: @user)
-    @unknown = create(:unknown, author: @user)
-    visit project_unknown_path(@project, @unknown)
+    @assumption = create(:unknown, author: @user)
+    visit assumption_path(@assumption)
     sign_in
   end
 

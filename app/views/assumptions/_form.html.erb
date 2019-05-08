@@ -1,0 +1,17 @@
+<%= bootstrap_form_for([@project, assumption]) do |f| %>
+
+<div class="form-row">
+  <div class="col-md-6">
+    <%= f.select :group_id, current_user.groups.map{ |s| [s.title.humanize, s.id] } %>
+  </div>
+  <div class="col-md-6">
+    <%= f.select :certainty, Assumption.certainties.keys.map{ |s| [s.humanize, s] } %>
+  </div>
+</div>
+
+  <%= f.text_field :title %>
+
+  <%= f.text_area :description, as: :trix_editor %>
+  <%= f.submit "Save assumption", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+
+<% end %>

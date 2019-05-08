@@ -9,6 +9,8 @@
         <h3><%= link_to group.title, project_group_path(@project, group), class: 'fs18 medium black' %></h3>
       </span>
 
+    <% # SHOW AS KANBAN IF ANY ASSUMPTIONS< OR JUST SHOW DESCRIPTION ETC IF NOT %>
+
     <%- if edit %>
       <div class="my15"><i><%= raw(group.description) %></i></div>
       <div class="my15 trix-formatted"><%= raw(group.summary) %></div>

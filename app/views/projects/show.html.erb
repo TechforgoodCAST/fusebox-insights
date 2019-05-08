@@ -4,6 +4,8 @@
   <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
 <% end %>
 
-<div class="text-center">
-  <%= link_to 'New Group', new_project_group_path(@project.slug), class: "btn btn-primary" %>
-</div>
+<% if policy(@project.groups.new).create? %>
+  <div class="text-center">
+    <%= link_to 'New Group', new_project_group_path(@project), class: "btn btn-primary" %>
+  </div>
+<% end %>

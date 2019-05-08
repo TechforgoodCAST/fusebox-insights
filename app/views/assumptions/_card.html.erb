@@ -1,0 +1,32 @@
+<div class="card mb-4">
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-8">
+        <span>
+          <p>
+            <%= assumption.author.username %> · Updated <%= time_ago_in_words(assumption.updated_at) %> ago
+          </p>
+
+          <p><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
+        </span>
+      </div>
+    </div>
+
+  <%- if edit %>
+    <div class="my15 trix-formatted"><%= raw(assumption.description) %></div>
+    <div class="fs14 text-right">
+
+      <% if policy(assumption).update? %>
+        <%= link_to 'Edit', edit_project_assumption_path(assumption.project, assumption) %>
+      <% end %>
+
+      <% if policy(assumption).destroy? %>
+        <%= link_to 'Delete', project_assumption_path(assumption.project, assumption), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' } %>
+      <% end %>
+    </div>
+  <% end %>
+
+  </div>
+
+</div>

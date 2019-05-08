@@ -42,6 +42,6 @@ class ReflectionTest < ActiveSupport::TestCase
 
   test '#unknowns with author' do
     assert_equal(2, @subject.unknowns.size)
-    @subject.unknowns.each { |unknown| assert_kind_of(Unknown, unknown) }
+    @subject.unknowns.each { |unknown| assert_kind_of(Assumption, unknown) }
   end
 end

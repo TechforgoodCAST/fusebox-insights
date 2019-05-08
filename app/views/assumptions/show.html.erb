@@ -1,0 +1,59 @@
+<%= render "projects/header" %>
+
+<% if @assumption.focussed_by.any? %>
+  <p class="grey mb30">
+    In focus for
+    <span class="medium"><%= @assumption.focussed_by.pluck(:username).to_sentence %></span>
+  </p>
+<% end %>
+
+<% if policy(@assumption).focus? %>
+  <div class="col-12 text-right mb-4">
+    <%- if current_user.in_focus.include?(@assumption) %>
+      <%= link_to 'Remove focus', project_assumption_unfocus_path(@assumption.project, @assumption), class: 'btn btn-primary' %>
+    <% else %>
+      <%= link_to 'Add as focus', project_assumption_focus_path(@assumption.project, @assumption), class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render partial: 'assumptions/card', locals: { edit: true, assumption: @assumption } %>
+
+<ul class="history">
+  <%- @assumption.get_responses.each do |response| %>
+    <%- if response.class.name == "Proof" %>
+      <li>
+        <h4>
+          Insight: <%= response.insight.title %>
+          <small>by <%= response.author.username %> contributed <strong><%= response.confidence %></strong> confidence <%= time_ago_in_words(response.updated_at) %> ago.</small>
+        </h4>
+        <%= simple_format response.insight.description %>
+    <%- else %>
+      <li>
+        <h4>
+          <span>Comment by <%= response.author.username %></span>
+          <small>commented <%= time_ago_in_words(response.updated_at) %> ago.</small>
+        </h4>
+        <%= simple_format(raw(response.description)) %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<div class="form">
+  <h4 class="grey bold mb10">Add a...</h4>
+
+  <%= bootstrap_form_for @response, url: project_assumption_responses_path(@project, @assumption) do |f| %>
+    <div class="row">
+      <div class="col-6">
+        <%= f.collection_radio_buttons :type, [['Insight', 'Insight'] ,['Comment', 'Comment']], :first, :last %>
+      </div>
+      <div class="col-6">
+        <%= f.select :confidence, Response::CONFIDENCE %>
+      </div>
+    </div>
+    <%= f.text_field :title %>
+    <%= f.text_area :description %>
+    <%= f.submit 'Post', data: { disable_with: 'Commenting...' }, class: "btn btn-info" %>
+  <% end %>
+</div>

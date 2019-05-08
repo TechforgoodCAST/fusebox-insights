@@ -10,7 +10,7 @@
         <li class="breadcrumb-item active" aria-current="page">
           <span class="text-dark"><%= @project.name %></span>
         </li>
-      <% elsif @project.present? && (action_name != "new" || controller_name != "projects") %>
+      <% elsif @project.present? && @project.id.present? && (action_name != "new" || controller_name != "projects") %>
         <li class="breadcrumb-item active" aria-current="page">
           <%= link_to @project.name, project_path(@project), class: "link-border text-dark" %>
         </li>
@@ -26,13 +26,13 @@
         </li>
       <% end %>
 
-      <% if controller_name == "unknowns" && action_name == "index" %>
+      <% if controller_name == "assumptions" && action_name == "index" %>
         <li class="breadcrumb-item active" aria-current="page">
           <span class="text-dark">Assumptions</span>
         </li>
-      <% elsif controller_name == "unknowns" %>
+      <% elsif controller_name == "assumptions" %>
         <li class="breadcrumb-item active" aria-current="page">
-          <%= link_to "Assumptions", project_unknowns_path(@project), class: "link-border text-dark" %>
+          <%= link_to "Assumptions", project_assumptions_path(@project), class: "link-border text-dark" %>
         </li>
       <% end %>
 

@@ -2,11 +2,11 @@
 
 require 'application_system_test_case'
 
-class UnknownsTest < ApplicationSystemTestCase
+class AssumptionsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
     @project = create(:project, name: 'test', author: @user)
-    @unknown = create(:unknown, author: @user, project: @project)
+    @assumption = create(:unknown, author: @user, project: @project)
     @new_unknown = build(:unknown, author: @user, project: @project)
 
     @other_user = create(:user)
@@ -23,27 +23,27 @@ class UnknownsTest < ApplicationSystemTestCase
     assert_selector 'li', text: 'Assumptions'
   end
 
-  test 'creating a Unknown' do
+  test 'creating a Assumption' do
     click_on 'Add Assumption'
 
     fill_in 'Title', with: @new_unknown.title
     click_on 'Save assumption'
 
-    assert_text 'Unknown was successfully created'
+    assert_text 'Assumption was successfully created'
   end
 
-  test 'updating a Unknown' do
-    click_on @unknown.title
+  test 'updating a Assumption' do
+    click_on @assumption.title
     click_on 'Edit'
 
     fill_in 'Title', with: @new_unknown.title
     click_on 'Save assumption'
 
-    assert_text 'Unknown was successfully updated'
+    assert_text 'Assumption was successfully updated'
   end
 
   test 'nagivate pagination for more than 10 unknowns' do
-    @unknowns_list = create_list(:unknown, 11, author: @user)
+    @assumptions_list = create_list(:unknown, 11, author: @user)
     visit project_unknowns_url(@project)
 
     assert_text 'Next'
@@ -56,7 +56,7 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'limit page to 10 records' do
-    @unknowns_list = create_list(:unknown, 11, author: @user)
+    @assumptions_list = create_list(:unknown, 11, author: @user)
     visit project_unknowns_url(@project)
 
     assert_selector('div.card', maximum: 10)
@@ -65,14 +65,14 @@ class UnknownsTest < ApplicationSystemTestCase
     assert_selector('div.card', maximum: 10)
   end
 
-  test 'destroying a Unknown' do
-    click_on @unknown.title
+  test 'destroying a Assumption' do
+    click_on @assumption.title
 
     page.accept_confirm do
       click_on 'Delete', match: :first
     end
 
-    assert_text 'Unknown was successfully destroyed'
+    assert_text 'Assumption was successfully destroyed'
   end
 
   test 'cant edit or delete a different users unknown' do
@@ -83,28 +83,28 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'can edit and delete your own unknown' do
-    click_on @unknown.title
+    click_on @assumption.title
 
     assert_text 'Edit'
     assert_text 'Delete'
   end
 
   test 'cannot visit unknown path if not author' do
-    visit edit_project_unknown_path(@project, @others_unknown)
+    visit edit_project_assumption_path(@project, @others_unknown)
     assert_equal('/', current_path)
   end
 
   test 'can visit unknown path if author' do
-    visit edit_project_unknown_path(@project, @unknown)
-    assert_equal(edit_project_unknown_path(@project, @unknown), current_path)
+    visit edit_project_assumption_path(@project, @assumption)
+    assert_equal(edit_project_assumption_path(@project, @assumption), current_path)
   end
 
   test 'can  add an unknown to a group' do
-    visit edit_project_unknown_path(@project, @unknown)
+    visit edit_project_assumption_path(@project, @assumption)
     select @group.title
     click_on 'Save assumption'
 
-    assert_text 'Unknown was successfully updated'
+    assert_text 'Assumption was successfully updated'
 
     visit project_group_path(@project, @group)
 
@@ -112,7 +112,7 @@ class UnknownsTest < ApplicationSystemTestCase
   end
 
   test 'can remove an unknown from a group' do
-    visit edit_project_unknown_path(@project, @unknown)
+    visit edit_project_assumption_path(@project, @assumption)
     select @group.title
     click_on 'Save assumption'
 

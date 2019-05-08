@@ -3,7 +3,10 @@
 class Group < ApplicationRecord
   belongs_to :author, class_name: 'User'
   belongs_to :project
-  
-  has_many :unknowns
+
+  has_many :assumptions
   validates :title, presence: true
+
+  acts_as_paranoid
+
 end

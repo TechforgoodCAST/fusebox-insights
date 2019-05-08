@@ -2,28 +2,42 @@
   <div class="col-6">
     <h1><%= @project.name %></h1>
   </div>
-  <div class="col-6 text-right">
-    <%= link_to 'Add Assumption', new_project_unknown_path(@project), class: 'btn btn-primary' %>
-  </div>
+  <% if policy(@project.assumptions.new).new? %>
+    <div class="col-6 text-right">
+      <%= link_to 'Add Assumption', new_project_assumption_path(@project), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 </div>
 
 <small>
   <%= pluralize(@project.users.size, 'collaborator') %>
-  •
   <%= private_label(@project) %>
   <%- if policy(@project).edit? %>
-    •
-    <%= link_to 'Settings', edit_project_path(@project) %>
+    <%= link_to 'Edit', edit_project_path(@project) %>
+  <% end %>
+  <%- if policy(@project).destroy? %>
+    <%= link_to 'Archive project', project_path(@project), method: :delete, data: { confirm: 'Are you sure you wish to archive this project?' } %>
   <% end %>
 </small>
+
+<div class="mb-4 mt-4">
+  <%- if @project.project_members.any? %>
+    <%- @project.project_members.each do |member| %>
+      <p><%= render partial: "project_members/profile_link", locals: { project_member: member } %></p>
+    <% end %>
+  <% end %>
+  <%= link_to "Add project member", new_project_project_member_path(@project) %>
+</div>
 
 <p><%= @project.description %></p>
 
 <nav class="mb-5 pt-3">
   <ul class="nav">
     <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link link-border" %></li>
-    <li class="nav-item mr-3"><%= link_to 'Assumptions', project_unknowns_path(@project), class: "nav-link link-border" %>
+    <li class="nav-item mr-3"><%= link_to 'Assumptions', project_assumptions_path(@project), class: "nav-link link-border" %>
     <li class="nav-item mr-3"><%= link_to 'Knowledge board', project_knowledge_board_path(@project), class: "nav-link link-border" %>
-    <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link link-border" %>
+    <% if policy(SupportMessage).index? %>
+      <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link link-border" %>
+    <% end %>
   </ul>
 </nav>

@@ -5,8 +5,8 @@
   <div class="col-md-4">
 
     <h2 class="mb-3">We do not know</h2>
-    <% @unknowns.each do |unknown| %>
-      <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+    <% @assumptions.each do |assumption| %>
+      <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
     <% end %>
 
   </div>
@@ -14,8 +14,8 @@
   <div class="col-md-4">
 
     <h2 class="mb-3">We think we know</h2>
-    <% @think_knowns.each do |unknown| %>
-      <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+    <% @think_knowns.each do |assumption| %>
+      <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
     <% end %>
 
   </div>
@@ -23,8 +23,8 @@
   <div class="col-md-4">
 
     <h2 class="mb-3">We know</h2>
-    <% @knowns.each do |unknown| %>
-      <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+    <% @knowns.each do |assumption| %>
+      <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
     <% end %>
 
   </div>

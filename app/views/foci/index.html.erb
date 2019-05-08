@@ -1,24 +1,15 @@
-<div class="row pb-3">
-  <div class="col-6">
-    <h1>In focus</h1>
-  </div>
-  <div class="col-6 text-right">
-    <%= link_to 'Change focus', change_focus_path, class: 'btn btn-primary' %>
-  </div>
-</div>
+<h1>In focus</h1>
 
-<p class="fs15 mb30">You’re focussing on the following unknowns. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can <%= link_to 'add new insights', new_insight_path %> any time.</p>
+<p class="lead">You’re focussing on the following assumptions. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can <%= link_to 'add new reflections', new_reflection_path %> any time.</p>
 
-<div class="flow flow20">
-  <%# TODO: spec %>
+<div class="pt-3">
   <%- if @foci.any? %>
-    <% @foci.each do |unknown| %>
-      <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+    <% @foci.each do |assumption| %>
+      <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
     <% end %>
   <% else %>
-    <%# TODO: refactor %>
-    <div class="text-center" style="background: #eee; padding: 30px;">
-      You don’t have any unknowns in focus, <%= link_to 'pick some', change_focus_path %>.
+    <div class="text-center">
+      You don’t have any assumptions in focus, pick some by browsing your <%= link_to "projects", projects_path %>.
     </div>
   <% end %>
 </div>

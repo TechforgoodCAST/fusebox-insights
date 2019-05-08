@@ -10,19 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_24_104540) do
+ActiveRecord::Schema.define(version: 2019_05_08_100956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "assumptions", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.bigint "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.bigint "group_id"
+    t.integer "certainty", default: 0
+    t.datetime "deleted_at"
+    t.index ["author_id"], name: "index_assumptions_on_author_id"
+    t.index ["deleted_at"], name: "index_assumptions_on_deleted_at"
+    t.index ["group_id"], name: "index_assumptions_on_group_id"
+  end
+
+  create_table "audits", force: :cascade do |t|
+    t.integer "auditable_id"
+    t.string "auditable_type"
+    t.integer "associated_id"
+    t.string "associated_type"
+    t.integer "user_id"
+    t.string "user_type"
+    t.string "username"
+    t.string "action"
+    t.text "audited_changes"
+    t.integer "version", default: 0
+    t.string "comment"
+    t.string "remote_address"
+    t.string "request_uuid"
+    t.datetime "created_at"
+    t.index ["associated_type", "associated_id"], name: "associated_index"
+    t.index ["auditable_type", "auditable_id", "version"], name: "auditable_index"
+    t.index ["created_at"], name: "index_audits_on_created_at"
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid"
+    t.index ["user_id", "user_type"], name: "user_index"
+  end
+
   create_table "comments", force: :cascade do |t|
-    t.bigint "unknown_id"
+    t.bigint "assumption_id"
     t.bigint "author_id", null: false
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["assumption_id"], name: "index_comments_on_assumption_id"
     t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["unknown_id"], name: "index_comments_on_unknown_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -39,11 +76,22 @@ ActiveRecord::Schema.define(version: 2019_04_24_104540) do
 
   create_table "foci", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "unknown_id"
+    t.bigint "assumption_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["unknown_id"], name: "index_foci_on_unknown_id"
+    t.index ["assumption_id"], name: "index_foci_on_assumption_id"
     t.index ["user_id"], name: "index_foci_on_user_id"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -54,6 +102,8 @@ ActiveRecord::Schema.define(version: 2019_04_24_104540) do
     t.datetime "updated_at", null: false
     t.bigint "author_id", null: false
     t.bigint "project_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_groups_on_deleted_at"
     t.index ["project_id"], name: "index_groups_on_project_id"
   end
 
@@ -93,20 +143,22 @@ ActiveRecord::Schema.define(version: 2019_04_24_104540) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["author_id"], name: "index_projects_on_author_id"
+    t.index ["deleted_at"], name: "index_projects_on_deleted_at"
     t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
   create_table "proofs", force: :cascade do |t|
     t.bigint "insight_id"
-    t.bigint "unknown_id"
+    t.bigint "assumption_id"
     t.bigint "author_id", null: false
     t.integer "confidence", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["assumption_id"], name: "index_proofs_on_assumption_id"
     t.index ["author_id"], name: "index_proofs_on_author_id"
     t.index ["insight_id"], name: "index_proofs_on_insight_id"
-    t.index ["unknown_id"], name: "index_proofs_on_unknown_id"
   end
 
   create_table "support_messages", force: :cascade do |t|
@@ -119,19 +171,7 @@ ActiveRecord::Schema.define(version: 2019_04_24_104540) do
     t.string "rule_object_type", default: "None"
     t.string "rule_event_type", default: "create"
     t.integer "rule_occurrences", default: 1
-  end
-
-  create_table "unknowns", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description"
-    t.bigint "author_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.bigint "group_id"
-    t.integer "certainty", default: 0
-    t.index ["author_id"], name: "index_unknowns_on_author_id"
-    t.index ["group_id"], name: "index_unknowns_on_group_id"
+    t.string "subject"
   end
 
   create_table "users", force: :cascade do |t|
@@ -148,12 +188,12 @@ ActiveRecord::Schema.define(version: 2019_04_24_104540) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "comments", "unknowns"
+  add_foreign_key "assumptions", "projects"
+  add_foreign_key "comments", "assumptions"
   add_foreign_key "events", "users"
-  add_foreign_key "foci", "unknowns"
+  add_foreign_key "foci", "assumptions"
   add_foreign_key "foci", "users"
   add_foreign_key "groups", "projects"
+  add_foreign_key "proofs", "assumptions"
   add_foreign_key "proofs", "insights"
-  add_foreign_key "proofs", "unknowns"
-  add_foreign_key "unknowns", "projects"
 end
