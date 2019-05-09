@@ -35,6 +35,11 @@ class AssumptionsController < ApplicationController
 
     @group = Group.find_by_id(params[:group]) if params[:group].present?
     @assumption.group = @group
+
+    if params[:certainty].present?
+      @assumption.certainty = params[:certainty].to_param
+    end
+
   end
 
   def create

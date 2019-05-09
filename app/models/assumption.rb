@@ -24,6 +24,6 @@ class Assumption < ApplicationRecord
   validates :title, presence: true, uniqueness: { scope: :project }
 
   def responses
-    (comments + insights).sort_by(&:updated_at)
+    (comments + insights).sort_by(&:updated_at).reverse
   end
 end

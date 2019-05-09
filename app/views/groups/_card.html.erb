@@ -8,6 +8,11 @@
         </small>
       </p>
       <h3><%= link_to group.title, project_group_path(@project, group) %></h3>
+      <p class="text-muted mb-2">
+        <em class="fa fa-comment-medical pr-1 text-primary"></em>
+        <small style="position: relative; top: -1px;"><%= pluralize(group.assumptions.count, 'Assumption') %></small>
+      </p>
+
       <%= simple_format(group.description) %>
       <%= simple_format(group.summary) %>
 
