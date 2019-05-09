@@ -1,8 +1,12 @@
 <%= bootstrap_form_for(project) do |f| %>
   <%= f.text_field :name %>
   <%= f.text_area :description, rows: 4 %>
-  <%= f.check_box :is_private, label: "Make this project only visible to invited users" %>
+  <%= f.check_box :is_private, label: 'Make this project only visible to invited users' %>
   <div class="actions pt-4">
-    <%= f.submit "Save", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+    <%= f.submit 'Save', data: { disable_with: 'Saving...' }, class: 'btn btn-info' %>
+
+    <%- if policy(@project).destroy? %>
+      <%= link_to 'Delete', project_path(project), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' }, class: 'btn btn-secondary ml-1' %>
+    <% end %>
   </div>
 <% end %>

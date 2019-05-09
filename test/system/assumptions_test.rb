@@ -43,7 +43,7 @@ class AssumptionsTest < ApplicationSystemTestCase
   test 'creating a Assumption' do
     click_on 'Assumptions'
     click_on 'Add Assumption'
-    fill_in 'Title', with: @assumption.title + '1'
+    fill_in 'Title', with: @assumption.title + 'create'
     click_on 'Save assumption'
 
     assert_text 'Assumption was successfully created'

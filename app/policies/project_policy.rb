@@ -2,23 +2,15 @@
 
 class ProjectPolicy < ApplicationPolicy
   def show?
-    if user
-      if ProjectMember.where(project: record, user: user).any?
-        true
-      else
-        user.id == record.author.id || !record.is_private
-      end
+    if record.is_private?
+      ProjectMember.find_by(project: record, user: user)
     else
-      !record.is_private
+      true
     end
   end
 
   def edit?
-    if ProjectMember.where(project: record, user: user, role: "Admin").any?
-      true
-    elsif record.is_private
-      user.id == record.author.id
-    end
+    ProjectMember.find_by(project: record, user: user, role: 'Admin')
   end
 
   def knowledge_board?

@@ -15,7 +15,7 @@ class GroupsTest < ApplicationSystemTestCase
   test 'project admin can create group' do
     click_on @project.name
     click_on 'New Group'
-    fill_in 'Title', with: @group.title + '1'
+    fill_in 'Title', with: @group.title + 'create'
     fill_in 'Description', with: @group.description
     fill_in 'Summary', with: @group.summary
     click_on 'Save group'
@@ -65,11 +65,5 @@ class GroupsTest < ApplicationSystemTestCase
     admin_to_collaborator
     visit project_group_path(@project, @group)
     assert_no_link 'Delete'
-  end
-
-  private
-
-  def admin_to_collaborator
-    @user.project_members.find_by(project: @project).update!(role: 'Collaborator')
   end
 end
