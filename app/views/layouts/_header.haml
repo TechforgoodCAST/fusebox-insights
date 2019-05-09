@@ -29,12 +29,12 @@
             %a.dropdown-toggle.text-dark#navbarDropdown{ href: "#", role: "button", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false" }
               .icon-circle.bg-dark
                 %em.fa.fa-user.text-light
-            %ul.dropdown-menu.dropdown-menu-right.mt-2{"aria-labelledby": "navbarDropdown"}
+            %ul.dropdown-menu.dropdown-menu-right.mt-3{"aria-labelledby": "navbarDropdown"}
               .px-4="#{current_user&.username}"
               .dropdown-divider
               %li.dropdown-item= link_to 'My Focus', foci_path
               .dropdown-divider
-              %li.dropdown-item=link_to 'Profile', edit_user_registration_path
+              %li.dropdown-item=link_to 'Edit Profile', edit_user_registration_path
               %li.dropdown-item=link_to 'Sign out', destroy_user_session_path, method: :delete
 
 -else

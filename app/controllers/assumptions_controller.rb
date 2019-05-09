@@ -32,6 +32,9 @@ class AssumptionsController < ApplicationController
 
   def new
     @assumption = current_user.assumptions.new
+
+    @group = Group.find_by_id(params[:group]) if params[:group].present?
+    @assumption.group = @group
   end
 
   def create

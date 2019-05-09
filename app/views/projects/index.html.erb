@@ -4,7 +4,7 @@
 
   <%= link_to new_project_path, class: "card mb-4" do %>
     <div class="vertical-center justify-content-center">
-      <em class="fa fa-6x fa-plus"></em>
+      <em class="fa fa-5x fa-plus"></em>
     </div>
   <% end %>
 
@@ -13,17 +13,22 @@
     <%- @projects.each do |project| %>
 
       <div class='card mb-4'>
-        <div class="card-header">
-          <h4><%=link_to project.name, project_path(project) %></h4>
-        </div>
         <div class="card-body">
-          <ul>
-            <li><%= project.assumptions.count %> assumptions </li>
-            <li><%= project.project_members.count %> collaborators</li>
-          </ul>
+          <p class="mb-1"><strong><%=link_to project.name, project_path(project) %></strong></p>
+          <p class="text-muted mb-2">
+            <em class="fa fa-comment-medical pr-1 text-primary"></em>
+            <small style="position: relative; top: -1px;"><%= pluralize(project.assumptions.count, 'Assumption') %></small>
+          </p>
+          <p class="pt-2 mb-1"><%= project.description %></p>
+
         </div>
-        <div class="card-footer">
-          <%= private_label(project) %>
+        <div class="card-footer text-muted size-small">
+          <% if project.is_private? %>
+            <em class="fa fa-lock pr-2 text-info"></em>
+          <% else %>
+            <em class="fa fa-eye pr-2 text-info"></em>
+          <% end %>
+          <small><%= private_label(project) %></small>
         </div>
       </div>
 

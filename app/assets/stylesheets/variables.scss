@@ -1,8 +1,8 @@
 $color--green: #00aaa6;
-$color--blue: #5988ce;
-$color--medium-blue: #5988ce;
+$color--blue: #477dce;
+$color--medium-blue: #477dce;
 $color--light-blue: #5090c8;
-$color--light-grey: #ededed;
+$color--light-grey: #f3f3f3;
 $color--medium-grey: #6c757d;
 $color--dark-grey: #192D44;
 $color--grey: #EBECEE;
@@ -12,13 +12,13 @@ $color--orange: #F6754A;
 $color--light-orange: #F6754A;
 $color--red: #FF473D;
 
-$link-color: $color--medium-blue;
+$link-color: $color--dark-grey;
 $link-hover-color: $color--medium-blue;
 $link-hover-decoration: none;
 
 $headings-font-family: 'Abril Fatface', cursive;
 $headings-color: $color--dark-grey;
-h1, h2, h3, h4, h5 { letter-spacing: 0.02em; }
+h1, h2, h3, h4, h5 { letter-spacing: 0.025em; }
 
 $font-family-base: 'Inter var', sans-serif;
 
