@@ -13,6 +13,8 @@ class AssumptionTest < ActiveSupport::TestCase
 
   test('destroys #comments') { assert_destroys(:comments) }
 
+  test('has many #insights') { assert_has_many(:insights) }
+
   test('destroys #insights') { assert_destroys(:insights) }
 
   test 'has many #focussed_by' do
@@ -21,14 +23,9 @@ class AssumptionTest < ActiveSupport::TestCase
     assert_equal(2, @subject.focussed_by.size)
   end
 
-  test 'has many #insights' do
-    create_list(:insight, 2, assumption: @subject)
-    assert_equal(2, @subject.insights.size)
-  end
-
   test('#title present') { assert_present(:title) }
 
-  test('#title unique to author') { assert_unique(:title) }
+  test('#title unique to project') { assert_unique(:title) }
 
   test 'identical #title for different author' do
     @subject.save!

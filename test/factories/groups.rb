@@ -3,9 +3,9 @@
 FactoryBot.define do
   factory :group do
     association :author, factory: :user
-    association :project, factory: :project
-    title { 'Problem area' }
-    description { 'How can we' }
-    summary { 'This group is for' }
+    project
+    sequence(:title) { |n| "Group#{n}" }
+    description { 'A brief description of the problem...' }
+    summary { 'How might we...' }
   end
 end

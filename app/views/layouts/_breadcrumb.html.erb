@@ -1,3 +1,5 @@
+<%# TODO: refactor %>
+
 <nav aria-label="breadcrumb" class="mb-4">
   <div class="container">
     <ol class="breadcrumb bg-white pl-0 mt-2">
@@ -20,7 +22,7 @@
         <li class="breadcrumb-item active" aria-current="page">
           <span class="text-dark"><%= @group.title %></span>
         </li>
-      <% elsif @group.present? && (action_name != "new" || controller_name != "groups") %>
+      <% elsif @group.present? && @group.id.present? && (action_name != "new" || controller_name != "groups") %>
         <li class="breadcrumb-item active" aria-current="page">
           <%= link_to @group.title, project_group_path(@project, @group), class: "link-border text-dark" %>
         </li>

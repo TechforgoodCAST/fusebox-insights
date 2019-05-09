@@ -1,51 +1,23 @@
-class GroupPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class GroupPolicy < ApplicationPolicy
   def show?
-    if user
-      if ProjectMember.where(project: record.project, user: user).any?
-        true
-      else
-        user.id == record.project.author.id || !record.project.is_private
-      end
+    if record.project.is_private?
+      ProjectMember.find_by(project: record.project, user: user)
     else
-      !record.project.is_private?
+      true
     end
   end
 
   def create?
-
-    if !user
-      false
-    else
-      if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
-        true
-      else
-        user.id == record.project.author.id
-      end
-    end
-
+    ProjectMember.find_by(project: record.project, user: user, role: 'Admin')
   end
-
-  def edit?
-
-    if !user
-      false
-    else
-      if ProjectMember.where(project: record.project, user: user, role: "Admin").any?
-        true
-      else
-        user.id == record.project.author.id
-      end
-    end
-
-  end
-
 
   def update?
-    edit?
+    create?
   end
 
   def destroy?
-    edit?
+    create?
   end
 end
