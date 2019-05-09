@@ -1,16 +1,27 @@
 <div class="card mb-4">
 
     <div class="card-body">
-      <span>
-        <p>
-          <small class="text-muted">
-            <%= group.author.username %> · Updated <%= time_ago_in_words(group.updated_at) %> ago
-          </small>
-        </p>
-        <h3><%= link_to group.title, project_group_path(@project, group) %></h3>
-        <%= simple_format(group.description) %>
-        <%= simple_format(group.summary) %>
-      </span>
+
+      <p>
+        <small class="text-muted">
+          <%= group.author.username %> · Updated <%= time_ago_in_words(group.updated_at) %> ago
+        </small>
+      </p>
+      <h3><%= link_to group.title, project_group_path(@project, group) %></h3>
+      <%= simple_format(group.description) %>
+      <%= simple_format(group.summary) %>
+
+      <% if group.assumptions.any? %>
+
+        <div class="row pt-3">
+          <% group.assumptions.limit(4).each do |assumption| %>
+            <div class="col-md-3">
+              <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
+            </div>
+          <% end %>
+        </div>
+
+      <% end %>
 
     </div>
 

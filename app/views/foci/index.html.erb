@@ -1,6 +1,18 @@
-<h1>In focus</h1>
+<div class="row">
 
-<p class="lead">You’re focussing on the following assumptions. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can <%= link_to 'add new reflections', new_reflection_path %> any time.</p>
+  <div class="col-8">
+    <h1>In focus</h1>
+    <p>You’re focussing on the following assumptions. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>.</p>
+  </div>
+
+  <div class="col-4 text-right">
+    <%= link_to new_reflection_path, class: "btn btn-info btn-icon" do %>
+      <em class="fa fa-comment"></em>
+      Post Reflections
+    <% end %>
+  </div>
+
+</div>
 
 <div class="row pt-3">
   <%- if @foci.any? %>

@@ -1,6 +1,6 @@
 <%= render "projects/header" %>
 
-<%- @project.groups.each do |group| %>
+<%- @project.groups.order("updated_at desc").each do |group| %>
   <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
 <% end %>
 

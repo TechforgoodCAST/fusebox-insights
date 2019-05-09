@@ -6,7 +6,8 @@
 
     <div class="col-md-4">
 
-      <h2 class="mb-3">We do not know</h2>
+      <h3 class="mb-0">We do not know</h3>
+      <p class="text-muted mb-4 pb-2">We have no direct evidence.</p>
       <% @not_knowns.each do |assumption| %>
         <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
       <% end %>
@@ -15,7 +16,8 @@
 
     <div class="col-md-4">
 
-      <h2 class="mb-3">We think we know</h2>
+      <h3 class="mb-0">We think we know</h3>
+      <p class="text-muted mb-4 pb-2">We have some direct evidence.</p>
       <% @think_knowns.each do |assumption| %>
         <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
       <% end %>
@@ -24,7 +26,9 @@
 
     <div class="col-md-4">
 
-      <h2 class="mb-3">We know</h2>
+      <h3 class="mb-0">We know</h3>
+      <p class="text-muted mb-4 pb-2">We have a lot of direct evidence we trust.</p>
+
       <% @knowns.each do |assumption| %>
         <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
       <% end %>
