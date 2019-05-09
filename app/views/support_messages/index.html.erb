@@ -2,18 +2,28 @@
 
 <% if @support_messages.any? %>
   <%- @support_messages.each do |message| =%>
-    <div>
-      <p><strong><%= message.status %></strong></p><br>
-      <p><strong><%= link_to message.subject, project_support_message_path(@project, message) %></strong></p>
-      <p><td><%= link_to 'Edit', edit_project_support_message_path(@project, message), class: 'edit-link' %></td></p>
-      <td><%= link_to 'Delete', project_support_message_path(@project, message), method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'destroy-link' %></td>
+    <div class="card mb-4">
+      <div class="card-header">
+        <div class="row">
+          <p class="col-8"><strong><%= message.subject %></strong></p>
+          <p class="col-4 text-right text-info"><strong><%= message.status %></strong></p>
+        </div>
+      </div>
+      <div class="card-body">
+        <%= simple_format message.body %>
+      </div>
+      <div class="card-footer text-right">
+        <%= link_to 'Edit', edit_project_support_message_path(@project, message), class: 'link-border mr-3' %>
+        <%= link_to 'Delete', project_support_message_path(@project, message), method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'link-border' %>
+      </div>
     </div>
-    <hr>
   <% end %>
-  <%= link_to new_project_support_message_path(@project), class: 'btn btn-info btn-icon' do %>
-    <em class="fa fa-plus"></em>
-    Add support message
-  <% end %>
+  <div class="text-center pt-3">
+    <%= link_to new_project_support_message_path(@project), class: 'btn btn-info btn-icon' do %>
+      <em class="fa fa-hands-helping"></em>
+      Add support message
+    <% end %>
+  </div>
 <% else %>
   <div class="bg-light rounded text-center p-5 mt-4">
     <p class='lead mb-4'>No support messages for this project yet</p>
