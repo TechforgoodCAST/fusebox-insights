@@ -6,6 +6,9 @@
 
 <% if policy(@project.groups.new).create? %>
   <div class="text-center">
-    <%= link_to 'New Group', new_project_group_path(@project), class: "btn btn-primary" %>
+    <%= link_to new_project_group_path(@project), class: "btn btn-primary btn-icon" do %>
+      <em class="fa fa-plus"></em>
+      New Group
+    <% end %>
   </div>
 <% end %>

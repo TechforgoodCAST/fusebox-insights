@@ -1,26 +1,32 @@
 <h1 class="mb-4">My Projects</h1>
 
-<div class="row px-3">
+<div class="card-deck pt-3">
 
-  <%= link_to new_project_path, class: "col-md-3 card text-center" do %>
-    <em class="fa fa-4x fa-plus"></em>
-    New project
+  <%= link_to new_project_path, class: "card mb-4" do %>
+    <div class="vertical-center justify-content-center">
+      <em class="fa fa-6x fa-plus"></em>
+    </div>
   <% end %>
 
   <%- if @projects.any? %>
 
     <%- @projects.each do |project| %>
-      <div class="col-md-3">
-        <%= link_to project_path(project) do %>
-          <div class="card">
-            <div class="card-body text-centered">
-              <h2><strong><%= project.name %></strong></h2>
-              <p><%= get_membership(project).role %></p>
-              <em><%= private_label(project) %></em>
-            </div>
-          </div>
-        <% end %>
+
+      <div class='card mb-4'>
+        <div class="card-header">
+          <h4><%=link_to project.name, project_path(project) %></h4>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><%= project.assumptions.count %> assumptions </li>
+            <li><%= project.project_members.count %> collaborators</li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <%= private_label(project) %>
+        </div>
       </div>
+
     <% end %>
 
   <% end %>

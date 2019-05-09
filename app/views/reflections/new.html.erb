@@ -1,42 +1,41 @@
-<h1 class="fs20 bold mb10">New reflection</h1>
+<h1 class="mb-3">Post reflections</h1>
 
-<p class="fs15 mb30">You have the following assumptions <%= link_to 'in focus', foci_path %>, reflect on how your confidence in each has changed.</p>
+<p class="lead mb-5">You have the following assumptions <%= link_to 'in focus', foci_path %>, reflect on how your confidence in each has changed.</p>
 
-<%= simple_form_for @reflection, html: { class: nil } do |f| %>
+<%= bootstrap_form_for @reflection, html: { class: nil } do |f| %>
 
-  <div class="flow mb20">
-    <%- f.object.responses.each_with_index do |response, index| %>
-      <%- assumption = @reflection.assumptions[index] %>
+  <%- f.object.responses.each_with_index do |response, index| %>
+    <%- assumption = @reflection.assumptions[index] %>
 
-      <div class="flow20">
+    <div class="row">
+
+      <div class="col-4">
         <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
-
-        <div class="form">
-          <%= simple_fields_for :responses, response do |c| %>
-            <h4 class="grey bold mb10">Add an insight</h4>
-
-            <%= c.input :confidence do %>
-              <%- Response::CONFIDENCE.each do |label, value| %>
-                <span class="radio">
-                  <%= c.label "#{index}_confidence_#{value}" do %>
-                    <%= c.radio_button :confidence, value, id: "responses_#{index}_confidence_#{value}", name: "responses[#{index}][confidence]" %>
-                    <%= label %>
-                  <% end %>
-                </span>
-              <% end %>
-            <% end %>
-
-            <%= c.input :title, input_html: { id: "responses_#{index}_title", name: "responses[#{index}][title]" } %>
-
-            <%= c.label :description %>
-            <%= c.trix_editor :description, id: "responses_#{index}_description", name: "responses[#{index}][description]" %>
-          <% end %>
-        </div>
       </div>
 
-    <% end %>
-  </div>
+      <div class="col-8">
+        <%= simple_fields_for :responses, response do |c| %>
 
-  <%= f.button :submit, 'Post reflection', data: { disable_with: 'Submitting...' }, class: 'btn btn-info' %>
+          <%= c.input :confidence do %>
+            <%- Response::CONFIDENCE.each do |label, value| %>
+              <span class="radio">
+                <%= c.label "#{index}_confidence_#{value}" do %>
+                  <%= c.radio_button :confidence, value, id: "responses_#{index}_confidence_#{value}", name: "responses[#{index}][confidence]" %>
+                  <%= label %>
+                <% end %>
+              </span>
+            <% end %>
+          <% end %>
+
+          <%= c.text_field :title, input_html: { id: "responses_#{index}_title", name: "responses[#{index}][title]" } %>
+
+          <%= c.text_area :description, id: "responses_#{index}_description", name: "responses[#{index}][description]" %>
+        <% end %>
+      </div>
+    </div>
+
+  <% end %>
+
+  <%= f.submit 'Post Reflections', data: { disable_with: 'Submitting...' }, class: 'btn btn-info' %>
 
 <% end %>

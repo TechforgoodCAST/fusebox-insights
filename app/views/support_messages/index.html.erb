@@ -5,7 +5,6 @@
 <% if @support_messages.any? %>
   <%- @support_messages.each do |message| =%>
     <div>
-      <p><strong><%= message.order %></strong></p>
       <p><strong><%= message.status %></strong></p><br>
       <p><strong><%= link_to message.subject, project_support_message_path(@project, message) %></strong></p>
       <p><td><%= link_to 'Edit', edit_project_support_message_path(@project, message), class: 'edit-link' %></td></p>

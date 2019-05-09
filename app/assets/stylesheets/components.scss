@@ -16,4 +16,37 @@
   &.btn-info {
     color: white;
   }
+  &.btn-icon {
+    padding-left: 1.5rem;
+    em {
+      padding-right: 0.5rem;
+    }
+  }
+}
+
+.card-deck {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
+
+.card-deck .card {
+  display: block;
+  flex-basis: 20%;
+}
+
+.tabs {
+  border-bottom: 3px solid $color--light-grey;
+  .nav-link {
+    position: relative;
+    top: 3px;
+    border-bottom: 3px solid $color--light-grey !important;
+  }
+  .nav-link:active,
+  .nav-link:hover,
+  .nav-link:focus,
+  .nav-link.active {
+    border-bottom: 3px solid $color--blue !important;
+  }
 }
