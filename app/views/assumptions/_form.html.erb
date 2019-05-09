@@ -14,4 +14,8 @@
   <%= f.text_area :description, label: "Assumption", rows: 4 %>
   <%= f.submit "Save assumption", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
 
+  <% if policy(assumption).destroy? %>
+    <%= link_to 'Delete', project_assumption_path(assumption.project, assumption), method: :delete, data: { confirm: 'This action is irreversible, are you sure?' }, class: 'btn btn-secondary ml-1' %>
+  <% end %>
+
 <% end %>

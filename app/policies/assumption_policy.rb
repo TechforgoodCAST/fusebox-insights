@@ -1,41 +1,41 @@
+# frozen_string_literal: true
+
 class AssumptionPolicy < ApplicationPolicy
-
-    def show?
-      if user
-        if ProjectMember.where(project: record.project, user: user).any?
-          true
-        else
-          user.id == record.project.author.id || !record.project.is_private
-        end
+  # TODO: refactor
+  def show?
+    if user
+      if ProjectMember.where(project: record.project, user: user).any?
+        true
       else
-        !record.project.is_private?
+        user.id == record.project.author.id || !record.project.is_private
+      end
+    else
+      !record.project.is_private?
+    end
+  end
+
+  # TODO: refactor
+  def new?
+    if user
+      if ProjectMember.where(project: record.project, user: user).any?
+        true
+      else
+        user.id == record.project.author.id || !record.project.is_private
       end
     end
+  end
 
-    def new?
-      if user
-        if ProjectMember.where(project: record.project, user: user).any?
-          true
-        else
-          user.id == record.project.author.id || !record.project.is_private
-        end
-      end
-    end
+  def update?
+    return false if record.new_record?
 
-    def update?
-      if user
-        user.id == record.author_id
-      end
-    end
+    user&.id == record.author_id
+  end
 
-    def destroy?
-      if user
-        user.id == record.author_id
-      end
-    end
+  def destroy?
+    update?
+  end
 
-    def focus?
-      show?
-    end
-
+  def focus?
+    show? if user
+  end
 end

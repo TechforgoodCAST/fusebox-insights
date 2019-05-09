@@ -1,5 +1,12 @@
 <%= render "projects/header" %>
 
+<% if policy(@project.assumptions.new).new? %>
+  <%= link_to new_project_assumption_path(@project), class: 'mb-4 btn btn-info btn-icon' do %>
+    <em class="fa fa-comment-medical"></em>
+    Add Assumption
+  <% end %>
+<% end %>
+
 <% if @project.assumptions.count > 0 %>
 
   <div class="row">

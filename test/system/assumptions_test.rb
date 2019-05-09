@@ -34,15 +34,15 @@ class AssumptionsTest < ApplicationSystemTestCase
 
   test 'non-member cannot view assumption in private project' do
     # TODO: prevent author access
-    @project.update!(is_private: true, users: [])
+    @project.update!(is_private: true, users: [], author: create(:user))
     visit project_assumption_path(@project, @assumption)
     assert_text "Sorry, you don't have access to that"
     # TODO: assert 404 page
   end
 
   test 'creating a Assumption' do
+    click_on 'Assumptions'
     click_on 'Add Assumption'
-
     fill_in 'Title', with: @assumption.title + '1'
     click_on 'Save assumption'
 
@@ -51,7 +51,7 @@ class AssumptionsTest < ApplicationSystemTestCase
 
   test 'can update authored assumption' do
     visit project_assumption_path(@project, @assumption)
-    within('.card-body') { click_on 'Edit' }
+    within('.col-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
     click_on 'Save assumption'
     assert_text 'Assumption was successfully updated'
@@ -59,6 +59,7 @@ class AssumptionsTest < ApplicationSystemTestCase
 
   test 'can delete authored assumption' do
     visit project_assumption_path(@project, @assumption)
+    within('.col-4 .card-body') { click_on 'Edit' }
     page.accept_confirm { click_on 'Delete' }
     assert_text 'Assumption archived'
   end
@@ -66,7 +67,7 @@ class AssumptionsTest < ApplicationSystemTestCase
   test 'cannot update unauthored assumption' do
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
-    within('.card-body') { assert_no_text 'Edit' }
+    within('.col-4 .card-body') { assert_no_text 'Edit' }
 
     visit edit_project_assumption_path(@project, @assumption)
     assert_text "Sorry, you don't have access to that"

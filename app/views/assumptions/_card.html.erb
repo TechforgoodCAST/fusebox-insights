@@ -1,8 +1,13 @@
 <div class="card mb-4">
 
   <div class="card-body">
-      <p class="text-muted mb-1"><small>Created by <%= assumption.author.username %></small></p>
-      <p><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
+    <p class="text-muted mb-1 d-flex align-items-center justify-content-between">
+      <small>Created by <%= assumption.author.username %></small>
+      <%- if edit && policy(assumption).update? %>
+        <%= link_to 'Edit', edit_project_assumption_path(assumption.project, assumption) %>
+      <% end %>
+    </p>
+    <p><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
   </div>
 
   <div class='card-footer'>
