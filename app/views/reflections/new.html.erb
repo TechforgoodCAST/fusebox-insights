@@ -1,4 +1,4 @@
-<h1 class="fs20 bold mb10">New reflection</h1>
+<h1>New reflection</h1>
 
 <p class="fs15 mb30">You have the following assumptions <%= link_to 'in focus', foci_path %>, reflect on how your confidence in each has changed.</p>
 
@@ -13,7 +13,7 @@
 
         <div class="form">
           <%= simple_fields_for :responses, response do |c| %>
-            <h4 class="grey bold mb10">Add an insight</h4>
+            <h4>Add an insight</h4>
 
             <%= c.input :confidence do %>
               <%- Response::CONFIDENCE.each do |label, value| %>

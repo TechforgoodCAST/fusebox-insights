@@ -16,6 +16,12 @@
   &.btn-info {
     color: white;
   }
+  &.btn-icon {
+    padding-left: 1.5rem;
+    em {
+      padding-right: 0.5rem;
+    }
+  }
 }
 
 .card-deck {
@@ -30,8 +36,17 @@
   flex-basis: 20%;
 }
 
-.vertical-center {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
+.tabs {
+  border-bottom: 3px solid $color--light-grey;
+  .nav-link {
+    position: relative;
+    top: 3px;
+    border-bottom: 3px solid $color--light-grey !important;
+  }
+  .nav-link:active,
+  .nav-link:hover,
+  .nav-link:focus,
+  .nav-link.active {
+    border-bottom: 3px solid $color--blue !important;
+  }
 }
