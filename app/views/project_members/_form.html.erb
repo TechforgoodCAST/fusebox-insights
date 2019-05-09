@@ -1,4 +1,5 @@
-<%= simple_form_for([@project, project_member]) do |f| %>
+<%= bootstrap_form_for([@project, project_member]) do |f| %>
+
   <% if project_member.errors.any? %>
     <div id="error_count"><p><%= pluralize(project_member.errors.count, 'error') %></p></div>
     <ul>
@@ -7,10 +8,16 @@
       <% end %>
     </ul>
   <% end %>
-  <p>
-    <%= f.label :user %><br>
-    <%= f.select :user, @potential_members.collect {|m| [ m.username, m.id ]} %>
-    <%= f.select :role, collection: ["Admin", "Collaborator", "Viewer"] %>
-  </p>
-  <%= f.submit "Add member", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+
+  <div class="row pb-2">
+    <div class="col-6">
+      <%= f.select :user, @potential_members.collect {|m| [ m.username, m.id ]} %>
+    </div>
+    <div class="col-6">
+      <%= f.select :role, collection: ["Admin", "Collaborator", "Viewer"] %>
+    </div>
+  </div>
+
+  <%= f.submit "Add", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+
 <% end %>

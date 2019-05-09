@@ -9,10 +9,17 @@
     </ul>
   <% end %>
 
-  <%= f.select :status, [ ['Pending', 'Pending'], ['Incomplete', 'Incomplete'], ['Complete', 'Complete'] ] %>
+  <div class="row">
+    <div class="col-3">
+      <%= f.number_field :order, min: '1', step: '1'%>
+    </div>
+    <div class="col-9">
+      <%= f.select :status, [ ['Pending', 'Pending'], ['Incomplete', 'Incomplete'], ['Complete', 'Complete'] ] %>
+    </div>
+  </div>
+
   <%= f.text_field :subject %>
-  <%= f.text_area :body %>
-  <%= f.text_area :order, input_html: { min: '1', step: '1' }%>
+  <%= f.text_area :body, rows: 5 %>
 
   <%= f.submit "Post", data: { disable_with: 'Saving...' }, class: 'btn btn-info' %>
 
