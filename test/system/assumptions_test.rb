@@ -60,7 +60,7 @@ class AssumptionsTest < ApplicationSystemTestCase
   test 'can delete authored assumption' do
     visit project_assumption_path(@project, @assumption)
     page.accept_confirm { click_on 'Delete' }
-    assert_text 'Assumption was successfully destroyed'
+    assert_text 'Assumption archived'
   end
 
   test 'cannot update unauthored assumption' do

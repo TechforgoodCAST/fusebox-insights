@@ -1,6 +1,6 @@
 $color--green: #00aaa6;
-$color--blue: #3A85F7;
-$color--medium-blue: #3A85F7;
+$color--blue: #5988ce;
+$color--medium-blue: #5988ce;
 $color--light-blue: #5090c8;
 $color--light-grey: #ededed;
 $color--medium-grey: #6c757d;
@@ -18,6 +18,7 @@ $link-hover-decoration: none;
 
 $headings-font-family: 'Abril Fatface', cursive;
 $headings-color: $color--dark-grey;
+h1, h2, h3, h4, h5 { letter-spacing: 0.02em; }
 
 $font-family-base: 'Inter var', sans-serif;
 

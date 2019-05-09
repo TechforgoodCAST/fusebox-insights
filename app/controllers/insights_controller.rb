@@ -39,7 +39,7 @@ class InsightsController < ApplicationController
   def destroy
     authorize @insight
     @insight.destroy
-    redirect_to project_insights_path(@project), notice: 'Insight was successfully destroyed.'
+    redirect_to project_insights_path(@project), notice: 'Insight deleted.'
   end
 
   private

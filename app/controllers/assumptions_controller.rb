@@ -61,7 +61,7 @@ class AssumptionsController < ApplicationController
   def destroy
     authorize @assumption
     @assumption.destroy
-    redirect_to project_path(@project), notice: 'Assumption was successfully destroyed.'
+    redirect_to project_path(@project), notice: 'Assumption archived.'
   end
 
   private

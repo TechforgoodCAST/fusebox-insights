@@ -47,7 +47,7 @@ class GroupsController < ApplicationController
   def destroy
     authorize @group
     @group.destroy
-    redirect_to @project, notice: 'Group was successfully destroyed.'
+    redirect_to @project, notice: 'Group has been deleted.'
   end
 
   private

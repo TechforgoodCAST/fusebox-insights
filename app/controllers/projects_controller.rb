@@ -5,14 +5,14 @@ class ProjectsController < ApplicationController
   before_action :set_project, except: %i[index new create]
 
   def index
-    @projects = current_user.projects
+    @projects = current_user.projects.order(updated_at: :desc)
   end
 
   def knowledge_board
 
     authorize @project
 
-    @assumptions = @project.assumptions.we_do_not_know.order(updated_at: :desc)
+    @not_knowns = @project.assumptions.we_do_not_know.order(updated_at: :desc)
     @think_knowns = @project.assumptions.we_think_we_know.order(updated_at: :desc)
     @knowns = @project.assumptions.we_know.order(updated_at: :desc)
 

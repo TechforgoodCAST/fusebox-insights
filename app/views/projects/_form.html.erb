@@ -1,6 +1,6 @@
 <%= bootstrap_form_for(project) do |f| %>
   <%= f.text_field :name %>
-  <%= f.text_area :description %>
+  <%= f.text_area :description, rows: 5 %>
   <%= f.check_box :is_private, label: "Make this project only visible to invited users" %>
   <div class="actions pt-4">
     <%= f.submit "Save", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
