@@ -2,14 +2,14 @@
 
 <p class="lead">You’re focussing on the following assumptions. Each week you’ll receive a reminder to quickly reflect on your progress towards becoming more confident in them. Your next reminder is on <strong><%= next_reminder_date.strftime("%a %e %b") %></strong>, but you can <%= link_to 'add new reflections', new_reflection_path %> any time.</p>
 
-<div class="pt-3">
+<div class="row pt-3">
   <%- if @foci.any? %>
     <% @foci.each do |assumption| %>
-      <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
+      <div class="col-3">
+        <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
+      </div>
     <% end %>
   <% else %>
-    <div class="text-center">
-      You don’t have any assumptions in focus, pick some by browsing your <%= link_to "projects", projects_path %>.
-    </div>
+    <p><em>You don’t have any assumptions in focus, pick some by browsing your <%= link_to "projects", projects_path %>.</em></p>
   <% end %>
 </div>

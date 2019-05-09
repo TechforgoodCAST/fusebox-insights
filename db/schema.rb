@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2019_05_08_155048) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "group_id"
     t.bigint "project_id", null: false
+    t.bigint "group_id"
     t.integer "certainty", default: 0
     t.datetime "deleted_at"
     t.index ["author_id"], name: "index_assumptions_on_author_id"

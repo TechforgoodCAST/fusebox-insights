@@ -1,7 +1,7 @@
 <%= render "projects/header" %>
 
 <% if @assumption.focussed_by.any? %>
-  <p class="grey mb30">
+  <p>
     In focus for
     <span class="medium"><%= @assumption.focussed_by.pluck(:username).to_sentence %></span>
   </p>
@@ -41,7 +41,7 @@
 </ul>
 
 <div class="form">
-  <h4 class="grey bold mb10">Add a...</h4>
+  <h4>Add a...</h4>
 
   <%= bootstrap_form_for @response, url: project_assumption_responses_path(@project, @assumption) do |f| %>
     <div class="row">
@@ -56,4 +56,5 @@
     <%= f.text_area :description %>
     <%= f.submit 'Post', data: { disable_with: 'Commenting...' }, class: "btn btn-info" %>
   <% end %>
+  
 </div>
