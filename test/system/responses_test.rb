@@ -4,49 +4,37 @@ require 'application_system_test_case'
 
 class ResponsesTest < ApplicationSystemTestCase
   setup do
+    # TODO: DRY
     @user = create(:user)
-    @assumption = create(:unknown, author: @user)
-    visit assumption_path(@assumption)
+    @project = create(:project, author: @user, users: [@user])
+    @assumption = create(:assumption, author: @user, project: @project)
+
+    visit new_user_session_path
     sign_in
+    visit project_assumption_path(@project, @assumption)
   end
 
-  test 'can add insight to unknown' do
+  test 'visitor cannot post on an assumption' do
+    sign_out
+    visit project_assumption_path(@project, @assumption)
+    assert_no_button 'Post'
+  end
+
+  test 'member can add insight to assumption' do
     choose 'Insight'
-    choose 'More confident'
-    fill_in 'Title', with: 'An insight'
-    find('trix-editor').click.set('A reason')
-    click_on 'Comment'
+    select 'More confident'
+    fill_in 'Title', with: 'An new insight'
+    fill_in 'Description', with: 'A reason'
+    click_on 'Post'
 
-    assert_link 'An insight'
+    assert_text 'An new insight'
   end
 
-  test 'can add comment to unknown' do
+  test 'member can add comment to assumption' do
     choose 'Comment'
-    find('trix-editor').click.set('A comment')
-    click_on 'Comment'
+    fill_in 'Description', with: 'My new comment'
+    click_on 'Post'
 
-    assert_text 'A comment'
-  end
-
-  test 'add insights and comments and check for chronological order' do
-    choose 'Insight'
-    choose 'More confident'
-    fill_in 'Title', with: 'An insight'
-    find('trix-editor').click.set('A reason')
-    click_on 'Comment'
-
-    choose 'Comment'
-    find('trix-editor').click.set('A comment')
-    click_on 'Comment'
-
-    choose 'Insight'
-    choose 'More confident'
-    fill_in 'Title', with: 'Another insight'
-    find('trix-editor').click.set('Another reason')
-    click_on 'Comment'
-
-    assert_selector('ul li:nth-child(1)', text: 'Insight An insight by CAST contributed 1 confidence less than a minute ago.')
-    assert_selector('ul li:nth-child(2)', text: "CAST commented less than a minute ago.\nA comment")
-    assert_selector('ul li:nth-child(3)', text: 'Insight Another insight by CAST contributed 1 confidence less than a minute ago.')
+    assert_text 'My new comment'
   end
 end

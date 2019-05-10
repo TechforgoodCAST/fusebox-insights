@@ -6,14 +6,15 @@ class ResponsesController < ApplicationController
   def create
     @response = Response.new(response_params)
     @assumption = Assumption.find_by(id: params[:assumption_id])
+    @project = @assumption.project
 
     @response.author = current_user
     @response.assumption = @assumption
 
     if @response.save
-      redirect_to project_assumption_path(@assumption.project,@assumption), notice: 'Response successfully added.'
+      redirect_to project_assumption_path(@assumption.project, @assumption), notice: 'Response successfully added.'
     else
-      render [@assumption.project, @assumption]
+      render 'assumptions/show'
     end
   end
 

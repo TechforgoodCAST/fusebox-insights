@@ -19,6 +19,7 @@ class AssumptionsTest < ApplicationSystemTestCase
   end
 
   test 'anyone can view assumption in public project' do
+    sleep(1) # TODO: suite sometimes fails without this
     sign_out
     path = project_assumption_path(@project, @assumption)
     visit path
@@ -90,20 +91,5 @@ class AssumptionsTest < ApplicationSystemTestCase
     visit project_group_path(@project, group)
 
     assert_text group.title
-  end
-
-  test 'can remove an assumption from a group' do
-    group = @project.groups.first
-    visit edit_project_assumption_path(@project, @assumption)
-    select group.title.humanize
-    click_on 'Save assumption'
-
-    visit project_group_path(@project, group)
-
-    page.accept_confirm do
-      click_on 'Remove', match: :first
-    end
-
-    assert_text 'Assumption was successfully removed.'
   end
 end

@@ -35,6 +35,10 @@ class AssumptionPolicy < ApplicationPolicy
     update?
   end
 
+  def comment?
+    ProjectMember.find_by(project: record.project, user: user)
+  end
+
   def focus?
     show? if user
   end

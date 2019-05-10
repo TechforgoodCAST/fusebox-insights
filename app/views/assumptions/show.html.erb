@@ -27,26 +27,28 @@
 
   </div>
   <div class="col-8">
-    <div class="card mb-4">
 
-      <%= bootstrap_form_for @response, url: project_assumption_responses_path(@project, @assumption) do |f| %>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-4 mt-2">
-              <%= f.collection_radio_buttons :type, [['Insight', 'Insight'] ,['Comment', 'Comment']], :first, :last, hide_label: true %>
+    <% if policy(@assumption).comment? %>
+      <div class="card mb-4">
+        <%= bootstrap_form_for @response, url: project_assumption_responses_path(@project, @assumption) do |f| %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4 mt-2">
+                <%= f.collection_radio_buttons :type, [['Insight', 'Insight'] ,['Comment', 'Comment']], :first, :last, hide_label: true %>
+              </div>
+              <div class="col-8" id="confidence_fields">
+                <%= f.select :confidence, Response::CONFIDENCE, label: "Confidence in this assumption" %>
+              </div>
             </div>
-            <div class="col-8" id="confidence_fields">
-              <%= f.select :confidence, Response::CONFIDENCE, label: "Confidence in this assumption" %>
-            </div>
+            <%= f.text_field :title, hide_label: true, placeholder: "Subject" %>
+            <%= f.text_area :description,  hide_label: true, placeholder: "What's changed?" %>
           </div>
-          <%= f.text_field :title, hide_label: true, placeholder: "Subject" %>
-          <%= f.text_area :description,  hide_label: true, placeholder: "What's changed?" %>
-        </div>
-        <div class="card-footer">
-          <%= f.submit 'Post', data: { disable_with: 'Commenting...' }, class: "btn btn-info" %>
-        </div>
-      <% end %>
-    </div>
+          <div class="card-footer">
+            <%= f.submit 'Post', data: { disable_with: 'Commenting...' }, class: "btn btn-info" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
     <%- @assumption.responses.each do |response| %>
       <%- if response.class.name == "Insight" %>
