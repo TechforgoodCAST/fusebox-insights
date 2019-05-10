@@ -9,7 +9,7 @@
     </p>
     <strong><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></strong>
     <% if description %>
-      <p><%= raw(assumption.description) %></p>
+      <p><%= simple_format(assumption.description) %></p>
     <% end %>
   </div>
 

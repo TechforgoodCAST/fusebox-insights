@@ -9,7 +9,7 @@
     </p>
     <p><%= link_to insight.title, project_insight_path(@project, insight) %></p>
     <% if description %>
-      <p><%= raw(insight.description) %></p>
+      <p><%= simple_format(insight.description) %></p>
     <% end %>
   </div>
 

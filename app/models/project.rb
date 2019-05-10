@@ -20,21 +20,5 @@ class Project < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :author }
   validates :is_private, inclusion: { in: [true, false] }, allow_nil: false
 
-  after_create :create_default_groups
-
-  private
-
-  def create_default_groups
-    if groups.empty?
-      groups.create!(
-        [
-          { title: 'Problem Statement', author: author },
-          { title: 'Problem Area', author: author },
-          { title: 'User Value', author: author },
-          { title: 'Social Value', author: author },
-          { title: 'Financial Value', author: author }
-        ]
-      )
-    end
-  end
+  after_create { GroupFactory.new(author, self).create! if groups.empty? }
 end
