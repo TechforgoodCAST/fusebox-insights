@@ -5,8 +5,7 @@ class InsightsController < ApplicationController
   before_action :load_insight, except: %i[index new]
 
   def index
-    # TODO: spec
-    @insights = Insight.order(updated_at: :desc).page(params[:page])
+    @insights = @project.insights.page(params[:page])
   end
 
   def new
@@ -52,7 +51,8 @@ class InsightsController < ApplicationController
     @insight = Insight.find(params[:id])
   end
 
+  # TODO: DRY
   def load_project
-    @project = Project.find_by(slug: params[:project_slug])
+    @project = Project.find_by(slug: params[:project_id])
   end
 end

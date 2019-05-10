@@ -5,12 +5,15 @@ class InsightBelongsToAssumption < ActiveRecord::Migration[5.2]
     add_reference :insights, :assumption, index: true, foreign_key: true
     add_column :insights, :confidence, :integer, null: false, default: 0
 
+    add_reference :insights, :project, index: true, foreign_key: true
+
     reversible do |dir|
       dir.up do
         Proof.all.each do |proof|
-          proof.insight.update(
+          proof.insight.update!(
+            assumption: proof.assumption,
             confidence: proof.confidence,
-            assumption: proof.assumption
+            project: proof.assumption.project
           )
         end
         Proof.destroy_all

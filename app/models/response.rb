@@ -30,9 +30,10 @@ class Response
     if valid?
       if insight?
         author.insights.create!(
+          assumption: assumption,
           confidence: confidence,
           description: description,
-          assumption: assumption,
+          project: assumption.project,
           title: title
         )
       elsif comment?

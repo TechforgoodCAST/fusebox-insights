@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :support_message do
-    association :project, factory: :project
+    project
     status { 'Pending' }
-    order { 1 }
+    sequence(:order) { |n| n }
     body { 'Test Support Message' }
     rule_object_type { 'Assumption' }
     rule_event_type { 'create' }

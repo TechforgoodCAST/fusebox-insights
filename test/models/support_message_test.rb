@@ -4,10 +4,7 @@ require 'test_helper'
 
 class SupportMessageTest < ActiveSupport::TestCase
   setup do
-    @user = build(:user)
-    @project = build(:project, author: @user)
-    @subject = build(:support_message, project: @project)
-    @subject.save
+    @subject = create(:support_message)
   end
 
   test 'belongs to #project' do
@@ -15,12 +12,14 @@ class SupportMessageTest < ActiveSupport::TestCase
   end
 
   test 'order must be unique for project' do
-    @invalid_order_message = SupportMessage.create(status: 'Pending', project: @project, body: 'test', order: 1)
-    assert_equal(@invalid_order_message.valid?, false)
+    dup = @subject.dup
+    dup.valid?
+    assert_error(:order, 'has already been taken', subject: dup)
   end
 
   test 'status must be in allowed statuses' do
-    @invalid_status_message = SupportMessage.create(status: 'Invalid Status', project: @project, body: 'test', order: 1)
-    assert_equal(@invalid_status_message.valid?, false)
+    @subject.status = 'Invalid Status'
+    @subject.valid?
+    assert_error(:status, 'is not included in the list')
   end
 end

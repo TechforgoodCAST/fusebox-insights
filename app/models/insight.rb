@@ -7,6 +7,7 @@ class Insight < ApplicationRecord
 
   belongs_to :author, class_name: 'User'
   belongs_to :assumption, optional: true
+  belongs_to :project
 
   validates :title, presence: true, uniqueness: { scope: :author }
 end

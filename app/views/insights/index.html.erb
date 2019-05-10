@@ -1,0 +1,13 @@
+<%= render "projects/header" %>
+
+<h2>Insights</h2>
+
+<div class="row">
+  <% @insights.each do |insight| %>
+    <div class="col-md-3">
+      <%= render partial: 'insights/card', locals: { description: false, insight: insight } %>
+    </div>
+  <% end %>
+</div>
+
+<%= paginate @insights %>

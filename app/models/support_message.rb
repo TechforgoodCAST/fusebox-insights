@@ -1,11 +1,12 @@
-
+# frozen_string_literal: true
 
 class SupportMessage < ApplicationRecord
-  ALLOWED_STATUSES = ['Pending', 'Incomplete', 'Complete'].freeze
-  ALLOWED_OBJECTS = ['None', 'Assumption'].freeze
-  VALID_EVENT_TYPES = ['create', 'read', 'update', 'delete'].freeze
+  ALLOWED_STATUSES = %w[Pending Incomplete Complete].freeze
+  ALLOWED_OBJECTS = %w[None Assumption].freeze
+  VALID_EVENT_TYPES = %w[create read update delete].freeze
 
-  belongs_to :project, class_name: 'Project'
+  belongs_to :project
+
   validates :status, inclusion: { in: ALLOWED_STATUSES }
   validates :order, uniqueness: { scope: :project_id }
   validates :rule_object_type, inclusion: { in: ALLOWED_OBJECTS }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_08_155048) do
+ActiveRecord::Schema.define(version: 2019_05_10_130826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2019_05_08_155048) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "project_id", null: false
     t.bigint "group_id"
+    t.bigint "project_id", null: false
     t.integer "certainty", default: 0
     t.datetime "deleted_at"
     t.index ["author_id"], name: "index_assumptions_on_author_id"
@@ -116,8 +116,10 @@ ActiveRecord::Schema.define(version: 2019_05_08_155048) do
     t.datetime "updated_at", null: false
     t.bigint "assumption_id"
     t.integer "confidence", default: 0, null: false
+    t.bigint "project_id", null: false
     t.index ["assumption_id"], name: "index_insights_on_assumption_id"
     t.index ["author_id"], name: "index_insights_on_author_id"
+    t.index ["project_id"], name: "index_insights_on_project_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -199,6 +201,7 @@ ActiveRecord::Schema.define(version: 2019_05_08_155048) do
   add_foreign_key "foci", "users"
   add_foreign_key "groups", "projects"
   add_foreign_key "insights", "assumptions"
+  add_foreign_key "insights", "projects"
   add_foreign_key "proofs", "assumptions"
   add_foreign_key "proofs", "insights"
 end

@@ -12,9 +12,21 @@ class ProjectTest < ActiveSupport::TestCase
     assert_kind_of(User, @subject.author)
   end
 
+  test('has many #assumptions') { assert_has_many(:assumptions) }
+
+  test('destroys #assumptions') { assert_destroys(:assumptions) }
+
   test('has many #groups') { assert_has_many(:groups) }
 
   test('destroys #groups') { assert_destroys(:groups) }
+
+  test('has many #insights') { assert_has_many(:insights) }
+
+  test('destroys #insights') { assert_destroys(:insights) }
+
+  test('has many #support_messages') { assert_has_many(:support_messages) }
+
+  test('destroys #support_messages') { assert_destroys(:support_messages) }
 
   test 'user has many projects' do
     @user = create(:user, projects: build_list(:project, 2))
