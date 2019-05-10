@@ -7,7 +7,7 @@ class Assumption < ApplicationRecord
   acts_as_paranoid
   audited
 
-  enum certainty: %i[we_do_not_know we_think_we_know we_know]
+  enum certainty: { we_do_not_know: 0, we_think_we_know: 1, we_know: 2 }
 
   multisearchable against: [:title]
 

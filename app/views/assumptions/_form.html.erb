@@ -2,7 +2,7 @@
 
   <div class="form-row">
     <div class="col-md-6">
-      <%= f.select :group_id, current_user.groups.map{ |s| [s.title.humanize, s.id] } %>
+      <%= f.select :group_id, @project.groups.map { |g| [g.title.humanize, g.id] }, include_blank: true %>
     </div>
     <div class="col-md-6">
       <%= f.select :certainty, Assumption.certainties.keys.map{ |s| [s.humanize, s] } %>
