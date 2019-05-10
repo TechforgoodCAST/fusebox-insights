@@ -10,11 +10,10 @@ class InsightBelongsToAssumption < ActiveRecord::Migration[5.2]
     reversible do |dir|
       dir.up do
         Proof.all.each do |proof|
-          proof.insight.update!(
-            assumption: proof.assumption,
-            confidence: proof.confidence,
-            project: proof.assumption.project
-          )
+          proof.insight.assumption = proof.assumption
+          proof.insight.confidence = proof.confidence
+          proof.insight.project = proof.assumption.project
+          proof.insight.save!(touch: false)
         end
         Proof.destroy_all
       end
@@ -24,7 +23,9 @@ class InsightBelongsToAssumption < ActiveRecord::Migration[5.2]
             author: insight.author,
             confidence: insight.confidence,
             insight: insight,
-            assumption: insight.assumption
+            assumption: insight.assumption,
+            created_at: insight.created_at,
+            updated_at: insight.updated_at
           )
         end
         Insight.update_all(assumption_id: nil)
