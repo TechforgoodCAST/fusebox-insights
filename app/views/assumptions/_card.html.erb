@@ -7,7 +7,10 @@
         <%= link_to 'Edit', edit_project_assumption_path(assumption.project, assumption) %>
       <% end %>
     </p>
-    <p><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
+    <strong><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></strong>
+    <% if description %>
+      <p><%= raw(assumption.description) %></p>
+    <% end %>
   </div>
 
   <div class='card-footer'>

@@ -18,7 +18,7 @@
   <%- if @foci.any? %>
     <% @foci.each do |assumption| %>
       <div class="col-3">
-        <%= render partial: 'assumptions/card', locals: { edit: false, assumption: assumption } %>
+        <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
       </div>
     <% end %>
   <% else %>

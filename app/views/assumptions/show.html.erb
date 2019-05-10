@@ -3,7 +3,7 @@
 <div class="row">
 
   <div class="col-4">
-    <%= render partial: 'assumptions/card', locals: { edit: true, assumption: @assumption } %>
+    <%= render partial: 'assumptions/card', locals: { description: true, edit: true, assumption: @assumption } %>
 
     <% if @assumption.focussed_by.any? %>
       <p class="text-muted mb-2">
