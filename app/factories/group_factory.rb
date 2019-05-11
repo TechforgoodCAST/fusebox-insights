@@ -14,8 +14,8 @@ class GroupFactory
       },
       {
         title: 'Problem Area',
-        description: 'Your understanding of the problem from the ' \
-                     'perspectives of those affected.'
+        description: 'Our understanding of the problem from the perspectives ' \
+                     'of those affected and the outcomes to realise.'
       },
       { title: 'User Value',
         description: "How your solutions meet people's needs, expectations " \

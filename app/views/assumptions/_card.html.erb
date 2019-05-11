@@ -7,7 +7,7 @@
         <%= link_to 'Edit', edit_project_assumption_path(assumption.project, assumption) %>
       <% end %>
     </p>
-    <strong><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></strong>
+    <p class="font-weight-semibold mb-0"><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
     <% if description %>
       <p><%= simple_format(assumption.description) %></p>
     <% end %>
@@ -16,7 +16,8 @@
   <div class='card-footer'>
     <em class="fa fa-comment-dots pr-1"></em>
     <small style="position: relative; top: -1px;"><%= pluralize(assumption.responses.count, "Insight") %></small>
-    <p class="text-muted mb-0"><small>Updated <%= time_ago_in_words(assumption.updated_at) %> ago</small></p>
+    &middot;
+    <small class="text-muted mb-0">Updated <%= time_ago_in_words(assumption.updated_at) %> ago</small>
   </div>
 
 </div>

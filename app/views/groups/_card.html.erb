@@ -7,7 +7,7 @@
           <%= group.author.username %> · Updated <%= time_ago_in_words(group.updated_at) %> ago
         </small>
       </p>
-      <h3><%= link_to group.title, project_group_path(@project, group) %></h3>
+      <h3 class="font-weight-semibold mb-1"><%= link_to group.title, project_group_path(@project, group) %></h3>
 
       <small><%= simple_format(group.description) %></small>
       <%= simple_format(group.summary) %>
@@ -21,11 +21,27 @@
         </p>
 
         <div class="row pt-3">
-          <% group.assumptions.each do |assumption| %>
-            <div class="col-md-3">
+          <div class="col-md-4">
+            <h5 class="mb-1 font-weight-semibold">We do not know</h5>
+            <p class="text-muted mb-3">We have no direct evidence.</p>
+            <%- group.assumptions.we_do_not_know.each do |assumption| %>
               <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
+          <div class="col-md-4 border-left">
+            <h5 class="mb-1 font-weight-semibold">We think we know</h5>
+            <p class="text-muted mb-3">We have some direct evidence.</p>
+            <%- group.assumptions.we_think_we_know.each do |assumption| %>
+              <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
+            <% end %>
+          </div>
+          <div class="col-md-4 border-left">
+            <h5 class="mb-1 font-weight-semibold">We know</h5>
+            <p class="text-muted mb-3">We have a lot of direct evidence we trust.</p>
+            <%- group.assumptions.we_know.each do |assumption| %>
+              <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
+            <% end %>
+          </div>
         </div>
 
       <% end %>
