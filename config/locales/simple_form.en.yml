@@ -13,9 +13,9 @@ en:
     # Examples
     labels:
       response:
-        confidence: 'Has your confidence in this unknown changed?'
+        confidence: 'Has your confidence in this assumption changed?'
       responses:
-        confidence: 'Has your confidence in this unknown changed?'
+        confidence: 'Has your confidence in this assumption changed?'
       # defaults:
       #   password: 'Password'
       # user:

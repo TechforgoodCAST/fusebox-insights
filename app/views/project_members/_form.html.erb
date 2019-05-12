@@ -1,0 +1,23 @@
+<%= bootstrap_form_for([@project, project_member]) do |f| %>
+
+  <% if project_member.errors.any? %>
+    <div id="error_count"><p><%= pluralize(project_member.errors.count, 'error') %></p></div>
+    <ul>
+      <% project_member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="row pb-2">
+    <div class="col-6">
+      <%= f.select :user, @potential_members.collect {|m| [ m.username, m.id ]} %>
+    </div>
+    <div class="col-6">
+      <%= f.select :role, collection: ["Admin", "Collaborator", "Viewer"] %>
+    </div>
+  </div>
+
+  <%= f.submit "Add", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
+
+<% end %>

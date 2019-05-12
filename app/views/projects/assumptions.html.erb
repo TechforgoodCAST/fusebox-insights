@@ -1,0 +1,32 @@
+<%= render "projects/header" %>
+
+<% if policy(@project.assumptions.new).new? %>
+  <%= link_to new_project_assumption_path(@project), class: 'mb-4 btn btn-info btn-icon' do %>
+    <em class="fa fa-comment-medical"></em>
+    Add Assumption
+  <% end %>
+<% end %>
+
+<% if @project.assumptions.count > 0 %>
+
+  <div class="row">
+    <% @assumptions.each do |assumption| %>
+      <div class="col-md-12">
+        <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= paginate @assumptions %>
+
+<% else %>
+
+  <div class="bg-light rounded text-center p-5 mt-4">
+    <p class='lead mb-4'>Add some assumptions to get started.</p>
+    <%= link_to new_project_assumption_path(@project), class: 'btn btn-info btn-icon' do %>
+      <em class="fa fa-comment-medical"></em>
+      Add assumption
+    <% end %>
+  </div>
+
+<% end %>

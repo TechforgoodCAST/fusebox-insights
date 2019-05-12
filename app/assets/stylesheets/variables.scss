@@ -1,0 +1,38 @@
+$color--green: #00aaa6;
+$color--blue: #477dce;
+$color--medium-blue: #477dce;
+$color--light-blue: #5090c8;
+$color--light-grey: #f3f3f3;
+$color--medium-grey: #6c757d;
+$color--dark-grey: #192D44;
+$color--grey: #EBECEE;
+$color--black: #000000;
+$color--yellow: #F5AE30;
+$color--orange: #F6754A;
+$color--light-orange: #F6754A;
+$color--red: #FF473D;
+
+$link-color: $color--dark-grey;
+$link-hover-color: $color--medium-blue;
+$link-hover-decoration: none;
+
+$headings-font-family: 'Inter', sans-serif;
+$headings-color: $color--dark-grey;
+h1, h2, h3, h4, h5 { letter-spacing: 0.025em; }
+
+$font-family-base: 'Inter', sans-serif;
+
+$font-size-base: 14;
+$line-height-base: 1.6 !default;
+
+$btn-font-weight: 500;
+
+$theme-colors: (
+  "primary": $color--medium-blue,
+  "danger": $color--red,
+  "light": $color--light-grey,
+  "secondary": $color--light-grey,
+  "info": $color--orange,
+  "dark": $color--dark-grey,
+  "yellow": $color--yellow
+);

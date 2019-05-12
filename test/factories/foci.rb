@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :focus do
-    unknown
+    assumption
     user
   end
 end

@@ -5,7 +5,7 @@ require 'test_helper'
 class NotificationsMailerTest < ActionMailer::TestCase
   setup do
     @user = create(:user)
-    @user.in_focus << create(:unknown, author: @user)
+    @user.in_focus << create(:assumption, author: @user)
   end
 
   test 'weekly_review' do

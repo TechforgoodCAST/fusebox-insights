@@ -1,0 +1,8 @@
+<div class="card">
+  <div class="card-body">
+    <p>
+      Updated <%= time_ago_in_words(result.updated_at) %> ago
+    </p>
+    <h3><%= link_to result.searchable.title, [result.searchable.project, result.searchable] %></h3>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<%= render "projects/header" %>
+
+<div class="row">
+
+  <div class="col-4">
+    <%= render partial: 'assumptions/card', locals: { description: true, edit: true, assumption: @assumption } %>
+
+    <% if policy(@assumption).focus? %>
+      <%- if current_user.in_focus.include?(@assumption) %>
+        <%= link_to project_assumption_unfocus_path(@assumption.project, @assumption), class: 'btn btn-primary btn-icon' do %>
+          <em class="fa fa-search-minus"></em>
+          Remove focus
+        <% end %>
+      <% else %>
+        <%= link_to project_assumption_focus_path(@assumption.project, @assumption), class: 'btn btn-info btn-icon' do %>
+          <em class="fa fa-search"></em>
+          Focus on this assumption
+        <% end %>
+      <% end %>
+    <% end %>
+
+  </div>
+  <div class="col-8">
+
+    <% if policy(@assumption).comment? %>
+      <div class="card mb-4">
+        <%= bootstrap_form_for @response, url: project_assumption_responses_path(@project, @assumption) do |f| %>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-4 mt-2">
+                <%= f.collection_radio_buttons :type, [['Insight', 'Insight'] ,['Comment', 'Comment']], :first, :last, hide_label: true %>
+              </div>
+              <div class="col-8" id="confidence_fields">
+                <%= f.select :confidence, Response::CONFIDENCE, label: "Confidence in this assumption" %>
+              </div>
+            </div>
+            <%= f.text_field :title, hide_label: true, placeholder: "Subject" %>
+            <%= f.text_area :description,  hide_label: true, placeholder: "What's changed?" %>
+          </div>
+          <div class="card-footer">
+            <%= f.submit 'Post', data: { disable_with: 'Commenting...' }, class: "btn btn-info" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%- @assumption.responses.each do |response| %>
+      <%- if response.class.name == "Insight" %>
+        <div class="card mb-3">
+          <div class="card-header">
+            <p class="text-muted mb-0">
+              <% if response.confidence == 0 %>
+                <em class="far fa-meh text-info"></em>
+              <% elsif response.confidence == -1 %>
+                <em class="far fa-frown text-info"></em>
+              <% else %>
+                <em class="far fa-smile text-info"></em>
+              <% end %>
+              <small class="pl-1">Flagged as <%= response.confidence %> confidence</small>
+            </p>
+          </div>
+          <div class="card-body pb-2">
+            <p class="text-muted mb-0"><small><%= response.author.username %> <%= time_ago_in_words(response.updated_at) %> ago.</small></p>
+            <p><strong><%= response.title %></strong></p>
+            <%= simple_format response.description %>
+          </div>
+        </div>
+      <%- else %>
+
+        <div class="card mb-3">
+          <div class="card-body pb-2">
+            <p class="text-muted mb-0"><small>by <%= response.author.username %> <%= time_ago_in_words(response.updated_at) %> ago.</small></p>
+            <%= simple_format response.description %>
+          </div>
+        </div>
+
+      <% end %>
+    <% end %>
+
+  </div>
+
+</div>
+
+</div>

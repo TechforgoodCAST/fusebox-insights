@@ -1,0 +1,65 @@
+<%# TODO: refactor %>
+
+<nav aria-label="breadcrumb" class="mb-4">
+  <div class="container">
+    <ol class="breadcrumb bg-white pl-0 mt-2">
+
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to "Projects", projects_path, class: "link-border text-dark" %>
+      </li>
+
+      <% if @project.present? && action_name == "show" && controller_name == "projects" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <span class="text-dark"><%= @project.name %></span>
+        </li>
+      <% elsif @project.present? && @project.id.present? && (action_name != "new" || controller_name != "projects") %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= link_to @project.name, project_path(@project), class: "link-border text-dark" %>
+        </li>
+      <% end %>
+
+      <% if @group.present? && action_name == "show" && controller_name == "groups" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <span class="text-dark"><%= @group.title %></span>
+        </li>
+      <% elsif @group.present? && @group.id.present? && (action_name != "new" || controller_name != "groups") %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= link_to @group.title, project_group_path(@project, @group), class: "link-border text-dark" %>
+        </li>
+      <% end %>
+
+      <% if controller_name == "assumptions" && action_name == "index" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <span class="text-dark">Assumptions</span>
+        </li>
+      <% elsif controller_name == "assumptions" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= link_to "Assumptions", project_assumptions_path(@project), class: "link-border text-dark" %>
+        </li>
+      <% end %>
+
+      <% if action_name == "knowledge_board" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <span class="text-dark"><%= action_name.humanize %></span>
+        </li>
+      <% end %>
+
+      <% if controller_name == "support_messages" && action_name == "index" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <span class="text-dark">Support</span>
+        </li>
+      <% elsif controller_name == "support_messages" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <%= link_to "Support", project_support_messages_path(@project), class: "link-border text-dark" %>
+        </li>
+      <% end %>
+
+      <% if action_name == "edit" || action_name == "new" %>
+        <li class="breadcrumb-item active" aria-current="page">
+          <span class="text-dark"><%= action_name.humanize %> <%= controller_name.singularize.humanize %></span>
+        </li>
+      <% end %>
+
+    </ol>
+  </div>
+</nav>

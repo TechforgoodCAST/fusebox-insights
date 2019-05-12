@@ -1,0 +1,54 @@
+<div class="row justify-content-center pb-0">
+  <div class="col-6">
+
+    <h1 class="mb-4">Edit your profile</h1>
+
+    <%= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }) do |f| %>
+
+      <%= devise_error_messages! %>
+
+      <div class="form-group">
+        <%= f.label :username %>
+        <%= f.text_field :username, autofocus: true, autocomplete: 'username', class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+      </div>
+
+      <div class="row pb-4">
+
+        <div class="col-6">
+          <%= f.label "New Password" %>
+          <%= f.password_field :password, autocomplete: 'new-password', class: 'form-control' %>
+
+          <small class="form-text text-muted"><%= t('.leave_blank_if_you_don_t_want_to_change_it') %></small>
+        </div>
+
+        <div class="col-6">
+          <%= f.label "Confirm new password" %>
+          <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'  %>
+          <small class="form-text text-muted"><%= t('.leave_blank_if_you_don_t_want_to_change_it') %></small>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-9">
+          <%= f.password_field :current_password, placeholder: "Current password", autocomplete: 'current-password', class: 'form-control' %>
+
+          <small class="form-text text-muted"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></small>
+        </div>
+
+        <div class="col-3">
+          <%= f.submit "Save", class: 'btn btn-info', style: "width: 100%;" %>
+        </div>
+
+      </div>
+    <% end %>
+
+  </div>
+</div>

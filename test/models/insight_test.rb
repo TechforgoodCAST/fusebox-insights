@@ -7,21 +7,9 @@ class InsightTest < ActiveSupport::TestCase
 
   test('belongs to #author') { assert_kind_of(User, @subject.author) }
 
-  test 'has many #proofs' do
-    create_list(:proof, 2, insight: @subject)
-    assert_equal(2, @subject.proofs.size)
-  end
-
-  test 'destroys #proofs' do
-    create(:proof, insight: @subject)
-    assert_equal(1, Proof.count)
-    @subject.destroy
-    assert_equal(0, Proof.count)
-  end
-
-  test 'has many #unknowns through #proofs' do
-    create_list(:proof, 2, insight: @subject)
-    assert_equal(2, @subject.unknowns.size)
+  test 'can belong to #assumption' do
+    @subject.assumption = build(:assumption)
+    assert_kind_of(Assumption, @subject.assumption)
   end
 
   test('#title present') { assert_present(:title) }
@@ -30,7 +18,7 @@ class InsightTest < ActiveSupport::TestCase
 
   test 'identical #title for different author' do
     @subject.save!
-    dup = build(:unknown, title: @subject.title)
+    dup = build(:assumption, title: @subject.title)
     assert(dup.valid?)
   end
 

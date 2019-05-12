@@ -1,0 +1,11 @@
+<%= render "projects/header" %>
+
+<%= render partial: 'groups/card', locals: { edit: true, group: @group } %>
+
+<ul class="history">
+  <%- @group.assumptions.each do |assumption| %>
+    <li>
+      Assumption <span class="medium"><%= link_to(assumption.title, [@project, assumption]) %></span> by <%= assumption.author.username %> updated <%= time_ago_in_words(assumption.updated_at) %> ago.
+    </li>
+  <% end %>
+</ul>

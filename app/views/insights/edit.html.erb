@@ -1,6 +1,6 @@
-<div class="flex mb30 justify-between items-center">
-  <h1 class="fs20 bold">Editing Insight</h1>
-  <%= link_to 'Back', @insight, class: 'medium' %>
+<div class="row justify-content-center pb-5 pt-2">
+  <div class="col-6">
+    <h1 class="mb-4">Edit Insight</h1>
+    <%= render 'form', insight: @insight %>
+  </div>
 </div>
-
-<%= render 'form', insight: @insight %>

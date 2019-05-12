@@ -1,0 +1,26 @@
+<%= bootstrap_form_for([@project, support_message]) do |f| %>
+
+  <% if support_message.errors.any? %>
+    <div id="error_count"><p><%= pluralize(support_message.errors.count, 'error') %></p></div>
+    <ul>
+      <%- support_message.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="row">
+    <div class="col-3">
+      <%= f.number_field :order, min: '1', step: '1'%>
+    </div>
+    <div class="col-9">
+      <%= f.select :status, [ ['Pending', 'Pending'], ['Incomplete', 'Incomplete'], ['Complete', 'Complete'] ] %>
+    </div>
+  </div>
+
+  <%= f.text_field :subject %>
+  <%= f.text_area :body, label: :message, rows: 5 %>
+
+  <%= f.submit "Post", data: { disable_with: 'Saving...' }, class: 'btn btn-info' %>
+
+<% end %>

@@ -1,11 +1,12 @@
-<div class="flex mb30 justify-between items-center">
-  <h1 class="fs20 bold">Insights</h1>
-  <%= link_to 'New Insight', new_insight_path, class: 'medium' %>
-</div>
+<%= render "projects/header" %>
 
-<div class="flow flow20">
+<h2>Insights</h2>
+
+<div class="row">
   <% @insights.each do |insight| %>
-    <%= render partial: 'card', locals: { edit: false, insight: insight } %>
+    <div class="col-md-3">
+      <%= render partial: 'insights/card', locals: { description: false, insight: insight } %>
+    </div>
   <% end %>
 </div>
 
