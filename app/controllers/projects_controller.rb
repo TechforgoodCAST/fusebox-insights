@@ -9,20 +9,17 @@ class ProjectsController < ApplicationController
   end
 
   def knowledge_board
-
     authorize @project
 
     @not_knowns = @project.assumptions.we_do_not_know.order(updated_at: :desc)
     @think_knowns = @project.assumptions.we_think_we_know.order(updated_at: :desc)
     @knowns = @project.assumptions.we_know.order(updated_at: :desc)
-
   end
 
+  # TODO: refactor
   def assumptions
-
     authorize @project
-    @assumptions = @project.assumptions.order(updated_at: :desc).page(params[:page])
-
+    @assumptions = @project.assumptions.page(params[:page])
   end
 
   def show
@@ -67,7 +64,7 @@ class ProjectsController < ApplicationController
   private
 
   def set_project
-    pid = (params[:project_id].present?) ? params[:project_id] : params[:id]
+    pid = params[:project_id].presence || params[:id]
     @project = Project.friendly.find(pid)
   end
 

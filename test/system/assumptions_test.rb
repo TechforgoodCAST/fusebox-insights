@@ -50,7 +50,7 @@ class AssumptionsTest < ApplicationSystemTestCase
     assert_text 'Assumption was successfully created'
   end
 
-  test 'can update authored assumption' do
+  test 'author can update assumption' do
     visit project_assumption_path(@project, @assumption)
     within('.col-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
@@ -58,14 +58,32 @@ class AssumptionsTest < ApplicationSystemTestCase
     assert_text 'Assumption was successfully updated'
   end
 
-  test 'can delete authored assumption' do
+  test 'author can delete assumption' do
     visit project_assumption_path(@project, @assumption)
     within('.col-4 .card-body') { click_on 'Edit' }
     page.accept_confirm { click_on 'Delete' }
     assert_text 'Assumption archived'
   end
 
-  test 'cannot update unauthored assumption' do
+  test 'admin can update assumption' do
+    @assumption.update!(author: create(:user))
+    visit project_assumption_path(@project, @assumption)
+    within('.col-4 .card-body') { click_on 'Edit' }
+    fill_in 'Title', with: @assumption.title
+    click_on 'Save assumption'
+    assert_text 'Assumption was successfully updated'
+  end
+
+  test 'admin can delete assumption' do
+    @assumption.update!(author: create(:user))
+    visit project_assumption_path(@project, @assumption)
+    within('.col-4 .card-body') { click_on 'Edit' }
+    page.accept_confirm { click_on 'Delete' }
+    assert_text 'Assumption archived'
+  end
+
+  test 'member cannot update assumption' do
+    admin_to_collaborator
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
     within('.col-4 .card-body') { assert_no_text 'Edit' }
@@ -74,7 +92,8 @@ class AssumptionsTest < ApplicationSystemTestCase
     assert_text "Sorry, you don't have access to that"
   end
 
-  test 'cannot delete unauthored assumption' do
+  test 'member cannot delete assumption' do
+    admin_to_collaborator
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
     assert_no_text 'Delete'

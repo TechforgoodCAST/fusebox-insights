@@ -28,7 +28,8 @@ class AssumptionPolicy < ApplicationPolicy
   def update?
     return false if record.new_record?
 
-    user&.id == record.author_id
+    user&.id == record.author_id ||
+      ProjectMember.find_by(project: record.project, user: user, role: 'Admin')
   end
 
   def destroy?
