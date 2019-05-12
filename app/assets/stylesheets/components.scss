@@ -8,6 +8,14 @@
       width: 0.35em;
     }
   }
+  .alpha {
+    position: absolute;
+    display: inline;
+    font-size: 0.75rem;
+    top: 12px;
+    margin-left: 5px;
+    color: $color--medium-grey;
+  }
 }
 
 .btn {

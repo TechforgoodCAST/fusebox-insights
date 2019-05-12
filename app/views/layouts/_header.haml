@@ -9,6 +9,7 @@
             %span<
               %span> Fuse
               %span.boxed-border> box
+            .alpha alpha
 
         %button.navbar-toggler{type: "button", "data-toggle": "collapse", "data-target": "#navbarNavAltMarkup", "aria-controls": "navbarNavAltMarkup", "aria-expanded": "false", "aria-label": "Toggle navigation" }
           %span.navbar-toggler-icon
@@ -48,9 +49,17 @@
             %span<
               %span> Fuse
               %span.boxed-border> box
+            .alpha alpha
         .ml-auto
           =link_to "Sign in", new_user_session_path, class: "btn btn-primary mr-3"
           =link_to "Sign up", new_user_registration_path, class: "btn btn-outline-dark"
+
+%section
+  .alert.alert-dark
+    .container
+      This is a prototype,
+      = succeed '.' do
+        = mail_to 'suraj@wearecast.org.uk', 'your feedback will help us improve', subject: 'Fusebox feedback', class: 'text-primary'
 
 -if notice.present? || alert.present?
   %section#alerts.pt-4
