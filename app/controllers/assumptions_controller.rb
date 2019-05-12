@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: refactor
 class AssumptionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[show]
@@ -80,7 +81,7 @@ class AssumptionsController < ApplicationController
 
   def set_assumption
     aid = (params[:assumption_id].present?) ? params[:assumption_id] : params[:id]
-    @assumption = Assumption.find(aid)
+    @assumption = Assumption.includes(:group).find(aid)
   end
 
   def projects_for_assumption
@@ -90,6 +91,6 @@ class AssumptionsController < ApplicationController
   end
 
   def assumption_params
-    params.require(:assumption).permit(:title, :description, :group_id, :project_id, :certainty)
+    params.require(:assumption).permit(:title, :description, :group_id, :project_id, :certainty, :damage)
   end
 end

@@ -1,23 +1,38 @@
 <div class="card mb-4">
 
   <div class="card-body">
-    <p class="text-muted mb-1 d-flex align-items-center justify-content-between">
-      <small>Created by <%= assumption.author.username %></small>
+    <% if assumption.focussed_by.any? %>
+      <small class="text-primary">In focus for <%= assumption.focussed_by.pluck(:username).to_sentence %></small>
+      <br>
+    <% end %>
+
+    <div class="text-muted mb-2 d-flex align-items-center justify-content-between">
+      <div>
+        <small class="text-muted mb-0">Updated <%= time_ago_in_words(assumption.updated_at) %> ago</small>
+
+        <% if assumption.group %>
+          &middot;
+          <small class="text-muted"><%= assumption.group&.title %></small>
+        <% end %>
+      </div>
+
       <%- if edit && policy(assumption).update? %>
         <%= link_to 'Edit', edit_project_assumption_path(assumption.project, assumption) %>
       <% end %>
-    </p>
-    <p class="font-weight-semibold mb-0"><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
-    <% if description %>
-      <p><%= simple_format(assumption.description) %></p>
-    <% end %>
-  </div>
+    </div>
 
-  <div class='card-footer'>
-    <em class="fa fa-comment-dots pr-1"></em>
-    <small style="position: relative; top: -1px;"><%= pluralize(assumption.responses.count, "Insight") %></small>
-    &middot;
-    <small class="text-muted mb-0">Updated <%= time_ago_in_words(assumption.updated_at) %> ago</small>
+    <div class="mb-2">
+      <p class="font-weight-semibold mb-0"><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
+      <% if description %>
+        <p><%= simple_format(assumption.description) %></p>
+      <% end %>
+    </div>
+
+    <div class="badge badge-secondary"><%= pluralize(assumption.responses.count, "Insight") %></div>
+
+    <% if assumption.damage %>
+      <div class="badge badge-secondary"><%= assumption.damage.humanize %> impact</div>
+    <% end %>
   </div>
 
 </div>

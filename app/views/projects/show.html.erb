@@ -1,5 +1,7 @@
 <%= render "projects/header" %>
 
+<p><%= @project.assumptions.where('group_id is null').size %> uncategorised assumptions</p>
+
 <%- @project.groups.order(:created_at).each do |group| %>
   <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
 <% end %>

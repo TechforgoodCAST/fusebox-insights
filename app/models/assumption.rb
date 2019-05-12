@@ -4,10 +4,17 @@ class Assumption < ApplicationRecord
   include PgSearch
   include Triggerable
 
+  DAMAGE = [
+    'Low - being wrong about this will have little to no effect',
+    'Medium - being wrong about this will have a moderate effect',
+    'High - being wrong about this will have a significant effect'
+  ].freeze
+
   acts_as_paranoid
   audited
 
   enum certainty: { we_do_not_know: 0, we_think_we_know: 1, we_know: 2 }
+  enum damage: { low: 0, medium: 1, high: 2 }
 
   multisearchable against: [:title]
 

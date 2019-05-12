@@ -26,7 +26,7 @@
       <h3 class="mb-0">We think we know</h3>
       <p class="text-muted mb-4 pb-2">We have some direct evidence.</p>
       <% @think_knowns.each do |assumption| %>
-        <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
+        <%= render partial: 'assumptions/card', locals: { description: false, edit: true, assumption: assumption } %>
       <% end %>
 
       <% if policy(@project.assumptions.new).new? %>
@@ -44,7 +44,7 @@
       <p class="text-muted mb-4 pb-2">We have a lot of direct evidence we trust.</p>
 
       <% @knowns.each do |assumption| %>
-        <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
+        <%= render partial: 'assumptions/card', locals: { description: false, edit: true, assumption: assumption } %>
       <% end %>
 
       <% if policy(@project.assumptions.new).new? %>
