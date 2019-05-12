@@ -1,43 +1,47 @@
-<h1 class="fs20 bold mb10">New reflection</h1>
+<h1 class="mb-3">Post Reflections</h1>
 
-<p class="fs15 mb30">You have the following unknowns <%= link_to 'in focus', in_focus_path %>, reflect on how your confidence in each has changed.</p>
+<p class="mb-5">You have the following assumptions <%= link_to 'in focus', foci_path %>, reflect on how your confidence in each has changed.</p>
 
-<%= simple_form_for @reflection, html: { class: nil } do |f| %>
+<%= bootstrap_form_for @reflection, html: { class: nil } do |f| %>
 
-  <div class="flow mb20">
-    <%- f.object.responses.each_with_index do |response, index| %>
-      <%- unknown = @reflection.unknowns[index] %>
+  <%- f.object.responses.each_with_index do |response, index| %>
+    <%- assumption = @reflection.assumptions[index] %>
 
-      <div class="flow20">
-        <%= render partial: 'unknowns/card', locals: { edit: false, unknown: unknown } %>
+    <div class="row mb-5">
 
-        <div class="form">
-          <%= simple_fields_for :responses, response do |c| %>
-            <h4 class="grey bold mb10">Add an insight</h4>
-
-            <%= c.input :confidence do %>
-              <%- Response::CONFIDENCE.each do |label, value| %>
-                <span class="radio">
-                  <%= c.label "#{index}_confidence_#{value}" do %>
-                    <%= c.radio_button :confidence, value, id: "responses_#{index}_confidence_#{value}", name: "responses[#{index}][confidence]" %>
-                    <%= label %>
-                  <% end %>
-                </span>
-              <% end %>
-            <% end %>
-
-            <%= c.input :title, input_html: { id: "responses_#{index}_title", name: "responses[#{index}][title]" } %>
-
-            <%= c.label :description %>
-            <%= c.trix_editor :description, id: "responses_#{index}_description", name: "responses[#{index}][description]" %>
-          <% end %>
-        </div>
+      <div class="col-4">
+        <%= render partial: 'assumptions/card', locals: { description: false, edit: false, assumption: assumption } %>
       </div>
 
-    <% end %>
-  </div>
+      <div class="col-8">
+        <div class="card">
 
-  <div class="text-right">
-    <%= f.button :submit, 'Submit reflection', data: { disable_with: 'Submitting...' } %>
-  </div>
+            <%= f.fields_for :responses, response, builder: BootstrapForm::FormBuilder do |c| %>
+
+              <div class="card-header pt-3 pb-2">
+
+                <p class="text-muted">Has your confidence in this assumption changed?</p>
+                <%- Response::CONFIDENCE.each do |label, value| %>
+                  <%= c.label "#{index}_confidence_#{value}", class: "pr-3" do %>
+                    <%= c.radio_button :confidence, value, label: label, id: "responses_#{index}_confidence_#{value}", name: "responses[#{index}][confidence]" %>
+                  <% end %>
+                <% end %>
+
+              </div>
+
+              <div class="card-body">
+                <%= c.text_field :title, id: "responses_#{index}_title", name: "responses[#{index}][title]", placeholder: 'Subject', hide_label: true %>
+                <%= c.text_area :description, rows: 3, hide_label: true, placeholder: "What's changed?", id: "responses_#{index}_description", name: "responses[#{index}][description]" %>
+              </div>
+
+            <% end %>
+
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+  <%= f.submit 'Post Reflections', data: { disable_with: 'Submitting...' }, class: 'btn btn-info' %>
+
 <% end %>

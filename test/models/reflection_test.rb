@@ -21,27 +21,25 @@ class ReflectionTest < ActiveSupport::TestCase
 
   test '#save invalid' do
     @subject.responses = { '0' => { 'confidence' => '1', 'type' => 'Insight', 'description' => 'A reason' } }
-    refute(@subject.save)
+    assert_not(@subject.save)
   end
 
   test '#save valid' do
     assert_equal(0, Insight.count)
-    assert_equal(0, Proof.count)
 
     @subject.responses = { '0' => { 'confidence' => '1', 'title' => 'title', 'type' => 'Insight', 'description' => 'A reason' } }
     assert(@subject.save)
 
     assert_equal(1, Insight.count)
-    assert_equal(1, Proof.count)
   end
 
-  test '#unknowns default' do
+  test '#assumptions default' do
     @subject = Reflection.new
-    assert_equal(0, @subject.unknowns.size)
+    assert_equal(0, @subject.assumptions.size)
   end
 
-  test '#unknowns with author' do
-    assert_equal(2, @subject.unknowns.size)
-    @subject.unknowns.each { |unknown| assert_kind_of(Unknown, unknown) }
+  test '#assumptions with author' do
+    assert_equal(2, @subject.assumptions.size)
+    @subject.assumptions.each { |assumption| assert_kind_of(Assumption, assumption) }
   end
 end

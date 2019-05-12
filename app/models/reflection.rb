@@ -7,13 +7,13 @@ class Reflection
 
   def initialize(*args)
     super(*args)
-    @responses = unknowns.map { Response.new } if @responses.blank?
+    @responses = assumptions.map { Response.new } if @responses.blank?
   end
 
   def save
     if @responses.is_a?(Hash)
       @responses = @responses.map do |k, v|
-        Response.new(v.merge(author: author, unknown: unknowns[k.to_i], type: 'Insight'))
+        Response.new(v.merge(author: author, assumption: assumptions[k.to_i], type: 'Insight'))
       end
     end
 
@@ -24,7 +24,7 @@ class Reflection
     end
   end
 
-  def unknowns
+  def assumptions
     author&.in_focus || []
   end
 end

@@ -3,8 +3,8 @@
 FactoryBot.define do
   factory :response do
     association :author, factory: :user
+    assumption
     confidence { 0 }
-    unknown
     title { 'Title' }
     description { 'A reason' }
     type { 'Insight' }

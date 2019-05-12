@@ -1,0 +1,9 @@
+<div class="flex mb30 justify-between items-center">
+  <h1 class="fs20 bold">Search Results</h1>
+</div>
+
+<div class="flow flow20">
+  <% @search_results.each do |result| %>
+    <%= render partial: 'card', locals: { result: result } %>
+  <% end %>
+</div>

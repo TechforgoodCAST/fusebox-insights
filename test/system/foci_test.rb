@@ -5,22 +5,35 @@ require 'application_system_test_case'
 class FociTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @unknown = create(:unknown, author: @user)
-    visit root_path
+    @project = create(:project, author: @user, users: [@user])
+    @assumption = create(:assumption, author: @user, project: @project)
+
+    visit new_user_session_path
     sign_in
   end
 
-  test 'visiting the index' do
-    assert_selector 'h1', text: 'In focus'
+  test 'view list of assumptions in focus' do
+    click_on 'navbarDropdown'
+    click_on 'My Focus'
+
+    assert_current_path foci_path
   end
 
-  test 'change focus' do
-    click_on 'Change focus'
+  test 'add to focus' do
+    visit project_assumption_path(@project, @assumption)
+    click_on 'Focus on this assumption'
 
-    select(@unknown.title)
-    click_on 'Change focus'
+    assert_current_path foci_path
+    assert_link @assumption.title
+  end
 
-    assert_text 'Focus successfully updated.'
-    assert_text @unknown.title
+  test 'remove from focus' do
+    visit project_assumption_path(@project, @assumption)
+    click_on 'Focus on this assumption'
+    click_on @assumption.title
+    click_on 'Remove focus'
+
+    assert_current_path project_assumption_path(@project, @assumption)
+    assert_link 'Focus on this assumption'
   end
 end

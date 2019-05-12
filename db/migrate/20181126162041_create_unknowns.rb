@@ -1,4 +1,6 @@
-class CreateUnknowns < ActiveRecord::Migration[5.2]
+# frozen_string_literal: true
+
+class CreateAssumptions < ActiveRecord::Migration[5.2]
   def change
     create_table :unknowns do |t|
       t.string :title, null: false

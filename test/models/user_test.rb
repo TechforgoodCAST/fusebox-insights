@@ -10,19 +10,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal(2, @subject.insights.size)
   end
 
-  test('has many #proofs') do
-    create_list(:proof, 2, author: @subject)
-    assert_equal(2, @subject.proofs.size)
-  end
-
-  test('has many #unknowns') do
-    create_list(:unknown, 2, author: @subject)
-    assert_equal(2, @subject.unknowns.size)
+  test('has many #assumptions') do
+    create_list(:assumption, 2, author: @subject)
+    assert_equal(2, @subject.assumptions.size)
   end
 
   test('has many #in_focus') do
     2.times do
-      create(:focus, user: @subject, unknown: build(:unknown, author: @subject))
+      create(:focus, user: @subject, assumption: build(:assumption, author: @subject))
     end
     assert_equal(2, @subject.in_focus.size)
   end
@@ -30,4 +25,9 @@ class UserTest < ActiveSupport::TestCase
   test('#username present') { assert_present(:username) }
 
   test('valid') { assert(@subject.valid?) }
+
+  test '#initials' do
+    @subject.username = 'John Doe'
+    assert_equal('J', @subject.initials)
+  end
 end

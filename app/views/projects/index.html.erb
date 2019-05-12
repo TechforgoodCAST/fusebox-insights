@@ -1,0 +1,42 @@
+<h1 class="mb-4">My Projects</h1>
+
+<div class="card-deck pt-3">
+
+  <%= link_to new_project_path, class: "card mb-4" do %>
+    <div class="vertical-center">
+      <div class="text-center">
+        <em class="fa fa-5x fa-plus"></em></br>
+        New project
+      </div>
+    </div>
+  <% end %>
+
+  <%- if @projects.any? %>
+
+    <%- @projects.each do |project| %>
+
+      <div class='card mb-4'>
+        <div class="card-body">
+          <p class="mb-1"><strong><%=link_to project.name, project_path(project) %></strong></p>
+          <p class="text-muted mb-2">
+            <em class="fa fa-comment-medical pr-1 text-primary"></em>
+            <small style="position: relative; top: -1px;"><%= pluralize(project.assumptions.count, 'Assumption') %></small>
+          </p>
+          <p class="pt-2 mb-1"><%= project.description %></p>
+
+        </div>
+        <div class="card-footer text-muted size-small">
+          <% if project.is_private? %>
+            <em class="fa fa-lock pr-2 text-info"></em>
+          <% else %>
+            <em class="fa fa-eye pr-2 text-info"></em>
+          <% end %>
+          <small><%= private_label(project) %></small>
+        </div>
+      </div>
+
+    <% end %>
+
+  <% end %>
+
+</div>

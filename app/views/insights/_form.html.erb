@@ -1,7 +1,5 @@
-<%= simple_form_for(insight) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description, as: :trix_editor %>
-  <div class="text-right">
-    <%= f.button :submit, data: { disable_with: 'Updating...' } %>
-  </div>
+<%= bootstrap_form_for([@project, insight]) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.trix_editor :description, class: 'mb-3' %>
+  <%= f.submit "Save", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
 <% end %>

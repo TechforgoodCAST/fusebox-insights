@@ -7,13 +7,13 @@ class Response
     'No change' => 0, 'More confident' => 1, 'Less confident' => -1
   }.freeze
 
-  attr_accessor :author, :confidence, :description, :title, :unknown, :type
+  attr_accessor :author, :confidence, :description, :title, :assumption, :type
 
-  validates :author, :unknown, :description, presence: true
-  validates :title, :confidence, presence: true, if: :is_insight?
+  validates :author, :assumption, :description, presence: true
+  validates :title, :confidence, presence: true, if: :insight?
 
   def valid?
-    if is_insight? 
+    if insight?
       if Insight.where(title: title).any?
         super
         errors.add(:title, 'has already been taken')
@@ -28,23 +28,27 @@ class Response
 
   def save
     if valid?
-      if is_insight?
-        insight = author.insights.create!(title: title, description: description)
-        author.proofs.create!(
-          confidence: confidence, insight: insight, unknown: unknown
+      if insight?
+        author.insights.create!(
+          assumption: assumption,
+          confidence: confidence,
+          description: description,
+          project: assumption.project,
+          title: title
         )
-      elsif is_comment?
-        author.comments.create!(description: description, unknown: unknown)
+      elsif comment?
+        author.comments.create!(description: description, assumption: assumption)
       end
     end
   end
 
   private
-    def is_insight?
-      type == 'Insight'
-    end
 
-    def is_comment?
-      type == 'Comment'
-    end
+  def insight?
+    type == 'Insight'
+  end
+
+  def comment?
+    type == 'Comment'
+  end
 end
