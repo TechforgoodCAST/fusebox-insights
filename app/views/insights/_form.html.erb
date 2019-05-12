@@ -1,5 +1,5 @@
 <%= bootstrap_form_for([@project, insight]) do |f| %>
   <%= f.text_field :title %>
-  <%= f.text_area :description %>
+  <%= f.trix_editor :description, class: 'mb-3' %>
   <%= f.submit "Save", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
 <% end %>

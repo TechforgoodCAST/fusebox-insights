@@ -11,7 +11,8 @@
 
   <%= f.text_field :title %>
 
-  <%= f.text_area :description, label: "Assumption", rows: 4 %>
+  <%= f.trix_editor :description, class: 'mb-3' %>
+
   <%= f.submit "Save assumption", data: { disable_with: 'Updating...' }, class: 'btn btn-info' %>
 
   <% if policy(assumption).destroy? %>
