@@ -28,14 +28,15 @@
           <div class="card-body">
             <div class="row">
               <div class="col-4 mt-2">
-                <%= f.collection_radio_buttons :type, [['Insight', 'Insight'] ,['Comment', 'Comment']], :first, :last, hide_label: true %>
+                <%= f.collection_radio_buttons :type, [['Insight', 'Insight'] ,['Comment', 'Comment']], :first, :last, hide_label: true, checked: 'Insight' %>
               </div>
               <div class="col-8" id="confidence_fields">
                 <%= f.select :confidence, Response::CONFIDENCE, label: "Confidence in this assumption" %>
               </div>
             </div>
             <%= f.text_field :title, hide_label: true, placeholder: "Subject" %>
-            <%= f.text_area :description,  hide_label: true, placeholder: "What's changed?" %>
+            <%= f.trix_editor :description, placeholder: "What's changed?" %>
+            <%= @response.errors[:description][0] %>
           </div>
           <div class="card-footer">
             <%= f.submit 'Post', data: { disable_with: 'Commenting...' }, class: "btn btn-info" %>

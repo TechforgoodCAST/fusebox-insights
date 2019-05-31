@@ -24,7 +24,7 @@ class ResponsesTest < ApplicationSystemTestCase
     choose 'Insight'
     select 'More confident'
     fill_in 'Title', with: 'An new insight'
-    fill_in 'Description', with: 'A reason'
+    find('#response_description').click.set('A reason')
     click_on 'Post'
 
     assert_text 'An new insight'
@@ -32,7 +32,7 @@ class ResponsesTest < ApplicationSystemTestCase
 
   test 'member can add comment to assumption' do
     choose 'Comment'
-    fill_in 'Description', with: 'My new comment'
+    find('#response_description').click.set('My new comment')
     click_on 'Post'
 
     assert_text 'My new comment'
