@@ -1,6 +1,6 @@
 <%= render "projects/header" %>
 
-<p><%= @project.assumptions.where('group_id is null').size %> uncategorised assumptions</p>
+<p><%= @project.assumptions.where('group_id is null').size %> uncategorised cards</p>
 
 <%- @project.groups.order(:created_at).each do |group| %>
   <%= render partial: 'groups/card', locals: { edit: false, group: group } %>
@@ -9,8 +9,7 @@
 <% if policy(@project.groups.new).create? %>
   <div class="text-center pt-3">
     <%= link_to new_project_group_path(@project), class: "btn btn-primary btn-icon" do %>
-      <em class="fa fa-plus"></em>
-      New Group
+      New group
     <% end %>
   </div>
 <% end %>

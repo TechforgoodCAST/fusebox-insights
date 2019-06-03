@@ -15,7 +15,7 @@ class AssumptionsTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit project_assumptions_path(@project)
-    assert_selector 'li', text: 'Assumptions'
+    assert_selector 'li', text: 'Cards'
   end
 
   test 'anyone can view assumption in public project' do
@@ -42,10 +42,10 @@ class AssumptionsTest < ApplicationSystemTestCase
   end
 
   test 'creating a Assumption' do
-    click_on 'Assumptions'
-    click_on 'Add Assumption'
+    click_on 'Cards'
+    click_on 'Add card'
     fill_in 'Title', with: @assumption.title + 'create'
-    click_on 'Save assumption'
+    click_on 'Save card'
 
     assert_text 'Assumption was successfully created'
   end
@@ -54,7 +54,7 @@ class AssumptionsTest < ApplicationSystemTestCase
     visit project_assumption_path(@project, @assumption)
     within('.col-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
-    click_on 'Save assumption'
+    click_on 'Save card'
     assert_text 'Assumption was successfully updated'
   end
 
@@ -70,7 +70,7 @@ class AssumptionsTest < ApplicationSystemTestCase
     visit project_assumption_path(@project, @assumption)
     within('.col-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
-    click_on 'Save assumption'
+    click_on 'Save card'
     assert_text 'Assumption was successfully updated'
   end
 
@@ -103,7 +103,7 @@ class AssumptionsTest < ApplicationSystemTestCase
     group = @project.groups.first
     visit edit_project_assumption_path(@project, @assumption)
     select group.title.humanize
-    click_on 'Save assumption'
+    click_on 'Save card'
 
     assert_text 'Assumption was successfully updated'
 

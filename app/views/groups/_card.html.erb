@@ -13,13 +13,6 @@
       <%= simple_format(group.summary) %>
 
       <% if group.assumptions.any? %>
-
-        <h4 class="pt-3">Assumptions</h4>
-        <p class="text-muted mb-2">
-          <em class="fa fa-comment-medical pr-1 text-primary"></em>
-          <small style="position: relative; top: -1px;"><%= pluralize(group.assumptions.count, 'Assumption') %></small>
-        </p>
-
         <div class="row pt-3">
           <div class="col-md-4">
             <h5 class="mb-1 font-weight-semibold">We do not know</h5>
@@ -55,8 +48,7 @@
           <div class="col-6">
             <% if policy(@project.assumptions.new).new? %>
               <%= link_to new_project_assumption_path(@project, group: group.id), class: 'btn btn-info btn-icon' do %>
-                <em class="fa fa-comment-medical"></em>
-                Add Assumption
+                Add card
               <% end %>
             <% end %>
           </div>
