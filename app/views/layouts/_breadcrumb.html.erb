@@ -38,12 +38,6 @@
         </li>
       <% end %>
 
-      <% if action_name == "knowledge_board" %>
-        <li class="breadcrumb-item active" aria-current="page">
-          <span class="text-dark"><%= action_name.humanize %></span>
-        </li>
-      <% end %>
-
       <% if controller_name == "support_messages" && action_name == "index" %>
         <li class="breadcrumb-item active" aria-current="page">
           <span class="text-dark">Support</span>

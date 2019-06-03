@@ -1,19 +1,11 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show knowledge_board assumptions]
+  before_action :authenticate_user!, except: %i[show assumptions]
   before_action :set_project, except: %i[index new create]
 
   def index
     @projects = current_user.projects.order(updated_at: :desc)
-  end
-
-  def knowledge_board
-    authorize @project
-
-    @not_knowns = @project.assumptions.we_do_not_know.order(updated_at: :desc)
-    @think_knowns = @project.assumptions.we_think_we_know.order(updated_at: :desc)
-    @knowns = @project.assumptions.we_know.order(updated_at: :desc)
   end
 
   # TODO: refactor

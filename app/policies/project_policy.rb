@@ -13,10 +13,6 @@ class ProjectPolicy < ApplicationPolicy
     ProjectMember.find_by(project: record, user: user, role: 'Admin')
   end
 
-  def knowledge_board?
-    show?
-  end
-
   def assumptions?
     show?
   end

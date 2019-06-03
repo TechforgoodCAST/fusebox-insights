@@ -39,7 +39,6 @@
   <ul class="nav tabs">
     <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link #{current_action?('show')}" %></li>
     <li class="nav-item mr-3"><%= link_to 'Assumptions', project_assumptions_path(@project), class: "nav-link #{current_action?('assumptions')}" %>
-    <li class="nav-item mr-3"><%= link_to 'Knowledge board', project_knowledge_board_path(@project), class: "nav-link #{current_action?('knowledge_board')}" %>
     <% if policy(SupportMessage).index? %>
       <li class="nav-item ml-auto"><%= link_to 'Support', project_support_messages_path(@project), class: "nav-link #{current_controller?('support_messages')}" %>
     <% end %>

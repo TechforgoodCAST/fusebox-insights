@@ -20,8 +20,7 @@ class ProjectsTest < ApplicationSystemTestCase
     sign_out
     [
       project_path(@project),
-      project_assumptions_path(@project),
-      project_knowledge_board_path(@project)
+      project_assumptions_path(@project)
     ].each do |path|
       visit path
       assert_equal(path, current_path)
@@ -34,8 +33,7 @@ class ProjectsTest < ApplicationSystemTestCase
 
     [
       project_path(@project),
-      project_assumptions_path(@project),
-      project_knowledge_board_path(@project)
+      project_assumptions_path(@project)
     ].each do |path|
       visit path
       assert_not_equal(path, current_path)
