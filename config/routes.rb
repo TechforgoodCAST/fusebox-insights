@@ -14,7 +14,7 @@ Rails.application.routes.draw do
       resources :responses
     end
     resources :project_members
-    resources :support_messages
+    resources :support_messages, path: 'support'
   end
 
   # Search
