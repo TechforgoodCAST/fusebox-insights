@@ -23,17 +23,10 @@
               </div>
             </a>
             <ul aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right mt-3">
-              <div class="px-4">
-                <%= "#{current_user&.username}" %>
-              </div>
-              <div class="dropdown-divider"></div>
               <li class="dropdown-item">
-                <%= link_to 'My Focus', foci_path %>
+                <%= link_to "Edit #{current_user&.username}", edit_user_registration_path %>
               </li>
               <div class="dropdown-divider"></div>
-              <li class="dropdown-item">
-                <%= link_to 'Edit Profile', edit_user_registration_path %>
-              </li>
               <li class="dropdown-item">
                 <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
               </li>

@@ -1,11 +1,6 @@
 <div class="card mb-4">
 
   <div class="card-body">
-    <% if assumption.focussed_by.any? %>
-      <small class="text-primary">In focus for <%= assumption.focussed_by.pluck(:username).to_sentence %></small>
-      <br>
-    <% end %>
-
     <div class="text-muted mb-2 d-flex align-items-center justify-content-between">
       <div>
         <small class="text-muted mb-0">Updated <%= time_ago_in_words(assumption.updated_at) %> ago</small>

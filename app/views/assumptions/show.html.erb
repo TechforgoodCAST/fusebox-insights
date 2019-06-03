@@ -4,21 +4,6 @@
 
   <div class="col-4">
     <%= render partial: 'assumptions/card', locals: { description: true, edit: true, assumption: @assumption } %>
-
-    <% if policy(@assumption).focus? %>
-      <%- if current_user.in_focus.include?(@assumption) %>
-        <%= link_to project_assumption_unfocus_path(@assumption.project, @assumption), class: 'btn btn-primary btn-icon' do %>
-          <em class="fa fa-search-minus"></em>
-          Remove focus
-        <% end %>
-      <% else %>
-        <%= link_to project_assumption_focus_path(@assumption.project, @assumption), class: 'btn btn-info btn-icon' do %>
-          <em class="fa fa-search"></em>
-          Focus on this assumption
-        <% end %>
-      <% end %>
-    <% end %>
-
   </div>
   <div class="col-8">
 
