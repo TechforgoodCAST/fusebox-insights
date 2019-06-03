@@ -50,9 +50,4 @@ class InsightsController < ApplicationController
   def load_insight
     @insight = Insight.find(params[:id])
   end
-
-  # TODO: DRY
-  def load_project
-    @project = Project.find_by(slug: params[:project_id])
-  end
 end

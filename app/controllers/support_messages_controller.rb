@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
 class SupportMessagesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_support_message
-  before_action :set_project
+  before_action :authenticate_user!, :load_project, :load_support_message
 
   def index
     @support_messages = @project.support_messages.order(:order)
-  end
-
-  def show
   end
 
   def new
@@ -47,12 +42,8 @@ class SupportMessagesController < ApplicationController
 
   private
 
-  def set_support_message
+  def load_support_message
     @support_message = SupportMessage.find_by(id: params[:id])
-  end
-
-  def set_project
-    @project = Project.friendly.find(params[:project_id])
   end
 
   def support_message_params

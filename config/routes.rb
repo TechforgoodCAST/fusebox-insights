@@ -8,14 +8,13 @@ Rails.application.routes.draw do
   resources :projects do
     resources :groups
     resources :insights
-    resources :assumptions, except: [:index] do
+    resources :assumptions do
       get 'focus'
       get 'unfocus'
       resources :responses
     end
     resources :project_members
     resources :support_messages
-    get 'assumptions'
   end
 
   # Search

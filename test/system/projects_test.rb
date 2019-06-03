@@ -30,7 +30,6 @@ class ProjectsTest < ApplicationSystemTestCase
   test 'visitor cannot view private project' do
     @project.update!(is_private: true, users: [])
     sign_out
-
     [
       project_path(@project),
       project_assumptions_path(@project)

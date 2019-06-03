@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-
   before_action :authenticate_user!, except: %i[show]
-  before_action :set_group, only: %i[show edit update destroy]
-  before_action :set_project
+  before_action :load_project
+  before_action :load_group, only: %i[show edit update destroy]
 
   def show
-
     authorize @group
-
   end
 
   def new
@@ -52,15 +49,11 @@ class GroupsController < ApplicationController
 
   private
 
-  def set_group
-    @group = Group.find(params[:id])
-  end
-
-  def set_project
-    @project = Project.friendly.find(params[:project_id])
-  end
-
   def group_params
     params.require(:group).permit(:title, :description, :summary, :slug)
+  end
+
+  def load_group
+    @group = Group.find(params[:id])
   end
 end

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class ProjectMembersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_project_member
-  before_action :set_project
+  before_action :authenticate_user!, :load_project, :load_project_member
 
   def index
     @members = ProjectMember.find_by(project: @project)
@@ -20,7 +18,6 @@ class ProjectMembersController < ApplicationController
   end
 
   def create
-
     @selected_user = User.find_by(id: project_member_params[:user])
 
     @project_member = @project.project_members.new(user: @selected_user, role: project_member_params[:role])
@@ -40,12 +37,8 @@ class ProjectMembersController < ApplicationController
 
   private
 
-  def set_project_member
+  def load_project_member
     @project_member = ProjectMember.find_by(id: params[:id])
-  end
-
-  def set_project
-    @project = Project.friendly.find(params[:project_id])
   end
 
   def project_member_params

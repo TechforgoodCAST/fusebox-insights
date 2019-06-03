@@ -9,19 +9,11 @@ class ProjectPolicy < ApplicationPolicy
     end
   end
 
-  def edit?
+  def update?
     ProjectMember.find_by(project: record, user: user, role: 'Admin')
   end
 
-  def assumptions?
-    show?
-  end
-
-  def update?
-    edit?
-  end
-
   def destroy?
-    edit?
+    update?
   end
 end

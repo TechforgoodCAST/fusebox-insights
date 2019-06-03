@@ -1,28 +1,16 @@
 # frozen_string_literal: true
 
 class AssumptionPolicy < ApplicationPolicy
-  # TODO: refactor
-  def show?
-    if user
-      if ProjectMember.where(project: record.project, user: user).any?
-        true
-      else
-        user.id == record.project.author.id || !record.project.is_private
-      end
-    else
-      !record.project.is_private?
-    end
+  def index?
+    project_member?(record, user)
   end
 
-  # TODO: refactor
-  def new?
-    if user
-      if ProjectMember.where(project: record.project, user: user).any?
-        true
-      else
-        user.id == record.project.author.id || !record.project.is_private
-      end
-    end
+  def show?
+    project_member?(record.project, user)
+  end
+
+  def create?
+    ProjectMember.find_by(project: record.project, user: user, role: %w[Admin Collaborator])
   end
 
   def update?
@@ -42,5 +30,15 @@ class AssumptionPolicy < ApplicationPolicy
 
   def focus?
     show? if user
+  end
+
+  private
+
+  def project_member?(project, user)
+    if project.is_private?
+      ProjectMember.find_by(project: project, user: user)
+    else
+      true
+    end
   end
 end
