@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
     resources :project_members
     resources :support_messages, path: 'support'
+    get 'knowledge_board'
   end
 
   # Search

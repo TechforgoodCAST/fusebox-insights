@@ -16,4 +16,8 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     update?
   end
+
+  def knowledge_board?
+    show?
+  end
 end

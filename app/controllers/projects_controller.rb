@@ -47,6 +47,13 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, notice: 'Project destroyed successfully.'
   end
 
+  def knowledge_board
+    authorize @project
+    @not_knowns = @project.assumptions.we_do_not_know.order(updated_at: :desc)
+    @think_knowns = @project.assumptions.we_think_we_know.order(updated_at: :desc)
+    @knowns = @project.assumptions.we_know.order(updated_at: :desc)
+  end
+
   private
 
   def project_params
