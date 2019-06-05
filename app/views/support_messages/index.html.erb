@@ -1,35 +1,28 @@
 <%= render "projects/header" %>
 
-<% if @support_messages.any? %>
-  <%- @support_messages.each do |message| =%>
-    <div class="card mb-4">
-      <div class="card-header">
-        <div class="row">
-          <p class="col-8"><strong><%= message.subject %></strong></p>
-          <p class="col-4 text-right text-info"><strong><%= message.status %></strong></p>
-        </div>
-      </div>
-      <div class="card-body">
-        <%= simple_format message.body %>
-      </div>
-      <div class="card-footer text-right">
-        <%= link_to 'Edit', edit_project_support_message_path(@project, message), class: 'link-border mr-3' %>
-        <%= link_to 'Delete', project_support_message_path(@project, message), method: :delete, data: { confirm: 'This operation cannot be undone, are you sure?' }, class: 'link-border' %>
+<% if current_user.is_staff? %>
+  <%= link_to new_project_support_message_path(@project), class: 'btn btn-info btn-icon mb-1' do %>
+    New support message
+  <% end %>
+<% end %>
+
+<h3 class="mb-4">Support guide</h3>
+
+<%- @support_messages.each do |message| %>
+  <div class="card mb-4">
+    <div class="card-header">
+      <div class="row">
+        <span class="col-8"><strong>
+          <%= message.order %>.
+          <%= message.subject %>
+        </strong></span>
+        <span class="col-4 text-right text-info"><strong>
+          <%= message.status %>
+        </strong></span>
       </div>
     </div>
-  <% end %>
-  <div class="text-center pt-3">
-    <%= link_to new_project_support_message_path(@project), class: 'btn btn-info btn-icon' do %>
-      <em class="fa fa-hands-helping"></em>
-      Add support message
-    <% end %>
-  </div>
-<% else %>
-  <div class="bg-light rounded text-center p-5 mt-4">
-    <p class='lead mb-4'>No support messages for this project yet</p>
-    <%= link_to new_project_support_message_path(@project), class: 'btn btn-info btn-icon mb-1' do %>
-      <em class="fa fa-hands-helping"></em>
-      Create one now
-    <% end %>
+    <div class="card-body">
+      <%= simple_format message.body%>
+    </div>
   </div>
 <% end %>
