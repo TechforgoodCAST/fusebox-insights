@@ -28,7 +28,7 @@
 
 <nav class="mb-3 pb-3">
   <ul class="nav tabs">
-    <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link #{current_action?('show')}" %></li>
+    <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link #{current_controller?('projects')}" %></li>
     <li class="nav-item mr-3"><%= link_to 'Cards', project_assumptions_path(@project), class: "nav-link #{current_controller?('assumptions')}" %></li>
 
     <% if @project.support_messages.any? %>

@@ -1,15 +1,15 @@
-<div class="card mb-5">
+<div class="card mb-4">
 
     <div class="card-body">
 
-      <p>
+      <div>
         <small class="text-muted">
           <%= group.author.username %> · Updated <%= time_ago_in_words(group.updated_at) %> ago
         </small>
-      </p>
+      </div>
       <h3 class="font-weight-semibold mb-1"><%= link_to group.title, project_group_path(@project, group) %></h3>
 
-      <small><%= simple_format(group.description) %></small>
+      <small><%= simple_format(group.description, class: 'mb-2 text-muted') %></small>
       <%= simple_format(group.summary) %>
 
       <% if group.assumptions.any? %>
