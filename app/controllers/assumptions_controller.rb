@@ -7,7 +7,7 @@ class AssumptionsController < ApplicationController
 
   def index
     authorize @project, policy_class: AssumptionPolicy
-    @assumptions = @project.assumptions.page(params[:page])
+    @assumptions = @project.assumptions.order(created_at: :desc).page(params[:page])
   end
 
   def show

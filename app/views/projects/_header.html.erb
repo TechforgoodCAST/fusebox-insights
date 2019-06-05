@@ -3,11 +3,17 @@
     <h2 class="mb-0 font-weight-bold"><%= @project.name %></h2>
     <small>
       <% if @project.is_private? %>
-        <em class="fa fa-lock pr-1 text-primary"></em>
+        <i class="fa fa-lock text-primary"></i>
       <% else %>
-        <em class="fa fa-eye pr-1 text-primary"></em>
+        <i class="fa fa-eye text-primary"></i>
       <% end %>
       <%= private_label(@project) %>
+      &middot;
+      <%= pluralize(@project.project_members.size, 'member') %>
+      <% if current_user&.is_staff? %>
+        &middot;
+        <%= link_to 'Add member', new_project_project_member_path(@project) %>
+      <% end %>
     </small>
   </div>
 
@@ -16,26 +22,11 @@
       <%= link_to 'Edit', edit_project_path(@project), class: "link-border mr-3" %>
     <% end %>
   </div>
-
 </div>
 
-<div class="mt-3 w-75">
-  <%= simple_format @project.description %>
-</div>
+<%= simple_format @project.description, class: 'mt-2' %>
 
-<div class="mb-2 mt-3 pt-1">
-  <%- if @project.project_members.any? %>
-    <%- @project.project_members.each do |member| %>
-      <%= render partial: "project_members/profile_link", locals: { project_member: member } %>
-    <% end %>
-  <% end %>
-  <%= link_to new_project_project_member_path(@project), class: "ml-1" do %>
-    <em class="fa fa-plus pr-1 text-primary"></em>
-    <small style="position: relative; top: -1px;">Add Collaborator</small>
-  <% end %>
-</div>
-
-<nav class="mb-3 pb-3 pt-3">
+<nav class="mb-3 pb-3">
   <ul class="nav tabs">
     <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link #{current_action?('show')}" %></li>
     <li class="nav-item mr-3"><%= link_to 'Cards', project_assumptions_path(@project), class: "nav-link #{current_controller?('assumptions')}" %></li>
