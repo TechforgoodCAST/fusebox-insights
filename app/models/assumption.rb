@@ -10,12 +10,13 @@ class Assumption < ApplicationRecord
     'High - being wrong about this will have a significant effect'
   ].freeze
 
-  acts_as_paranoid
-  audited
+  scope :order_by_damage, -> { order('damage DESC nulls last') }
 
   enum certainty: { we_do_not_know: 0, we_think_we_know: 1, we_know: 2 }
   enum damage: { low: 0, medium: 1, high: 2 }
 
+  acts_as_paranoid
+  audited
   multisearchable against: [:title]
 
   belongs_to :author, class_name: 'User'

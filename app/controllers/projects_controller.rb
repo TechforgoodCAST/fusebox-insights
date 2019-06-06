@@ -49,9 +49,9 @@ class ProjectsController < ApplicationController
 
   def knowledge_board
     authorize @project
-    @not_knowns = @project.assumptions.we_do_not_know.order(updated_at: :desc)
-    @think_knowns = @project.assumptions.we_think_we_know.order(updated_at: :desc)
-    @knowns = @project.assumptions.we_know.order(updated_at: :desc)
+    @not_knowns = @project.assumptions.we_do_not_know.order_by_damage
+    @think_knowns = @project.assumptions.we_think_we_know.order_by_damage
+    @knowns = @project.assumptions.we_know.order_by_damage
   end
 
   private
