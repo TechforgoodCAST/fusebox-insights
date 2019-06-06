@@ -18,12 +18,20 @@
 
     <div class="mb-2">
       <p class="font-weight-semibold mb-0"><%= link_to assumption.title, project_assumption_path(assumption.project, assumption) %></p>
+      <div class="mt-2">
+        <% if assumption.description.present? && !description %>
+          <i class="fa fa-align-left"></i>
+        <% end %>
+        <% if assumption.responses.any? %>
+          <div class="float-right">
+            <i class="far fa-comment-alt"></i> <%= assumption.responses.count %>
+          </div>
+        <% end %>
+      </div>
       <% if description %>
         <p><%= simple_format(assumption.description) %></p>
       <% end %>
     </div>
-
-    <div class="badge badge-secondary"><%= pluralize(assumption.responses.count, "Insight") %></div>
 
     <% if assumption.damage %>
       <div class="badge badge-secondary"><%= assumption.damage.humanize %> impact</div>

@@ -1,28 +1,46 @@
 <%= render "projects/header" %>
 
-<% if current_user.is_staff? %>
-  <%= link_to new_project_support_message_path(@project), class: 'btn btn-info btn-icon mb-1' do %>
-    New support message
-  <% end %>
-<% end %>
+<div class="row justify-content-center">
+  <div class="col-lg-6">
 
-<h3 class="mb-4">Support guide</h3>
+    <h3>Support guide</h3>
+    <p>Personalised guidance on next steps for this project.</p>
 
-<%- @support_messages.each do |message| %>
-  <div class="card mb-4">
-    <div class="card-header">
-      <div class="row">
-        <span class="col-8"><strong>
-          <%= message.order %>.
-          <%= message.subject %>
-        </strong></span>
-        <span class="col-4 text-right text-info"><strong>
-          <%= message.status %>
-        </strong></span>
+    <nav class="mb-3 pb-3">
+      <ul class="nav tabs">
+        <li class="nav-item mr-3">
+          <%= link_to 'Incomplete', project_support_messages_path(@project), class: "nav-link #{active_tab?(controller: 'support_messages', action: 'index')}" %>
+        </li>
+        <li class="nav-item mr-3">
+          <%= link_to 'Complete', complete_project_support_messages_path(@project), class: "nav-link #{active_tab?(controller: 'support_messages', action: 'complete')}" %>
+        </li>
+      </ul>
+    </nav>
+
+    <%- @support_messages.each_with_index do |message, i| %>
+      <div class="card mb-4">
+        <div class="card-header">
+          <div class="row">
+            <span class="col-8"><strong>
+              <%= i + 1 %>.
+              <%= message.subject %>
+            </strong></span>
+            <span class="col-4 text-right text-info"><strong>
+              <%= message.status %>
+            </strong></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <%= simple_format message.body%>
+        </div>
       </div>
-    </div>
-    <div class="card-body">
-      <%= simple_format message.body%>
-    </div>
+    <% end %>
+
+    <% if current_user.is_staff? %>
+      <div class="text-center pb-3">
+        <%= link_to 'New support message', new_project_support_message_path(@project), class: 'btn btn-info btn-icon mb-1' %>
+      </div>
+    <% end %>
+
   </div>
-<% end %>
+</div>

@@ -28,12 +28,12 @@
 
 <nav class="mb-3 pb-3">
   <ul class="nav tabs">
-    <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link #{current_controller?('projects')}" %></li>
-    <li class="nav-item mr-3"><%= link_to 'Cards', project_assumptions_path(@project), class: "nav-link #{current_controller?('assumptions')}" %></li>
+    <li class="nav-item mr-3"><%= link_to 'Overview', project_path(@project), class: "nav-link #{active_tab?(controller: 'projects')}" %></li>
+    <li class="nav-item mr-3"><%= link_to 'Cards', project_assumptions_path(@project), class: "nav-link #{active_tab?(controller: 'assumptions')}" %></li>
 
     <% if @project.support_messages.any? %>
       <li class="nav-item ml-auto">
-        <%= link_to project_support_messages_path(@project), class: "nav-link #{current_controller?('support_messages')}" do %>
+        <%= link_to project_support_messages_path(@project), class: "nav-link #{active_tab?(controller: 'support_messages')}" do %>
           Support
           <% if @project.support_messages.where.not(status: 'Complete').any? %>
             <span class="badge badge-primary">

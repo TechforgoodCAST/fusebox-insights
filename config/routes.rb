@@ -14,7 +14,9 @@ Rails.application.routes.draw do
       resources :responses
     end
     resources :project_members
-    resources :support_messages, path: 'support'
+    resources :support_messages, path: 'support' do
+      get 'complete', on: :collection
+    end
     get 'knowledge_board'
   end
 
