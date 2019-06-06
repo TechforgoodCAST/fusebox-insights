@@ -2,11 +2,11 @@
   "name": "fusebox_insights",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "^4.0.0",
     "stimulus": "^1.1.0",
     "yarn": "^1.16.0"
   },
   "devDependencies": {
-    "webpack-dev-server": ">=3.1.11"
+    "webpack-dev-server": "^3.6.0"
   }
 }
