@@ -15,6 +15,7 @@
         <button aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarNavAltMarkup" data-toggle="collapse" type="button">
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="ml-auto"></div>
           <div class="nav-item dropdown ml-4">
@@ -23,14 +24,15 @@
                 <em class="fa fa-user text-light"></em>
               </div>
             </a>
+
             <ul aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right mt-3">
-              <li class="dropdown-item">
-                <%= link_to "Edit #{current_user&.username}", edit_user_registration_path %>
-              </li>
+              <%= link_to edit_user_registration_path do %>
+                <li class="dropdown-item">Edit <%= current_user&.username %></li>
+              <% end %>
               <div class="dropdown-divider"></div>
-              <li class="dropdown-item">
-                <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
-              </li>
+              <%= link_to destroy_user_session_path, method: :delete do %>
+                <li class="dropdown-item">Sign out</li>
+              <% end %>
             </ul>
           </div>
         </div>

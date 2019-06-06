@@ -6,3 +6,13 @@
 @import "bootstrap";
 @import "helpers";
 @import "components";
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
