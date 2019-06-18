@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-6">
+  <div class="col-auto">
     <h2 class="mb-0 font-weight-bold"><%= @project.name %></h2>
     <small>
       <% if @project.is_private? %>
@@ -17,7 +17,7 @@
     </small>
   </div>
 
-  <div class="col-6 text-right pt-1">
+  <div class="col-auto text-right pt-1 ml-auto">
     <%- if policy(@project).edit? %>
       <%= link_to 'Edit', edit_project_path(@project), class: "link-border mr-3" %>
     <% end %>

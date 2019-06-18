@@ -1,11 +1,11 @@
 <%= bootstrap_form_for([@project, assumption]) do |f| %>
 
   <div class="row">
-    <div class="col-md-9">
+    <div class="col-lg-9">
       <%= f.text_field :title %>
       <%= f.trix_editor :description, class: 'mb-3' %>
     </div>
-    <div class="col-md-3 border-left">
+    <div class="col-lg-3 border-left">
       <%= f.select :certainty, Assumption.certainties.keys.map { |s| [s.humanize, s] } %>
       <%= f.select :damage, Assumption.damages.map { |k, v| [Assumption::DAMAGE[v], k] }, include_blank: true, label: 'Impact', help: 'Cards will be sorted in order of most impactful when set.' %>
       <%= f.select :group_id, @project.groups.map { |g| [g.title.humanize, g.id] }, include_blank: true %>
