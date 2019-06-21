@@ -18,6 +18,11 @@
   }
 }
 
+.navbar-collapse {
+    flex-wrap: wrap;
+    display: flex;
+}
+
 .btn {
   padding-left: 2rem;
   padding-right: 2rem;
@@ -40,8 +45,11 @@
 }
 
 .card-deck .card {
-  display: block;
+  display: flex;
   flex-basis: 20%;
+  min-width: 200px;
+  margin: 0 15px;
+  flex-grow: 1;
 }
 
 .tabs {
@@ -59,6 +67,7 @@
   }
 }
 
-.trix-content {
+.trix-content,
+textarea.form-control{
   min-height: 145px
 }

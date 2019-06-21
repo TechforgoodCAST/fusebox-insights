@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 class SupportMessagesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_support_message
-  before_action :set_project
+  before_action :authenticate_user!, :load_project
+  before_action :load_support_message, except: %i[index complete]
 
   def index
-    @support_messages = @project.support_messages.order(:order)
-  end
-
-  def show
+    @support_messages = @project.support_messages.where(status: 'Incomplete').order(:order)
   end
 
   def new
@@ -45,14 +41,15 @@ class SupportMessagesController < ApplicationController
     redirect_to project_support_messages_path(@project), notice: 'Support message destroyed successfully.'
   end
 
-  private
-
-  def set_support_message
-    @support_message = SupportMessage.find_by(id: params[:id])
+  def complete
+    @support_messages = @project.support_messages.where(status: 'Complete').order(:order)
+    render 'support_messages/index'
   end
 
-  def set_project
-    @project = Project.friendly.find(params[:project_id])
+  private
+
+  def load_support_message
+    @support_message = SupportMessage.find_by(id: params[:id])
   end
 
   def support_message_params

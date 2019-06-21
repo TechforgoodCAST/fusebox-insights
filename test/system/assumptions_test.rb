@@ -15,7 +15,7 @@ class AssumptionsTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit project_assumptions_path(@project)
-    assert_selector 'li', text: 'Assumptions'
+    assert_selector 'li', text: 'Cards'
   end
 
   test 'anyone can view assumption in public project' do
@@ -42,51 +42,51 @@ class AssumptionsTest < ApplicationSystemTestCase
   end
 
   test 'creating a Assumption' do
-    click_on 'Assumptions'
-    click_on 'Add Assumption'
+    click_on 'Cards'
+    click_on 'Add card'
     fill_in 'Title', with: @assumption.title + 'create'
-    click_on 'Save assumption'
+    click_on 'Save card'
 
-    assert_text 'Assumption was successfully created'
+    assert_text 'Card was successfully created'
   end
 
   test 'author can update assumption' do
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
-    click_on 'Save assumption'
-    assert_text 'Assumption was successfully updated'
+    click_on 'Save card'
+    assert_text 'Card was successfully updated'
   end
 
   test 'author can delete assumption' do
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     page.accept_confirm { click_on 'Delete' }
-    assert_text 'Assumption archived'
+    assert_text 'Card archived'
   end
 
   test 'admin can update assumption' do
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
-    click_on 'Save assumption'
-    assert_text 'Assumption was successfully updated'
+    click_on 'Save card'
+    assert_text 'Card was successfully updated'
   end
 
   test 'admin can delete assumption' do
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     page.accept_confirm { click_on 'Delete' }
-    assert_text 'Assumption archived'
+    assert_text 'Card archived'
   end
 
   test 'member cannot update assumption' do
     admin_to_collaborator
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { assert_no_text 'Edit' }
+    within('.col-lg-4 .card-body') { assert_no_text 'Edit' }
 
     visit edit_project_assumption_path(@project, @assumption)
     assert_text "Sorry, you don't have access to that"
@@ -103,9 +103,9 @@ class AssumptionsTest < ApplicationSystemTestCase
     group = @project.groups.first
     visit edit_project_assumption_path(@project, @assumption)
     select group.title.humanize
-    click_on 'Save assumption'
+    click_on 'Save card'
 
-    assert_text 'Assumption was successfully updated'
+    assert_text 'Card was successfully updated'
 
     visit project_group_path(@project, group)
 

@@ -10,7 +10,7 @@ class ProjectsHelperTest < ActionView::TestCase
   end
 
   test '#get_membership' do
-    @membership = ProjectMember.where(user: @creator, project: @private_project).first
+    @membership = Membership.where(user: @creator, project: @private_project).first
     assert_nil(get_membership(@private_project, @creator))
   end
 

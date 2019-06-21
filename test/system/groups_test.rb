@@ -14,7 +14,7 @@ class GroupsTest < ApplicationSystemTestCase
 
   test 'project admin can create group' do
     click_on @project.name
-    click_on 'New Group'
+    click_on 'New group'
     fill_in 'Title', with: @group.title + 'create'
     fill_in 'Description', with: @group.description
     fill_in 'Summary', with: @group.summary
@@ -46,7 +46,7 @@ class GroupsTest < ApplicationSystemTestCase
   test 'project member cannot create group' do
     admin_to_collaborator
     visit project_path(@project)
-    assert_no_link 'New Group'
+    assert_no_link 'New group'
 
     visit new_project_group_path(@project)
     assert_text "Sorry, you don't have access to that"

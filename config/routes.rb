@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   devise_for :users
 
   # Core application routes
@@ -9,15 +8,16 @@ Rails.application.routes.draw do
   resources :projects do
     resources :groups
     resources :insights
-    resources :assumptions, :except => [:index] do
+    resources :assumptions do
       get 'focus'
       get 'unfocus'
       resources :responses
     end
-    resources :project_members
-    resources :support_messages
+    resources :memberships
+    resources :support_messages, path: 'support' do
+      get 'complete', on: :collection
+    end
     get 'knowledge_board'
-    get 'assumptions'
   end
 
   # Search
@@ -31,9 +31,9 @@ Rails.application.routes.draw do
 
   # Statics
 
-  get "privacy", to: "statics#privacy"
-  get "terms", to: "statics#terms"
-  get "home", to: "statics#home"
+  get 'privacy', to: 'statics#privacy'
+  get 'terms', to: 'statics#terms'
+  get 'home', to: 'statics#home'
 
   # Root
 
@@ -42,5 +42,4 @@ Rails.application.routes.draw do
   end
 
   root to: 'statics#home'
-
 end

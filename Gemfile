@@ -74,7 +74,6 @@ gem 'pg_search'
 gem "audited", "~> 4.7"
 gem 'friendly_id', '~> 5.2.4'
 gem 'acts_as_paranoid', '~> 0.6.0'
-gem 'haml-rails'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'bootstrap'
 gem "bootstrap_form", ">= 4.2.0"

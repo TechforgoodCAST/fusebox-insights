@@ -6,7 +6,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium, using: :headless_chrome, screen_size: [1280, 700]
 
   def admin_to_collaborator(user: @user, project: @project)
-    user.project_members.find_by(project: project).update!(role: 'Collaborator')
+    user.memberships.find_by(project: project).update!(role: 'Collaborator')
   end
 
   def sign_in(user = @user)

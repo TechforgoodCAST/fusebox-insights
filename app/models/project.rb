@@ -14,8 +14,8 @@ class Project < ApplicationRecord
   has_many :support_messages, dependent: :destroy
 
   # TODO: rename to memberships & test destroy
-  has_many :project_members, dependent: :destroy
-  has_many :users, through: :project_members
+  has_many :memberships, dependent: :destroy
+  has_many :users, through: :memberships
 
   validates :name, presence: true, uniqueness: { scope: :author }
   validates :is_private, inclusion: { in: [true, false] }, allow_nil: false

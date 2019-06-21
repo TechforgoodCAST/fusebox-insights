@@ -14,8 +14,8 @@ class User < ApplicationRecord
   has_many :foci, dependent: :destroy
   has_many :in_focus, through: :foci, source: :assumption
 
-  has_many :project_members
-  has_many :projects, through: :project_members
+  has_many :memberships
+  has_many :projects, through: :memberships
 
   validates :username, presence: true
 

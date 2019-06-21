@@ -1,39 +1,41 @@
 # frozen_string_literal: true
 
-require 'application_system_test_case'
+# TODO: remove?
 
-class FociTest < ApplicationSystemTestCase
-  setup do
-    @user = create(:user)
-    @project = create(:project, author: @user, users: [@user])
-    @assumption = create(:assumption, author: @user, project: @project)
+# require 'application_system_test_case'
 
-    visit new_user_session_path
-    sign_in
-  end
+# class FociTest < ApplicationSystemTestCase
+#   setup do
+#     @user = create(:user)
+#     @project = create(:project, author: @user, users: [@user])
+#     @assumption = create(:assumption, author: @user, project: @project)
 
-  test 'view list of assumptions in focus' do
-    click_on 'navbarDropdown'
-    click_on 'My Focus'
+#     visit new_user_session_path
+#     sign_in
+#   end
 
-    assert_current_path foci_path
-  end
+#   test 'view list of assumptions in focus' do
+#     click_on 'navbarDropdown'
+#     click_on 'My Focus'
 
-  test 'add to focus' do
-    visit project_assumption_path(@project, @assumption)
-    click_on 'Focus on this assumption'
+#     assert_current_path foci_path
+#   end
 
-    assert_current_path foci_path
-    assert_link @assumption.title
-  end
+#   test 'add to focus' do
+#     visit project_assumption_path(@project, @assumption)
+#     click_on 'Focus on this assumption'
 
-  test 'remove from focus' do
-    visit project_assumption_path(@project, @assumption)
-    click_on 'Focus on this assumption'
-    click_on @assumption.title
-    click_on 'Remove focus'
+#     assert_current_path foci_path
+#     assert_link @assumption.title
+#   end
 
-    assert_current_path project_assumption_path(@project, @assumption)
-    assert_link 'Focus on this assumption'
-  end
-end
+#   test 'remove from focus' do
+#     visit project_assumption_path(@project, @assumption)
+#     click_on 'Focus on this assumption'
+#     click_on @assumption.title
+#     click_on 'Remove focus'
+
+#     assert_current_path project_assumption_path(@project, @assumption)
+#     assert_link 'Focus on this assumption'
+#   end
+# end

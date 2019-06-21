@@ -1,25 +1,11 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show knowledge_board assumptions]
-  before_action :set_project, except: %i[index new create]
+  before_action :authenticate_user!, except: %i[show]
+  before_action :load_project, except: %i[index new create]
 
   def index
     @projects = current_user.projects.order(updated_at: :desc)
-  end
-
-  def knowledge_board
-    authorize @project
-
-    @not_knowns = @project.assumptions.we_do_not_know.order(updated_at: :desc)
-    @think_knowns = @project.assumptions.we_think_we_know.order(updated_at: :desc)
-    @knowns = @project.assumptions.we_know.order(updated_at: :desc)
-  end
-
-  # TODO: refactor
-  def assumptions
-    authorize @project
-    @assumptions = @project.assumptions.page(params[:page])
   end
 
   def show
@@ -49,7 +35,7 @@ class ProjectsController < ApplicationController
   def update
     authorize @project
     if @project.update(project_params)
-      redirect_to projects_path, notice: 'Project updated successfully.'
+      redirect_to project_path(@project), notice: 'Project updated successfully.'
     else
       render :edit
     end
@@ -61,12 +47,14 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, notice: 'Project destroyed successfully.'
   end
 
-  private
-
-  def set_project
-    pid = params[:project_id].presence || params[:id]
-    @project = Project.friendly.find(pid)
+  def knowledge_board
+    authorize @project
+    @not_knowns = @project.assumptions.we_do_not_know.order_by_damage
+    @think_knowns = @project.assumptions.we_think_we_know.order_by_damage
+    @knowns = @project.assumptions.we_know.order_by_damage
   end
+
+  private
 
   def project_params
     params.require(:project).permit(:name, :description, :is_private)

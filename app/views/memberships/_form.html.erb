@@ -1,9 +1,9 @@
-<%= bootstrap_form_for([@project, project_member]) do |f| %>
+<%= bootstrap_form_for([@project, membership]) do |f| %>
 
-  <% if project_member.errors.any? %>
-    <div id="error_count"><p><%= pluralize(project_member.errors.count, 'error') %></p></div>
+  <% if membership.errors.any? %>
+    <div id="error_count"><p><%= pluralize(membership.errors.count, 'error') %></p></div>
     <ul>
-      <% project_member.errors.full_messages.each do |message| %>
+      <% membership.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
