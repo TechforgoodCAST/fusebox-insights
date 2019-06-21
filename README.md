@@ -24,11 +24,10 @@ Do either of the below
 You'll need to update `database.yml` with your local Postgre credentials.
 
 #### Clone the existing database
-Request access to the fusebox-insights Heroku app
-`heroku pg:pull postgresql-rectangular-14657 fusebox_insights_development -app fusebox-insights`
+`heroku pg:pull YOUR_EXISTING_DATABASE fusebox_insights_development -app fusebox-insights`
 You'll need to provide your local Postgre credentials:
-`SET PGUSER=YOURUSER`
-`SET PGPASSWORD=YOURPASSWORD`
+`SET PGUSER=YOUR_USER`
+`SET PGPASSWORD=YOUR_PASSWORD`
 
 ### Create a new user
 
