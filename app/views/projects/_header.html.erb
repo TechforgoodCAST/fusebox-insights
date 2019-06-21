@@ -9,10 +9,10 @@
       <% end %>
       <%= private_label(@project) %>
       &middot;
-      <%= pluralize(@project.project_members.size, 'member') %>
+      <%= pluralize(@project.memberships.size, 'member') %>
       <% if current_user&.is_staff? %>
         &middot;
-        <%= link_to 'Add member', new_project_project_member_path(@project) %>
+        <%= link_to 'Add member', new_project_membership_path(@project) %>
       <% end %>
     </small>
   </div>

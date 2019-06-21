@@ -3,14 +3,14 @@
 class ProjectPolicy < ApplicationPolicy
   def show?
     if record.is_private?
-      ProjectMember.find_by(project: record, user: user)
+      Membership.find_by(project: record, user: user)
     else
       true
     end
   end
 
   def update?
-    ProjectMember.find_by(project: record, user: user, role: 'Admin')
+    Membership.find_by(project: record, user: user, role: 'Admin')
   end
 
   def destroy?

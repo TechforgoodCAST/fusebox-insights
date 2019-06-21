@@ -2,6 +2,6 @@
 
 require 'application_system_test_case'
 
-class ProjectMembersTest < ApplicationSystemTestCase
+class MembershipsTest < ApplicationSystemTestCase
   # TODO: implement
 end

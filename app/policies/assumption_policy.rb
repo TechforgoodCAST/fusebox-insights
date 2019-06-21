@@ -2,22 +2,22 @@
 
 class AssumptionPolicy < ApplicationPolicy
   def index?
-    project_member?(record, user)
+    membership?(record, user)
   end
 
   def show?
-    project_member?(record.project, user)
+    membership?(record.project, user)
   end
 
   def create?
-    ProjectMember.find_by(project: record.project, user: user, role: %w[Admin Collaborator])
+    Membership.find_by(project: record.project, user: user, role: %w[Admin Collaborator])
   end
 
   def update?
     return false if record.new_record?
 
     user&.id == record.author_id ||
-      ProjectMember.find_by(project: record.project, user: user, role: 'Admin')
+      Membership.find_by(project: record.project, user: user, role: 'Admin')
   end
 
   def destroy?
@@ -25,7 +25,7 @@ class AssumptionPolicy < ApplicationPolicy
   end
 
   def comment?
-    ProjectMember.find_by(project: record.project, user: user)
+    Membership.find_by(project: record.project, user: user)
   end
 
   def focus?
@@ -34,9 +34,9 @@ class AssumptionPolicy < ApplicationPolicy
 
   private
 
-  def project_member?(project, user)
+  def membership?(project, user)
     if project.is_private?
-      ProjectMember.find_by(project: project, user: user)
+      Membership.find_by(project: project, user: user)
     else
       true
     end

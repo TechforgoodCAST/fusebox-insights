@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :project_member do
+  factory :membership do
     user
     project
     role { 'Admin' }

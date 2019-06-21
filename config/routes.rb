@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       get 'unfocus'
       resources :responses
     end
-    resources :project_members
+    resources :memberships
     resources :support_messages, path: 'support' do
       get 'complete', on: :collection
     end
