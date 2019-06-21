@@ -52,7 +52,7 @@ class AssumptionsTest < ApplicationSystemTestCase
 
   test 'author can update assumption' do
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
     click_on 'Save card'
     assert_text 'Card was successfully updated'
@@ -60,7 +60,7 @@ class AssumptionsTest < ApplicationSystemTestCase
 
   test 'author can delete assumption' do
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     page.accept_confirm { click_on 'Delete' }
     assert_text 'Card archived'
   end
@@ -68,7 +68,7 @@ class AssumptionsTest < ApplicationSystemTestCase
   test 'admin can update assumption' do
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     fill_in 'Title', with: @assumption.title
     click_on 'Save card'
     assert_text 'Card was successfully updated'
@@ -77,7 +77,7 @@ class AssumptionsTest < ApplicationSystemTestCase
   test 'admin can delete assumption' do
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { click_on 'Edit' }
+    within('.col-lg-4 .card-body') { click_on 'Edit' }
     page.accept_confirm { click_on 'Delete' }
     assert_text 'Card archived'
   end
@@ -86,7 +86,7 @@ class AssumptionsTest < ApplicationSystemTestCase
     admin_to_collaborator
     @assumption.update!(author: create(:user))
     visit project_assumption_path(@project, @assumption)
-    within('.col-4 .card-body') { assert_no_text 'Edit' }
+    within('.col-lg-4 .card-body') { assert_no_text 'Edit' }
 
     visit edit_project_assumption_path(@project, @assumption)
     assert_text "Sorry, you don't have access to that"
