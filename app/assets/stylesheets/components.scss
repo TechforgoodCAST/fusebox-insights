@@ -45,11 +45,10 @@
 }
 
 .card-deck .card {
-  display: flex;
-  flex-basis: 20%;
+  flex-basis: 23%;
   min-width: 200px;
-  margin: 0 15px;
-  flex-grow: 1;
+  margin: 0 1%;
+  flex-grow: 0;
 }
 
 .tabs {
