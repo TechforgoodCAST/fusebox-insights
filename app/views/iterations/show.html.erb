@@ -1,0 +1,27 @@
+
+<b>Iteration</b>
+<h1><%= @iteration.title %></h1>
+
+<p><%= @iteration.start_date.strftime("%e %B %Y") %> - <%= @iteration.end_date.strftime("%e %B %Y") %></p>
+ 
+<p><%= @iteration.description %></p>
+
+
+<%= link_to 'Edit', edit_programme_iteration_path([@programme, @iteration]), class: "btn btn-primary" %>
+<%= link_to 'Destroy', programme_iteration_path([@programme, @iteration]),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: "btn btn-primary"%>
+              
+<h2>Outcomes</h2>
+<p>What we want to have achieved by the end of this project</p>
+<% @iteration.outcomes.each do |outcome| %>
+  <div class='row'>
+    <div class='card mb-4'>
+      <div class="card-body">
+        <p class="pt-1 mb-1"><strong><%= link_to outcome.title, programme_iteration_outcome_path(@programme, @iteration, outcome) %></strong></p>
+        <p><%= outcome.description %></p>
+      </div>
+    </div>
+  </div>
+<% end %>
