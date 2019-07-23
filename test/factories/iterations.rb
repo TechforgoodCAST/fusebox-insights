@@ -4,6 +4,6 @@ FactoryBot.define do
     description { "MyText" }
     start_date { "2019-07-17" }
     end_date { "2019-07-17" }
-    programme { nil }
+    project { nil }
   end
 end

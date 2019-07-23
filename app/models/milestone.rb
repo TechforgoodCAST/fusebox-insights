@@ -1,3 +1,3 @@
 class Milestone < ApplicationRecord
-  belongs_to :programme
+  belongs_to :project
 end

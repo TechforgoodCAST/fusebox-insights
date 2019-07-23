@@ -5,6 +5,6 @@ FactoryBot.define do
     date { "2019-07-19" }
     completed { false }
     badge { "MyString" }
-    programme { nil }
+    project { nil }
   end
 end

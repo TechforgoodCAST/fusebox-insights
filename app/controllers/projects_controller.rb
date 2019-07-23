@@ -1,62 +1,52 @@
 # frozen_string_literal: true
 
 class ProjectsController < ApplicationController
-  before_action :authenticate_user!, except: %i[show]
-  before_action :load_project, except: %i[index new create]
-
   def index
-    @projects = current_user.projects.order(updated_at: :desc)
+    @projects = Project.all
   end
 
   def show
-    authorize @project
+    @project = Project.find(params[:id])
   end
 
   def new
-    @project = current_user.projects.new
+    @project = Project.new
   end
 
   def create
-    @project = current_user.projects.new(project_params)
-    @project.users = [current_user]
-    @project.author = current_user
+    @project = Project.new(project_params)
 
     if @project.save
-      redirect_to projects_path, notice: 'Project created successfully.'
+      redirect_to @project
     else
-      render :new
+      render 'new'
     end
   end
 
   def edit
-    authorize @project
+    @project = Project.find(params[:id])
   end
 
   def update
-    authorize @project
+    @project = Project.find(params[:id])
+
     if @project.update(project_params)
-      redirect_to project_path(@project), notice: 'Project updated successfully.'
+      redirect_to @project
     else
-      render :edit
+      render 'edit'
     end
   end
 
   def destroy
-    authorize @project
+    @project = Project.find(params[:id])
     @project.destroy
-    redirect_to projects_path, notice: 'Project destroyed successfully.'
-  end
 
-  def knowledge_board
-    authorize @project
-    @not_knowns = @project.assumptions.we_do_not_know.order_by_damage
-    @think_knowns = @project.assumptions.we_think_we_know.order_by_damage
-    @knowns = @project.assumptions.we_know.order_by_damage
+    redirect_to projects_path
   end
 
   private
 
   def project_params
-    params.require(:project).permit(:name, :description, :is_private)
+    params.require(:project).permit(:title, :description)
   end
 end

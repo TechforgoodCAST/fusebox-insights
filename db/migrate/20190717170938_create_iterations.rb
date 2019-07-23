@@ -5,7 +5,7 @@ class CreateIterations < ActiveRecord::Migration[5.2]
       t.text :description
       t.date :start_date
       t.date :end_date
-      t.references :programme, foreign_key: true
+      t.references :project, foreign_key: true
 
       t.timestamps
     end

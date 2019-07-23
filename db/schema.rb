@@ -128,10 +128,10 @@ ActiveRecord::Schema.define(version: 2019_07_19_152039) do
     t.text "description"
     t.date "start_date"
     t.date "end_date"
-    t.bigint "programme_id"
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["programme_id"], name: "index_iterations_on_programme_id"
+    t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -150,10 +150,10 @@ ActiveRecord::Schema.define(version: 2019_07_19_152039) do
     t.date "date"
     t.boolean "completed"
     t.string "badge"
-    t.bigint "programme_id"
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["programme_id"], name: "index_milestones_on_programme_id"
+    t.index ["project_id"], name: "index_milestones_on_project_id"
   end
 
   create_table "outcomes", force: :cascade do |t|
@@ -174,25 +174,11 @@ ActiveRecord::Schema.define(version: 2019_07_19_152039) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
-  create_table "programmes", force: :cascade do |t|
+  create_table "projects", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "projects", force: :cascade do |t|
-    t.string "name", null: false
-    t.text "description"
-    t.boolean "is_private", default: true, null: false
-    t.string "slug", null: false
-    t.bigint "author_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.index ["author_id"], name: "index_projects_on_author_id"
-    t.index ["deleted_at"], name: "index_projects_on_deleted_at"
-    t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
   create_table "proofs", force: :cascade do |t|
@@ -234,16 +220,13 @@ ActiveRecord::Schema.define(version: 2019_07_19_152039) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "assumptions", "projects"
   add_foreign_key "comments", "assumptions"
   add_foreign_key "events", "users"
   add_foreign_key "foci", "assumptions"
   add_foreign_key "foci", "users"
-  add_foreign_key "groups", "projects"
   add_foreign_key "insights", "assumptions"
-  add_foreign_key "insights", "projects"
-  add_foreign_key "iterations", "programmes"
-  add_foreign_key "milestones", "programmes"
+  add_foreign_key "iterations", "projects"
+  add_foreign_key "milestones", "projects"
   add_foreign_key "outcomes", "iterations"
   add_foreign_key "proofs", "assumptions"
   add_foreign_key "proofs", "insights"

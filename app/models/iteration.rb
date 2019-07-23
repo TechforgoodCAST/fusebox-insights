@@ -1,5 +1,5 @@
 class Iteration < ApplicationRecord
-  belongs_to :programme
+  belongs_to :project
   
   has_many :outcomes,
     dependent: :destroy

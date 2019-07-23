@@ -6,7 +6,7 @@ class CreateMilestones < ActiveRecord::Migration[5.2]
       t.date :date
       t.boolean :completed
       t.string :badge
-      t.references :programme, foreign_key: true
+      t.references :project, foreign_key: true
 
       t.timestamps
     end
