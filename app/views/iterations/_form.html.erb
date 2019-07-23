@@ -1,0 +1,30 @@
+<%= bootstrap_form_for([@programme, @iteration]) do |form| %>
+ 
+  <% if @iteration.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@iteration.errors.count, "error") %> prohibited
+        this iteration from being saved:
+      </h2>
+      <ul>
+        <% @iteration.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <%= form.text_field :title %>
+  <%= form.text_area :description %>
+  <%= form.date_field :start_date %>
+  <%= form.date_field :end_date %>
+  
+  <h3>Outcomes</h3>
+  <%= form.fields_for :outcomes do |o| %>
+      <%= o.text_field :title %>
+      <%= o.text_area :description %>
+  <% end %>
+ 
+  <%= form.submit %>
+ 
+<% end %>

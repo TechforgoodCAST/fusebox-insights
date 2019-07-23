@@ -1,0 +1,79 @@
+
+<h1><%= @programme.title %></h1>
+ 
+<p><%= @programme.description %></p>
+<%= link_to 'Edit', edit_programme_path(@programme), class: "btn btn-primary" %>
+<%= link_to 'Destroy', programme_path(@programme),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: "btn btn-primary"%>
+
+<h2>Roadmap</h2>
+<%= link_to 'Add iteration', new_programme_iteration_path(@programme), class: "btn btn-primary" %>
+<%= link_to 'Add milestone', new_programme_milestone_path(@programme), class: "btn btn-primary" %>
+
+<style>
+  #roadmap{
+    border-left: 4px solid #000;
+  }
+  
+  .milestone::before{
+    content:"";
+    height: 20px;
+    width: 20px;
+    border: 2px solid #000;
+    transform: rotate(45deg);
+    margin-right: 10px;
+    margin-left: 3px;
+    background: #fff;
+  }
+  
+</style>
+<div id="roadmap">
+  <%
+  merged = [];
+
+  #Get iterations
+  @programme.iterations.each do |iteration| 
+    merged << {
+      :type => 'iteration',
+      :date => iteration.start_date,
+      :data => iteration
+    }
+  end
+   
+  #Get milestones
+  @programme.milestones.each do |milestone| 
+    merged << {
+      :type => 'milestone',
+      :date => milestone.date,
+      :data => milestone
+    }
+  end
+
+  #Sort the merged array reverse chronologically
+  items = merged.sort_by { |hsh| hsh[:date] }.reverse
+  
+  items.each do |item| 
+    
+    if item[:type] == 'iteration' 
+      iteration = item[:data]
+  %>
+      <div class='row iteration'>
+        <div class='card mb-4'>
+          <div class="card-body">
+            <h4 class="pt-1 mb-1"><%= link_to iteration.title, [@programme, iteration] %></h4>
+            <p class="pt-1 mb-1"><%= iteration.start_date.strftime("%e %b %Y") %> - <%= iteration.end_date.strftime("%e %b %Y") %></p>
+          </div>
+        </div>
+      </div>
+    <% 
+    else 
+      milestone = item[:data]
+    %>
+      <div class='row milestone'>
+        <p><strong><%= link_to milestone.title, [@programme, milestone] %>:</strong> <%= milestone.description%></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

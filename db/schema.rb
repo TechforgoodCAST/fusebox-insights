@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_21_125700) do
+ActiveRecord::Schema.define(version: 2019_07_19_152039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,17 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
     t.index ["project_id"], name: "index_insights_on_project_id"
   end
 
+  create_table "iterations", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.date "start_date"
+    t.date "end_date"
+    t.bigint "programme_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["programme_id"], name: "index_iterations_on_programme_id"
+  end
+
   create_table "memberships", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "project_id", null: false
@@ -133,6 +144,27 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "milestones", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.date "date"
+    t.boolean "completed"
+    t.string "badge"
+    t.bigint "programme_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["programme_id"], name: "index_milestones_on_programme_id"
+  end
+
+  create_table "outcomes", force: :cascade do |t|
+    t.text "title"
+    t.text "description"
+    t.bigint "iteration_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["iteration_id"], name: "index_outcomes_on_iteration_id"
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text "content"
     t.string "searchable_type"
@@ -140,6 +172,13 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+  end
+
+  create_table "programmes", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -203,6 +242,9 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
   add_foreign_key "groups", "projects"
   add_foreign_key "insights", "assumptions"
   add_foreign_key "insights", "projects"
+  add_foreign_key "iterations", "programmes"
+  add_foreign_key "milestones", "programmes"
+  add_foreign_key "outcomes", "iterations"
   add_foreign_key "proofs", "assumptions"
   add_foreign_key "proofs", "insights"
 end

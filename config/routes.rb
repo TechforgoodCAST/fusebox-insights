@@ -19,6 +19,14 @@ Rails.application.routes.draw do
     end
     get 'knowledge_board'
   end
+	
+  resources :programmes do
+    resources :iterations do
+      resources :outcomes
+    end
+    resources :milestones
+  end
+	
 
   # Search
 

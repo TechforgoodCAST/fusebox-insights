@@ -1,0 +1,41 @@
+<%= form_with(model: [@programme, @milestone], local: true) do |form| %>
+ 
+  <% if @milestone.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@milestone.errors.count, "error") %> prohibited
+        this milestone from being saved:
+      </h2>
+      <ul>
+        <% @milestone.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description %>
+  </p>
+  
+  <p>
+    <%= form.label :date %><br>
+    <%= form.date_field :date %>
+  </p>
+  
+  <p>
+    <%= form.label :completed %><br>
+    <%= form.check_box :completed %>
+  </p>
+ 
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>
