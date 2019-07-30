@@ -1,4 +1,4 @@
-<%= form_with(model: [@project, @milestone], local: true) do |form| %>
+<%= bootstrap_form_for([@project, @milestone]) do |form| %>
  
   <% if @milestone.errors.any? %>
     <div id="error_explanation">
@@ -14,28 +14,10 @@
     </div>
   <% end %>
  
-  <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-  </p>
- 
-  <p>
-    <%= form.label :description %><br>
-    <%= form.text_area :description %>
-  </p>
-  
-  <p>
-    <%= form.label :date %><br>
-    <%= form.date_field :date %>
-  </p>
-  
-  <p>
-    <%= form.label :completed %><br>
-    <%= form.check_box :completed %>
-  </p>
- 
-  <p>
-    <%= form.submit %>
-  </p>
+  <%= form.text_field :title %>
+  <%= form.text_area :description %>
+  <%= form.date_field :date %>
+  <%= form.check_box :completed %>
+  <%= form.submit %>
  
 <% end %>

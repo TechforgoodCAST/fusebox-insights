@@ -1,10 +1,10 @@
-
 <b>Iteration</b>
-<h1><%= @iteration.title %></h1>
+<h1><%= @iteration.title %> (<%= @iteration.status.titleize %>)</h1>
 
 <p><%= @iteration.start_date.strftime("%e %B %Y") %> - <%= @iteration.end_date.strftime("%e %B %Y") %></p>
  
 <p><%= @iteration.description %></p>
+
 
 
 <%= link_to 'Edit', edit_project_iteration_path([@project, @iteration]), class: "btn btn-primary" %>
@@ -13,6 +13,10 @@
               data: { confirm: 'Are you sure?' },
               class: "btn btn-primary"%>
               
+<h2>Progress</h2>
+
+<%= render "layouts/iteration_progress", project: @project, iteration: @iteration %>
+
 <h2>Outcomes</h2>
 <p>What we want to have achieved by the end of this project</p>
 <% @iteration.outcomes.each do |outcome| %>

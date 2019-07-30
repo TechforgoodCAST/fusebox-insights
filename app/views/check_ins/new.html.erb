@@ -1,0 +1,38 @@
+<h1>Check in</h1>
+
+<%= bootstrap_form_for([@project, @iteration, @check_in]) do |form| %>
+  
+  <% if @check_in.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@check_in.errors.count, "error") %> prohibited
+        this iteration from being saved:
+      </h2>
+      <ul>
+        <% @check_in.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= form.fields_for :ratings do |r| %>
+      <div class="mb-4">
+
+        <b>Outcome <%= r.index+1%></b>
+        <h3><%= @iteration.outcomes[r.index].title%></h3>
+        <p>What progress have you made on this outcome? What have you learned, have there been any blockers or changes?</p>
+        <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
+        <% Rating.ratings.each do |key, val| %>
+          <%= r.radio_button(:score, val, label: key.titleize) %>
+        <% end %>
+
+        <%= r.text_area :comments%>
+
+      </div>
+    <% end %>
+    
+    <%= form.text_area :notes %>
+  
+  <%= form.submit %>
+<% end %>

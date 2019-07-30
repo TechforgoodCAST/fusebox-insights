@@ -1,0 +1,9 @@
+<h1>Check In</h1>
+<p>Completed on <%=@check_in.date.strftime("%-d %B %Y")%> for <%=@project.title%> project.</p>
+
+<% @check_in.ratings.each do |rating| %>
+  <h3><%= Outcome.find(rating.outcome.id).title%></h3>
+  <p><%= Outcome.find(rating.outcome.id).description%></p>
+  <p><%= Rating.ratings.key(rating.score) %></p>
+  <p><%= rating.comments %></p>
+<% end %>

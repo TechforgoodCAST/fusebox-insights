@@ -1,0 +1,39 @@
+<style type="text/css">
+  ul.progress-timeline{
+    border-left: 2px solid black;
+    padding: 11px;
+  }
+  ul.progress-timeline li.future,
+  ul.progress-timeline li.future a{
+    color: #aaa;
+  }
+
+</style>
+
+
+<%
+timeline = [
+  {name:'Iteration starts', date: iteration.start_date, completed: iteration.start_date < Date.today, link: url_for([project, iteration])},
+  {name:'Iteration ends', date: iteration.end_date, completed: false, link: url_for([project, iteration])},
+  {name:'Debrief', date: iteration.debrief_date, completed: false, link: url_for([project, iteration])}
+]
+
+iteration.check_ins.each do |check_in|
+  timeline << {name: 'Check in', date: check_in.date, completed: check_in.complete, link: url_for([project, iteration, check_in])}
+end
+
+items = timeline.sort_by { |hsh| hsh[:date] }.reverse
+
+%>
+<ul class="progress-timeline">
+<% 
+items.each do |item| 
+  if item[:date] > Date.today
+    status = 'future'
+  else
+    status = ''
+  end
+%>
+  <li class="<%= status %>"><%= link_to item[:name]+" ("+item[:date].strftime("%-d %B %Y")+")", item[:link]%></li>
+<% end %>
+</ul>

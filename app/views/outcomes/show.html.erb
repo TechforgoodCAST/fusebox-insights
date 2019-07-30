@@ -15,3 +15,20 @@
               method: :delete,
               data: { confirm: 'Are you sure?' },
               class: "btn btn-primary"%>
+
+<div>
+  <%
+  #Sort the merged array reverse chronologically
+  @outcome.comments = @outcome.comments.sort_by { |hsh| hsh[:created_at] }.reverse
+  
+  @outcome.comments.each do |comment| 
+  %>
+      <div class='row iteration'>
+        <div class='card mb-4'>
+          <div class="card-body">
+            <p class="pt-1 mb-1"><%= comment.description %></p>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

@@ -1,15 +1,21 @@
 class IterationsController < ApplicationController
-  def create
-    @project = Project.find(params[:project_id])
-    @iteration = @project.iterations.create(iteration_params)
-    redirect_to project_path(@project)
-  end
-
   def new
     @project = Project.find(params[:project_id])
     @iteration = Iteration.new
 
-    3.times { @iteration.outcomes.build }
+    5.times { @iteration.outcomes.build }
+  end
+  
+  def create
+    @project = Project.find(params[:project_id])
+    
+    @iteration = @project.iterations.create(iteration_params)
+    
+    if @iteration.save
+      redirect_to project_iteration_url(@project, @iteration)
+    else
+      render 'new'
+    end
   end
 
   def show
@@ -20,6 +26,9 @@ class IterationsController < ApplicationController
   def edit
     @project = Project.find(params[:project_id])
     @iteration = Iteration.find(params[:id])
+    
+    (5-@iteration.outcomes.length).times { @iteration.outcomes.build }
+    
   end
 
   def update
@@ -43,6 +52,6 @@ class IterationsController < ApplicationController
 
   private
     def iteration_params
-      params.require(:iteration).permit(:title, :description, :start_date, :end_date, outcomes_attributes: [:id, :title, :description ])
+      params.require(:iteration).permit(:title, :description, :start_date, :end_date, :status, outcomes_attributes: [:id, :title, :description ]).with_defaults(status: Iteration.statuses[:planned]);
     end
 end

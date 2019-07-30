@@ -7,7 +7,12 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :iterations do
-      resources :outcomes
+      resources :check_ins do
+        resources :ratings
+      end
+      resources :outcomes do
+        resources :ratings
+      end
     end
     resources :milestones
   end

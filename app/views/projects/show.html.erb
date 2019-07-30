@@ -28,6 +28,19 @@
     background: #fff;
   }
   
+  .row.divider{
+    align-items: center;
+  }
+  
+  .divider .line{
+    border-top: 3px solid black;
+  }
+  .divider .box{
+    border: 2px solid black;
+    text-align: center;
+    padding: 5px;
+  }
+  
 </style>
 <div id="roadmap">
   <%
@@ -36,25 +49,62 @@
   #Get iterations
   @project.iterations.each do |iteration| 
     merged << {
-      :type => 'iteration',
-      :date => iteration.start_date,
-      :data => iteration
+      :type       => 'iteration',
+      :start_date => iteration.start_date,
+      :end_date   => iteration.end_date,
+      :data       => iteration
     }
   end
    
   #Get milestones
   @project.milestones.each do |milestone| 
     merged << {
-      :type => 'milestone',
-      :date => milestone.date,
-      :data => milestone
+      :type       => 'milestone',
+      :start_date => milestone.date,
+      :end_date   => milestone.date,
+      :data       => milestone
     }
   end
 
+  #merged << {
+  #    :type => 'divider',
+  #    :date => Date.today
+  #}
+
   #Sort the merged array reverse chronologically
-  items = merged.sort_by { |hsh| hsh[:date] }.reverse
-  
-  items.each do |item| 
+  items = merged.sort_by { |hsh| hsh[:start_date] }.reverse
+  old_status = '';
+  items.each_with_index do |item|
+    
+    if item[:end_date] < Date.today
+      status = 'Completed'
+    end
+
+    if item[:start_date] < Date.today && item[:end_date] > Date.today
+      status = 'In progress'
+    end
+    
+    if item[:start_date] > Date.today
+      status = 'Planned'
+    end
+    
+    if status != old_status
+    %>
+      <div class='row divider'>
+        <div class='col line'>
+        </div>
+        <div class='col box'>
+          <%= status %>
+        </div>
+        <div class='col line'>
+        </div>
+      </div>
+    <%
+      old_status = status
+    end
+      
+    
+    
     
     if item[:type] == 'iteration' 
       iteration = item[:data]
@@ -62,17 +112,17 @@
       <div class='row iteration'>
         <div class='card mb-4'>
           <div class="card-body">
-            <h4 class="pt-1 mb-1"><%= link_to iteration.title, [@project, iteration] %></h4>
-            <p class="pt-1 mb-1"><%= iteration.start_date.strftime("%e %b %Y") %> - <%= iteration.end_date.strftime("%e %b %Y") %></p>
+            <h4 class="pt-1 mb-1"><%= link_to iteration.title, [@project, iteration] %> </h4>
+            <%= render "layouts/iteration_progress", project: @project, iteration: iteration %>
           </div>
         </div>
       </div>
     <% 
-    else 
+    elsif item[:type] == 'milestone' 
       milestone = item[:data]
     %>
       <div class='row milestone'>
-        <p><strong><%= link_to milestone.title, [@project, milestone] %>:</strong> <%= milestone.description%></p>
+        <p><strong><%= link_to milestone.title, edit_project_milestone_path(@project, milestone) %>:</strong> <%= milestone.description%></p>
       </div>
     <% end %>
   <% end %>
