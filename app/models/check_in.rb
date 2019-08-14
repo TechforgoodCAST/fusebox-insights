@@ -7,4 +7,28 @@ class CheckIn < ApplicationRecord
     update_only: true,
     allow_destroy: true,
     limit: 5
+  
+  
+  def on_track
+    max = 0;
+    self.ratings.each do |rating|
+      max = [rating.score, max].max;
+    end
+    
+    return Rating.ratings.key(max);
+  end
+  
+#  def get_avg_score
+#    sum = 0;
+#    i = 0;
+#    self.ratings.each do |rating|
+#      sum += rating.score
+#      i += 1;
+#    end
+#    avg = sum/i;
+#    
+#    return avg
+#  end
+  
+  
 end

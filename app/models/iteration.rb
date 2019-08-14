@@ -11,7 +11,7 @@ class Iteration < ApplicationRecord
     allow_destroy: true,
     limit: 5
  
-  enum status: { planned: 0, in_progress: 100, completed: 200 }, _prefix: :status
+  enum status: { draft: -100, planned: 0, in_progress: 100, completed: 200 }, _prefix: :status
   
   validates :title, :description, :start_date, :end_date, presence: true
 end

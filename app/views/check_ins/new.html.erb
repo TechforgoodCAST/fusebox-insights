@@ -19,8 +19,10 @@
     <%= form.fields_for :ratings do |r| %>
       <div class="mb-4">
 
-        <b>Outcome <%= r.index+1%></b>
-        <h3><%= @iteration.outcomes[r.index].title%></h3>
+        <b>Outcome <%= r.index+1%> of <%= @iteration.outcomes.size %></b>
+        <h3>What are we going to learn or prove?</h3>
+        <p><%= @iteration.outcomes[r.index].title%></p>
+        
         <p>What progress have you made on this outcome? What have you learned, have there been any blockers or changes?</p>
         <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
         <% Rating.ratings.each do |key, val| %>

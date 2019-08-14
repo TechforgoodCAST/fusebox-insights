@@ -1,24 +1,76 @@
-<b>Iteration</b>
-<h1><%= @iteration.title %> (<%= @iteration.status.titleize %>)</h1>
+<style type="text/css">
+  .status-box{
+    display: inline-block;
 
-<p><%= @iteration.start_date.strftime("%e %B %Y") %> - <%= @iteration.end_date.strftime("%e %B %Y") %></p>
+    text-align: center;
+    padding: 5px 10px;
+    background: purple;
+    color: white;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+</style>
+
+
+
+<b>Iteration</b>
+<div class="row">
+  <div class="col">
+    <h1><%= @iteration.title %></h1>
+  </div>
+  <div class="col float-right text-right">
+    <%= link_to 'Edit', edit_project_iteration_path([@project, @iteration])%>
+  </div>
+</div>
+<div class="status-box <%= @iteration.status %>">
+  <%= @iteration.status.titleize %>
+</div>
  
 <p><%= @iteration.description %></p>
 
-
-
-<%= link_to 'Edit', edit_project_iteration_path([@project, @iteration]), class: "btn btn-primary" %>
-<%= link_to 'Destroy', project_iteration_path([@project, @iteration]),
-              method: :delete,
-              data: { confirm: 'Are you sure?' },
-              class: "btn btn-primary"%>
               
 <h2>Progress</h2>
 
 <%= render "layouts/iteration_progress", project: @project, iteration: @iteration %>
 
+<table class="table">
+  <tbody>
+    <tr>
+      <td>Start</td>
+      <td><%= @iteration.start_date.strftime("%-d %B %Y") %></td>
+    </tr>
+<% 
+
+classes = {
+  'on_track' => 'text-success',
+  'at_risk' => 'text-warning',
+  'off_track' => 'text-danger'
+}
+@iteration.check_ins.each do |check_in|
+  
+%>
+    <tr>
+      <td><%= link_to 'Check in', [@project, @iteration, check_in] %></td>
+      <td><%= check_in.date.strftime("%-d %B %Y") %> - <b class="<%= classes[check_in.on_track()] %>"><%= check_in.on_track().humanize %></b> in some areas</td>
+    </tr>
+<% end %>
+    <tr>
+      <td>Debrief</td>
+      <td><%= @iteration.debrief_date.strftime("%-d %B %Y") %></td>
+    </tr>
+  </tbody>  
+</table>
+
+
 <h2>Outcomes</h2>
 <p>What we want to have achieved by the end of this project</p>
+
+
+
+
+
 <% @iteration.outcomes.each do |outcome| %>
   <div class='row'>
     <div class='card mb-4'>
@@ -29,3 +81,7 @@
     </div>
   </div>
 <% end %>
+
+
+<h2>Approach</h2>
+<p></p>

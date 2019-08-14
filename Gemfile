@@ -76,3 +76,5 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'bootstrap'
 gem "bootstrap_form", ">= 4.2.0"
 gem 'devise-bootstrap-views', '~> 1.0'
+
+gem "cocoon" #Dynamic nested forms using jQuery

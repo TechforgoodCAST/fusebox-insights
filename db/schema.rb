@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_29_124440) do
+ActiveRecord::Schema.define(version: 2019_08_06_132929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_124440) do
   end
 
   create_table "milestones", force: :cascade do |t|
-    t.text "title"
+    t.text "name"
     t.text "description"
     t.date "date"
     t.boolean "completed"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2019_07_29_124440) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "success_criteria"
     t.index ["project_id"], name: "index_milestones_on_programme_id"
   end
 

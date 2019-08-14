@@ -1,0 +1,13 @@
+<div class="row justify-content-md-center">
+  <div class="col-8 p-3 card">
+
+    <h1><%= @milestone.name %></h1>
+    <p><%= @milestone.description %></p>
+
+    <h3>We'll know we've reached this milestone when...</h3>
+    <p><%= @milestone.success_criteria %></p>
+
+    <h3>We plan to reach this milestone by...</h3>
+    <p><%= @milestone.date.strftime("%B %Y") %></p>
+  </div>
+</div>

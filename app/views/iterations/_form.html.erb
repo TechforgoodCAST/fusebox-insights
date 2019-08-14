@@ -16,15 +16,22 @@
  
   <%= form.text_field :title %>
   <%= form.text_area :description %>
-  <%= form.date_field :start_date %>
-  <%= form.date_field :end_date %>
   
   <h3>Outcomes</h3>
   <%= form.fields_for :outcomes do |o| %>
-      <%= o.text_field :title %>
-      <%= o.text_area :description %>
+     <div class="card mb-3">
+       <div class="card-body">
+         <%= o.text_field :title, label: 'What are we going to learn or prove?' %>
+         <%= o.text_area :description %>
+       </div>
+         
+     </div>
   <% end %>
  
+  <%= form.date_field :start_date %>
+  <%= form.date_field :end_date %>
+  
   <%= form.submit %>
+  <%= form.submit 'Save as draft'%>
  
 <% end %>

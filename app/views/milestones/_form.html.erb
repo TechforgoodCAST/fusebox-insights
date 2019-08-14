@@ -14,9 +14,10 @@
     </div>
   <% end %>
  
-  <%= form.text_field :title %>
-  <%= form.text_area :description %>
-  <%= form.date_field :date %>
+  <%= form.text_field :name, label: "Name" %>
+  <%= form.text_area :description, label: "Description" %>
+  <%= form.text_area :success_criteria, label: "We'll know we've reached this milestone when..." %>
+  <%= form.date_field :date, label: "We plan to reach this milestone by..." %>
   <%= form.check_box :completed %>
   <%= form.submit %>
  
