@@ -2,55 +2,22 @@
 
 require 'test_helper'
 
-# TODO: update tests
 class ProjectTest < ActiveSupport::TestCase
-  setup do
-    @subject = build(:project)
-  end
+  setup { @subject = build(:project) }
 
-  test 'belongs to #author' do
-    assert_kind_of(User, @subject.author)
-  end
+  test('has many iterations') { assert_has_many(:iterations) }
 
-  test('has many #assumptions') { assert_has_many(:assumptions) }
+  test('dependent destroys iterations') { assert_destroys(:iterations) }
 
-  test('destroys #assumptions') { assert_destroys(:assumptions) }
+  test('has many memberships') { assert_has_many(:memberships) }
 
-  test('has many #groups') { assert_has_many(:groups) }
+  test('dependent destroys memberships') { assert_destroys(:memberships) }
 
-  test('destroys #groups') { assert_destroys(:groups) }
+  test('has many milestones') { assert_has_many(:milestones) }
 
-  test('has many #insights') { assert_has_many(:insights) }
+  test('dependent destroys milestones') { assert_destroys(:milestones) }
 
-  test('destroys #insights') { assert_destroys(:insights) }
+  test('description required') { assert_present(:description) }
 
-  test('has many #support_messages') { assert_has_many(:support_messages) }
-
-  test('destroys #support_messages') { assert_destroys(:support_messages) }
-
-  test 'user has many projects' do
-    @user = create(:user, projects: build_list(:project, 2))
-    assert_equal(2, @user.projects.size)
-  end
-
-  test 'slug generation' do
-    @project_name = 'this is a test'
-    @new_project = build(:project, name: @project_name)
-    assert_equal(@new_project.valid?, true)
-    assert_equal(@project_name.parameterize, @new_project.slug)
-  end
-
-  test '#name unique to user' do
-    assert_unique(:name)
-  end
-
-  test '#is_private cannot be nil' do
-    @invalid_project = Project.new(name: 'invalid test', is_private: nil)
-    assert_equal(@invalid_project.valid?, false)
-  end
-
-  test '#is_private has default' do
-    @project = Project.new(name: 'default is_private')
-    assert_equal(@project.is_private, true)
-  end
+  test('title required') { assert_present(:title) }
 end

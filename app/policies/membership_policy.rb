@@ -1,25 +1,19 @@
 # frozen_string_literal: true
 
 class MembershipPolicy < ApplicationPolicy
-  def new?
-    if Membership.where(project: record.project, user: user, role: 'Admin').any?
-      true
-    elsif Membership.where(project: record.project, user: user, role: 'Collaborator').any?
-      true
-    else
-      user.id == record.project.author.id
-    end
+  def show?
+    {
+      'contributor' => true,
+      'mentor' => true,
+      'stakeholder' => false
+    }[record&.role]
   end
 
   def create?
-    new?
-  end
-
-  def edit?
-    new?
+    show?
   end
 
   def destroy?
-    new?
+    show?
   end
 end

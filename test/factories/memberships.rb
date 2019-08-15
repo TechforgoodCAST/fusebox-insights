@@ -2,8 +2,7 @@
 
 FactoryBot.define do
   factory :membership do
-    user
     project
-    role { 'Admin' }
+    user
   end
 end

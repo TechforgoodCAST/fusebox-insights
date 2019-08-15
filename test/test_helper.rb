@@ -7,6 +7,12 @@ require 'rails/test_help'
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
+  def assert_authorised(methods, subject: @subject, permitted: true)
+    methods.each do |method|
+      permitted ? assert(subject.send(method)) : assert_not(subject.send(method))
+    end
+  end
+
   def assert_destroys(key, count: 1, subject: @subject)
     subject.send("#{key}=", create_list(key.to_s.singularize.to_sym, count))
     subject.save!

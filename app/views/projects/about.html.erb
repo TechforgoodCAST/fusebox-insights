@@ -1,0 +1,11 @@
+<%= render partial: 'subnav' %>
+
+<h1>About</h1>
+
+<%= link_to 'Edit', edit_project_path(@project) %>
+
+<p><strong>Goal</strong></p>
+<p><%= @project.description %></p>
+
+<p><strong>More about the project</strong></p>
+<p><%= @project.more_details.html_safe %></p>

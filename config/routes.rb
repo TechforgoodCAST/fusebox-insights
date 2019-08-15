@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   # Core application routes
 
   resources :projects do
+    member do
+      get :about
+      get :share, to: 'memberships#show'
+    end
+    # TODO: https://guides.rubyonrails.org/routing.html#limits-to-nesting
     resources :iterations do
       resources :check_ins do
         resources :ratings
@@ -14,6 +19,7 @@ Rails.application.routes.draw do
         resources :ratings
       end
     end
+    resources :memberships, only: %i[new create index destroy]
     resources :milestones
   end
 

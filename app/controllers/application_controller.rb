@@ -16,10 +16,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def load_project
-    @project = Project.friendly.find(params[:project_id].presence || params[:id])
-  end
-
   def user_not_authorized
     flash[:alert] = "Sorry, you don't have access to that"
     redirect_back(fallback_location: root_path)

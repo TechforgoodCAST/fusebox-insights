@@ -1,6 +1,15 @@
 <div class="row justify-content-center pb-5 pt-2">
   <div class="col-lg-6">
-    <h1 class="mb-4">Add Collaborator</h1>
-    <%= render 'form', membership: @membership %>
+    <p><%= link_to '‹ Back', share_project_path(@project) %></p>
+
+    <h1 class="mb-4">Add <%= @membership.role %></h1>
+
+    <%= simple_form_for([@project, @membership]) do |f| %>
+      <%= f.input :full_name %>
+      <%= f.input :email %>
+      <%= f.hidden_field :role, value: @membership.role %>
+      <p>This person will be notified by email.</p>
+      <%= f.submit 'Add to project', data: { disable_with: 'Adding...' } %>
+    <% end %>
   </div>
 </div>

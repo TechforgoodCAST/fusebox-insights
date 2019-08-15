@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class NotificationsMailerPreview < ActionMailer::Preview
-  # Preview this email at http://localhost:3000/rails/mailers/notifications_mailer/weekly_review
-  def weekly_review
-    user = User.new(id: 1, email: 'to@example.com', username: 'username')
-    NotificationsMailer.weekly_review(user)
+  # Preview this email at http://localhost:3000/rails/mailers/notifications_mailer/project_invite
+  def project_invite
+    membership = Membership.new(
+      project: Project.new(id: 1),
+      user: User.new(email: 'to@example.com')
+    )
+    NotificationsMailer.project_invite(membership)
   end
 end

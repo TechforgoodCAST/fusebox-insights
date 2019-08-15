@@ -1,3 +1,0 @@
-class DevController < ApplicationController
-
-end

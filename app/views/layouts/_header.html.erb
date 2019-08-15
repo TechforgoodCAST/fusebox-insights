@@ -21,13 +21,13 @@
           <div class="nav-item dropdown ml-4">
             <a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle text-dark" data-toggle="dropdown" href="#" id="navbarDropdown" role="button">
               <div class="icon-circle bg-dark">
-                <em class="fa fa-user text-light"></em>
+                <em class="text-light"></em>
               </div>
             </a>
 
             <ul aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right mt-3">
               <%= link_to edit_user_registration_path do %>
-                <li class="dropdown-item">Edit <%= current_user&.username %></li>
+                <li class="dropdown-item">Edit <%= current_user&.full_name %></li>
               <% end %>
               <div class="dropdown-divider"></div>
               <%= link_to destroy_user_session_path, method: :delete do %>
@@ -47,14 +47,6 @@
     </nav>
   </div>
 </header>
-
-<section>
-  <div class="alert alert-dark">
-    <div class="container">
-      This is a prototype, <%= mail_to 'suraj@wearecast.org.uk', 'your feedback will help us improve', subject: 'Fusebox feedback', class: 'text-primary' %>.
-    </div>
-  </div>
-</section>
 
 <% if notice.present? || alert.present? %>
   <section class="pt-4" id="alerts">

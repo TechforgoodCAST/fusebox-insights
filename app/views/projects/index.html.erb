@@ -7,7 +7,6 @@
   </div>
 </div>
 
-
 <% if @projects.length == 0 %>
   <div class="d-flex justify-content-center text-center mt-5">
     <div>
@@ -20,16 +19,12 @@
     <tr>
       <th>Title</th>
       <th>Description</th>
-      <th>Edit</th>
     </tr>
-
-
 
     <% @projects.each do |project| %>
       <tr>
         <td><%= link_to project.title, project_path(project) %></td>
         <td><%= project.description %></td>
-        <td><%= link_to '<i class="fas fa-edit"></i> Edit'.html_safe, edit_project_path(project) %></td>
       </tr>
     <% end %>
 

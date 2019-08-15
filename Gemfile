@@ -61,20 +61,18 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# TODO: review dependencies
+gem 'acts_as_paranoid', '~> 0.6.0'
+gem 'audited', '~> 4.7'
+gem 'bootstrap_form', '>= 4.2.0'
+gem 'bootstrap'
+gem 'cocoon'
+gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise', '~> 4.6.0'
+gem 'friendly_id', '~> 5.2.4'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'kaminari', '~> 1.1.0'
+gem 'pundit', '~> 2.0.1'
 gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
 gem 'trix-rails', '~> 2.0.0', require: 'trix'
-gem 'kaminari', '~> 1.1.0'
-gem 'pundit'
-gem 'pg_search'
-
-gem "audited", "~> 4.7"
-gem 'friendly_id', '~> 5.2.4'
-gem 'acts_as_paranoid', '~> 0.6.0'
-gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
-gem 'bootstrap'
-gem "bootstrap_form", ">= 4.2.0"
-gem 'devise-bootstrap-views', '~> 1.0'
-
-gem "cocoon" #Dynamic nested forms using jQuery

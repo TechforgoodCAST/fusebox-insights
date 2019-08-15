@@ -1,0 +1,46 @@
+<%= render partial: 'projects/subnav' %>
+
+<h3>Contributors</h3>
+<p>These are the people who are responsible for achieving the outcomes we intend. Contributors can create and edit all items in a project, including modifying the projects details and it’s members. Contributors receive reminders and are notified when check-ins and debriefs are completed or overdue.</p>
+
+<hr/>
+
+<%- @contributors.each do |membership| %>
+  <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
+  <%= membership.user_full_name %>
+  (<%= membership.user_email %>)
+  <%#TODO:= membership.user.last_sign_in_at.nil? ? 'Inactive' : 'Active' %>
+  <%= link_to 'Remove', project_membership_path(@project, membership), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <hr/>
+<% end %>
+
+<p><%= link_to 'Add contributor', new_project_membership_path(@project, role: 'contributor') %></p>
+
+<h3>Stakeholders</h3>
+<p>These are the people who needs to be consulted with or informed about the outcomes we intend. Stakeholders can view all items in a project and some of its details, but cannot modify its members or see check-ins. Stakeholders are notified when debriefs are completed.</p>
+
+<hr/>
+
+<%- @stakeholders.each do |membership| %>
+  <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
+  <%= membership.user_full_name %>
+  (<%= membership.user_email %>)
+  <%#TODO:= membership.user.last_sign_in_at.nil? ? 'Inactive' : 'Active' %>
+  <%= link_to 'Remove', project_membership_path(@project, membership), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <hr/>
+<% end %>
+
+<p><%= link_to 'Add stakeholder', new_project_membership_path(@project, role: 'stakeholder') %></p>
+
+<%- if @mentors.any? %>
+  <h3>Mentors</h3>
+  <p>Mentors have the same permissions as contributors along with some additional capabilities to help them support teams. Mentors are notified when check-ins and debriefs are completed or overdue.</p>
+
+  <hr/>
+
+  <%- @mentors.each do |membership| %>
+    <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
+    <%= membership.user_full_name %>
+    (<%= membership.user_email %>)
+  <% end %>
+<% end %>

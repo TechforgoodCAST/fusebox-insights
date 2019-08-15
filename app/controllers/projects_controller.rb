@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+# TODO: authorisation
 class ProjectsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
-    @projects = Project.all
+    @projects = current_user.projects
   end
 
   def show
@@ -19,7 +22,7 @@ class ProjectsController < ApplicationController
     if @project.save
       redirect_to @project
     else
-      render 'new'
+      render :new
     end
   end
 
@@ -31,9 +34,9 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
 
     if @project.update(project_params)
-      redirect_to @project
+      redirect_to about_project_path(@project)
     else
-      render 'edit'
+      render :edit
     end
   end
 
@@ -44,9 +47,13 @@ class ProjectsController < ApplicationController
     redirect_to projects_path
   end
 
+  def about
+    @project = Project.find(params[:id])
+  end
+
   private
 
   def project_params
-    params.require(:project).permit(:title, :description)
+    params.require(:project).permit(:description, :more_details, :title)
   end
 end

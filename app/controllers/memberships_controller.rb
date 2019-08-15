@@ -1,47 +1,57 @@
 # frozen_string_literal: true
 
 class MembershipsController < ApplicationController
-  before_action :authenticate_user!, :load_project, :load_membership
+  before_action :authenticate_user!, :authorise_user
+
+  def show
+    @project = Project.find(params[:id])
+    memberships = Membership.joins(:user).where(project: 3).select(
+      'memberships.*', 'users.full_name AS user_full_name', 'users.email AS user_email'
+    )
+    @contributors = memberships.select { |m| m.role == 'contributor' }
+    @stakeholders = memberships.select { |m| m.role == 'stakeholder' }
+    @mentors = memberships.select { |m| m.role == 'mentor' }
+  end
 
   def index
-    @members = Membership.find_by(project: @project)
+    @project = Project.find_by(id: params[:project_id])
+    redirect_to share_project_path(@project)
   end
 
   def new
-    @membership = @project.memberships.new
-    authorize @membership
-
-    @ids = Membership.where(project: @project).pluck(:user_id)
-
-    @ids.push(@project.author.id)
-    @potential_members = User.where.not(id: @ids)
+    @project = Project.find_by(id: params[:project_id])
+    @membership = @project.memberships.new(role: params[:role] || 'contributor')
   end
 
   def create
-    @selected_user = User.find_by(id: membership_params[:user])
+    @project = Project.find_by(id: params[:project_id])
+    @membership = @project.memberships.new(membership_params)
 
-    @membership = @project.memberships.new(user: @selected_user, role: membership_params[:role])
-    authorize @membership
-
-    if @membership.save
-      redirect_to project_path(@project), notice: 'Member added successfully.'
+    if @membership.save_with_user
+      NotificationsMailer.project_invite(@membership).deliver_now
+      redirect_to share_project_path(@project), notice: "#{@membership.role.titleize} added"
     else
       render :new
     end
   end
 
   def destroy
+    @project = Project.find_by(id: params[:project_id])
+    @membership = Membership.find_by(id: params[:id])
+    notice = "#{@membership.role.titleize} removed"
     @membership.destroy
-    redirect_to project_path(@project), notice: 'Member removed successfully.'
+    redirect_to share_project_path(@project), notice: notice
   end
 
   private
 
-  def load_membership
-    @membership = Membership.find_by(id: params[:id])
+  def authorise_user
+    project_id = params[:project_id].presence || params[:id]
+    membership = Membership.find_by(project_id: project_id, user: current_user)
+    authorize membership, policy_class: MembershipPolicy
   end
 
   def membership_params
-    params.require(:membership).permit(:user, :project, :role)
+    params.require(:membership).permit(:email, :full_name, :role)
   end
 end

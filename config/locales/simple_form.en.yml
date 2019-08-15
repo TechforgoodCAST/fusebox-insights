@@ -12,10 +12,8 @@ en:
       default_message: "Please review the problems below:"
     # Examples
     labels:
-      response:
-        confidence: 'Has your confidence in this assumption changed?'
-      responses:
-        confidence: 'Has your confidence in this assumption changed?'
+      project:
+        description: 'Goal'
       # defaults:
       #   password: 'Password'
       # user:

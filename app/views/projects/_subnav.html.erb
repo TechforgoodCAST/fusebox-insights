@@ -1,0 +1,8 @@
+<div class="container row d-flex justify-content-between mb-3">
+  <%= link_to @project.title, project_path(@project) %>
+  <div>
+    <%= link_to 'Roadmap', project_path(@project) %>
+    <%= link_to 'About', about_project_path(@project) %>
+    <%= link_to 'Share', share_project_path(@project) %>
+  </div>
+</div>

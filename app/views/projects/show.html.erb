@@ -1,28 +1,30 @@
+<%# TODO: refactor %>
+
 <script type="text/javascript">
 $(function(){
-  
+
   $('a[data-status]').on('click', function(){
     var status = $(this).data('status');
     $('#statuses li').removeClass('active');
     $(this).parent('li').addClass('active');
-    
+
     if(status == 'all'){
       $('#roadmap .row ').show();
     }else if(status == 'default'){
       $('#roadmap .row ').hide();
-      $('#roadmap .row.planned').show();      
-      $('#roadmap .row.in-progress').show();      
+      $('#roadmap .row.planned').show();
+      $('#roadmap .row.in-progress').show();
     }else{
       $('#roadmap .row ').hide();
-      $('#roadmap .row.'+status).show();      
+      $('#roadmap .row.'+status).show();
     }
     $('#roadmap .row.start').show();
-    
+
   });
-  
+
 });
-  
-  
+
+
 
 </script>
 
@@ -30,13 +32,13 @@ $(function(){
   ul#statuses li a{
     cursor: pointer;
   }
-  
+
   ul#statuses{
     list-style: none;
     padding: 0;
     margin: 0;
   }
-  
+
   ul#statuses li{
     padding-left: 15px;
     margin-left: -15px;
@@ -47,8 +49,7 @@ $(function(){
   }
 </style>
 
-<h1><%= @project.title %></h1>
-<!-- 
+<!--
 <p><%= @project.description %></p>
 <%= link_to 'Edit', edit_project_path(@project), class: "btn btn-primary" %>
 <%= link_to 'Destroy', project_path(@project),
@@ -57,6 +58,8 @@ $(function(){
               class: "btn btn-primary"%>
 
 <h2>Roadmap</h2>-->
+
+<%= render partial: 'subnav' %>
 
 <div class="row">
   <div class="col-4">
@@ -72,7 +75,7 @@ $(function(){
       <li><a data-status="in-progress">In progress</a></li>
       <li><a data-status="planned">Planned</a></li>
     </ul>
-    
+
     <%= link_to 'Edit project', edit_project_path(@project), class: "mt-4" %>
   </div>
 
@@ -92,7 +95,7 @@ $(function(){
       margin-left: 13px;
       background: #fff;
     }
-    
+
     .start::before{
       content:"";
       height: 20px;
@@ -103,7 +106,7 @@ $(function(){
       margin-left: 13px;
       background: #fff;
     }
-    
+
     #roadmap .row{
       margin-left: -40px;
     }
@@ -123,7 +126,7 @@ $(function(){
       font-weight: bold;
       letter-spacing: 2px;
     }
-    
+
     .card{
       border: 3px solid #999;
       border-radius: 0;
@@ -135,7 +138,7 @@ $(function(){
     merged = [];
 
     #Get iterations
-    @project.iterations.each do |iteration| 
+    @project.iterations.each do |iteration|
       merged << {
         :type       => 'iteration',
         :start_date => iteration.start_date,
@@ -145,7 +148,7 @@ $(function(){
     end
 
     #Get milestones
-    @project.milestones.each do |milestone| 
+    @project.milestones.each do |milestone|
       merged << {
         :type       => 'milestone',
         :start_date => milestone.date,
@@ -190,7 +193,7 @@ $(function(){
 
 
 
-      if item[:type] == 'iteration' 
+      if item[:type] == 'iteration'
         iteration = item[:data]
     %>
         <div class='row iteration <%= status.parameterize %>'>
@@ -201,8 +204,8 @@ $(function(){
             </div>
           </div>
         </div>
-      <% 
-      elsif item[:type] == 'milestone' 
+      <%
+      elsif item[:type] == 'milestone'
         milestone = item[:data]
       %>
         <div class='row milestone <%= status.parameterize %>'>
