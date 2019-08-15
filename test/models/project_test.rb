@@ -13,6 +13,8 @@ class ProjectTest < ActiveSupport::TestCase
 
   test('dependent destroys memberships') { assert_destroys(:memberships) }
 
+  test('has many users') { assert_has_many(:users) }
+
   test('has many milestones') { assert_has_many(:milestones) }
 
   test('dependent destroys milestones') { assert_destroys(:milestones) }

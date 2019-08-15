@@ -1,28 +1,2 @@
-<%= javascript_include_tag( params[:controller] ) %>
-<%= stylesheet_link_tag( params[:controller] ) %>
-
 <h1>New Milestone</h1>
-
-<div class="row">
-  <div class="col">
-    <%= render 'form' %>
-  </div>
-
-  <div class="col">
-    <p>Some typical milestones you could add:</p>
-    
-    <%
-    Milestone::PRESETS.each do |preset|
-    %>
-    <div class="card mb-2">
-      <div class="card-body preset">
-        <h4><%= preset[:title] %></h4>
-        <p><%= preset[:description] %></p>
-      </div>
-    </div>
-    <%
-    end
-    %>
-    
-  </div>
-</div>
+<%= render 'form' %>

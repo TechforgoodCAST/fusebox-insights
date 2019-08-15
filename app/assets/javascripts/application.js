@@ -18,29 +18,3 @@
 //= require bootstrap
 //= require trix
 //= require_tree .
-
-document.addEventListener('turbolinks:load', function() {
-
-    $(function() {
-        if($('#response_type_comment').is(':checked')) {
-            $('.input.string.optional.response_title').hide();
-            $('.input.radio_buttons.optional.response_confidence').hide();
-        }
-    });
-
-    $('input[type=radio]').on("change", function(){
-        if($(this).prop('id') == "response_type_comment") {
-            $('#response_title').hide();
-            $('#confidence_fields').hide();
-        }
-        else if($(this).prop('id') == "response_type_insight"){
-            $('#response_title').show();
-            $('#confidence_fields').show();
-        }
-    });
-
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-
-});

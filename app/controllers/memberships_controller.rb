@@ -5,7 +5,7 @@ class MembershipsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
-    memberships = Membership.joins(:user).where(project: 3).select(
+    memberships = Membership.joins(:user).where(project: @project).select(
       'memberships.*', 'users.full_name AS user_full_name', 'users.email AS user_email'
     )
     @contributors = memberships.select { |m| m.role == 'contributor' }
