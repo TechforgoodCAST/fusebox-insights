@@ -8,17 +8,17 @@ class ProjectPolicyTest < ActiveSupport::TestCase
     @subject = ProjectPolicy.new(@membership.user, @membership.project)
   end
 
-  test '#create? true' do
-    assert(@subject.create?)
+  test 'users can create projects' do
+    assert_authorised(%i[new? create?])
   end
 
-  test 'contributor can view and edit projects' do
-    assert_authorised(%i[show? edit? about?])
+  test 'contributor can view and update projects' do
+    assert_authorised(%i[show? edit? update? about?])
   end
 
-  test 'mentor can view and edit projects' do
+  test 'mentor can view and update projects' do
     @membership.role = 'mentor'
-    assert_authorised(%i[show? edit? about?])
+    assert_authorised(%i[show? edit? update? about?])
   end
 
   test 'stakeholder can view projects' do
@@ -26,8 +26,8 @@ class ProjectPolicyTest < ActiveSupport::TestCase
     assert_authorised(%i[show? about?])
   end
 
-  test 'stakeholder cannot edit projects' do
+  test 'stakeholder cannot update projects' do
     @membership.update(role: 'stakeholder')
-    assert_authorised(%i[edit?], permitted: false)
+    assert_authorised(%i[edit? update?], permitted: false)
   end
 end

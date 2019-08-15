@@ -2,6 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
+  before_action :load_project, except: :index
 
   def index
     @projects = current_user.projects.order(title: :desc)
@@ -13,7 +14,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = authorize Project.find(params[:id])
+    authorize @project
   end
 
   def new
@@ -25,6 +26,7 @@ class ProjectsController < ApplicationController
     @project.users << current_user
 
     if @project.save
+      @project.milestones.create(Milestone::PRESETS)
       redirect_to project_path(@project), notice: 'Welcome to your new project!'
     else
       render :new
@@ -32,11 +34,11 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = authorize Project.find(params[:id])
+    authorize @project
   end
 
   def update
-    @project = authorize Project.find(params[:id])
+    authorize @project
 
     if @project.update(project_params)
       redirect_to about_project_path(@project)
@@ -46,7 +48,7 @@ class ProjectsController < ApplicationController
   end
 
   def about
-    @project = authorize Project.find(params[:id])
+    authorize @project
   end
 
   private

@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 class MembershipsController < ApplicationController
-  before_action :authenticate_user!, :authorise_user
+  before_action :authenticate_user!, :load_project, :authorise_user
+
+  def index
+    redirect_to share_project_path(@project)
+  end
 
   def show
-    @project = Project.find(params[:id])
     memberships = Membership.joins(:user).where(project: @project).select(
       'memberships.*', 'users.full_name AS user_full_name', 'users.email AS user_email'
     )
@@ -13,18 +16,11 @@ class MembershipsController < ApplicationController
     @mentors = memberships.select { |m| m.role == 'mentor' }
   end
 
-  def index
-    @project = Project.find_by(id: params[:project_id])
-    redirect_to share_project_path(@project)
-  end
-
   def new
-    @project = Project.find_by(id: params[:project_id])
     @membership = @project.memberships.new(role: params[:role] || 'contributor')
   end
 
   def create
-    @project = Project.find_by(id: params[:project_id])
     @membership = @project.memberships.new(membership_params)
 
     if @membership.save_with_user
@@ -36,7 +32,6 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find_by(id: params[:project_id])
     @membership = Membership.find_by(id: params[:id])
     notice = "#{@membership.role.titleize} removed"
     @membership.destroy
@@ -46,8 +41,7 @@ class MembershipsController < ApplicationController
   private
 
   def authorise_user
-    project_id = params[:project_id].presence || params[:id]
-    membership = Membership.find_by(project_id: project_id, user: current_user)
+    membership = Membership.find_by(project: @project, user: current_user)
     authorize membership, policy_class: MembershipPolicy
   end
 

@@ -12,8 +12,11 @@ en:
       default_message: "Please review the problems below:"
     # Examples
     labels:
+      milestone:
+        success_criteria: "We'll know we've reached this milestone when..."
       project:
         description: 'Goal'
+        more_details: 'More about this project'
       # defaults:
       #   password: 'Password'
       # user:

@@ -1,19 +1,28 @@
+# frozen_string_literal: true
+
 class Milestone < ApplicationRecord
-  belongs_to :project
-  
   PRESETS = [
     {
-      title: "Validated user needs",
-      description: "Have a solid understanding of the problem space from the perspective of a well-defined user group."
+      title: 'Discover',
+      description: 'We know about the problem, the context within which it occurs and the value of solving it from the perspective of those affected.',
+      deadline: 3.months.since,
+      status: :in_progress
     },
     {
-      title: "Validated approach",
-      description: "By the end of this stage you will know the exact problem you’re solving for the user and how you’re going to do it."
+      title: 'Define',
+      description: "We know about how we’ll address the problem by meeting people's needs, expectations and behaviours. And how we’ll contribute to the resolution of a social issue and/or avoid negative consequences for people and planet.",
+      deadline: 6.months.since
     },
     {
-      title: "Developed MVP",
-      description: "By the end of this stage you will have a working digital product and a plan for how your will test and pilot it with real users."
+      title: 'Develop',
+      description: 'We know about how we’ll deliver, grow and sustain our solution.',
+      deadline: 9.months.since
     }
-  ]
-  
+  ].freeze
+
+  belongs_to :project
+
+  enum status: { planned: 0, in_progress: 1, complete: 2 }
+
+  validates :deadline, :description, :status, :title, presence: true
 end

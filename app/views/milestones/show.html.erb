@@ -1,13 +1,18 @@
 <div class="row justify-content-md-center">
-  <div class="col-8 p-3 card">
+  <div class="col-8">
+    <p><%= link_to '‹ Back', project_path(@project) %></p>
+    <div class="card p-3">
+      <%= link_to 'Edit', edit_project_milestone_path(@project, @milestone) %>
 
-    <h1><%= @milestone.name %></h1>
-    <p><%= @milestone.description %></p>
+      <h1><%= @milestone.title %></h1>
+      <i><%= @milestone.status.humanize %></i>
+      <p><%= @milestone.description %></p>
 
-    <h3>We'll know we've reached this milestone when...</h3>
-    <p><%= @milestone.success_criteria %></p>
+      <h3>We'll know we've reached this milestone when...</h3>
+      <p><%= @milestone.success_criteria&.html_safe %></p>
 
-    <h3>We plan to reach this milestone by...</h3>
-    <p><%= @milestone.date.strftime("%B %Y") %></p>
+      <h3>We plan to reach this milestone by...</h3>
+      <p><%= @milestone.deadline.strftime("%b %Y") %></p>
+    </div>
   </div>
 </div>

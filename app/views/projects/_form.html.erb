@@ -4,8 +4,7 @@
   <%= f.input :description %>
 
   <%- if action_name == 'edit' %>
-    <p>More about this project</p>
-    <%= f.trix_editor :more_details %>
+    <%= f.input :more_details, as: :trix_editor %>
   <% end %>
 
   <%- if action_name == 'new' %>

@@ -63,10 +63,6 @@ $(function(){
 
 <div class="row">
   <div class="col-4">
-    <div class="btn-group-vertical" role="group">
-      <%= link_to 'Add iteration', new_project_iteration_path(@project), class: "btn btn-primary" %>
-      <%= link_to 'Add milestone', new_project_milestone_path(@project), class: "btn btn-secondary" %>
-    </div>
     <h3 class="mt-3">Status</h3>
     <ul id="statuses" class="mb-3">
       <li class="active"><a data-status="default">Default</a></li>
@@ -149,8 +145,8 @@ $(function(){
     @project.milestones.each do |milestone|
       merged << {
         :type       => 'milestone',
-        :start_date => milestone.date,
-        :end_date   => milestone.date,
+        :start_date => milestone.deadline || Date.tomorrow,
+        :end_date   => milestone.completed_on || Date.tomorrow,
         :data       => milestone
       }
     end
@@ -179,7 +175,7 @@ $(function(){
 
       if status != old_status
       %>
-        <div class='row divider  <%= status.parameterize %>'>
+        <div class='row divider  <%= status&.parameterize %>'>
           <div class='status-box'>
             <%= status %>
           </div>
@@ -206,8 +202,10 @@ $(function(){
       elsif item[:type] == 'milestone'
         milestone = item[:data]
       %>
-        <div class='row milestone <%= status.parameterize %>'>
-          <p><strong><%= link_to milestone.name, edit_project_milestone_path(@project, milestone) %>:</strong> <%= milestone.description%></p>
+        <div class='row milestone <%= milestone.status.parameterize %>'>
+          <p><%= milestone.status.parameterize %></p>
+          <p><strong><%= link_to milestone.title, project_milestone_path(@project, milestone) %>:</strong> <%= milestone.description%></p>
+          <p>By <%= milestone.deadline.strftime("%b %Y") %></p>
         </div>
       <% end %>
     <% end %>

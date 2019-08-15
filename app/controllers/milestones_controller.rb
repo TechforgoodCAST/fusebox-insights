@@ -1,39 +1,54 @@
+# frozen_string_literal: true
+
 class MilestonesController < ApplicationController
-  def create
-    @project = Project.find(params[:project_id])
-    @milestone = @project.milestones.create(milestone_params)
-    redirect_to project_path(@project)
+  before_action :authenticate_user!, :load_project
+
+  def show
+    @milestone = authorize @project.milestones.find_by(id: params[:id])
   end
 
   def new
-    @project = Project.find(params[:project_id])
-    @milestone = Milestone.new
+    @milestone = authorize @project.milestones.new
   end
 
-  def edit
-    @project = Project.find(params[:project_id])
-    @milestone = Milestone.find(params[:id])
-  end
+  def create
+    @milestone = authorize @project.milestones.new(milestone_params)
 
-  def update
-    @project = Project.find(params[:project_id])
-    @milestone = Milestone.find(params[:id])
-
-    if @milestone.update(milestone_params)
-      redirect_to project_milestone_url(@project, @milestone)
+    if @milestone.save
+      update_milestone_statues!(@project)
+      redirect_to project_path(@project)
     else
-      render 'edit'
+      render :new
     end
   end
 
-  def show
-    @project = Project.find(params[:project_id])
-    @milestone = Milestone.find(params[:id])
+  def edit
+    @milestone = authorize @project.milestones.find_by(id: params[:id])
+  end
+
+  def update
+    @milestone = authorize @project.milestones.find_by(id: params[:id])
+
+    if @milestone.update(milestone_params)
+      update_milestone_statues!(@project)
+      redirect_to project_milestone_url(@project, @milestone)
+    else
+      render :edit
+    end
   end
 
   private
 
   def milestone_params
-    params.require(:milestone).permit(:title, :description, :date, :completed)
+    params.require(:milestone).permit(
+      :deadline, :description, :success_criteria, :title
+    )
+  end
+
+  def update_milestone_statues!(project)
+    incomplete = project.milestones.where.not(status: :complete)
+                        .order(:deadline, :title)
+    incomplete.update_all(status: :planned)
+    incomplete.first.update(status: :in_progress)
   end
 end
