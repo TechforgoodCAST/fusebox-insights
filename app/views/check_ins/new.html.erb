@@ -1,7 +1,7 @@
 <h1>Check in</h1>
 
-<%= bootstrap_form_for([@project, @iteration, @check_in]) do |form| %>
-  
+<%= simple_form_for([@project, @iteration, @check_in]) do |f| %>
+
   <% if @check_in.errors.any? %>
     <div id="error_explanation">
       <h2>
@@ -16,25 +16,25 @@
     </div>
   <% end %>
 
-    <%= form.fields_for :ratings do |r| %>
+    <%= f.fields_for :ratings do |r| %>
       <div class="mb-4">
 
         <b>Outcome <%= r.index+1%> of <%= @iteration.outcomes.size %></b>
         <h3>What are we going to learn or prove?</h3>
         <p><%= @iteration.outcomes[r.index].title%></p>
-        
+
         <p>What progress have you made on this outcome? What have you learned, have there been any blockers or changes?</p>
         <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
         <% Rating.ratings.each do |key, val| %>
           <%= r.radio_button(:score, val, label: key.titleize) %>
         <% end %>
 
-        <%= r.text_area :comments%>
+        <%= r.input :comments%>
 
       </div>
     <% end %>
-    
-    <%= form.text_area :notes %>
-  
-  <%= form.submit %>
+
+    <%= f.input :notes %>
+
+  <%= f.submit %>
 <% end %>

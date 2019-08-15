@@ -14,7 +14,7 @@
 <%
 timeline = [
   {name:'Iteration starts', date: iteration.start_date, completed: iteration.start_date < Date.today, link: url_for([project, iteration])},
-  {name:'Iteration ends', date: iteration.end_date, completed: false, link: url_for([project, iteration])},
+  {name:'Iteration ends', date: iteration.debrief_date, completed: false, link: url_for([project, iteration])},
   {name:'Debrief', date: iteration.debrief_date, completed: false, link: url_for([project, iteration])}
 ]
 
@@ -26,8 +26,8 @@ items = timeline.sort_by { |hsh| hsh[:date] }.reverse
 
 %>
 <ul class="progress-timeline">
-<% 
-items.each do |item| 
+<%
+items.each do |item|
   if item[:date] > Date.today
     status = 'future'
   else

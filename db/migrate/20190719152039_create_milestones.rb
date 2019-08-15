@@ -1,12 +1,13 @@
 class CreateMilestones < ActiveRecord::Migration[5.2]
   def change
     create_table :milestones do |t|
-      t.text :title
+      t.string :title, null: false
       t.text :description
-      t.date :date
-      t.boolean :completed
-      t.string :badge
-      t.references :project, foreign_key: true
+      t.text :success_criteria
+      t.datetime :completed_at
+      t.date :deadline
+      t.integer :status, default: 0, null: false
+      t.references :project, foreign_key: true, null: false
 
       t.timestamps
     end

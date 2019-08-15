@@ -3,10 +3,10 @@
 class Membership < ApplicationRecord
   attr_accessor :email, :full_name
 
-  enum role: { contributor: 0, stakeholder: 1, mentor: 2 }
-
   belongs_to :project
   belongs_to :user
+
+  enum role: { contributor: 0, stakeholder: 1, mentor: 2 }
 
   validates :role, presence: true
   validates :project, uniqueness: {

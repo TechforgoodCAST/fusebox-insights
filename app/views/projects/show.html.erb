@@ -13,7 +13,7 @@ $(function(){
     }else if(status == 'default'){
       $('#roadmap .row ').hide();
       $('#roadmap .row.planned').show();
-      $('#roadmap .row.in-progress').show();
+      $('#roadmap .row.in_progress').show();
     }else{
       $('#roadmap .row ').hide();
       $('#roadmap .row.'+status).show();
@@ -68,7 +68,7 @@ $(function(){
       <li class="active"><a data-status="default">Default</a></li>
       <li><a data-status="all">All</a></li>
       <li><a data-status="complete">Complete</a></li>
-      <li><a data-status="in-progress">In progress</a></li>
+      <li><a data-status="in_progress">In progress</a></li>
       <li><a data-status="planned">Planned</a></li>
     </ul>
   </div>
@@ -136,7 +136,7 @@ $(function(){
       merged << {
         :type       => 'iteration',
         :start_date => iteration.start_date,
-        :end_date   => iteration.end_date,
+        :end_date   => iteration.debrief_date,
         :data       => iteration
       }
     end
@@ -146,7 +146,7 @@ $(function(){
       merged << {
         :type       => 'milestone',
         :start_date => milestone.deadline || Date.tomorrow,
-        :end_date   => milestone.completed_on || Date.tomorrow,
+        :end_date   => milestone.completed_at || Date.tomorrow,
         :data       => milestone
       }
     end

@@ -10,10 +10,5 @@ class AddNameFieldsToUser < ActiveRecord::Migration[5.2]
     rename_column :users, :username, :full_name
     add_column :users, :display_name, :string
     remove_column :users, :is_staff, :boolean, default: false
-
-    add_column :projects, :more_details, :text
-
-    drop_table :comments
-    drop_table :pg_search_documents
   end
 end

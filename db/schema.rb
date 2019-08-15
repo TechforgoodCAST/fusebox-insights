@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_15_144345) do
+ActiveRecord::Schema.define(version: 2019_08_14_215251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(version: 2019_08_15_144345) do
 
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
-    t.date "date"
-    t.boolean "complete"
-    t.bigint "iteration_id"
+    t.datetime "complete_at"
+    t.bigint "completed_by", null: false
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
@@ -59,15 +59,14 @@ ActiveRecord::Schema.define(version: 2019_08_15_144345) do
   end
 
   create_table "iterations", force: :cascade do |t|
-    t.text "title"
+    t.string "title", null: false
     t.text "description"
     t.date "start_date"
-    t.date "end_date"
-    t.bigint "project_id"
+    t.date "debrief_date"
+    t.integer "status", default: 0, null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status"
-    t.date "debrief_date"
     t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
@@ -83,40 +82,40 @@ ActiveRecord::Schema.define(version: 2019_08_15_144345) do
   end
 
   create_table "milestones", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
-    t.date "completed_on"
+    t.text "success_criteria"
+    t.datetime "completed_at"
+    t.date "deadline"
+    t.integer "status", default: 0, null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "success_criteria"
-    t.date "deadline"
-    t.integer "status", default: 0, null: false
     t.index ["project_id"], name: "index_milestones_on_project_id"
   end
 
   create_table "outcomes", force: :cascade do |t|
-    t.text "title"
+    t.text "title", null: false
     t.text "description"
-    t.bigint "iteration_id"
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_outcomes_on_iteration_id"
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
+    t.text "more_details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "more_details"
   end
 
   create_table "ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comments"
-    t.bigint "check_in_id"
-    t.bigint "outcome_id"
+    t.bigint "check_in_id", null: false
+    t.bigint "outcome_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["check_in_id"], name: "index_ratings_on_check_in_id"

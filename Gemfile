@@ -64,7 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # TODO: review dependencies
 gem 'acts_as_paranoid', '~> 0.6.0'
 gem 'audited', '~> 4.7'
-gem 'bootstrap_form', '>= 4.2.0'
 gem 'bootstrap'
 gem 'cocoon'
 gem 'devise-bootstrap-views', '~> 1.0'
