@@ -1,0 +1,88 @@
+$bg-color: #F6F6F6 // TODO: in tailwind config?
+
+html
+  @apply font-sans
+  font-size: 16px
+  background-color: $bg-color
+
+body
+  @apply flex h-screen flex-col
+
+main
+  @apply flex-1
+
+hr
+  @apply bg-gray-400 border-t-2
+
+.btn
+  @apply py-2 px-4 rounded-sm
+  &:hover
+    @apply cursor-pointer
+
+.btn.btn-primary
+  @apply text-white bg-purple-600
+  &:hover
+    @apply bg-purple-700
+
+.card
+  @apply bg-white px-5 py-6 border-2 border-gray-300 rounded-sm
+
+.inner-card
+  @apply border-2 border-gray-200 rounded-sm px-4 py-5
+
+.link
+  @apply text-purple-600 underline
+  &:hover
+    @apply text-purple-700
+
+.rich-text
+  @apply border-2 border-gray-200 rounded-sm px-4 py-5
+  a
+    @apply link
+  blockquote
+    @apply border-l-4 border-gray-400 pl-2 text-gray-700
+  h1
+    @apply text-lg font-bold
+  ol
+    @apply list-decimal ml-5
+  pre
+    @apply bg-gray-100 px-3 py-2
+  ul
+    @apply list-disc ml-5
+
+.tab
+  @apply inline-block rounded-t-sm py-2 px-4 bg-purple-600 text-white
+  &:hover
+    @apply bg-purple-500
+  &.active
+    @apply bg-white text-purple-700
+    background-color: $bg-color
+
+.tag
+  @apply font-bold uppercase px-2 py-1 rounded-sm text-white
+  &.planned
+    @apply bg-blue-600
+  &.in_progress
+    @apply bg-pink-800
+
+// Form
+// =========================================================================  //
+
+.label
+  @apply block font-bold mb-1
+
+.hint
+  @apply text-sm text-gray-600 mb-2
+
+.field_with_errors
+  .error
+    @apply text-sm text-red-600 mb-1
+    &:first-letter
+      text-transform: capitalize
+  .input
+    @apply border-red-600
+
+.input
+  @apply block border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y
+  &:focus
+    @apply border-purple-700

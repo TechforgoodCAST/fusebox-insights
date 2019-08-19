@@ -1,18 +1,31 @@
-<div class="row justify-content-md-center">
-  <div class="col-8">
-    <p><%= link_to '‹ Back', project_path(@project) %></p>
-    <div class="card p-3">
-      <%= link_to 'Edit', edit_project_milestone_path(@project, @milestone) %>
+<%= render partial: 'projects/subnav' %>
 
-      <h1><%= @milestone.title %></h1>
-      <i><%= @milestone.status.humanize %></i>
-      <p><%= @milestone.description %></p>
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'underline' %></p>
+  <%= render partial: 'layouts/notices' %>
 
-      <h3>We'll know we've reached this milestone when...</h3>
-      <p><%= @milestone.success_criteria&.html_safe %></p>
-
-      <h3>We plan to reach this milestone by...</h3>
-      <p><%= @milestone.deadline.strftime("%b %Y") %></p>
+  <div class="card">
+    <div class="flex items-end items-center justify-between mb-3">
+      <h1 class="text-2xl font-bold"><%= @milestone.title %></h1>
+      <%= link_to 'Edit', edit_project_milestone_path(@project, @milestone), class: 'link' %>
     </div>
+
+    <div class="mb-6">
+      <span class="tag <%= @milestone.status %>"><%= @milestone.status.humanize %></span>
+    </div>
+
+    <p class="mb-6"><%= @milestone.description %></p>
+
+    <p class="font-bold mb-1">We'll know we've reached this milestone when...</p>
+    <div class="mb-4">
+      <%- if @milestone.success_criteria.blank? %>
+        <p class="italic text-gray-600">Not provided</p>
+      <% else %>
+        <div class="rich-text"><%= @milestone.success_criteria&.html_safe %></div>
+      <% end %>
+    </div>
+
+    <p class="font-bold mb-1">We plan to reach this milestone by...</p>
+    <p><%= @milestone.deadline.strftime("%b %Y") %></p>
   </div>
 </div>

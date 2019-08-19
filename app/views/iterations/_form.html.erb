@@ -1,37 +1,23 @@
 <%= simple_form_for([@project, @iteration]) do |f| %>
 
-  <% if @iteration.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@iteration.errors.count, "error") %> prohibited
-        this iteration from being saved:
-      </h2>
-      <ul>
-        <% @iteration.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <%= f.input :title %>
-  <%= f.input :description %>
+  <%= f.input :description, input_html: { class: 'w-full', rows: 1 } %>
 
-  <h3>Outcomes</h3>
-  <%= f.fields_for :outcomes do |o| %>
-     <div class="card mb-3">
-       <div class="card-body">
-         <%= o.input :title, label: 'What are we going to learn or prove?' %>
-         <%= o.input :description %>
-       </div>
+  <div class="mb-6">
+    <h2 class="text-xl font-bold mb-1">Outcomes</h2>
+    <p class="text-sm text-gray-600 mb-4">Between 1-5</p>
 
-     </div>
-  <% end %>
+    <%= f.fields_for :outcomes do |o| %>
+      <div class="inner-card mb-4">
+        <%= o.input :title, input_html: { class: 'w-full', rows: 1 } %>
+        <%= o.input :description, input_html: { class: 'w-full mb-0', rows: 1 } %>
+      </div>
+    <% end %>
+  </div>
 
   <%= f.input :start_date, html5: true %>
   <%= f.input :debrief_date, html5: true %>
 
-  <%= f.submit %>
-  <%= f.submit 'Save as draft'%>
-
+  <%= f.submit class: 'btn btn-primary', data: { disable_with: 'Saving...' } %>
+  <%= f.submit 'Save as draft', class: 'btn ml-1', data: { disable_with: 'Saving...' } %>
 <% end %>

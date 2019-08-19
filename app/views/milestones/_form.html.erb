@@ -1,7 +1,9 @@
 <%= simple_form_for([@project, @milestone]) do |f| %>
   <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :success_criteria, as: :trix_editor %>
+  <%= f.input :description, input_html: { class: 'w-full', rows: 1 } %>
+  <div class="mb-6">
+    <%= f.input :success_criteria, as: :trix_editor %>
+  </div>
   <%= f.input :deadline, as: :date, start_year: Date.today.year, discard_day: true, order: [:month, :year], include_blank: true %>
-  <%= f.submit %>
+  <%= f.submit class: 'btn btn-primary', data: { disable_with: 'Saving...' } %>
 <% end %>

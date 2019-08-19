@@ -1,46 +1,59 @@
 <%= render partial: 'projects/subnav' %>
 
-<h3>Contributors</h3>
-<p>These are the people who are responsible for achieving the outcomes we intend. Contributors can create and edit all items in a project, including modifying the projects details and it’s members. Contributors receive reminders and are notified when check-ins and debriefs are completed or overdue.</p>
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <%= render partial: 'layouts/notices' %>
 
-<hr/>
+  <div class="card">
+    <h1 class="text-2xl font-bold mb-6">Share project</h1>
 
-<%- @contributors.each do |membership| %>
-  <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
-  <%= membership.user_full_name %>
-  (<%= membership.user_email %>)
-  <%#TODO:= membership.user.last_sign_in_at.nil? ? 'Inactive' : 'Active' %>
-  <%= link_to 'Remove', project_membership_path(@project, membership), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <hr/>
-<% end %>
+    <h2 class="text-lg font-bold mb-2">Contributors</h2>
+    <p class="text-sm text-gray-600">These are the people who are responsible for achieving the outcomes we intend. Contributors can create and edit all items in a project, including modifying the projects details and it’s members. Contributors receive reminders and are notified when check-ins and debriefs are completed or overdue.</p>
 
-<p><%= link_to 'Add contributor', new_project_membership_path(@project, role: 'contributor') %></p>
+    <hr class="my-4">
 
-<h3>Stakeholders</h3>
-<p>These are the people who needs to be consulted with or informed about the outcomes we intend. Stakeholders can view all items in a project and some of its details, but cannot modify its members or see check-ins. Stakeholders are notified when debriefs are completed.</p>
+    <%- @contributors.each do |membership| %>
+      <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
+      <%= membership.user_full_name %>
+      (<%= membership.user_email %>)
+      <%#TODO:= membership.user.last_sign_in_at.nil? ? 'Inactive' : 'Active' %>
+      <%= link_to 'Remove', project_membership_path(@project, membership), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-sm text-red-600 underline hover:text-red-700' %>
+      <hr class="my-4">
+    <% end %>
 
-<hr/>
+    <div class="mb-8">
+      <%= link_to 'Add contributor', new_project_membership_path(@project, role: 'contributor'), class: 'link' %>
+    </div>
 
-<%- @stakeholders.each do |membership| %>
-  <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
-  <%= membership.user_full_name %>
-  (<%= membership.user_email %>)
-  <%#TODO:= membership.user.last_sign_in_at.nil? ? 'Inactive' : 'Active' %>
-  <%= link_to 'Remove', project_membership_path(@project, membership), method: :delete, data: { confirm: 'Are you sure?' } %>
-  <hr/>
-<% end %>
+    <h3 class="text-lg font-bold mb-2">Stakeholders</h3>
+    <p class="text-sm text-gray-600">These are the people who needs to be consulted with or informed about the outcomes we intend. Stakeholders can view all items in a project and some of its details, but cannot modify its members or see check-ins. Stakeholders are notified when debriefs are completed.</p>
 
-<p><%= link_to 'Add stakeholder', new_project_membership_path(@project, role: 'stakeholder') %></p>
+    <hr class="my-4">
 
-<%- if @mentors.any? %>
-  <h3>Mentors</h3>
-  <p>Mentors have the same permissions as contributors along with some additional capabilities to help them support teams. Mentors are notified when check-ins and debriefs are completed or overdue.</p>
+    <%- @stakeholders.each do |membership| %>
+      <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
+      <%= membership.user_full_name %>
+      (<%= membership.user_email %>)
+      <%#TODO:= membership.user.last_sign_in_at.nil? ? 'Inactive' : 'Active' %>
+      <%= link_to 'Remove', project_membership_path(@project, membership), method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-sm text-red-600 underline hover:text-red-700' %>
+      <hr class="my-4">
+    <% end %>
 
-  <hr/>
+    <div class="mb-1">
+      <%= link_to 'Add stakeholder', new_project_membership_path(@project, role: 'stakeholder'), class: 'link' %>
+    </div>
 
-  <%- @mentors.each do |membership| %>
-    <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
-    <%= membership.user_full_name %>
-    (<%= membership.user_email %>)
-  <% end %>
-<% end %>
+    <%- if @mentors.any? %>
+      <h3 class="text-lg font-bold mt-8 mb-2">Mentors</h3>
+      <p class="text-sm text-gray-600">Mentors have the same permissions as contributors along with some additional capabilities to help them support teams. Mentors are notified when check-ins and debriefs are completed or overdue.</p>
+
+      <hr class="my-4">
+
+      <%- @mentors.each do |membership| %>
+        <%#TODO:= current_user.email == membership.user_email ? '[Your membership]' : '' %>
+        <%= membership.user_full_name %>
+        (<%= membership.user_email %>)
+        <hr class="my-4">
+      <% end %>
+    <% end %>
+  </div>
+</div>

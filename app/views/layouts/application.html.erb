@@ -2,15 +2,17 @@
 <html>
   <head>
     <title>Fusebox - A tool to guide, plan and communicate digital service development.</title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <meta content="width=device-width, initial-scale=1" name="viewport" />
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag    'print', media: 'print' %>
-
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -32,26 +34,22 @@
 
   <body>
 
-    <%= render partial: 'layouts/header' %>
+    <nav class="bg-purple-700">
+      <div class="max-w-5xl container mx-auto">
+        <div class="flex items-center justify-between flex-wrap py-3 px-4">
+          <%= link_to 'Fusebox', root_path, class: 'font-bold text-lg text-white hover:opacity-75' %>
+          <div class="flex items-center">
+            <%= link_to 'Projects', projects_path, class: 'text-sm text-white hover:opacity-75' %>
+            <%= link_to edit_user_registration_path do %>
+              <div class="bg-white rounded-full w-5 h-5 ml-5 hover:opacity-75"></div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </nav>
 
     <main>
-
-      <% if user_signed_in? || @project.present? %>
-
-        <section class="container p-3">
-
-          <%= yield %>
-
-        </section>
-
-      <% else %>
-
-        <div class="pt-4">
-          <%= yield %>
-        </div>
-
-      <% end %>
-
+      <%= yield %>
     </main>
 
     <%= render partial: 'layouts/footer' %>

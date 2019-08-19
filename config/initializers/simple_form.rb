@@ -13,7 +13,7 @@ SimpleForm.setup do |config|
   # wrapper, change the order or even add your own to the
   # stack. The options given below are used to wrap the
   # whole input.
-  config.wrappers :default, class: 'form-group',
+  config.wrappers :default, class: :input_wrapper,
     hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
@@ -52,11 +52,10 @@ SimpleForm.setup do |config|
     b.optional :readonly
 
     ## Inputs
-    b.use :label
+    b.use :label, class: :label
     b.use :hint,  wrap_with: { tag: :div, class: :hint }
-    b.use :input, class: 'form-control', error_class: 'is-invalid'
-    # TODO: avoid error messages below input http://adrianroselli.com/2017/01/avoid-messages-under-fields.html, override or replace bootstrap styles
-    b.use :error, wrap_with: { tag: :div, class: 'invalid-feedback' }
+    b.use :error, wrap_with: { tag: :div, class: :error }
+    b.use :input, class: :input
 
     ## full_messages_for
     # If you want to display the full error message for the attribute, you can

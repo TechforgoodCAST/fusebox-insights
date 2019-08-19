@@ -1,87 +1,54 @@
-<style type="text/css">
-  .status-box{
-    display: inline-block;
+<%= render partial: 'projects/subnav' %>
 
-    text-align: center;
-    padding: 5px 10px;
-    background: purple;
-    color: white;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 2px;
-  }
-</style>
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'underline' %></p>
+  <%= render partial: 'layouts/notices' %>
 
-
-
-<b>Iteration</b>
-<div class="row">
-  <div class="col">
-    <h1><%= @iteration.title %></h1>
-  </div>
-  <div class="col float-right text-right">
-    <%= link_to 'Edit', edit_project_iteration_path([@project, @iteration])%>
-  </div>
-</div>
-<div class="status-box <%= @iteration.status %>">
-  <%= @iteration.status.titleize %>
-</div>
- 
-<p><%= @iteration.description %></p>
-
-              
-<h2>Progress</h2>
-
-<%= render "layouts/iteration_progress", project: @project, iteration: @iteration %>
-
-<table class="table">
-  <tbody>
-    <tr>
-      <td>Start</td>
-      <td><%= @iteration.start_date.strftime("%-d %B %Y") %></td>
-    </tr>
-<% 
-
-classes = {
-  'on_track' => 'text-success',
-  'at_risk' => 'text-warning',
-  'off_track' => 'text-danger'
-}
-@iteration.check_ins.each do |check_in|
-  
-%>
-    <tr>
-      <td><%= link_to 'Check in', [@project, @iteration, check_in] %></td>
-      <td><%= check_in.date.strftime("%-d %B %Y") %> - <b class="<%= classes[check_in.on_track()] %>"><%= check_in.on_track().humanize %></b> in some areas</td>
-    </tr>
-<% end %>
-    <tr>
-      <td>Debrief</td>
-      <td><%= @iteration.debrief_date.strftime("%-d %B %Y") %></td>
-    </tr>
-  </tbody>  
-</table>
-
-
-<h2>Outcomes</h2>
-<p>What we want to have achieved by the end of this project</p>
-
-
-
-
-
-<% @iteration.outcomes.each do |outcome| %>
-  <div class='row'>
-    <div class='card mb-4'>
-      <div class="card-body">
-        <p class="pt-1 mb-1"><strong><%= link_to outcome.title, project_iteration_outcome_path(@project, @iteration, outcome) %></strong></p>
-        <p><%= outcome.description %></p>
-      </div>
+  <div class="card">
+    <div class="flex items-end items-center justify-between mb-3">
+      <h1 class="text-2xl font-bold"><%= @iteration.title %></h1>
+      <%= link_to 'Edit', edit_project_iteration_path(@project, @iteration), class: 'link' %>
     </div>
+
+    <div class="mb-6">
+      <span class="tag <%= @iteration.status %>"><%= @iteration.status.humanize %></span>
+    </div>
+
+    <p class="mb-6"><%= @iteration.description %></p>
+
+    <h2 class="text-xl font-bold">Progress</h2>
+
+    <hr class="my-4">
+
+      <div class="flex">
+        <span class="sm:w-1/4 w-1/2">Start date</span>
+        <span class="sm:w-3/4 w-1/2"><%= friendly_date(@iteration.start_date) %></span>
+      </div>
+
+    <hr class="my-4">
+
+      <div class="flex">
+        <span class="sm:w-1/4 w-1/2">Debrief date</span>
+        <span class="sm:w-3/4 w-1/2"><%= friendly_date(@iteration.debrief_date) %></span>
+      </div>
+
+    <hr class="mt-4 mb-6 border-t-4">
+
+    <div class="mb-6">
+      <h2 class="text-xl font-bold mb-4">Outcomes</h2>
+
+      <% @iteration.outcomes.each do |outcome| %>
+        <div class="inner-card mb-4">
+          <p class="font-bold mb-1">What are we going to learn or prove?</p>
+          <p class="mb-4"><%= outcome.title %></p>
+
+          <p class="font-bold mb-1">As a minimum, we’ll know we’ve learnt or proved this when…</p>
+          <p><%= outcome.description %></p>
+        </div>
+      <% end %>
+    </div>
+
+    <h2 class="text-xl font-bold mb-2">Approach</h2>
+    <p>[Approach goes here...]</p>
   </div>
-<% end %>
-
-
-<h2>Approach</h2>
-<p></p>
+</div>

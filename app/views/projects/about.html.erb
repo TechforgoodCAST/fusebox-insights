@@ -1,11 +1,23 @@
 <%= render partial: 'subnav' %>
 
-<h1>About</h1>
+<div class="max-w-3xl mx-auto px-4 my-8">
 
-<%= link_to 'Edit', edit_project_path(@project) %>
+  <%= render partial: 'layouts/notices' %>
 
-<p><strong>Goal</strong></p>
-<p><%= @project.description %></p>
+  <div class="card">
+    <div class="flex items-end items-center justify-between mb-6">
+      <h1 class="text-2xl font-bold">About project</h1>
+      <%= link_to 'Edit', edit_project_path(@project), class: 'link' %>
+    </div>
 
-<p><strong>More about the project</strong></p>
-<p><%= @project.more_details&.html_safe %></p>
+    <p class="mb-2"><strong>Goal</strong></p>
+    <p class="mb-6"><%= @project.description %></p>
+
+    <p class="mb-2"><strong>More about the project</strong></p>
+    <%- if @project.more_details.blank? %>
+      <p class="italic text-gray-600">Not provided</p>
+    <% else %>
+      <div class="rich-text"><%= @project.more_details&.html_safe %></div>
+    <% end %>
+  </div>
+</div>

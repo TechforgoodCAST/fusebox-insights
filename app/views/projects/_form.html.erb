@@ -1,17 +1,19 @@
 <%= simple_form_for(@project) do |f| %>
 
   <%= f.input :title %>
-  <%= f.input :description %>
+  <%= f.input :description, input_html: { class: 'w-full' } %>
 
-  <%- if action_name == 'edit' %>
+  <%- if %w[edit update].include?(action_name) %>
     <%= f.input :more_details, as: :trix_editor %>
   <% end %>
 
-  <%- if action_name == 'new' %>
-    <p>Preferences</p>
-    <%= f.input :milestones, as: :boolean, input_html: { checked: true, disabled: true } %>
+  <%- if %w[new create].include?(action_name) %>
+    <label class="block text-gray-600">
+      <input class="mr-1" type="checkbox" checked="checked" disabled="disabled">
+      <span>Include default milestones</span>
+    </label>
   <% end %>
 
-  <%= f.submit %>
+  <%= f.submit class: 'btn btn-primary mt-6', data: { disable_with: 'Saving...' } %>
 
 <% end %>

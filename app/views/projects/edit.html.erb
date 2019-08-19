@@ -1,3 +1,7 @@
-<p><%= link_to '‹ Back', about_project_path(@project) %></p>
-<h1>Edit project</h1>
-<%= render 'form' %>
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back', about_project_path(@project), class: 'underline' %></p>
+  <div class="card">
+    <h1 class="text-2xl font-bold mb-6">Edit project</h1>
+    <%= render 'form' %>
+  </div>
+</div>

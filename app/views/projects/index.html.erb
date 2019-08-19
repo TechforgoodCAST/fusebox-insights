@@ -1,42 +1,50 @@
-<div class="row">
-  <div class="col">
-    <h1>Projects</h1>
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold">Projects</h1>
+    <%= link_to 'New project', new_project_path(), class: "btn btn-primary" %>
   </div>
-  <div class="col">
-    <h1><%= link_to 'New project', new_project_path(), class: "btn btn-primary float-right" %></h1>
-  </div>
-</div>
 
-<% if @projects.any? %>
+  <% if @projects.any? %>
 
-  <%- if @contributor.any? %>
-    <h3>Contributor</h3>
-    <% @contributor.each do |project| %>
-      <p><%= link_to project.title, project_path(project) %> - <%= project.description %></p>
+    <%- if @contributor.any? %>
+      <hr class="my-6">
+      <h2 class="text-xl font-bold mb-6">Contributor</h2>
+      <% @contributor.each do |project| %>
+        <div class="card">
+          <h3 class="text-lg font-bold mb-4"><%= link_to project.title, project_path(project), class: 'link' %></h3>
+          <%= project.description %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <%- if @stakeholder.any? %>
-    <h3>Stakeholder</h3>
-    <% @stakeholder.each do |project| %>
-      <p><%= link_to project.title, project_path(project) %> - <%= project.description %></p>
+    <%- if @stakeholder.any? %>
+      <hr class="my-6">
+      <h2 class="text-xl font-bold mb-6">Stakeholder</h2>
+      <% @stakeholder.each do |project| %>
+        <div class="card">
+          <h3 class="text-lg font-bold mb-4"><%= link_to project.title, project_path(project), class: 'link' %></h3>
+          <%= project.description %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <%- if @mentor.any? %>
-    <h3>Mentor</h3>
-    <% @mentor.each do |project| %>
-      <p><%= link_to project.title, project_path(project) %> - <%= project.description %></p>
+    <%- if @mentor.any? %>
+      <hr class="my-6">
+      <h2 class="text-xl font-bold mb-6">Mentor</h2>
+      <% @mentor.each do |project| %>
+        <div class="card">
+          <h3 class="text-lg font-bold mb-4"><%= link_to project.title, project_path(project), class: 'link' %></h3>
+          <%= project.description %>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
 
-<% else %>
+  <% else %>
 
-  <div class="d-flex justify-content-center text-center mt-5">
-    <div>
-      <h3><b>You don't have any projects yet</b></h3>
-      <p><%= link_to 'Create your first', new_project_path, class: "btn btn-primary"%></p>
+    <div class="text-center">
+      <h2 class="text-lg font-bold mt-16 mb-4">No projects</h2>
+      <%= link_to 'Create your first', new_project_path, class: "link" %>
     </div>
-  </div>
 
-<% end %>
+  <% end %>
+</div>

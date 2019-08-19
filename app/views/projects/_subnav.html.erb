@@ -1,8 +1,19 @@
-<div class="container row d-flex justify-content-between mb-3">
-  <%= link_to @project.title, project_path(@project) %>
-  <div>
-    <%= link_to 'Roadmap', project_path(@project) %>
-    <%= link_to 'About', about_project_path(@project) %>
-    <%= link_to 'Share', share_project_path(@project) %>
+<div class="bg-purple-700 text-white">
+  <div class="max-w-5xl container mx-auto">
+    <div class="flex items-center justify-between flex-wrap pt-3 px-4">
+      <%= link_to @project.title, project_path(@project), class: 'text-lg font-bold hover:opacity-75 mb-1 mr-6' %>
+
+      <ul class="flex sm:mt-0 mt-4">
+        <li>
+          <%= link_to 'Roadmap', project_path(@project), class: "tab #{active_tab?(controller: 'projects', action: 'show')}" %>
+        </li>
+        <li class="ml-1">
+          <%= link_to 'About', about_project_path(@project), class: "tab #{active_tab?(controller: 'projects', action: 'about')}" %>
+        </li>
+        <li class="ml-1">
+          <%= link_to 'Share', share_project_path(@project), class: "tab #{active_tab?(controller: 'memberships')}" %>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

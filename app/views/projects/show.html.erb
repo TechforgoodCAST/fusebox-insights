@@ -1,31 +1,27 @@
-<%# TODO: refactor %>
-
+<%# TODO: refactor! %>
 <script type="text/javascript">
-$(function(){
+  $(function(){
 
-  $('a[data-status]').on('click', function(){
-    var status = $(this).data('status');
-    $('#statuses li').removeClass('active');
-    $(this).parent('li').addClass('active');
+    $('a[data-status]').on('click', function(){
+      var status = $(this).data('status');
+      $('#statuses li').removeClass('active');
+      $(this).parent('li').addClass('active');
 
-    if(status == 'all'){
-      $('#roadmap .row ').show();
-    }else if(status == 'default'){
-      $('#roadmap .row ').hide();
-      $('#roadmap .row.planned').show();
-      $('#roadmap .row.in_progress').show();
-    }else{
-      $('#roadmap .row ').hide();
-      $('#roadmap .row.'+status).show();
-    }
-    $('#roadmap .row.start').show();
+      if(status == 'all'){
+        $('#roadmap .row ').show();
+      }else if(status == 'default'){
+        $('#roadmap .row ').hide();
+        $('#roadmap .row.planned').show();
+        $('#roadmap .row.in_progress').show();
+      }else{
+        $('#roadmap .row ').hide();
+        $('#roadmap .row.'+status).show();
+      }
+      $('#roadmap .row.start').show();
+
+    });
 
   });
-
-});
-
-
-
 </script>
 
 <style type="text/css">
@@ -47,170 +43,216 @@ $(function(){
     padding-left: 13px;
     border-left: 2px solid black;
   }
+
+  #roadmap{
+    border-left: 4px solid #ccc;
+  }
+
+  .milestone::before{
+    content:"";
+    height: 20px;
+    width: 20px;
+    border: 2px solid #999;
+    transform: rotate(45deg);
+    margin-right: 10px;
+    margin-left: 13px;
+    background: #fff;
+  }
+
+  .start::before{
+    content:"";
+    height: 20px;
+    width: 20px;
+    border: 2px solid #999;
+    border-radius: 100%;
+    margin-right: 10px;
+    margin-left: 13px;
+    background: #fff;
+  }
+
+  #roadmap .row{
+    margin-left: -40px;
+  }
+
+  .row.divider{
+    border-top: 3px solid purple;
+    margin-bottom: 10px;
+  }
+
+  .divider .status-box{
+    text-align: center;
+    padding: 5px 10px;
+    background: purple;
+    color: white;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .card{
+    border: 3px solid #999;
+    border-radius: 0;
+  }
 </style>
-
-<!--
-<p><%= @project.description %></p>
-<%= link_to 'Edit', edit_project_path(@project), class: "btn btn-primary" %>
-<%= link_to 'Destroy', project_path(@project),
-              method: :delete,
-              data: { confirm: 'Are you sure?' },
-              class: "btn btn-primary"%>
-
-<h2>Roadmap</h2>-->
+<%# TODO: refactor end %>
 
 <%= render partial: 'subnav' %>
 
-<div class="row">
-  <div class="col-4">
-    <h3 class="mt-3">Status</h3>
-    <ul id="statuses" class="mb-3">
-      <li class="active"><a data-status="default">Default</a></li>
-      <li><a data-status="all">All</a></li>
-      <li><a data-status="complete">Complete</a></li>
-      <li><a data-status="in_progress">In progress</a></li>
-      <li><a data-status="planned">Planned</a></li>
-    </ul>
-  </div>
+<div class="max-w-5xl container mx-auto">
+  <div class="mx-4 "><%= render partial: 'layouts/notices' %></div>
 
+  <div class="md:flex my-8">
 
-  <style>
-    #roadmap{
-      border-left: 4px solid #ccc;
-    }
+    <div class="flex-none w-full md:max-w-xs px-4 mb-8">
+      <%= link_to 'New iteration', new_project_iteration_path(@project), class: 'btn btn-primary block w-full text-center mb-8' %>
+      <h3 class="font-bold mb-3">Status</h3>
+      <ul id="statuses" class="text-purple-600">
+        <li class="active mb-3">
+          <a data-status="default">
+            Default
+            <br>
+            <span class="text-sm text-gray-600">In progress & Planned</span>
+          </a>
+        </li>
+        <li class="mb-3">
+          <a data-status="all">All</a>
+        </li>
+        <li class="mb-3">
+          <a data-status="complete">Complete</a>
+        </li>
+        <li class="mb-3">
+          <a data-status="in_progress">In progress</a>
+        </li>
+        <li>
+          <a data-status="planned">Planned</a>
+        </li>
+      </ul>
 
-    .milestone::before{
-      content:"";
-      height: 20px;
-      width: 20px;
-      border: 2px solid #999;
-      transform: rotate(45deg);
-      margin-right: 10px;
-      margin-left: 13px;
-      background: #fff;
-    }
+    </div>
 
-    .start::before{
-      content:"";
-      height: 20px;
-      width: 20px;
-      border: 2px solid #999;
-      border-radius: 100%;
-      margin-right: 10px;
-      margin-left: 13px;
-      background: #fff;
-    }
+    <div class="flex-1 px-4 mb-8">
 
-    #roadmap .row{
-      margin-left: -40px;
-    }
+      <%# TODO: refactor! %>
+      <div id="roadmap" class="col-8">
+        <%
+        merged = [];
 
-    .row.divider{
-      border-top: 3px solid purple;
-      margin-bottom: 10px;
-    }
+        #Get iterations
+        @project.iterations.each do |iteration|
+          merged << {
+            :type       => 'iteration',
+            :start_date => iteration.start_date,
+            :end_date   => iteration.debrief_date,
+            :data       => iteration
+          }
+        end
 
-    .divider .status-box{
-      text-align: center;
-      padding: 5px 10px;
-      background: purple;
-      color: white;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
+        #Get milestones
+        @project.milestones.each do |milestone|
+          merged << {
+            :type       => 'milestone',
+            :start_date => milestone.deadline || Date.tomorrow,
+            :end_date   => milestone.completed_at || Date.tomorrow,
+            :data       => milestone
+          }
+        end
 
-    .card{
-      border: 3px solid #999;
-      border-radius: 0;
-    }
+        #Sort the merged array reverse chronologically
+        items = merged.sort_by { |hsh| hsh[:start_date] }
+        old_status = '';
+        items.each_with_index do |item|
 
-  </style>
-  <div id="roadmap" class="col-8">
-    <%
-    merged = [];
+          if item[:end_date] < Date.today
+            status = 'Completed'
+          end
 
-    #Get iterations
-    @project.iterations.each do |iteration|
-      merged << {
-        :type       => 'iteration',
-        :start_date => iteration.start_date,
-        :end_date   => iteration.debrief_date,
-        :data       => iteration
-      }
-    end
+          if item[:start_date] < Date.today && item[:end_date] > Date.today
+            status = 'In progress'
+          end
 
-    #Get milestones
-    @project.milestones.each do |milestone|
-      merged << {
-        :type       => 'milestone',
-        :start_date => milestone.deadline || Date.tomorrow,
-        :end_date   => milestone.completed_at || Date.tomorrow,
-        :data       => milestone
-      }
-    end
+          if item[:start_date] > Date.today
+            status = 'Planned'
+          end
 
-    #merged << {
-    #    :type => 'divider',
-    #    :date => Date.today
-    #}
-
-    #Sort the merged array reverse chronologically
-    items = merged.sort_by { |hsh| hsh[:start_date] }
-    old_status = '';
-    items.each_with_index do |item|
-
-      if item[:end_date] < Date.today
-        status = 'Completed'
-      end
-
-      if item[:start_date] < Date.today && item[:end_date] > Date.today
-        status = 'In progress'
-      end
-
-      if item[:start_date] > Date.today
-        status = 'Planned'
-      end
-
-      if status != old_status
-      %>
-        <div class='row divider  <%= status&.parameterize %>'>
-          <div class='status-box'>
-            <%= status %>
-          </div>
-        </div>
-      <%
-        old_status = status
-      end
-
-
-
-
-      if item[:type] == 'iteration'
-        iteration = item[:data]
-    %>
-        <div class='row iteration <%= status.parameterize %>'>
-          <div class='card mb-4'>
-            <div class="card-body">
-              <h4 class="pt-1 mb-1"><%= link_to iteration.title, [@project, iteration] %> </h4>
-              <%= render "layouts/iteration_progress", project: @project, iteration: iteration %>
+          if status != old_status
+          %>
+            <div class='row divider  <%= status&.parameterize %>'>
+              <div class='status-box'>
+                <%= status %>
+              </div>
             </div>
-          </div>
+          <%
+            old_status = status
+          end
+
+          if item[:type] == 'iteration'
+            iteration = item[:data]
+        %>
+
+            <div class='row iteration <%= status&.parameterize %>'>
+              <div class='card mb-4'>
+                <div class="card-body">
+                  <h4 class="pt-1 mb-1"><%= link_to iteration.title, [@project, iteration] %> </h4>
+                  <style type="text/css">
+                    ul.progress-timeline{
+                      border-left: 2px solid #ccc;
+                      padding: 12px;
+                    }
+                    ul.progress-timeline li.future,
+                    ul.progress-timeline li.future a{
+                      color: #999;
+                    }
+
+                  </style>
+
+
+                  <%
+                  timeline = [
+                    {name:'Iteration starts', date: iteration.start_date, completed: iteration.start_date < Date.today, link: url_for([@project, iteration])},
+                    {name:'Iteration ends', date: iteration.debrief_date, completed: false, link: url_for([@project, iteration])},
+                    {name:'Debrief', date: iteration.debrief_date, completed: false, link: url_for([@project, iteration])}
+                  ]
+
+                  iteration.check_ins.each do |check_in|
+                    timeline << {name: 'Check in', date: check_in.date, completed: check_in.complete, link: url_for([@project, iteration, check_in])}
+                  end
+
+                  items = timeline.sort_by { |hsh| hsh[:date] }.reverse
+
+                  %>
+                  <ul class="progress-timeline">
+                  <%
+                  items.each do |item|
+                    if item[:date] > Date.today
+                      status = 'future'
+                    else
+                      status = ''
+                    end
+                  %>
+                    <li class="<%= status %>"><%= link_to item[:name]+" ("+item[:date].strftime("%-d %B %Y")+")", item[:link]%></li>
+                  <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          <%
+          elsif item[:type] == 'milestone'
+            milestone = item[:data]
+          %>
+            <div class='row milestone <%= milestone.status.parameterize %>'>
+              <p><%= milestone.status.parameterize %></p>
+              <p><strong><%= link_to milestone.title, project_milestone_path(@project, milestone) %>:</strong> <%= milestone.description%></p>
+              <p>By <%= milestone.deadline.strftime("%b %Y") %></p>
+            </div>
+          <% end %>
+        <% end %>
+        <div class='row start'>
+          <p>Add an <%= link_to 'iteration', new_project_iteration_path(@project), class: 'link' %> or <%= link_to 'milestone', new_project_milestone_path(@project), class: 'link' %></p>
         </div>
-      <%
-      elsif item[:type] == 'milestone'
-        milestone = item[:data]
-      %>
-        <div class='row milestone <%= milestone.status.parameterize %>'>
-          <p><%= milestone.status.parameterize %></p>
-          <p><strong><%= link_to milestone.title, project_milestone_path(@project, milestone) %>:</strong> <%= milestone.description%></p>
-          <p>By <%= milestone.deadline.strftime("%b %Y") %></p>
-        </div>
-      <% end %>
-    <% end %>
-    <div class='row start'>
-      <p>Add an <%= link_to 'iteration', new_project_iteration_path(@project)%> or <%= link_to 'milestone', new_project_milestone_path(@project)%></p>
+      </div>
+      <%# TODO: refactor end %>
+
     </div>
   </div>
 </div>

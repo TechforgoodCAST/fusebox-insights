@@ -17,6 +17,10 @@ en:
       project:
         description: 'Goal'
         more_details: 'More about this project'
+      iteration:
+        outcomes:
+          title: 'What are we going to learn or prove?'
+          description: 'As a minimum, we’ll know we’ve learnt or proved this when...'
       # defaults:
       #   password: 'Password'
       # user:
@@ -24,10 +28,12 @@ en:
       #     email: 'E-mail to sign in.'
       #   edit:
       #     email: 'E-mail.'
-    # hints:
-    #   defaults:
-    #     username: 'User name to sign in.'
-    #     password: 'No special characters, please.'
+    hints:
+      project:
+        title: 'A short snappy...'
+      # defaults:
+      #   username: 'User name to sign in.'
+      #   password: 'No special characters, please.'
     # include_blanks:
     #   defaults:
     #     age: 'Rather not say'
