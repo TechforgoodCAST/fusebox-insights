@@ -34,8 +34,13 @@ class MembershipsController < ApplicationController
   def destroy
     @membership = Membership.find_by(id: params[:id])
     notice = "#{@membership.role.titleize} removed"
+    removing_current_user = @membership.user == current_user
     @membership.destroy
-    redirect_to share_project_path(@project), notice: notice
+    if removing_current_user
+      redirect_to projects_path, notice: 'You have been removed from the project'
+    else
+      redirect_to share_project_path(@project), notice: notice
+    end
   end
 
   private

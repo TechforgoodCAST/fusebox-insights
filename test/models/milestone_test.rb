@@ -16,5 +16,9 @@ class MilestoneTest < ActiveSupport::TestCase
 
   test('status required') { assert_present(:status) }
 
+  test 'status defaults to planned' do
+    assert_equal('planned', @subject.status)
+  end
+
   test('title required') { assert_present(:title) }
 end
