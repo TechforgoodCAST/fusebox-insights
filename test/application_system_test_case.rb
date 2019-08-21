@@ -11,9 +11,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     click_button('Sign in')
   end
 
-  # TODO: update
   def sign_out
-    click_link('navbarDropdown')
-    click_link('Sign out')
+    click_on('Sign out')
   end
 end

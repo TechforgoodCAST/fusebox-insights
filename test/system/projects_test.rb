@@ -9,7 +9,20 @@ class ProjectsTest < ApplicationSystemTestCase
     sign_in
   end
 
-  test 'not signed in?'
+  test 'sign in required' do
+    project = build(:project, id: 1)
+    click_on 'Sign out'
+
+    [
+      projects_path,
+      project_path(project),
+      edit_project_path(project)
+    ].each do |path|
+      visit path
+
+      assert_text('You need to sign in or sign up before continuing.')
+    end
+  end
 
   test 'can view and create projects as contributor' do
     create_project

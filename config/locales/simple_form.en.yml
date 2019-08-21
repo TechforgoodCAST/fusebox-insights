@@ -20,7 +20,7 @@ en:
       iteration:
         outcomes:
           title: 'What are we going to learn or prove?'
-          description: 'As a minimum, we’ll know we’ve learnt or proved this when...'
+          description: "As a minimum, we'll know we've learnt or proved this when..."
       # defaults:
       #   password: 'Password'
       # user:
