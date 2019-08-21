@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :rating do
-    score { "" }
+    score { 200 }
     comments { "MyText" }
     iteration { nil }
     outcome { nil }

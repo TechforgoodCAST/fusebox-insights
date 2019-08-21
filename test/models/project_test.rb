@@ -19,7 +19,7 @@ class ProjectTest < ActiveSupport::TestCase
 
   test('dependent destroys milestones') { assert_destroys(:milestones) }
 
-  test('description required') { assert_present(:description) }
-
   test('title required') { assert_present(:title) }
+
+  test('description required') { assert_present(:description) }
 end

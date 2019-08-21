@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class CheckInTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup { @subject = build(:check_in) }
+
+  test 'belongs to iteration' do
+    assert_instance_of(Iteration, @subject.iteration)
+    assert_present(:iteration, msg: 'must exist')
+  end
+  
 end
