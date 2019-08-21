@@ -16,7 +16,7 @@ class MilestonesController < ApplicationController
 
     if @milestone.save
       update_milestone_statues!(@project)
-      redirect_to project_path(@project)
+      redirect_to project_path(@project), notice: 'Milestone created.'
     else
       render :new
     end
@@ -31,7 +31,7 @@ class MilestonesController < ApplicationController
 
     if @milestone.update(milestone_params)
       update_milestone_statues!(@project)
-      redirect_to project_milestone_url(@project, @milestone)
+      redirect_to project_milestone_url(@project, @milestone), notice: 'Milestone updated.'
     else
       render :edit
     end
