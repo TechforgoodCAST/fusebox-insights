@@ -1,0 +1,131 @@
+
+<%
+  orgs = [
+    {
+      :name => "Acme Charitable Trust",
+      :people => [
+        "Mark Spencer",
+        "John Lewis"
+      ],
+      :project => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis est nec est tempus pretium. Nam a augue vel libero malesuada pellentesque."
+    },
+    {
+      :name => "John Smith Memorial Fund",
+      :people => [
+        "Anna Smith",
+        "Beatrice Brown",
+        "Charles Coles"
+      ],
+      :project => "Proin eleifend fringilla dapibus. Sed pharetra et risus sit amet venenatis. Suspendisse tincidunt, sem in consectetur consequat, justo urna tincidunt nibh, nec dignissim eros nunc in sapien. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur a euismod dui."
+    },
+    {
+      :name => "The London Foundation",
+      :people => [
+        "Sam Pepys"
+      ],
+      :project => "Duis vitae blandit velit, id maximus lacus. Duis eros ligula, vulputate id nulla quis, commodo gravida tortor. Ut elit turpis, sollicitudin sit amet lobortis quis, ultricies id ante."
+    },
+    {
+      :name => "Centre for Orphaned Waifs",
+      :people => [
+        "Oliver Twist",
+        "Cosette Hugo",
+        "Peter Pan"
+      ],
+      :project => "Quisque nulla arcu, volutpat accumsan posuere nec, lobortis eu augue. Donec in auctor risus, at aliquet libero. Nulla at vestibulum massa."
+    }
+  ];
+%>
+
+<h1 class="mb-4">Class of 2019</h1>
+
+<div class="row">
+  <div class="col">
+    <h2 class="pb-3">Updates</h2>
+    <%
+      posts = [
+        {
+          :text => "Sed congue lorem non egestas aliquet. Curabitur commodo justo vitae augue placerat auctor.",
+        },
+        {
+          :text => "Quisque vel tellus vel sem auctor pulvinar. Proin vitae odio sed magna consequat sollicitudin vel nec arcu.",
+          :image => "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU8zucHwsVyPZaH3WRCsy_M8sJg5YFzBhGWnJYlRVRDIbTuKOY"
+        },
+        {
+          :text => "Donec ut nisl porttitor purus condimentum ornare. Duis et ipsum vel magna viverra scelerisque. Quisque vel tellus vel sem auctor pulvinar. In non diam non est imperdiet dignissim.",
+        },
+        {
+          :text => "Donec mollis felis accumsan urna imperdiet, et sodales leo gravida. Sed finibus nisl auctor, tempor ex et, scelerisque tellus.",
+        },
+        {
+          :text => "Curabitur venenatis urna pulvinar orci sollicitudin fermentum. Curabitur venenatis dui a rutrum blandit. In non diam non est imperdiet dignissim. Sed elementum felis in diam porta vestibulum. Etiam non lacus elementum, rutrum libero vitae, sagittis lacus. Morbi eleifend tellus a urna luctus fringilla at ac tellus.",
+        },
+      ];
+    %>
+    <% posts.each do |post|%>
+      <% org = orgs.sample %>
+      <div class='card mb-4'>
+        <div class="card-header text-muted size-small">
+          <div class="row">
+            <div class="col-auto pr-0">
+
+              <div class="icon-circle bg-dark">
+                <em class="fa fa-user text-light"></em>
+              </div>
+            </div>
+            <div class="col">
+              <p><strong><%= org[:people].sample %></strong> at <strong><%= org[:name] %></strong>
+              <br>27th June 2019</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <p class="pt-2 mb-1"><%= post[:text] %></p>
+          <%== post.key?(:image) ? '<img src="'+post[:image]+'" class="pt-3">' : '' %>
+        </div>
+
+        <div class="card-footer text-muted size-small">
+          <small>Progress towards: <i>Generate ideas</i></small>
+        </div>
+      </div>  
+     <% end %>
+  </div>
+  
+  <div class="col">
+    <h2>In your cohort</h2>
+    <div class="card-deck pt-3">
+
+      
+     <% orgs.each do |org|%>
+     
+      <div class='card mb-4'>
+        <div class="card-header size-small">
+          <h5><%= org[:name] %></h5>
+        </div>
+
+        <div class="card-body">
+          <p><%= org[:project] %></p>
+          <% org[:people].each do |person|%>
+          <div class="row">
+            <div class="col-auto pr-0">
+              <div class="icon-circle bg-dark">
+                <em class="fa fa-user text-light"></em>
+              </div>
+            </div>
+            <div class="col py-1">
+              <p><%= person %></p>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+     <% end %>
+
+    </div>
+  
+  </div>
+</div>
+
+
+

@@ -5,7 +5,8 @@ FactoryBot.define do
     project
     title { 'MyText' }
     description { 'MyText' }
-    start_date { '2019-07-17' }
-    debrief_date { '2019-07-17' }
+    start_date { Date.tomorrow() }
+    debrief_date { Date.tomorrow() }
+    status { 100 }
   end
 end

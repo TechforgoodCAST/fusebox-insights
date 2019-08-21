@@ -12,13 +12,22 @@ class IterationTest < ActiveSupport::TestCase
   
   test('has many check-ins') { assert_has_many(:check_ins) }
   
-  test('title required') { assert_present(:title) }
+  test('title required') do 
+    assert_present(:title)
+  end
   
-  test('description required') { assert_present(:description) }
+  test('description required when committing') do
+    @subject.committing = true
+    assert_present(:description)
+  end
 
-  test('start date required') { assert_present(:start_date) }
+  test('start date required when committing') do
+    @subject.committing = true
+    assert_present(:start_date)
+  end
   
-  test('debrief date required') { assert_present(:debrief_date) }
-
-  test('status required') { assert_present(:status) }
+  test('debrief date required when committing') do
+    @subject.committing = true
+    assert_present(:debrief_date)
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_14_215251) do
+ActiveRecord::Schema.define(version: 2019_08_21_170027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_215251) do
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "date"
     t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
   end
 
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 2019_08_14_215251) do
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "end_date"
     t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
