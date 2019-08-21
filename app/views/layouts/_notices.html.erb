@@ -1,13 +1,12 @@
 <% if alert.present? || notice.present? %>
-
   <% if alert.present? %>
-    <div class="bg-red-100 border border-red-400 text-red-700 rounded-sm px-4 py-3 my-6" role="alert">
+    <div class="notice danger" role="alert">
       <p><%= alert %></p>
     </div>
   <% end %>
 
   <% if notice.present? %>
-    <div class="bg-purple-100 border border-purple-400 text-purple-700 rounded-sm px-4 py-3 my-6" role="alert">
+    <div class="notice info" role="alert">
       <p><%= notice %></p>
     </div>
   <% end %>

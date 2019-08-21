@@ -1,10 +1,23 @@
 <%= render partial: 'projects/subnav' %>
 
-<div class="max-w-3xl mx-auto px-4 my-8">
+<div class="max-w-5xl mx-auto px-4 my-8">
   <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'underline' %></p>
 
-  <div class="card">
-    <h1 class="text-2xl font-bold mb-6">New iteration</h1>
-    <%= render 'form' %>
+  <div class="flex">
+    <div class="card w-2/3 mr-6">
+      <h1>New iteration</h1>
+      <%= render 'form' %>
+    </div>
+    <div class="card w-1/3 self-start">
+      <div class="mb-6">
+        <h3>What is an iteration?</h3>
+        <p>An iteration is time-boxed batch of work. Each iteration has a question you’re trying to answer, and some outcomes so that you know when you’re done answering it.</p>        
+      </div>
+
+      <div>
+        <h3>How long should an iteration be?</h3>
+        <p>Exactly what work you do within at iteration, and how long the time-box is, is up to you. The important thing is that at the end of an iteration you are able to make a decision about what steps to take next.</p>        
+      </div>      
+    </div>
   </div>
 </div>

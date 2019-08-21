@@ -18,7 +18,6 @@
 
 <div>
   <%
-  #Sort the merged array reverse chronologically
   @outcome.comments = @outcome.comments.sort_by { |hsh| hsh[:created_at] }.reverse
   
   @outcome.comments.each do |comment| 

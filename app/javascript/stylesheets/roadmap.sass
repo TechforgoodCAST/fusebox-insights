@@ -1,0 +1,54 @@
+
+ul#statuses
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li
+    padding-left: 15px;
+    margin-left: -15px;
+    
+    &.active
+      padding-left: 13px;
+      border-left: 2px solid black;
+    
+    
+    a
+      cursor: pointer;
+    
+
+.timeline-symbol
+  @apply mx-3 inline-block align-top
+  content: ''
+  height: 20px;
+  width: 20px;
+  border: 2px solid #999;
+  background: #fff;
+
+#roadmap
+  @apply pb-1
+  border-left: 4px solid #ccc;
+
+  .row
+    @apply mb-6 -ml-6
+    
+    &.divider
+      border-top-width: 3px;
+    
+    &.milestone
+      
+      &::before
+        @apply timeline-symbol
+        transform: rotate(45deg);
+        
+      >div
+        max-width: calc(100% - 50px);  
+      
+    &.start::before
+      @apply timeline-symbol rounded-full
+        
+    >div
+      @apply inline-block
+  
+  .card
+    border: 3px solid #999;

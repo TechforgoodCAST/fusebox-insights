@@ -1,9 +1,37 @@
-<h1>Check In</h1>
-<p>Completed on <%=@check_in.date.strftime("%-d %B %Y")%> for <%=@project.title%> project.</p>
+<%= render partial: 'projects/subnav' %>
+<%
+classes = {
+  'on_track'  => 'bg-success',
+  'at_risk'   => 'bg-warning',
+  'off_track' => 'bg-danger'
+}
+%>
 
-<% @check_in.ratings.each do |rating| %>
-  <h3><%= Outcome.find(rating.outcome.id).title%></h3>
-  <p><%= Outcome.find(rating.outcome.id).description%></p>
-  <p><%= Rating.ratings.key(rating.score) %></p>
-  <p><%= rating.comments %></p>
-<% end %>
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'link' %></p>
+  
+  <div class="card">
+  
+    <h1>Check In</h1>
+    <p>Completed on <%= friendly_date(@check_in.date) %> for <%=@project.title%> project.</p>
+
+    <div class="mt-6">
+      
+      <% @check_in.ratings.each do |rating| %>
+        <div class="mt-3 card">
+          <h3><%= Outcome.find(rating.outcome.id).title%></h3>
+          <p><%= Outcome.find(rating.outcome.id).description%></p>
+          <div class="my-3">
+            <span class="my-3 tag <%= classes[Rating.ratings.key(rating.score)] %>"><%= Rating.ratings.key(rating.score).titleize %></span>
+          </div>
+          <p><i><%= rating.comments %></i></p>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="mt-6">
+      <h2>Additional Notes</h2>
+      <p><i><%= @check_in.notes %></i></p>
+    </div>
+  </div>
+</div>

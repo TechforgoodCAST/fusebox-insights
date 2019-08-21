@@ -7,7 +7,13 @@ html
 
 body
   @apply flex h-screen flex-col
+    
+header
+  background-color: theme('color.primary.800')
 
+#subnav
+  background-color: theme('color.primary.700')
+  
 main
   @apply flex-1
 
@@ -20,21 +26,23 @@ hr
     @apply cursor-pointer
 
 .btn.btn-primary
-  @apply text-white bg-purple-600
+  @apply text-white
+  background-color: theme('color.primary.600')
   &:hover
-    @apply bg-purple-700
+    background-color: theme('color.primary.700')
 
 .card
-  @apply bg-white px-5 py-6 border-2 border-gray-300 rounded-sm
+  @apply bg-white p-6 border-2 border-gray-300 rounded-sm
 
 .inner-card
   @apply border-2 border-gray-200 rounded-sm px-4 py-5
 
 .link
-  @apply text-purple-600 underline
+  @apply underline
+  color: theme('color.primary.600')
   &:hover
-    @apply text-purple-700
-
+    color: theme('color.primary.700')
+    
 .rich-text, .trix-content
   @apply border-2 border-gray-200 rounded-sm px-4 py-5
   a
@@ -51,24 +59,92 @@ hr
     @apply list-disc ml-5
 
 .tab
-  @apply inline-block rounded-t-sm py-2 px-4 bg-purple-600 text-white
+  @apply inline-block rounded-t-sm py-2 px-4 text-white
+  background-color: theme('color.primary.800')
   &:hover
-    @apply bg-purple-500
+    background-color: #fff
   &.active
-    @apply bg-white text-purple-700
+    @apply bg-white
+    color: theme('color.primary.700')
     background-color: $bg-color
 
 .tag
-  @apply font-bold uppercase px-2 py-1 rounded-sm text-white
+  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black
   &.planned
-    @apply bg-blue-600
+    background-color: theme('color.status.planned')
   &.in_progress
-    @apply bg-pink-800
+    background-color: theme('color.status.in_progress')
+  &.draft
+    background-color: theme('color.status.draft')
+      
+.divider
+  &.planned
+    border-color: theme('color.status.planned')
+  &.in_progress
+    border-color: theme('color.status.in_progress')
+  &.draft
+    border-color: theme('color.status.draft')
+      
+h1
+  @apply text-2xl font-bold font-serif
+    
+h2
+  @apply text-xl font-bold
+    
+h3
+  @apply text-lg font-bold
+    
+.missing-text
+  @apply italic text-gray-600
+    
+.text-info
+  color: theme('color.alert.info.dark')    
+.text-success
+  color: theme('color.alert.success.dark')
+.text-warning
+  color: theme('color.alert.warning.dark')
+.text-danger
+  color: theme('color.alert.danger.dark')
+  
+.bg-info
+  background-color: theme('color.alert.info.dark')    
+.bg-success
+  background-color: theme('color.alert.success.dark')
+.bg-warning
+  background-color: theme('color.alert.warning.dark')
+.bg-danger
+  background-color: theme('color.alert.danger.dark')
+    
+.notice
+  @apply border rounded-sm px-4 py-3 my-6
+  &.info
+    color: theme('color.alert.info.dark')
+    background: theme('color.alert.info.light')
+    border-color: theme('color.alert.info.dark')
+  &.success
+    color: theme('color.alert.success.dark')
+    background: theme('color.alert.success.light')
+    border-color: theme('color.alert.success.dark')
+  &.warning
+    color: theme('color.alert.warning.dark')
+    background: theme('color.alert.warning.light')
+    border-color: theme('color.alert.warning.dark')
+  &.danger
+    color: theme('color.alert.danger.dark')
+    background: theme('color.alert.danger.light')
+    border-color: theme('color.alert.danger.dark')
+  
+    
+p + p
+  @apply mt-3
 
+.colored-text
+  color: theme('color.primary.600')
+    
 // Form
 // =========================================================================  //
 
-.label
+.label, legend
   @apply block font-bold mb-1
 
 .hint
@@ -83,8 +159,6 @@ hr
     @apply border-red-600
 
 .input
-  @apply block border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y
+  @apply border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y
   &:focus
     @apply border-purple-700
-  @media (max-width: theme('screens.sm'))
-    @apply max-w-full
