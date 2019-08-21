@@ -4,14 +4,22 @@ class IterationsController < ApplicationController
   def new
     @project = authorize Project.find(params[:project_id])
     @iteration = Iteration.new
-
-    5.times { @iteration.outcomes.build }
+    @iteration.start_date = Date.today
+    @iteration.outcomes.build
   end
 
   def create
     @project = authorize Project.find(params[:project_id])
-
-    @iteration = @project.iterations.create(iteration_params)
+    
+    if params[:commit]
+      draft = false;
+      status = 100
+    else
+      draft = true;
+      status = 0
+    end
+      
+    @iteration = @project.iterations.create(iteration_params.merge({:committing => !draft, :status => status}))
 
     if @iteration.save
       redirect_to project_iteration_url(@project, @iteration)
@@ -29,7 +37,7 @@ class IterationsController < ApplicationController
     @project = authorize Project.find(params[:project_id])
     @iteration = authorize Iteration.find(params[:id])
 
-    (5 - @iteration.outcomes.length).times { @iteration.outcomes.build }
+    @iteration.outcomes.build
   end
 
   def update
