@@ -11,7 +11,7 @@ module ApplicationHelper
 
   # TODO: test
   def friendly_date(date)
-    raise "#{date} is a #{date.class} and not a Date" unless date.is_a?(Date)
+    raise "#{date} is a #{date.class} and not a date" unless ( date.respond_to?(:strftime) )
 
     date.strftime("#{date.day.ordinalize} %b %Y")
   end
