@@ -15,11 +15,6 @@ class IterationTest < ActiveSupport::TestCase
   test('title required') do 
     assert_present(:title)
   end
-  
-  test('description required when committing') do
-    @subject.committing = true
-    assert_present(:description)
-  end
 
   test('start date required when committing') do
     @subject.committing = true
@@ -29,5 +24,36 @@ class IterationTest < ActiveSupport::TestCase
   test('debrief date required when committing') do
     @subject.committing = true
     assert_present(:debrief_date)
+  end
+  
+  test('start date defaults to today') do
+    assert_equal(Date.today, @subject.start_date)
+  end
+  
+  test("start date can't be in the past") do 
+    @subject.start_date = Date.yesterday
+    @subject.valid?
+    assert_error(:start_date, "Can't be in the past")
+  end
+  
+  test("debrief date can't be before start date") do 
+    @subject.start_date = Date.today
+    @subject.debrief_date = Date.yesterday
+    @subject.valid?
+    assert_error(:debrief_date, "Can't be before start date")
+  end
+  
+  test("iteration can't be shorter than 2 weeks") do 
+    @subject.start_date = Date.today
+    @subject.debrief_date = 1.weeks.since
+    @subject.valid?
+    assert_error(:debrief_date, "Iteration can't be shorter than 2 weeks")
+  end
+  
+  test("iteration can't be longer than 12 weeks") do 
+    @subject.start_date = Date.today
+    @subject.debrief_date = 13.weeks.since
+    @subject.valid?
+    assert_error(:debrief_date, "Iteration can't be longer than 12 weeks")
   end
 end

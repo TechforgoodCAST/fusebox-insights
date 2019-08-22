@@ -5,7 +5,7 @@ FactoryBot.define do
     project
     title { 'MyText' }
     description { 'MyText' }
-    start_date { Date.tomorrow() }
+    start_date { nil }
     debrief_date { Date.tomorrow() }
     status { 100 }
   end

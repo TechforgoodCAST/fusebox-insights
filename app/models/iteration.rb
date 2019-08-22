@@ -13,10 +13,12 @@ class Iteration < ApplicationRecord
   enum status: { draft: 0, committed: 100, completed: 200}, _prefix: :status
 
   validates :title, presence: true
-  validates :description, :start_date, :debrief_date, presence: true, :if => :committing
+  validates :start_date, :debrief_date, presence: true, :if => :committing
   validates :outcomes, length: {minimum: 1, message: 'Should have at least 1 outcome defined.'}, :if => :committing
   validate :start_date_cannot_be_in_the_past
-  validate :start_date_cannot_be_in_the_past
+  validate :debrief_date_cannot_be_before_start_date
+  validate :iteration_cannot_be_longer_than_12_weeks
+  validate :iteration_cannot_be_shorter_than_2_weeks
   
   def progress
     
@@ -53,8 +55,20 @@ class Iteration < ApplicationRecord
   end
     
   def debrief_date_cannot_be_before_start_date
-    if debrief_date.present? && debrief_date < start_date
+    if debrief_date.present? && start_date.present? && debrief_date < start_date
       errors.add(:debrief_date, "Can't be before start date")
+    end
+  end
+  
+  def iteration_cannot_be_shorter_than_2_weeks
+    if debrief_date.present? && start_date.present? && ((debrief_date - start_date).to_i / 7 < 2)
+      errors.add(:debrief_date, "Iteration can't be shorter than 2 weeks")
+    end
+  end
+    
+  def iteration_cannot_be_longer_than_12_weeks
+    if debrief_date.present? && start_date.present? && ((debrief_date - start_date).to_i / 7 >= 12)
+      errors.add(:debrief_date, "Iteration can't be longer than 12 weeks")
     end
   end
   
