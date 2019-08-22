@@ -126,8 +126,13 @@
           %>
             <div class='row milestone <%= milestone.status.parameterize %>'>
               <div>
-                <p><strong><%= link_to milestone.title, project_milestone_path(@project, milestone) %>:</strong> <%= milestone.description%></p>
-                <p>By <%= milestone.deadline.strftime("%b %Y") %></p>
+                <h3><%= link_to milestone.title, project_milestone_path(@project, milestone), class: 'link' %></h3>
+                <p><%= milestone.description%></p>
+                <% if milestone.completed_at? %>
+                  <b class="text-sm text-gray-600"><%= friendly_date(milestone.completed_at) %></b>
+                <% else %>
+                  <b class="text-sm text-gray-600">By <%= milestone.deadline.strftime("%b %Y") %></b>
+                <% end %>
               </div>
             </div>
           <% end %>
