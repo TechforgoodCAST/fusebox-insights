@@ -8,6 +8,7 @@ class CheckIn < ApplicationRecord
     allow_destroy: true,
     limit: 5
   
+  validates :complete_at, :completed_by, :notes, presence: true
   
   def on_track
     max = 0;

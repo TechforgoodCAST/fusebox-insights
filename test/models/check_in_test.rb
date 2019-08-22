@@ -7,5 +7,7 @@ class CheckInTest < ActiveSupport::TestCase
     assert_instance_of(Iteration, @subject.iteration)
     assert_present(:iteration, msg: 'must exist')
   end
+	
+  test('complete at timestamp required') { assert_present(:complete_at) }
   
 end
