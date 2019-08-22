@@ -8,6 +8,7 @@
 // layout file, like app/views/layouts/application.html.erb
 
 import "../stylesheets/application.sass";
+import "../views/iterations.js";
 
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
