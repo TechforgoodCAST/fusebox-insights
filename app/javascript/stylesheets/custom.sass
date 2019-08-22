@@ -1,18 +1,13 @@
-$bg-color: #F6F6F6 // TODO: in tailwind config?
-
 html
   @apply font-sans
   font-size: 16px
-  background-color: $bg-color
+  background-color: theme('colors.bg')
 
 body
   @apply flex h-screen flex-col
     
-header
-  background-color: theme('color.primary.800')
-
-#subnav
-  background-color: theme('color.primary.700')
+header, #subnav
+  background-color: theme('colors.primary.700')
   
 main
   @apply flex-1
@@ -27,9 +22,9 @@ hr
 
 .btn.btn-primary
   @apply text-white
-  background-color: theme('color.primary.600')
+  background-color: theme('colors.primary.600')
   &:hover
-    background-color: theme('color.primary.700')
+    background-color: theme('colors.primary.700')
 
 .card
   @apply bg-white p-6 border-2 border-gray-300 rounded-sm
@@ -39,9 +34,9 @@ hr
 
 .link
   @apply underline
-  color: theme('color.primary.600')
+  color: theme('colors.primary.600')
   &:hover
-    color: theme('color.primary.700')
+    color: theme('colors.primary.700')
     
 .rich-text, .trix-content
   @apply border-2 border-gray-200 rounded-sm px-4 py-5
@@ -60,33 +55,30 @@ hr
 
 .tab
   @apply inline-block rounded-t-sm py-2 px-4 text-white
-  background-color: theme('color.primary.800')
-  &:hover
-    background-color: #fff
-  &.active
-    @apply bg-white
-    color: theme('color.primary.700')
-    background-color: $bg-color
+  background-color: theme('colors.primary.800')
+  &:hover, &.active
+    background-color: theme('colors.bg')
+    color: theme('colors.primary.700')
 
 .tag
   @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black
   &.planned
-    background-color: theme('color.status.planned')
+    background-color: theme('colors.status.planned')
   &.in_progress
-    background-color: theme('color.status.in_progress')
+    background-color: theme('colors.status.in_progress')
   &.draft
-    background-color: theme('color.status.draft')
+    background-color: theme('colors.status.draft')
       
 .divider
   &.planned
-    border-color: theme('color.status.planned')
+    border-color: theme('colors.status.planned')
   &.in_progress
-    border-color: theme('color.status.in_progress')
+    border-color: theme('colors.status.in_progress')
   &.draft
-    border-color: theme('color.status.draft')
+    border-color: theme('colors.status.draft')
       
 h1
-  @apply text-2xl font-bold font-serif
+  @apply text-2xl font-bold
     
 h2
   @apply text-xl font-bold
@@ -98,48 +90,48 @@ h3
   @apply italic text-gray-600
     
 .text-info
-  color: theme('color.alert.info.dark')    
+  color: theme('colors.alert.info.dark')    
 .text-success
-  color: theme('color.alert.success.dark')
+  color: theme('colors.alert.success.dark')
 .text-warning
-  color: theme('color.alert.warning.dark')
+  color: theme('colors.alert.warning.dark')
 .text-danger
-  color: theme('color.alert.danger.dark')
+  color: theme('colors.alert.danger.dark')
   
 .bg-info
-  background-color: theme('color.alert.info.dark')    
+  background-color: theme('colors.alert.info.dark')    
 .bg-success
-  background-color: theme('color.alert.success.dark')
+  background-color: theme('colors.alert.success.dark')
 .bg-warning
-  background-color: theme('color.alert.warning.dark')
+  background-color: theme('colors.alert.warning.dark')
 .bg-danger
-  background-color: theme('color.alert.danger.dark')
+  background-color: theme('colors.alert.danger.dark')
     
 .notice
   @apply border rounded-sm px-4 py-3 my-6
   &.info
-    color: theme('color.alert.info.dark')
-    background: theme('color.alert.info.light')
-    border-color: theme('color.alert.info.dark')
+    color: theme('colors.alert.info.dark')
+    background: theme('colors.alert.info.light')
+    border-color: theme('colors.alert.info.dark')
   &.success
-    color: theme('color.alert.success.dark')
-    background: theme('color.alert.success.light')
-    border-color: theme('color.alert.success.dark')
+    color: theme('colors.alert.success.dark')
+    background: theme('colors.alert.success.light')
+    border-color: theme('colors.alert.success.dark')
   &.warning
-    color: theme('color.alert.warning.dark')
-    background: theme('color.alert.warning.light')
-    border-color: theme('color.alert.warning.dark')
+    color: theme('colors.alert.warning.dark')
+    background: theme('colors.alert.warning.light')
+    border-color: theme('colors.alert.warning.dark')
   &.danger
-    color: theme('color.alert.danger.dark')
-    background: theme('color.alert.danger.light')
-    border-color: theme('color.alert.danger.dark')
+    color: theme('colors.alert.danger.dark')
+    background: theme('colors.alert.danger.light')
+    border-color: theme('colors.alert.danger.dark')
   
     
 p + p
   @apply mt-3
 
 .colored-text
-  color: theme('color.primary.600')
+  color: theme('colors.primary.600')
     
 // Form
 // =========================================================================  //
