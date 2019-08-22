@@ -1,9 +1,9 @@
 <%= simple_form_for([@project, @milestone]) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
+  <%= f.input :title, input_html: {class: 'w-full'} %>
+  <%= f.input :description, input_html: {class: 'w-full', rows: 3} %>
   <div class="mb-6">
     <%= f.input :success_criteria, placeholder: "We'll know we've reached this milestone when...", as: :trix_editor %>
   </div>
-  <%= f.input :deadline, as: :date, start_year: Date.today.year, discard_day: true, order: [:month, :year], include_blank: true %>
+  <%= f.input :deadline, as: :date, start_year: Date.today.year, discard_day: true, order: [:month, :year], include_blank: true, label: "We plan to reach this milestone by..." %>
   <%= f.submit class: 'btn btn-primary', data: { disable_with: 'Saving...' } %>
 <% end %>

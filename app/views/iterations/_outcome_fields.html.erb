@@ -1,5 +1,5 @@
 <div class="card mb-3 nested-fields">
-  <%= f.input :title, label: 'What are you going to learn or prove?' %>
-  <%= f.input :description, label: "How will you know you've achieved this outcome?", placeholder: "As a minimum, we'll know we've learnt or proved this when..." %>
+  <%= f.input :title, label: 'What are you going to learn or prove?', input_html: { class: 'w-full'} %>
+  <%= f.input :description, label: "How will you know you've achieved this outcome?", placeholder: "As a minimum, we'll know we've learnt or proved this when...", input_html: { class: 'w-full', rows: 3 } %>
   <%= link_to_remove_association "Remove outcome", f, class: 'link' %>
 </div>

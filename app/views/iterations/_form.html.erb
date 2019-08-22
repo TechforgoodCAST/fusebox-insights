@@ -1,7 +1,7 @@
 <%= simple_form_for([@project, @iteration]) do |f| %>
 
-  <%= f.input :title, hint: 'A short and snappy title that defines the primary aim of the iteration.' %>
-  <%= f.input :description, input_html: { class: 'w-full', rows: 1 }, hint: "Provide more details on what work you'll do (tasks to be completed, estimated time, who will be involved etc.)" %>
+  <%= f.input :title, hint: 'A short and snappy title that defines the primary aim of the iteration.', input_html: { class: 'w-full'} %>
+  <%= f.input :description, input_html: { class: 'w-full', rows: 3 }, hint: "Provide more details on what work you'll do (tasks to be completed, estimated time, who will be involved etc.)" %>
 
   <div class="mb-6" id="outcomes">
     <h2>Outcomes</h2>
