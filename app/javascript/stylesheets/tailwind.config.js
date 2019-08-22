@@ -1,8 +1,7 @@
 module.exports = {
   theme: {
     fontFamily: {
-      sans: ['Roboto', 'Inter', 'Arial', 'sans-serif'],
-      serif: ['Roboto Slab', 'serif']
+      sans: ['Inter', 'Arial', 'sans-serif']
     },
     color : {
       transparent: 'transparent',
