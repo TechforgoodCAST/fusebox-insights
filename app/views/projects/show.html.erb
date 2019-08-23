@@ -109,9 +109,9 @@
 
             <div class='row iteration <%= iteration.status.parameterize %> '>
               <div class='card w-full'>
-                <h3><%= link_to iteration.title, [@project, iteration] %> </h3>
+                <h3><%= link_to iteration.title, [@project, iteration], class: 'underline' %> </h3>
                 <% if iteration.status_committed? %>
-                  <%= render partial: 'iterations/progress_timeline', locals: {project: @project, iteration: iteration} %>
+                  <%= render partial: 'iterations/progress_timeline', locals: { project: @project, iteration: iteration } %>
                 <% end %>
               </div>
             </div>

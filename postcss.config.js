@@ -23,6 +23,7 @@ if (process.env.RAILS_ENV === "production") {
         "./app/javascript/**/*.vue",
         "./app/javascript/**/*.jsx",
       ],
+      whitelist: ["textarea"],
       defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
     })
   )
