@@ -8,40 +8,25 @@ These instructions will get a copy of the project up and running on your local m
 
 [Ruby v2.5.5](https://www.ruby-lang.org), [Bundler](https://bundler.io/), [PostgreSQL](https://www.postgresql.org/), [NodeJS](https://nodejs.org/) and [Yarn](https://yarnpkg.com/).
 
-### Local setup
+### Install the app
 
-`git clone https://github.com/TechforgoodCAST/fusebox-insights.git`
-`cd fusebox-insights`
-`bundle install`
-`yarn install`
+1. `git clone https://github.com/TechforgoodCAST/fusebox-insights.git`
+2. `cd fusebox-insights`
+3. `bundle install`
+4. `yarn install`
 
-### Set up database
+### Set up the database
 
-Do either of the below
+`rails db:setup` (you may need to update `database.yml` with your local Postgres credentials).
 
-#### Create a new database
-`rails db:setup`  
-You'll need to update `database.yml` with your local Postgres credentials.
+### Run the app locally
 
-#### Clone the existing database
-`heroku pg:pull YOUR_EXISTING_DATABASE fusebox_insights_development -app fusebox-insights`  
-You'll need to provide your local Postgres credentials:  
-`SET PGUSER=YOUR_USER`  
-`SET PGPASSWORD=YOUR_PASSWORD`
+`rails s` to start local development server then go to localhost:3000.
 
-### Create a new user
-
-If you do not have a user account on the cloned database, you will need to create a new user.  
-`rails console`  
-`User.create(:username => "USERNAME", :email => "EMAIL", :password => "PASSWORD")`  
-Note that the password must meet a certain level of complexity.
-
-### Get the app running
-
-`rails s` to start local development server  
-Then go to localhost:3000
+You will need to create a new user account to sign in, e.g. `rails c` then `User.create(full_name: "My Name", email: "my@name.org", password: "Pa55w0rd")`.
 
 ### Running tests
 
-`rails test` to run Ruby unit tests.  
+`rails test` to run Ruby unit tests.
+
 `rails test:system` to run browser tests.
