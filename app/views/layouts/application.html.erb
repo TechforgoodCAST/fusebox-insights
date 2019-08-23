@@ -34,23 +34,24 @@
 
   <body>
 
-    <header>
-      <%- if user_signed_in? %>
+    <%- if user_signed_in? %>
+      <header class="bg-primary-700">
         <nav class="max-w-5xl container mx-auto flex items-center justify-between flex-wrap py-3 px-4">
           <%= link_to 'Fusebox', root_path, class: 'font-bold text-lg text-white hover:opacity-75' %>
           <div class="flex items-center">
             <%= link_to 'Projects', projects_path, class: 'text-sm text-white hover:opacity-75' %>
-            <%= link_to edit_user_registration_path do %>
-              <div class="bg-white rounded-full w-5 h-5 ml-5 hover:opacity-75"></div>
-            <% end %>
+            <%= link_to 'Account', edit_user_registration_path, class: 'text-sm text-white hover:opacity-75 sm:ml-5 ml-3' %>
+            <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-sm text-white hover:opacity-75 sm:ml-5 ml-3' %>
           </div>
         </nav>
-      <% else %>
+      </header>
+    <% else %>
+      <header>
         <nav class="max-w-5xl container mx-auto py-3 px-4">
           <%= link_to 'Fusebox', root_path, class: 'font-bold text-lg hover:opacity-75' %>
         </nav>
-      <% end %>
-    </header>
+      </header>
+    <% end %>
 
     <main>
       <%= yield %>
