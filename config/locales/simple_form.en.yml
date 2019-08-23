@@ -19,6 +19,7 @@ en:
         description: "Goal"
         more_details: "More about this project"
       iteration:
+        description: "(Optional) Description"
         outcomes:
           title: "What are we going to learn or prove?"
           success_criteria: "As a minimum, we'll know we've learnt or proved this when..."
@@ -31,12 +32,17 @@ en:
       #     email: 'E-mail.'
     hints:
       project:
-        title: "A short snappy..."
+        title: "A short memorable name."
+        description: "What's the problem we're looking to address or opportunity to realise?"
       iteration:
-        title: "A short and snappy title that defines the primary aim of the iteration."
+        title: "Something short that defines the main aim of this batch of work, e.g. Understanding causes of childhood obesity."
         description: "Provide more details on what work you'll do (tasks to be completed, estimated time, who will be involved etc.)"
-        start_date: "When you'll start work on this iteration."
-        debrief_date: "When you'll meet with your mentor to debrief."
+        description: "Provide more details on your team's approach to reaching the outcomes you intend - this could include the activities you'll undertake, how you'll conduct user research & testing, as well as the people, skills and capabilities you might need."
+        start_date: "When your team will start working towards the outcomes of this iteration - you'll receive regular reminders to check-in from this date."
+        debrief_date: "When your team will meet to debrief the findings of this iteration and shape subsequent plans - between 2-12 weeks from the start date."
+        outcomes:
+          title: "E.g. That busy parents have trouble finding/accessing meals their fussy eaters will happily consume."
+          success_criteria: "E.g. 8/10 busy parents cite this challenge."
       # defaults:
       #   username: 'User name to sign in.'
       #   password: 'No special characters, please.'

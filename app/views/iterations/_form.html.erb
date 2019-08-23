@@ -8,7 +8,7 @@
     <h2>Outcomes</h2>
 
     <%- if @iteration.draftable? %>
-      <p class="hint mb-4">Between 1 and 5 outcomes to achieve by the end of this iteration.</p>
+      <p class="hint mb-4">Between 1 and 5 outcomes that you'll work towards in this iteration.</p>
       <%= f.error :outcomes, class: 'text-sm text-red-600' %>
       <%= f.simple_fields_for :outcomes, f.object.outcomes do |outcome| %>
         <%= render 'outcome_fields', f: outcome %>
@@ -32,16 +32,15 @@
   <% end %>
 
   <%= f.input :start_date, html5: true %>
-  <%= f.input :debrief_date, html5: true %>
-
+  <%= f.input :debrief_date, html5: true, input_html: { class: 'mb-4' } %>
 
   <%- if @iteration.draftable? %>
-    <%= f.button :button, 'Commit to iteration', type: 'submit', name: 'iteration[status]', value: 'committed', class: 'btn-primary mr-1', data: { disable_with: 'Saving...', confirm: "Outcomes cannot be changed once you've commited to this iteration. Are you ready to commit?" } %>
+    <%= f.button :button, 'Commit to iteration', type: 'submit', name: 'iteration[status]', value: 'committed', class: 'btn-primary mr-1 mt-2', data: { disable_with: 'Saving...', confirm: "Ooutcomes cannot be changed and you'll receive regular reminders to check-in from the start date once you commit to this iteration. Are you ready to commit?" } %>
   <% else %>
-    <%= f.submit class: 'btn btn-primary', data: { disable_with: 'Saving...' } %>
+    <%= f.submit class: 'btn btn-primary mt-2', data: { disable_with: 'Saving...' } %>
   <% end %>
 
   <%- if @iteration.draftable? %>
-    <%= f.button :button, 'Save as draft', type: 'submit', name: 'iteration[status]', value: 'planned', class: 'bg-gray-200', data: { disable_with: 'Saving...' } %>
+    <%= f.button :button, 'Save as draft', type: 'submit', name: 'iteration[status]', value: 'planned', class: 'bg-gray-200 mt-2', data: { disable_with: 'Saving...' } %>
   <% end %>
 <% end %>
