@@ -4,7 +4,7 @@ en:
     "no": 'No'
     required:
       text: 'required'
-      mark: '*'
+      mark: ''
       # You can uncomment the line below if you need to overwrite the whole required html.
       # When using html, text and mark won't be used.
       # html: '<abbr title="required">*</abbr>'
@@ -14,13 +14,14 @@ en:
     labels:
       milestone:
         success_criteria: "We'll know we've reached this milestone when..."
+        deadline: "We plan to reach this milestone by..."
       project:
-        description: 'Goal'
-        more_details: 'More about this project'
+        description: "Goal"
+        more_details: "More about this project"
       iteration:
         outcomes:
-          title: 'What are we going to learn or prove?'
-          description: "As a minimum, we'll know we've learnt or proved this when..."
+          title: "What are we going to learn or prove?"
+          success_criteria: "As a minimum, we'll know we've learnt or proved this when..."
       # defaults:
       #   password: 'Password'
       # user:
@@ -30,7 +31,12 @@ en:
       #     email: 'E-mail.'
     hints:
       project:
-        title: 'A short snappy...'
+        title: "A short snappy..."
+      iteration:
+        title: "A short and snappy title that defines the primary aim of the iteration."
+        description: "Provide more details on what work you'll do (tasks to be completed, estimated time, who will be involved etc.)"
+        start_date: "When you'll start work on this iteration."
+        debrief_date: "When you'll meet with your mentor to debrief."
       # defaults:
       #   username: 'User name to sign in.'
       #   password: 'No special characters, please.'

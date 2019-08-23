@@ -1,62 +1,38 @@
 # frozen_string_literal: true
 
 class IterationsController < ApplicationController
+  before_action :load_project
+
   def new
-    @project = authorize Project.find(params[:project_id])
-    @iteration = Iteration.new
-    @iteration.start_date = Date.today
-    @iteration.outcomes.build
+    @iteration = authorize @project.iterations.new
   end
 
   def create
-    @project = authorize Project.find(params[:project_id])
-    
-    if params[:commit]
-      draft = false;
-      status = 100
-    else
-      draft = true;
-      status = 0
-    end
-      
-    @iteration = @project.iterations.create(iteration_params.merge({:committing => !draft, :status => status}))
+    @iteration = authorize @project.iterations.new(iteration_params)
 
     if @iteration.save
-      redirect_to project_iteration_url(@project, @iteration)
+      redirect_to project_iteration_url(@project, @iteration), notice: msg(@iteration.draftable?)
     else
-      render 'new'
+      render :new
     end
   end
 
   def show
-    @project = authorize Project.find(params[:project_id])
-    @iteration = authorize Iteration.find(params[:id])
+    @iteration = authorize @project.iterations.find_by(id: params[:id])
   end
 
   def edit
-    @project = authorize Project.find(params[:project_id])
-    @iteration = authorize Iteration.find(params[:id])
-
-    @iteration.outcomes.build
+    @iteration = authorize @project.iterations.find_by(id: params[:id])
   end
 
   def update
-    @project = authorize Project.find(params[:project_id])
-    @iteration = authorize Iteration.find(params[:id])
+    @iteration = authorize @project.iterations.find_by(id: params[:id])
 
     if @iteration.update(iteration_params)
-      redirect_to project_iteration_url(@project, @iteration)
+      redirect_to project_iteration_url(@project, @iteration), notice: msg(@iteration.draftable?)
     else
-      render 'edit'
+      render :edit
     end
-  end
-
-  def destroy
-    @project = authorize Project.find(params[:project_id])
-    @iteration = authorize Iteration.find(params[:id])
-    @iteration.destroy
-
-    redirect_to project_path(@project)
   end
 
   private
@@ -64,7 +40,15 @@ class IterationsController < ApplicationController
   def iteration_params
     params.require(:iteration).permit(
       :title, :description, :start_date, :debrief_date, :status,
-      outcomes_attributes: %i[id title description]
+      outcomes_attributes: %i[id title success_criteria _destroy]
     )
+  end
+
+  def msg(draftable)
+    {
+      true  => 'Iteration saved as draft.',
+      false => "Iteration saved. You'll receive reminders to " \
+               'check-in every two weeks from the start date.'
+    }[draftable]
   end
 end

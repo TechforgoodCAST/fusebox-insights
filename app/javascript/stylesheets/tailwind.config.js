@@ -12,9 +12,8 @@ module.exports = {
           800: '#258a91' //#553C9A',
         },
         status: {
-          draft: '#D69E2E',
           planned: '#38B2AC',
-          in_progress: '#3182CE',
+          committed: '#3182CE',
           complete: '#553C9A'
         },
         alert: {

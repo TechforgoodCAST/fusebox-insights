@@ -2,12 +2,7 @@
 
 <div class="max-w-3xl mx-auto px-4 my-8">
   <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'underline' %></p>
-  <% 
-  if @iteration.status_committed?
-      notice = "Iteration in progress! You'll receive reminders to check in every two weeks from the start date."
-  end
-  %>
-  <%= render partial: 'layouts/notices', locals: {notice: notice} %>
+  <%= render partial: 'layouts/notices' %>
 
   <div class="card">
     <div class="flex items-end items-center justify-between mb-3">
@@ -16,14 +11,14 @@
     </div>
 
     <div class="mb-6">
-      <span class="tag <%= @iteration.progress.parameterize %>"><%= @iteration.progress.titleize %></span>
+      <span class="tag <%= @iteration.status.parameterize %>"><%= @iteration.status.titleize %></span>
     </div>
- 
+
     <div class="mb-6">
       <% if @iteration.description.blank? %>
         <p class="missing-text">Description not provided</p>
       <% else %>
-        <div class="rich-text"><%= @iteration.description&.html_safe %></div>
+        <div><%= simple_format(@iteration.description) %></div>
       <% end %>
     </div>
 
@@ -31,25 +26,20 @@
       <h2>Progress</h2>
       <%= render partial: 'progress_timeline', locals: {project: @project, iteration: @iteration} %>
     </div>
-    
-    <div class="mb-6">
-      <h2>Outcomes</h2>
-      <% if !@iteration.outcomes.any? %>
-        <p class="missing-text">You've not added any outcomes yet. <%= link_to 'Add an outcome', edit_project_iteration_path([@project, @iteration])%>.</p>
-      <% else %>
-        <p>What we want to have achieved by the end of this project:</p>
-        <% @iteration.outcomes.each do |outcome| %>
-          <div class='card mt-4'>
-            <h3><%= link_to outcome.title, project_iteration_outcome_path(@project, @iteration, outcome), class: 'link' %></h3>
-            <p><%= outcome.description %></p>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
 
-    <div class="mb-6">
-      <h2>Approach</h2>
-      <p>[Approach goes here...]</p>
-    </div>
+    <h2>Outcomes</h2>
+    <% if !@iteration.outcomes.any? %>
+      <p class="missing-text">You've not added any outcomes yet. <%= link_to 'Add an outcome', edit_project_iteration_path([@project, @iteration])%>.</p>
+    <% else %>
+      <p class="hint">What we want to have achieved by the end of this batch of work.</p>
+      <% @iteration.outcomes.each do |outcome| %>
+        <div class='inner-card mt-4'>
+          <p><strong>What are we going to learn or prove?</strong></p>
+          <p class="mb-4"><%= outcome.title %></p>
+          <p><strong>As a minimum, we’ll know we’ve learnt or proved this when…</strong></p>
+          <p><%= outcome.success_criteria %></p>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>

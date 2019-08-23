@@ -6,7 +6,7 @@ class Milestone < ApplicationRecord
       title: 'Discover',
       description: 'We know about the problem, the context within which it occurs and the value of solving it from the perspective of those affected.',
       deadline: 3.months.since,
-      status: :in_progress
+      status: :committed
     },
     {
       title: 'Define',
@@ -24,7 +24,7 @@ class Milestone < ApplicationRecord
 
   belongs_to :project
 
-  enum status: { planned: 0, in_progress: 1, complete: 2 }
+  enum status: { planned: 0, committed: 1, complete: 2 }, _prefix: :status
 
   validates :deadline, :description, :status, :title, presence: true
 end

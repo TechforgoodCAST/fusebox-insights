@@ -4,72 +4,56 @@ class Iteration < ApplicationRecord
   belongs_to :project
 
   has_many :check_ins, dependent: :destroy
-  has_many :outcomes, inverse_of: :iteration, dependent: :destroy
-  
-  attr_accessor :committing
 
-  accepts_nested_attributes_for :outcomes, reject_if: :all_blank, update_only: true, allow_destroy: true, limit: 5
+  has_many :outcomes, dependent: :destroy
+  accepts_nested_attributes_for :outcomes, allow_destroy: true
 
-  enum status: { draft: 0, committed: 100, completed: 200}, _prefix: :status
+  enum status: { planned: 0, committed: 1, completed: 2 }, _prefix: :status
 
   validates :title, presence: true
-  validates :start_date, :debrief_date, presence: true, :if => :committing
-  validates :outcomes, length: {minimum: 1, message: 'Should have at least 1 outcome defined.'}, :if => :committing
-  validate :start_date_cannot_be_in_the_past
+  validates :start_date, :debrief_date, presence: true, if: :status_committed?
+  validates :outcomes, length: {
+    minimum: 1, maximum: 5, message: 'must have between 1-5 outcomes defined'
+  }, if: :status_committed?
+
+  validate :cannot_be_longer_than_12_weeks
+  validate :cannot_be_shorter_than_2_weeks
   validate :debrief_date_cannot_be_before_start_date
-  validate :iteration_cannot_be_longer_than_12_weeks
-  validate :iteration_cannot_be_shorter_than_2_weeks
-  
-  def progress
-    
-    if status === 'committed'
+  validate :start_date_cannot_be_in_the_past
 
-      if end_date < Date.today
-        progress = 'completed'
-      end
-
-      if start_date < Date.today && end_date > Date.today
-        progress = 'in_progress'
-      end
-
-      if start_date > Date.today
-        progress = 'planned'
-      end
-      
-    else
-      
-      progress = status
-      
-    end    
-    
-    return progress
-    
+  def draftable?
+    status_planned? || status_changed?(from: 'planned', to: 'committed')
   end
-  
+
   private
-  
-  def start_date_cannot_be_in_the_past
-    if start_date.present? && start_date < Date.today
-      errors.add(:start_date, "Can't be in the past")
-    end
+
+  def cannot_be_longer_than_12_weeks
+    return if dates_missing?
+
+    errors.add(:debrief_date, "iteration can't be longer than 12 weeks") if number_of_weeks >= 12
   end
-    
+
+  def cannot_be_shorter_than_2_weeks
+    return if dates_missing?
+
+    errors.add(:debrief_date, "iteration can't be shorter than 2 weeks") if number_of_weeks < 2
+  end
+
+  def dates_missing?
+    debrief_date.nil? || start_date.nil?
+  end
+
   def debrief_date_cannot_be_before_start_date
-    if debrief_date.present? && start_date.present? && debrief_date < start_date
-      errors.add(:debrief_date, "Can't be before start date")
-    end
+    return if dates_missing?
+
+    errors.add(:debrief_date, "can't be before start date") if debrief_date < start_date
   end
-  
-  def iteration_cannot_be_shorter_than_2_weeks
-    if debrief_date.present? && start_date.present? && ((debrief_date - start_date).to_i / 7 < 2)
-      errors.add(:debrief_date, "Iteration can't be shorter than 2 weeks")
-    end
+
+  def number_of_weeks
+    (debrief_date - start_date).to_i / 7
   end
-    
-  def iteration_cannot_be_longer_than_12_weeks
-    if debrief_date.present? && start_date.present? && ((debrief_date - start_date).to_i / 7 >= 12)
-      errors.add(:debrief_date, "Iteration can't be longer than 12 weeks")
-    end
+
+  def start_date_cannot_be_in_the_past
+    errors.add(:start_date, "can't be in the past") if start_date&.past?
   end
-  
 end

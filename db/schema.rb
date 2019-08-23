@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 2019_08_21_170027) do
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "end_date"
     t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
@@ -98,7 +97,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_170027) do
 
   create_table "outcomes", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description"
+    t.string "success_criteria"
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

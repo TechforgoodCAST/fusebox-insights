@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    authorize @project
+    authorize @project, policy_class: ProjectPolicy
   end
 
   def new
@@ -34,7 +34,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    authorize @project
+    authorize @project, policy_class: ProjectPolicy
   end
 
   def update
@@ -48,7 +48,7 @@ class ProjectsController < ApplicationController
   end
 
   def about
-    authorize @project
+    authorize @project, policy_class: ProjectPolicy
   end
 
   private

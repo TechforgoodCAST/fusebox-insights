@@ -11,9 +11,8 @@
         $('#roadmap .row ').show();
       }else if(status == 'default'){
         $('#roadmap .row ').hide();
-        $('#roadmap .row.draft').show();
         $('#roadmap .row.planned').show();
-        $('#roadmap .row.in_progress').show();
+        $('#roadmap .row.committed').show();
       }else{
         $('#roadmap .row ').hide();
         $('#roadmap .row.'+status).show();
@@ -42,7 +41,7 @@
           <a data-status="default">
             Default
             <br>
-            <span class="text-sm text-gray-600">In progress &amp; Planned</span>
+            <span class="text-sm text-gray-600">Committed &amp; Planned</span>
           </a>
         </li>
         <li class="mb-3">
@@ -52,13 +51,10 @@
           <a data-status="complete">Complete</a>
         </li>
         <li class="mb-3">
-          <a data-status="in_progress">In progress</a>
+          <a data-status="committed">Committed</a>
         </li>
         <li class="mb-3">
           <a data-status="planned">Planned</a>
-        </li>
-        <li>
-          <a data-status="draft">Draft</a>
         </li>
       </ul>
 
@@ -75,7 +71,7 @@
           merged << {
             :type       => 'iteration',
             :status     => iteration.status,
-            :progress   => iteration.progress,
+            :progress   => iteration.status,
             :start_date => iteration.start_date || Date.tomorrow,
             :end_date   => iteration.debrief_date || Date.tomorrow,
             :data       => iteration
@@ -112,7 +108,7 @@
             iteration = item[:data]
           %>
 
-            <div class='row iteration <%= iteration.progress.parameterize %> '>
+            <div class='row iteration <%= iteration.status.parameterize %> '>
               <div class='card w-full'>
                 <h3><%= link_to iteration.title, [@project, iteration] %> </h3>
                 <% if iteration.status_committed? %>

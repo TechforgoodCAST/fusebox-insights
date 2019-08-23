@@ -5,10 +5,10 @@ html
 
 body
   @apply flex h-screen flex-col
-    
+
 header, #subnav
   background-color: theme('colors.primary.700')
-  
+
 main
   @apply flex-1
 
@@ -37,7 +37,7 @@ hr
   color: theme('colors.primary.600')
   &:hover
     color: theme('colors.primary.700')
-    
+
 .rich-text, .trix-content
   @apply border-2 border-gray-200 rounded-sm px-4 py-5
   a
@@ -64,49 +64,45 @@ hr
   @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black
   &.planned
     background-color: theme('colors.status.planned')
-  &.in_progress
-    background-color: theme('colors.status.in_progress')
-  &.draft
-    background-color: theme('colors.status.draft')
-      
+  &.committed
+    background-color: theme('colors.status.committed')
+
 .divider
   &.planned
     border-color: theme('colors.status.planned')
-  &.in_progress
-    border-color: theme('colors.status.in_progress')
-  &.draft
-    border-color: theme('colors.status.draft')
-      
+  &.committed
+    border-color: theme('colors.status.committed')
+
 h1
   @apply text-2xl font-bold
-    
+
 h2
   @apply text-xl font-bold
-    
+
 h3
   @apply text-lg font-bold
-    
+
 .missing-text
   @apply italic text-gray-600
-    
+
 .text-info
-  color: theme('colors.alert.info.dark')    
+  color: theme('colors.alert.info.dark')
 .text-success
   color: theme('colors.alert.success.dark')
 .text-warning
   color: theme('colors.alert.warning.dark')
 .text-danger
   color: theme('colors.alert.danger.dark')
-  
+
 .bg-info
-  background-color: theme('colors.alert.info.dark')    
+  background-color: theme('colors.alert.info.dark')
 .bg-success
   background-color: theme('colors.alert.success.dark')
 .bg-warning
   background-color: theme('colors.alert.warning.dark')
 .bg-danger
   background-color: theme('colors.alert.danger.dark')
-    
+
 .notice
   @apply border rounded-sm px-4 py-3 my-6
   &.info
@@ -125,14 +121,13 @@ h3
     color: theme('colors.alert.danger.dark')
     background: theme('colors.alert.danger.light')
     border-color: theme('colors.alert.danger.dark')
-  
-    
+
 p + p
   @apply mt-3
 
 .colored-text
   color: theme('colors.primary.600')
-    
+
 // Form
 // =========================================================================  //
 
@@ -153,4 +148,6 @@ p + p
 .input
   @apply border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y
   &:focus
-    @apply border-purple-700
+    @apply border-primary-600 outline-none
+  @media (max-width: theme('screens.sm'))
+    @apply max-w-full

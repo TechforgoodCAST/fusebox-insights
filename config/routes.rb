@@ -9,13 +9,13 @@ Rails.application.routes.draw do
 
   # Core application routes
 
-  resources :projects do
+  resources :projects, except: :destroy do
     member do
       get :about
       get :share, to: 'memberships#show'
     end
     # TODO: https://guides.rubyonrails.org/routing.html#limits-to-nesting
-    resources :iterations do
+    resources :iterations, except: :destroy do
       resources :check_ins do
         resources :ratings
       end

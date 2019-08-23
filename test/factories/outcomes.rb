@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :outcome do
-    title { "MyText" }
-    description { "MyText" }
+    title { 'MyText' }
+    success_criteria { 'MyText' }
     iteration
   end
 end
