@@ -26,7 +26,6 @@ ul#statuses
   background: #fff;
 
 #roadmap
-  @apply pb-1
   border-left: 4px solid #ccc;
 
   .row
@@ -40,12 +39,17 @@ ul#statuses
       &::before
         @apply timeline-symbol
         transform: rotate(45deg);
+        margin-top: 3px;
         
       >div
         max-width: calc(100% - 50px);  
       
-    &.start::before
-      @apply timeline-symbol rounded-full
+    &.start
+      @apply mb-0 leading-none pt-3
+      
+      &::before
+        @apply timeline-symbol rounded-full
+        margin-top: -2px;
         
     >div
       @apply inline-block
