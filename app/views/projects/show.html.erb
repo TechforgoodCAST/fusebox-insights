@@ -71,7 +71,6 @@
           merged << {
             :type       => 'iteration',
             :status     => iteration.status,
-            :progress   => iteration.status,
             :start_date => iteration.start_date || Date.tomorrow,
             :end_date   => iteration.debrief_date || Date.tomorrow,
             :data       => iteration
@@ -82,26 +81,26 @@
         @project.milestones.each do |milestone|
           merged << {
             :type       => 'milestone',
-            :progress   => milestone.status,
+            :status   	=> milestone.status,
             :start_date => milestone.deadline || Date.tomorrow,
             :data       => milestone
           }
         end
 
         #Sort the merged array reverse chronologically
-        items = merged.sort_by { |hsh| [hsh[:progress], hsh[:start_date]] }
-        old_progress = '';
+        items = merged.sort_by { |hsh| [hsh[:status], hsh[:start_date]] }
+        old_status = '';
         items.each_with_index do |item|
 
-          if item[:progress] != old_progress
+          if item[:status] != old_status
           %>
-            <div class='row divider <%= item[:progress].parameterize %>'>
+            <div class='row divider <%= item[:status].parameterize %>'>
               <div>
-                <span class='tag <%= item[:progress].parameterize %>'><%= item[:progress].titleize %></span>
+                <span class='tag <%= item[:status].parameterize %>'><%= item[:status].titleize %></span>
               </div>
             </div>
           <%
-            old_progress = item[:progress]
+            old_status = item[:status]
           end
 
           if item[:type] == 'iteration'
