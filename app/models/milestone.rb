@@ -24,7 +24,7 @@ class Milestone < ApplicationRecord
 
   belongs_to :project
 
-  enum status: { planned: 0, committed: 1, complete: 2 }, _prefix: :status
+  enum status: { planned: 0, committed: 1, completed: 2 }, _prefix: :status
 
   validates :deadline, :description, :status, :title, presence: true
 end

@@ -2,6 +2,8 @@
 <script type="text/javascript">
   $(function(){
 
+    $('#roadmap .row.completed ').hide();
+
     $('a[data-status]').on('click', function(){
       var status = $(this).data('status');
       $('#statuses li').removeClass('active');
@@ -48,7 +50,7 @@
           <a data-status="all">All</a>
         </li>
         <li class="mb-3">
-          <a data-status="complete">Complete</a>
+          <a data-status="completed">Completed</a>
         </li>
         <li class="mb-3">
           <a data-status="committed">Committed</a>
@@ -96,7 +98,7 @@
           %>
             <div class='row divider <%= item[:status].parameterize %>'>
               <div>
-                <span class='tag <%= item[:status].parameterize %>'><%= item[:status].titleize %></span>
+                <span class='tag rounded-t-none <%= item[:status].parameterize %>'><%= item[:status].titleize %></span>
               </div>
             </div>
           <%
@@ -107,9 +109,9 @@
             iteration = item[:data]
           %>
 
-            <div class='row iteration <%= iteration.status.parameterize %> '>
+            <div class='row iteration <%= iteration.status %> '>
               <div class='card w-full'>
-                <h3><%= link_to iteration.title, [@project, iteration], class: 'underline' %> </h3>
+                <h3><%= link_to iteration.title, [@project, iteration], class: 'underline hover:opacity-75' %> </h3>
                 <% if iteration.status_committed? %>
                   <%= render partial: 'iterations/progress_timeline', locals: { project: @project, iteration: iteration } %>
                 <% end %>
@@ -119,10 +121,10 @@
           elsif item[:type] == 'milestone'
             milestone = item[:data]
           %>
-            <div class='row milestone <%= milestone.status.parameterize %>'>
+            <div class='row milestone <%= milestone.status %>'>
               <div>
-                <h3><%= link_to milestone.title, project_milestone_path(@project, milestone), class: 'link' %></h3>
-                <p><%= milestone.description%></p>
+                <h3 class="mb-2"><%= link_to milestone.title, project_milestone_path(@project, milestone), class: 'underline hover:opacity-75' %></h3>
+                <p class="mb-2"><%= milestone.description%></p>
                 <% if milestone.completed_at? %>
                   <b class="text-sm text-gray-600"><%= friendly_date(milestone.completed_at) %></b>
                 <% else %>

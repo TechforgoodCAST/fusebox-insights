@@ -14,7 +14,7 @@ module.exports = {
         status: {
           planned: '#38B2AC',
           committed: '#3182CE',
-          complete: '#553C9A'
+          completed: '#553C9A'
         },
         alert: {
           info: {

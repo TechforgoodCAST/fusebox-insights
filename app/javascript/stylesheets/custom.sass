@@ -56,17 +56,21 @@ hr
     @apply text-primary-700 bg-bg
 
 .tag
-  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black
+  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black text-sm
   &.planned
     background-color: theme('colors.status.planned')
   &.committed
     background-color: theme('colors.status.committed')
+  &.completed
+    @apply bg-green-600
 
 .divider
   &.planned
     border-color: theme('colors.status.planned')
   &.committed
     border-color: theme('colors.status.committed')
+  &.completed
+    @apply border-green-600
 
 h1
   @apply text-2xl font-bold
