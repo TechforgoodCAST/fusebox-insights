@@ -18,10 +18,9 @@ hr
     @apply cursor-pointer
 
 .btn.btn-primary
-  @apply text-white
-  background-color: theme('colors.primary.600')
+  @apply text-white bg-primary-600
   &:hover
-    background-color: theme('colors.primary.700')
+    @apply bg-primary-700
 
 .card
   @apply bg-white p-6 border-2 border-gray-300 rounded-sm
@@ -30,10 +29,9 @@ hr
   @apply border-2 border-gray-200 rounded-sm px-4 py-5
 
 .link
-  @apply underline
-  color: theme('colors.primary.600')
+  @apply underline text-primary-600
   &:hover
-    color: theme('colors.primary.700')
+    @apply text-primary-800
 
 .rich-text, .trix-content
   @apply border-2 border-gray-200 rounded-sm px-4 py-5
@@ -51,24 +49,28 @@ hr
     @apply list-disc ml-5
 
 .tab
-  @apply inline-block rounded-t-sm py-2 px-4 text-white
-  background-color: theme('colors.primary.800')
-  &:hover, &.active
-    background-color: theme('colors.bg')
-    color: theme('colors.primary.700')
+  @apply inline-block rounded-t-sm py-2 px-4 text-white bg-primary-800
+  &:hover
+    @apply bg-teal-600
+  &.active
+    @apply text-primary-700 bg-bg
 
 .tag
-  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black
+  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black text-sm
   &.planned
     background-color: theme('colors.status.planned')
   &.committed
     background-color: theme('colors.status.committed')
+  &.completed
+    @apply bg-green-600
 
 .divider
   &.planned
     border-color: theme('colors.status.planned')
   &.committed
     border-color: theme('colors.status.committed')
+  &.completed
+    @apply border-green-600
 
 h1
   @apply text-2xl font-bold
@@ -134,6 +136,7 @@ p + p
 .hint
   @apply text-sm text-gray-600 mb-2
 
+/* purgecss start ignore */
 .field_with_errors
   .error
     @apply text-sm text-red-600 mb-1
@@ -141,6 +144,7 @@ p + p
       text-transform: capitalize
   .input
     @apply border-red-600
+/* purgecss end ignore */
 
 .input
   @apply border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y

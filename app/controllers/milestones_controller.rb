@@ -46,7 +46,7 @@ class MilestonesController < ApplicationController
   end
 
   def update_milestone_statues!(project)
-    incomplete = project.milestones.where.not(status: :complete)
+    incomplete = project.milestones.where.not(status: :completed)
                         .order(:deadline, :title)
     incomplete.update_all(status: :planned)
     incomplete.first.update(status: :committed)
