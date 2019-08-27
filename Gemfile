@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.5.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.2.1'
@@ -10,7 +10,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -55,26 +55,22 @@ end
 group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'webdrivers', '~> 4.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# TODO: review dependencies
+
+gem 'ahoy_matey'
+gem 'audited', '~> 4.7'
+gem 'cocoon'
 gem 'devise', '~> 4.6.0'
+gem 'friendly_id', '~> 5.2.4'
+gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+gem 'kaminari', '~> 1.1.0'
+gem 'pundit', '~> 2.0.1'
 gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
 gem 'trix-rails', '~> 2.0.0', require: 'trix'
-gem 'kaminari', '~> 1.1.0'
-gem 'pundit'
-gem 'pg_search'
-
-gem "audited", "~> 4.7"
-gem 'friendly_id', '~> 5.2.4'
-gem 'acts_as_paranoid', '~> 0.6.0'
-gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
-gem 'bootstrap'
-gem "bootstrap_form", ">= 4.2.0"
-gem 'devise-bootstrap-views', '~> 1.0'

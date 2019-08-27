@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'Fusebox Insights <no-reply@fusebox-insights.herokuapp.com>'
+  default from: 'Fusebox <no-reply@fusebox.org.uk>'
   layout 'mailer'
 end

@@ -1,10 +1,11 @@
-<footer class="text-center bg-dark text-light">
-  <div class="container py-3">
-    Fusebox is powered by your friends at
-    <%= link_to 'CAST', 'https://wearecast.org.uk', target: '_blank', class: 'text-light link-border' %>
-    <nav class="pt-2 small">
-      <%= link_to "Terms and Conditions", terms_path, class: 'text-light mr-3' %>
-      <%= link_to "Privacy Policy", privacy_path, class: 'text-light' %>
+<footer class="max-w-5xl container mx-auto text-center px-4">
+  <hr>
+  <div class="py-5">
+    This is a new service - your <%= mail_to('hello@wearecast.org.uk', 'feedback', subject: 'Fusebox feedback', class: 'link') %> will help us to improve it.
+    <nav class="pt-3 text-sm text-gray-600">
+      <%#= link_to "Privacy", privacy_path, class: 'hover:underline mr-4' %>
+      <%#= link_to "Terms", terms_path, class: 'hover:underline mr-4' %>
+      By <%= link_to 'CAST', 'https://wearecast.org.uk', target: '_blank', class: 'hover:underline' %>
     </nav>
   </div>
 </footer>

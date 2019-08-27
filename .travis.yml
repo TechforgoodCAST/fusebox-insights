@@ -13,4 +13,5 @@ addons:
 
 script:
   - bundle exec rake test
+  - RAILS_ENV=test bundle exec rails webpacker:compile
   - bundle exec rake test:system

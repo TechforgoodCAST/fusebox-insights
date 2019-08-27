@@ -1,33 +1,31 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, skip: [:registrations]
+  as :user do
+    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
+    put 'users' => 'devise/registrations#update', :as => 'user_registration'
+  end
 
   # Core application routes
 
-  resources :projects do
-    resources :groups
-    resources :insights
-    resources :assumptions do
-      get 'focus'
-      get 'unfocus'
-      resources :responses
+  resources :projects, except: :destroy do
+    member do
+      get :about
+      get :share, to: 'memberships#show'
     end
-    resources :memberships
-    resources :support_messages, path: 'support' do
-      get 'complete', on: :collection
+    # TODO: https://guides.rubyonrails.org/routing.html#limits-to-nesting
+    resources :iterations, except: :destroy do
+      resources :check_ins do
+        resources :ratings
+      end
+      resources :outcomes do
+        resources :ratings
+      end
     end
-    get 'knowledge_board'
+    resources :memberships, only: %i[new create index destroy]
+    resources :milestones
   end
-
-  # Search
-
-  resources :search, only: [:index]
-
-  # Focus and Reflections
-
-  resources :foci, only: %i[index]
-  resources :reflections, only: %i[new create]
 
   # Statics
 

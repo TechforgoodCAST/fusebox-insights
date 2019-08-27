@@ -1,0 +1,42 @@
+<style type="text/css">
+  td{
+    padding: 10px 0;
+    border: 2px solid #ccc;
+    border-width: 2px 0;
+  }
+  td+td{
+    padding-left: 20px;
+  }
+</style>
+
+<% 
+classes = {
+  'on_track'  => 'text-success',
+  'at_risk'   => 'text-warning',
+  'off_track' => 'text-danger'
+}
+%>
+<table class="mt-3 w-full">
+  <colgroup>
+    <col width="25%">
+    <col width="75%">
+  </colgroup>
+  <tbody>
+    <tr>
+      <td>Start</td>
+      <td><%= iteration.start_date ? friendly_date(iteration.start_date) : '<span class="missing-text">Not set</span>'.html_safe %></td>
+    </tr>
+    <% unless current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
+      <% iteration.check_ins.each do |check_in| %>
+      <tr>
+        <td><%= link_to 'Check in', [project, iteration, check_in] %></td>
+        <td><%= friendly_date(check_in.date) %> - <b class="<%= classes[check_in.on_track()] %>"><%= check_in.on_track().humanize %></b> in some areas</td>
+      </tr>
+      <% end %>
+    <% end %>
+    <tr>
+      <td>Debrief</td>
+       <td><%= iteration.debrief_date ? friendly_date(iteration.debrief_date) : '<span class="missing-text">Not set</span>'.html_safe %></td>
+    </tr>
+  </tbody>  
+</table>

@@ -1,0 +1,14 @@
+<% if alert.present? || notice.present? %>
+  <% if alert.present? %>
+    <div class="notice danger" role="alert">
+      <p><%= alert %></p>
+    </div>
+  <% end %>
+
+  <% if notice.present? %>
+    <div class="notice info" role="alert">
+      <p><%= notice %></p>
+    </div>
+  <% end %>
+
+<% end %>

@@ -1,0 +1,35 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'link' %></p>
+  <%= render partial: 'layouts/notices' %>
+
+  <div class="card">
+    <div class="flex items-end items-center justify-between mb-3">
+      <h1><%= @milestone.title %></h1>
+      <%= link_to 'Edit', edit_project_milestone_path(@project, @milestone), class: 'link' %>
+    </div>
+
+    <div class="mb-6">
+      <span class="tag <%= @milestone.status %>"><%= @milestone.status.humanize %></span>
+    </div>
+
+    <div class="mb-6">
+      <p><%= simple_format(@milestone.description) %></p>
+    </div>
+
+    <div class="mb-6">
+      <h3>We'll know we've reached this milestone when...</h3>
+      <% if @milestone.success_criteria.blank? %>
+        <p class="missing-text">Not provided</p>
+      <% else %>
+        <div class="rich-text"><%= @milestone.success_criteria&.html_safe %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <h3>We plan to reach this milestone by...</h3>
+      <p><%= @milestone.deadline.strftime("%b %Y") %></p>
+    </div>
+  </div>
+</div>

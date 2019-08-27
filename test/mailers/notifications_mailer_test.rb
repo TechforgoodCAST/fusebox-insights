@@ -3,17 +3,19 @@
 require 'test_helper'
 
 class NotificationsMailerTest < ActionMailer::TestCase
-  setup do
-    @user = create(:user)
-    @user.in_focus << create(:assumption, author: @user)
-  end
+  test 'project_invite' do
+    membership = create(:membership)
+    mail = NotificationsMailer.project_invite(membership)
+    assert_equal("You've been added to a project on Fusebox", mail.subject)
+    assert_equal([membership.user.email], mail.to)
+    assert_equal(['no-reply@fusebox.org.uk'], mail.from)
 
-  test 'weekly_review' do
-    mail = NotificationsMailer.weekly_review(@user)
-    assert_equal('Your Fusebox status update is due soon', mail.subject)
-    assert_equal([@user.email], mail.to)
-    assert_equal(['no-reply@fusebox-insights.herokuapp.com'], mail.from)
-    assert_match('3 clicks', mail.body.encoded)
-    assert_match('/reflections/new', mail.body.encoded)
+    assert_match('contributor', mail.body.encoded)
+
+    assert_match('View project', mail.body.encoded)
+    assert_match("/projects/#{membership.project.id}", mail.body.encoded)
+
+    assert_match('reset your password', mail.body.encoded)
+    assert_match('/users/password/new', mail.body.encoded)
   end
 end

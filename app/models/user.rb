@@ -3,23 +3,22 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :validatable, :registerable
+  devise :database_authenticatable, :recoverable, :rememberable, :validatable,
+         :registerable, :trackable
 
-  has_many :assumptions, foreign_key: 'author_id'
-  has_many :comments, foreign_key: 'author_id'
-  has_many :events, foreign_key: 'user_id', dependent: :destroy, inverse_of: :user
-  has_many :groups, foreign_key: 'author_id'
-  has_many :insights, foreign_key: 'author_id'
+  attr_accessor :current_sign_in_ip, :last_sign_in_ip
 
-  has_many :foci, dependent: :destroy
-  has_many :in_focus, through: :foci, source: :assumption
-
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
   has_many :projects, through: :memberships
 
-  validates :username, presence: true
+  validates :full_name, presence: true
 
-  def initials
-    username.split('')[0]
+  private
+
+  # Prevent Devise trackable module from recording IP addresses.
+  def update_tracked_fields(request)
+    super(request)
+    self.last_sign_in_ip = nil
+    self.current_sign_in_ip = nil
   end
 end

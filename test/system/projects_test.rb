@@ -5,71 +5,85 @@ require 'application_system_test_case'
 class ProjectsTest < ApplicationSystemTestCase
   setup do
     @user = create(:user)
-    @project = create(:project, author: @user, users: [@user])
-
     visit projects_path
     sign_in
   end
 
-  test 'user can view list of projects' do
-    assert_selector 'h1', text: 'My Projects'
-    assert_link @project.name
-  end
+  test 'sign in required' do
+    project = build(:project, id: 1)
+    click_on 'Sign out'
 
-  test 'visitor can view public project' do
-    sign_out
     [
-      project_path(@project),
-      project_assumptions_path(@project)
+      projects_path,
+      project_path(project),
+      edit_project_path(project)
     ].each do |path|
       visit path
-      assert_equal(path, current_path)
+
+      assert_text('You need to sign in or sign up before continuing.')
     end
   end
 
-  test 'visitor cannot view private project' do
-    @project.update!(is_private: true, users: [])
-    sign_out
-    [
-      project_path(@project),
-      project_assumptions_path(@project)
-    ].each do |path|
-      visit path
-      assert_not_equal(path, current_path)
-    end
+  test 'can view and create projects as contributor' do
+    create_project
+
+    assert_equal(project_path(Project.last), current_path)
+    assert_equal('contributor', Membership.last.role)
   end
 
-  test 'user can create project' do
-    click_link 'New project'
-    fill_in 'Name', with: @project.name + 'create'
-    click_on 'Save'
-    assert_text 'Project created successfully'
+  test 'contributor can update projects' do
+    create_project
+    update_project
+
+    assert_equal('Updated title', Project.last.title)
   end
 
-  test 'project admin can update project' do
-    click_on @project.name
-    click_on 'Edit', match: :first
-    fill_in 'Name', with: @project.name + 'update'
-    click_on 'Save'
-    assert_text 'Project updated successfully'
+  test 'mentor can view projects' do
+    create_project
+    Membership.last.update(role: :mentor)
+    click_on('Roadmap')
+
+    assert_equal(project_path(Project.last), current_path)
   end
 
-  test 'project member cannot update project' do
-    admin_to_collaborator
-    visit edit_project_path(@project)
-    assert_text "Sorry, you don't have access to that"
+  test 'mentor can update projects' do
+    create_project
+    Membership.last.update(role: :mentor)
+    update_project
+
+    assert_equal('Updated title', Project.last.title)
   end
 
-  test 'project admin can destroy project' do
-    click_on @project.name
-    click_on 'Edit', match: :first
-    page.accept_confirm { click_on 'Delete' }
-    assert_text 'Project destroyed successfully.'
+  test 'stakeholder can view projects' do
+    create_project
+    Membership.last.update(role: :stakeholder)
+    click_on('Roadmap')
+
+    assert_equal(project_path(Project.last), current_path)
   end
 
-  test 'project member cannot destroy project' do
-    admin_to_collaborator
-    visit edit_project_path(@project)
-    assert_text "Sorry, you don't have access to that"
+  test 'stakeholder cannot update projects' do
+    create_project
+    Membership.last.update(role: :stakeholder)
+    click_on('About')
+    click_on('Edit')
+
+    assert_text("Sorry, you don't have access to that")
+  end
+
+  private
+
+  def create_project(title: 'Title', description: 'Description')
+    click_on('New project')
+    fill_in(:project_title, with: title)
+    fill_in(:project_description, with: description)
+    click_on('Create Project')
+  end
+
+  def update_project
+    click_on('About')
+    click_on('Edit')
+    fill_in(:project_title, with: 'Updated title')
+    click_on('Update Project')
   end
 end

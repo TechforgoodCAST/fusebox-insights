@@ -1,0 +1,256 @@
+<%
+plan_stages = [
+  {
+    :name => 'Define problem',
+    :desc => 'Sed in magna luctus, accumsan metus non, viverra lectus. Aenean sed quam et enim sollicitudin aliquam.',
+    :date => '2 months ago',
+    :status => 'completed'
+  },
+  {
+    :name => 'List assumptions',
+    :desc => 'Vestibulum et odio non ex dignissim mattis faucibus vel diam. Maecenas vitae justo id eros finibus malesuada eget at augue.',
+    :date => '6 weeks ago',
+    :status => 'completed'
+  },
+  {
+    :name => 'Rank assumptions',
+    :desc => 'Morbi laoreet dui malesuada lacus hendrerit, non aliquet quam dapibus. Nam vulputate urna ut elit dictum ultricies.',
+    :date => '6 weeks ago',
+    :status => 'completed'
+  },
+  {
+    :name => 'Validate assumptions',
+    :desc => 'In non arcu sed orci congue ultricies et non tellus. Mauris nec lacus rutrum, suscipit elit non, interdum erat.',
+    :date => '3 weeks ago',
+    :status => 'completed'
+  },
+  {
+    :name => 'Generate ideas',
+    :desc => 'Integer id leo vitae ex efficitur rhoncus a euismod ante. Ut ut lorem facilisis massa lacinia luctus.',
+    :date => 'current',
+    :status => 'active'
+  },
+  {
+    :name => 'Shortlist ideas',
+    :desc => 'Maecenas a metus sit amet tortor sagittis sollicitudin. Donec feugiat quam id odio aliquet efficitur.',
+    :date => '',
+    :status => 'future'
+  },
+  {
+    :name => 'Prototype',
+    :desc => 'Nam non purus varius, aliquam augue non, consectetur augue. Sed a purus ac odio vehicula eleifend nec sed tortor.',
+    :date => '',
+    :status => 'future'
+  }
+]
+
+status_style = {
+  'completed' => {
+    :bg => 'success',
+    :text => 'light',
+    :class => '',
+    :symbol => 'check'
+  },
+  'active' => {
+    :bg => 'white',
+    :text => 'dark',
+    :class => 'active',
+    :symbol => 'undo'
+  },
+  'future' => {
+    :bg => 'dark',
+    :text => 'light',
+    :class => 'disabled',
+    :symbol => ''
+  }
+}
+
+%>
+
+
+
+<h1 class="mb-4">Improving fundraising</h1>
+<h2 class="mb-4">Acme Charitable Trust</h2>
+<div class="row">
+  <div class="col">
+    <div class='card mb-4'>
+
+      <div class="card-body">
+        <p class="pt-2 mb-1"><strong>New Post</strong></p>
+        <p class="pt-2 mb-1 text-muted">What's new on your digital journey?</p>
+      </div>
+
+      <div class="card-footer text-muted">
+        <form class="row">
+
+          <div class="form-group col">
+            <select class="form-control" id="milestoneSelect">
+              <% plan_stages.each do |stage|
+                unless stage[:status] == 'completed'
+              %>
+              <option><%= stage[:name] %></option>
+              <% end %>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="form-group col">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+              <label class="form-check-label" for="exampleRadios1">
+                Completed
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+              <label class="form-check-label" for="exampleRadios2">
+                Made progress
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group col">
+            <button type="button" class="btn btn-primary float-right">Post</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class='card mb-4'>
+      <div class="card-header text-muted">
+        <div class="row">
+          <div class="col-auto pr-0">
+            <div class="icon-circle bg-dark">
+              <em class="fa fa-user text-light"></em>
+            </div>
+          </div>
+          <div class="col py-1">
+            <p><strong>Mark Spencer</strong><br>27th June 2019</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="pt-2 mb-1">A great session today generating ideas. Lots to think about!</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU8zucHwsVyPZaH3WRCsy_M8sJg5YFzBhGWnJYlRVRDIbTuKOY" class="pt-3">
+      </div>
+
+      <div class="card-footer text-muted">
+        <small>Progress towards: <i>Generate ideas</i></small>
+      </div>
+    </div>
+
+    <div class='card mb-4'>
+      <div class="card-header text-muted">
+        <div class="row">
+          <div class="col-auto pr-0">
+            <div class="icon-circle bg-success">
+              <em class="fa fa-check text-light"></em>
+            </div>
+          </div>
+          <div class="col py-1">
+            <p><strong>Validate assumptions</strong><br>Completed objective!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='card mb-4'>
+      <div class="card-header text-muted">
+        <div class="row">
+          <div class="col-auto pr-0">
+            <div class="icon-circle bg-dark">
+              <em class="fa fa-user text-light"></em>
+            </div>
+          </div>
+          <div class="col py-1">
+            <p><strong>John Lewis</strong><br>18th June 2019</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="pt-2 mb-1">We did some user research this week and found that most of our volunteers use their smartphones when fundraising, so a mobile version of the platform is key</p>
+      </div>
+
+      <div class="card-footer text-muted">
+        <small>Progress towards: <i>Validate assumptions</i></small>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col">
+    <div class='card mb-4'>
+
+      <div class="card-body">
+        <p class="mt-2 mb-1"><strong>Testing Plan</strong></p>
+        <div class="list-group">
+          
+          <% plan_stages.each do |stage|%>
+         
+          <a href="#" class="list-group-item list-group-item-action flex-column align-items-start <%= status_style[stage[:status]][:class] %> ">
+            <div class="d-flex w-100 justify-content-between">
+              <div class="icon-circle bg-<%= status_style[stage[:status]][:bg] %>">
+                <em class="fa fa-<%= status_style[stage[:status]][:symbol] %> text-<%= status_style[stage[:status]][:text] %>"></em>
+              </div>
+              <h5 class="mt-1 mb-1 ml-2"><%= stage[:name] %></h5>
+              <small class="text-muted ml-auto"><%= stage[:date] %></small>
+            </div>
+            <p class="mt-2 mb-1"><small><%= stage[:desc] %></small></p>
+          </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class='card mb-4'>
+
+      <div class="card-body">
+        <p class="mt-2 mb-1"><strong>On this project</strong></p>
+        <% people = [
+          {
+            :name => 'Mark Spencer',
+            :org  => 'Acme Charitable Trust',
+            :type => 'charity'
+          },
+          {
+            :name => 'John Lewis',
+            :org  => 'Acme Charitable Trust',
+            :type => 'charity'
+          },  
+          {
+            :name => 'Joseph Dudley',
+            :org  => 'CAST',
+            :type => 'support'
+          },
+          {
+            :name => 'Lenny Henry',
+            :org  => 'Acme Charitable Trust',
+            :type => 'funder'
+          }
+  
+        ]%>
+        <%
+        last_org = ''
+        people.each do |person|
+          
+
+          if(person[:org] != last_org)
+            last_org = person[:org]
+            %>
+            <h5><%= person[:org]%> (<%=person[:type]%>)</h5>
+        <% end %>
+        <div class="row">
+          <div class="col-auto pr-0">
+            <div class="icon-circle bg-dark">
+              <em class="fa fa-user text-light"></em>
+            </div>
+          </div>
+          <div class="col py-1">
+            <p><%= person[:name] %></p>
+          </div>
+        </div>
+        <% end %>
+    </div>
+  </div>
+

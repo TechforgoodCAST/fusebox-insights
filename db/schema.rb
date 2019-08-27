@@ -10,26 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_21_125700) do
+ActiveRecord::Schema.define(version: 2019_08_23_094452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "assumptions", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description"
-    t.bigint "author_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "group_id"
-    t.bigint "project_id", null: false
-    t.integer "certainty", default: 0
-    t.datetime "deleted_at"
-    t.integer "damage"
-    t.index ["author_id"], name: "index_assumptions_on_author_id"
-    t.index ["deleted_at"], name: "index_assumptions_on_deleted_at"
-    t.index ["group_id"], name: "index_assumptions_on_group_id"
-    t.index ["project_id"], name: "index_assumptions_on_project_id"
+  create_table "ahoy_events", force: :cascade do |t|
+    t.bigint "visit_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.jsonb "properties"
+    t.datetime "time"
+    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
+    t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
+    t.index ["user_id"], name: "index_ahoy_events_on_user_id"
+    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
+  end
+
+  create_table "ahoy_visits", force: :cascade do |t|
+    t.string "visit_token"
+    t.string "visitor_token"
+    t.bigint "user_id"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.text "landing_page"
+    t.string "browser"
+    t.string "os"
+    t.string "device_type"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_campaign"
+    t.string "app_version"
+    t.string "os_version"
+    t.string "platform"
+    t.datetime "started_at"
+    t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
+    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
 
   create_table "audits", force: :cascade do |t|
@@ -54,35 +79,15 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.bigint "assumption_id"
-    t.bigint "author_id", null: false
-    t.text "description", null: false
+  create_table "check_ins", force: :cascade do |t|
+    t.text "notes"
+    t.datetime "complete_at"
+    t.bigint "completed_by", null: false
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["assumption_id"], name: "index_comments_on_assumption_id"
-    t.index ["author_id"], name: "index_comments_on_author_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.string "triggerable_type"
-    t.bigint "triggerable_id"
-    t.bigint "user_id"
-    t.string "event_type", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "accounted_for", default: false
-    t.index ["triggerable_type", "triggerable_id"], name: "index_events_on_triggerable_type_and_triggerable_id"
-    t.index ["user_id"], name: "index_events_on_user_id"
-  end
-
-  create_table "foci", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "assumption_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["assumption_id"], name: "index_foci_on_assumption_id"
-    t.index ["user_id"], name: "index_foci_on_user_id"
+    t.date "date"
+    t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -96,31 +101,16 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "groups", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.text "summary"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "author_id", null: false
-    t.bigint "project_id"
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_groups_on_deleted_at"
-    t.index ["project_id"], name: "index_groups_on_project_id"
-  end
-
-  create_table "insights", force: :cascade do |t|
+  create_table "iterations", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.bigint "author_id", null: false
+    t.date "start_date"
+    t.date "debrief_date"
+    t.integer "status", default: 0, null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "assumption_id"
-    t.integer "confidence", default: 0, null: false
-    t.bigint "project_id", null: false
-    t.index ["assumption_id"], name: "index_insights_on_assumption_id"
-    t.index ["author_id"], name: "index_insights_on_author_id"
-    t.index ["project_id"], name: "index_insights_on_project_id"
+    t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -128,61 +118,55 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "role", default: "Admin"
+    t.integer "role", default: 0, null: false
+    t.index ["project_id", "user_id"], name: "index_memberships_on_project_id_and_user_id", unique: true
     t.index ["project_id"], name: "index_memberships_on_project_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text "content"
-    t.string "searchable_type"
-    t.bigint "searchable_id"
+  create_table "milestones", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.text "success_criteria"
+    t.datetime "completed_at"
+    t.date "deadline"
+    t.integer "status", default: 0, null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+    t.index ["project_id"], name: "index_milestones_on_project_id"
+  end
+
+  create_table "outcomes", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "success_criteria"
+    t.bigint "iteration_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["iteration_id"], name: "index_outcomes_on_iteration_id"
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "title", null: false
     t.text "description"
-    t.boolean "is_private", default: true, null: false
-    t.string "slug", null: false
-    t.bigint "author_id", null: false
+    t.text "more_details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
-    t.index ["author_id"], name: "index_projects_on_author_id"
-    t.index ["deleted_at"], name: "index_projects_on_deleted_at"
-    t.index ["slug"], name: "index_projects_on_slug", unique: true
   end
 
-  create_table "proofs", force: :cascade do |t|
-    t.bigint "insight_id"
-    t.bigint "assumption_id"
-    t.bigint "author_id", null: false
-    t.integer "confidence", default: 0, null: false
+  create_table "ratings", force: :cascade do |t|
+    t.integer "score"
+    t.text "comments"
+    t.bigint "check_in_id", null: false
+    t.bigint "outcome_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["assumption_id"], name: "index_proofs_on_assumption_id"
-    t.index ["author_id"], name: "index_proofs_on_author_id"
-    t.index ["insight_id"], name: "index_proofs_on_insight_id"
-  end
-
-  create_table "support_messages", force: :cascade do |t|
-    t.string "status"
-    t.integer "order"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.string "rule_object_type", default: "None"
-    t.string "rule_event_type", default: "create"
-    t.integer "rule_occurrences", default: 1
-    t.string "subject"
+    t.index ["check_in_id"], name: "index_ratings_on_check_in_id"
+    t.index ["outcome_id"], name: "index_ratings_on_outcome_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username", null: false
+    t.string "full_name"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -190,19 +174,18 @@ ActiveRecord::Schema.define(version: 2019_06_21_125700) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_staff", default: false
+    t.string "display_name"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "assumptions", "projects"
-  add_foreign_key "comments", "assumptions"
-  add_foreign_key "events", "users"
-  add_foreign_key "foci", "assumptions"
-  add_foreign_key "foci", "users"
-  add_foreign_key "groups", "projects"
-  add_foreign_key "insights", "assumptions"
-  add_foreign_key "insights", "projects"
-  add_foreign_key "proofs", "assumptions"
-  add_foreign_key "proofs", "insights"
+  add_foreign_key "check_ins", "iterations"
+  add_foreign_key "iterations", "projects"
+  add_foreign_key "milestones", "projects"
+  add_foreign_key "outcomes", "iterations"
+  add_foreign_key "ratings", "check_ins"
+  add_foreign_key "ratings", "outcomes"
 end

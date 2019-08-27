@@ -1,6 +1,16 @@
-<div class="row justify-content-center pb-5 pt-2">
-  <div class="col-lg-6">
-    <h1 class="mb-4">Add Collaborator</h1>
-    <%= render 'form', membership: @membership %>
+  <%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back', share_project_path(@project), class: 'underline' %></p>
+  <div class="card">
+    <h1 class="text-2xl font-bold mb-6">Add <%= @membership.role %></h1>
+
+    <%= simple_form_for([@project, @membership]) do |f| %>
+      <%= f.input :full_name %>
+      <%= f.input :email %>
+      <%= f.hidden_field :role, value: @membership.role %>
+      <p class="text-sm text-gray-600 mb-2">This person will be notified by email.</p>
+      <%= f.submit 'Add to project', class: 'btn btn-primary', data: { disable_with: 'Adding...' } %>
+    <% end %>
   </div>
 </div>

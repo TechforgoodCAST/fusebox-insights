@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class NotificationsMailer < ApplicationMailer
-  def weekly_review(user)
-    @user = user
-    mail to: user.email, subject: 'Your Fusebox status update is due soon'
+  def project_invite(membership)
+    @membership = membership
+    mail to: @membership.user.email, subject: "You've been added to a project on Fusebox"
   end
 end

@@ -1,0 +1,66 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+
+  <div class="card">
+    <h1>Check in</h1>
+
+    <%= simple_form_for([@project, @iteration, @check_in]) do |f| %>
+
+      <% if @check_in.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@check_in.errors.count, "error") %> prohibited this iteration from being saved:
+          </h2>
+          <ul>
+            <% @check_in.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+        <%= f.fields_for :ratings do |r| %>
+          <div class="mb-3">
+
+            <h2 class="my-3">Outcome <%= r.index+1 %> of <%= @iteration.outcomes.count %></h2>
+            
+            <div class="card mb-3">
+              <h3>What are we going to learn or prove?</h3>
+              <p class="mb-3"><%= @iteration.outcomes[r.index].title%></p>
+              <h3>What are we going to learn or prove?</h3>
+              <p><%= @iteration.outcomes[r.index].description%></p>
+            </div>
+            
+            <div class="mb-3">
+              <fieldset>
+                <legend>Team rating: What's the status of this outcome?</legend>
+                <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
+                <%
+                classes = {
+                  'on_track'  => 'bg-success',
+                  'at_risk'   => 'bg-warning',
+                  'off_track' => 'bg-danger'
+                }
+                %>
+                <% Rating.ratings.each do |key, val| %>
+                  <div class="mb-2">
+                    <%= r.radio_button(:score, val, label: key.titleize) %>
+                    <label for="check_in_ratings_attributes_0_score_<%= val %>" class="tag <%= classes[key] %>"><%= key.titleize %></label>
+                  </div>
+                <% end %>
+              </fieldset>
+            </div>
+
+            <%= r.input :comments, hint: "What progress have you made on this outcome? What have you learned, have there been any blockers or changes?"%>
+
+          </div>
+          <hr class="mb-6">
+        <% end %>
+
+        <%= f.input :notes, hint: 'Any other notes' %>
+
+      <%= f.submit class: 'btn btn-primary'%>
+    <% end %>
+  </div>
+</div>

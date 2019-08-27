@@ -1,0 +1,45 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'underline' %></p>
+  <%= render partial: 'layouts/notices' %>
+
+  <div class="card">
+    <div class="flex items-end items-center justify-between mb-3">
+      <h1><%= @iteration.title %></h1>
+      <%= link_to 'Edit', edit_project_iteration_path(@project, @iteration), class: 'link' %>
+    </div>
+
+    <div class="mb-6">
+      <span class="tag <%= @iteration.status.parameterize %>"><%= @iteration.status.titleize %></span>
+    </div>
+
+    <div class="mb-6">
+      <% if @iteration.description.blank? %>
+        <p class="missing-text">Description not provided</p>
+      <% else %>
+        <div><%= simple_format(@iteration.description) %></div>
+      <% end %>
+    </div>
+
+    <div class="mb-6">
+      <h2>Progress</h2>
+      <%= render partial: 'progress_timeline', locals: {project: @project, iteration: @iteration} %>
+    </div>
+
+    <h2>Outcomes</h2>
+    <% if !@iteration.outcomes.any? %>
+      <p class="missing-text">You've not added any outcomes yet. <%= link_to 'Add an outcome', edit_project_iteration_path([@project, @iteration])%>.</p>
+    <% else %>
+      <p class="hint">What we want to have achieved by the end of this batch of work.</p>
+      <% @iteration.outcomes.each do |outcome| %>
+        <div class='inner-card mt-4'>
+          <p><strong>What are we going to learn or prove?</strong></p>
+          <p class="mb-4"><%= outcome.title %></p>
+          <p><strong>As a minimum, we’ll know we’ve learnt or proved this when…</strong></p>
+          <p><%= outcome.success_criteria %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

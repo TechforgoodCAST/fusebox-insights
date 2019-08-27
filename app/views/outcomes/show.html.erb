@@ -1,0 +1,33 @@
+
+<p>
+  <strong>Title:</strong>
+  <%= @outcome.title %>
+</p>
+ 
+<p>
+  <strong>Description:</strong>
+  <%= @outcome.description %>
+</p>
+
+<%= link_to 'Edit', edit_project_iteration_path(:id => @iteration.id, 
+                                                  :project_id => @project.id), class: "btn btn-primary" %>
+<%= link_to 'Delete', project_iteration_outcome_path([@project, @iteration, @outcome]),
+              method: :delete,
+              data: { confirm: 'Are you sure?' },
+              class: "btn btn-primary"%>
+
+<div>
+  <%
+  @outcome.comments = @outcome.comments.sort_by { |hsh| hsh[:created_at] }.reverse
+  
+  @outcome.comments.each do |comment| 
+  %>
+      <div class='row iteration'>
+        <div class='card mb-4'>
+          <div class="card-body">
+            <p class="pt-1 mb-1"><%= comment.description %></p>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

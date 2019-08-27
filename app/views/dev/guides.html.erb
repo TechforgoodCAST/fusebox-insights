@@ -1,0 +1,42 @@
+
+<%
+  guides = [
+    {
+      :title => "Getting Buy-In",
+      :icon => 'compress-arrows-alt',
+      :desc => "Get your team or board's support in making digital a strategic priority"
+    },
+    {
+      :title => "Planning your next steps",
+      :icon => 'shoe-prints',
+      :desc => "Develop a blueprint to deliver digital effectively in your organisation"
+    },
+    {
+      :title => "Building team capacity",
+      :icon => 'users',
+      :desc => "Empower your team by equipping them with digital skills and connecting them with experts"
+    },
+    {
+      :title => "Choosing digital tools",
+      :icon => 'tools',
+      :desc => "Find out what tools are out there and how to make best use of them"
+    }
+  ];
+%>
+
+<h1 class="mb-4">Getting started with digital</h1>
+
+<div class="row">
+    
+    <% guides.each do |guide|%>
+    <div class="col mb-4 text-center">
+      <i class="fas fa-<%= guide[:icon]%> mb-3" style="font-size:100px;"></i>
+      <h5><%= guide[:title]%></h5>
+      <p class="pt-2 mb-1"><%= guide[:desc] %></p>
+    </div>
+   <% end %>
+  
+</div>
+
+
+

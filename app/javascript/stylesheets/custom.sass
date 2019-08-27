@@ -1,0 +1,154 @@
+html
+  @apply font-sans
+  font-size: 16px
+  background-color: theme('colors.bg')
+
+body
+  @apply flex h-screen flex-col
+
+main
+  @apply flex-1
+
+hr
+  @apply bg-gray-400 border-t-2
+
+.btn
+  @apply py-2 px-4 rounded-sm
+  &:hover
+    @apply cursor-pointer
+
+.btn.btn-primary
+  @apply text-white bg-primary-600
+  &:hover
+    @apply bg-primary-700
+
+.card
+  @apply bg-white p-6 border-2 border-gray-300 rounded-sm
+
+.inner-card
+  @apply border-2 border-gray-200 rounded-sm px-4 py-5
+
+.link
+  @apply underline text-primary-600
+  &:hover
+    @apply text-primary-800
+
+.rich-text, .trix-content
+  @apply border-2 border-gray-200 rounded-sm px-4 py-5
+  a
+    @apply link
+  blockquote
+    @apply border-l-4 border-gray-400 pl-2 text-gray-700
+  h1
+    @apply text-lg font-bold
+  ol
+    @apply list-decimal ml-5
+  pre
+    @apply bg-gray-100 px-3 py-2
+  ul
+    @apply list-disc ml-5
+
+.tab
+  @apply inline-block rounded-t-sm py-2 px-4 text-white bg-primary-800
+  &:hover
+    @apply bg-teal-600
+  &.active
+    @apply text-primary-700 bg-bg
+
+.tag
+  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black text-sm
+  &.planned
+    background-color: theme('colors.status.planned')
+  &.committed
+    background-color: theme('colors.status.committed')
+  &.completed
+    @apply bg-green-600
+
+.divider
+  &.planned
+    border-color: theme('colors.status.planned')
+  &.committed
+    border-color: theme('colors.status.committed')
+  &.completed
+    @apply border-green-600
+
+h1
+  @apply text-2xl font-bold
+
+h2
+  @apply text-xl font-bold
+
+h3
+  @apply text-lg font-bold
+
+.missing-text
+  @apply italic text-gray-600
+
+.text-info
+  color: theme('colors.alert.info.dark')
+.text-success
+  color: theme('colors.alert.success.dark')
+.text-warning
+  color: theme('colors.alert.warning.dark')
+.text-danger
+  color: theme('colors.alert.danger.dark')
+
+.bg-info
+  background-color: theme('colors.alert.info.dark')
+.bg-success
+  background-color: theme('colors.alert.success.dark')
+.bg-warning
+  background-color: theme('colors.alert.warning.dark')
+.bg-danger
+  background-color: theme('colors.alert.danger.dark')
+
+.notice
+  @apply border rounded-sm px-4 py-3 my-6
+  &.info
+    color: theme('colors.alert.info.dark')
+    background: theme('colors.alert.info.light')
+    border-color: theme('colors.alert.info.dark')
+  &.success
+    color: theme('colors.alert.success.dark')
+    background: theme('colors.alert.success.light')
+    border-color: theme('colors.alert.success.dark')
+  &.warning
+    color: theme('colors.alert.warning.dark')
+    background: theme('colors.alert.warning.light')
+    border-color: theme('colors.alert.warning.dark')
+  &.danger
+    color: theme('colors.alert.danger.dark')
+    background: theme('colors.alert.danger.light')
+    border-color: theme('colors.alert.danger.dark')
+
+p + p
+  @apply mt-3
+
+.colored-text
+  color: theme('colors.primary.600')
+
+// Form
+// =========================================================================  //
+
+.label, legend
+  @apply block font-bold mb-1
+
+.hint
+  @apply text-sm text-gray-600 mb-2
+
+/* purgecss start ignore */
+.field_with_errors
+  .error
+    @apply text-sm text-red-600 mb-1
+    &:first-letter
+      text-transform: capitalize
+  .input
+    @apply border-red-600
+/* purgecss end ignore */
+
+.input
+  @apply border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y
+  &:focus
+    @apply border-primary-600 outline-none
+  @media (max-width: theme('screens.sm'))
+    @apply max-w-full

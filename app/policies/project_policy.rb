@@ -2,22 +2,18 @@
 
 class ProjectPolicy < ApplicationPolicy
   def show?
-    if record.is_private?
-      Membership.find_by(project: record, user: user)
-    else
-      true
-    end
+    Membership.find_by(project: record, user: user)
+  end
+
+  def create?
+    true
   end
 
   def update?
-    Membership.find_by(project: record, user: user, role: 'Admin')
+    Membership.find_by(project: record, user: user, role: %w[contributor mentor])
   end
 
-  def destroy?
-    update?
-  end
-
-  def knowledge_board?
+  def about?
     show?
   end
 end
