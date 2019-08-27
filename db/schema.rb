@@ -82,34 +82,35 @@ ActiveRecord::Schema.define(version: 2019_08_23_094452) do
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
     t.datetime "complete_at"
-    t.bigint "completed_by"
-    t.bigint "iteration_id"
+    t.bigint "completed_by", null: false
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
     t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.bigint "author_id", null: false
-    t.text "description", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "outcome_id"
-    t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["outcome_id"], name: "index_comments_on_outcome_id"
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "iterations", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
     t.date "start_date"
-    t.bigint "project_id"
+    t.date "debrief_date"
+    t.integer "status", default: 0, null: false
+    t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status"
-    t.date "debrief_date"
-    t.index ["project_id"], name: "index_iterations_on_programme_id"
+    t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -124,49 +125,40 @@ ActiveRecord::Schema.define(version: 2019_08_23_094452) do
   end
 
   create_table "milestones", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
-    t.bigint "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "success_criteria"
-    t.integer "status"
+    t.text "success_criteria"
     t.datetime "completed_at"
     t.date "deadline"
-    t.index ["project_id"], name: "index_milestones_on_programme_id"
+    t.integer "status", default: 0, null: false
+    t.bigint "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_milestones_on_project_id"
   end
 
   create_table "outcomes", force: :cascade do |t|
-    t.string "title"
-    t.text "success_criteria"
-    t.bigint "iteration_id"
+    t.string "title", null: false
+    t.string "success_criteria"
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_outcomes_on_iteration_id"
   end
 
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text "content"
-    t.string "searchable_type"
-    t.bigint "searchable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
-  end
-
-  create_table "projects", id: :bigint, default: -> { "nextval('programmes_id_seq'::regclass)" }, force: :cascade do |t|
-    t.string "title"
+  create_table "projects", force: :cascade do |t|
+    t.string "title", null: false
     t.text "description"
+    t.text "more_details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "more_details"
   end
 
   create_table "ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comments"
-    t.bigint "check_in_id"
-    t.bigint "outcome_id"
+    t.bigint "check_in_id", null: false
+    t.bigint "outcome_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["check_in_id"], name: "index_ratings_on_check_in_id"

@@ -19,9 +19,9 @@ class ApplicationController < ActionController::Base
       u.permit(:full_name, :display_name, :email, :password, :current_password)
     end
   end
-  
+
   def track_action
-    ahoy.track "Ran action", request.path_parameters
+    ahoy.track "#{controller_name}##{action_name}", request.path_parameters
   end
 
   private
