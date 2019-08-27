@@ -21,6 +21,8 @@ class Iteration < ApplicationRecord
   validate :debrief_date_cannot_be_before_start_date
   validate :start_date_cannot_be_in_the_past
 
+  audited
+
   def draftable?
     status_planned? || status_changed?(from: 'planned', to: 'committed')
   end

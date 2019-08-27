@@ -28,7 +28,7 @@ class IterationsTest < ApplicationSystemTestCase
     fill_in :iteration_start_date, with: Time.zone.today
     fill_in :iteration_debrief_date, with: 6.weeks.since
     page.accept_confirm { click_on 'Commit to iteration' }
-    puts current_path
+
     assert_text 'Iteration saved.'
   end
 

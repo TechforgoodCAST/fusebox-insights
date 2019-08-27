@@ -62,7 +62,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # TODO: review dependencies
-gem 'acts_as_paranoid', '~> 0.6.0'
+
+gem 'ahoy_matey'
 gem 'audited', '~> 4.7'
 gem 'cocoon'
 gem 'devise', '~> 4.6.0'
@@ -73,4 +74,3 @@ gem 'pundit', '~> 2.0.1'
 gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
 gem 'trix-rails', '~> 2.0.0', require: 'trix'
-gem 'ahoy_matey' #analytics

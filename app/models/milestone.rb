@@ -27,4 +27,6 @@ class Milestone < ApplicationRecord
   enum status: { planned: 0, committed: 1, completed: 2 }, _prefix: :status
 
   validates :deadline, :description, :status, :title, presence: true
+
+  audited
 end
