@@ -33,12 +33,13 @@ hr
   &:hover
     @apply text-primary-800
 
+/* purgecss start ignore */
 .rich-text, .trix-content
   @apply border-2 border-gray-200 rounded-sm px-4 py-5
   a
     @apply link
   blockquote
-    @apply border-l-4 border-gray-400 pl-2 text-gray-700
+    @apply border-l-4 border-gray-400 pl-2 text-gray-700 m-0
   h1
     @apply text-lg font-bold
   ol
@@ -47,6 +48,7 @@ hr
     @apply bg-gray-100 px-3 py-2
   ul
     @apply list-disc ml-5
+/* purgecss end ignore */
 
 .tab
   @apply inline-block rounded-t-sm py-2 px-4 text-white bg-primary-800

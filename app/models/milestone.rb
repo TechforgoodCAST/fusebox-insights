@@ -10,13 +10,13 @@ class Milestone < ApplicationRecord
     },
     {
       title: 'Define',
-      description: "We know about how we’ll address the problem by meeting people's needs, expectations and behaviours. And how we’ll contribute to the resolution of a social issue and/or avoid negative consequences for people and planet.",
+      description: "We know how we’ll address the problem by meeting people's needs, expectations and behaviours. And how we’ll contribute to the resolution of a social issue and/or avoid negative consequences for people and planet.",
       deadline: 6.months.since,
       status: :planned
     },
     {
       title: 'Develop',
-      description: 'We know about how we’ll deliver, grow and sustain our solution.',
+      description: 'We know how we’ll deliver, grow and sustain our solution.',
       deadline: 9.months.since,
       status: :planned
     }
