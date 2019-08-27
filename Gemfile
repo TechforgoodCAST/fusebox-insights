@@ -73,3 +73,4 @@ gem 'pundit', '~> 2.0.1'
 gem 'rollbar', '~> 2.18.0'
 gem 'simple_form', '~> 4.1.0'
 gem 'trix-rails', '~> 2.0.0', require: 'trix'
+gem 'ahoy_matey' #analytics

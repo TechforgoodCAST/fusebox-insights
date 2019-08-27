@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_170027) do
+ActiveRecord::Schema.define(version: 2019_08_23_094452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "ahoy_events", force: :cascade do |t|
+    t.bigint "visit_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.jsonb "properties"
+    t.datetime "time"
+    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
+    t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
+    t.index ["user_id"], name: "index_ahoy_events_on_user_id"
+    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
+  end
+
+  create_table "ahoy_visits", force: :cascade do |t|
+    t.string "visit_token"
+    t.string "visitor_token"
+    t.bigint "user_id"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.text "landing_page"
+    t.string "browser"
+    t.string "os"
+    t.string "device_type"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_campaign"
+    t.string "app_version"
+    t.string "os_version"
+    t.string "platform"
+    t.datetime "started_at"
+    t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
+    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+  end
 
   create_table "audits", force: :cascade do |t|
     t.integer "auditable_id"
@@ -40,35 +82,34 @@ ActiveRecord::Schema.define(version: 2019_08_21_170027) do
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
     t.datetime "complete_at"
-    t.bigint "completed_by", null: false
-    t.bigint "iteration_id", null: false
+    t.bigint "completed_by"
+    t.bigint "iteration_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
     t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
   end
 
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string "slug", null: false
-    t.integer "sluggable_id", null: false
-    t.string "sluggable_type", limit: 50
-    t.string "scope"
-    t.datetime "created_at"
-    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  create_table "comments", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "outcome_id"
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["outcome_id"], name: "index_comments_on_outcome_id"
   end
 
   create_table "iterations", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.text "description"
     t.date "start_date"
-    t.date "debrief_date"
-    t.integer "status", default: 0, null: false
-    t.bigint "project_id", null: false
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_iterations_on_project_id"
+    t.integer "status"
+    t.date "debrief_date"
+    t.index ["project_id"], name: "index_iterations_on_programme_id"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -83,40 +124,49 @@ ActiveRecord::Schema.define(version: 2019_08_21_170027) do
   end
 
   create_table "milestones", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title"
     t.text "description"
-    t.text "success_criteria"
-    t.datetime "completed_at"
-    t.date "deadline"
-    t.integer "status", default: 0, null: false
-    t.bigint "project_id", null: false
+    t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["project_id"], name: "index_milestones_on_project_id"
+    t.string "success_criteria"
+    t.integer "status"
+    t.datetime "completed_at"
+    t.date "deadline"
+    t.index ["project_id"], name: "index_milestones_on_programme_id"
   end
 
   create_table "outcomes", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "success_criteria"
-    t.bigint "iteration_id", null: false
+    t.string "title"
+    t.text "success_criteria"
+    t.bigint "iteration_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_outcomes_on_iteration_id"
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "description"
-    t.text "more_details"
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
+  end
+
+  create_table "projects", id: :bigint, default: -> { "nextval('programmes_id_seq'::regclass)" }, force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "more_details"
   end
 
   create_table "ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comments"
-    t.bigint "check_in_id", null: false
-    t.bigint "outcome_id", null: false
+    t.bigint "check_in_id"
+    t.bigint "outcome_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["check_in_id"], name: "index_ratings_on_check_in_id"
