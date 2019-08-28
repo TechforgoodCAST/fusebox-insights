@@ -1,8 +1,8 @@
 <%= simple_form_for([@project, @iteration]) do |f| %>
 
-  <%= f.input :title %>
+  <%= f.input :title, input_html: { class: 'w-full' } %>
 
-  <%= f.input :description, input_html: { class: 'w-full', rows: 2 } %>
+  <%= f.input :description, input_html: { class: 'w-full', rows: 3 } %>
 
   <div class="mb-6" id="outcomes">
     <h2>Outcomes</h2>
@@ -35,7 +35,7 @@
   <%= f.input :debrief_date, html5: true, input_html: { class: 'mb-4' } %>
 
   <%- if @iteration.draftable? %>
-    <%= f.button :button, 'Commit to iteration', type: 'submit', name: 'iteration[status]', value: 'committed', class: 'btn-primary mr-1 mt-2', data: { disable_with: 'Saving...', confirm: "Ooutcomes cannot be changed and you'll receive regular reminders to check-in from the start date once you commit to this iteration. Are you ready to commit?" } %>
+    <%= f.button :button, 'Commit to iteration', type: 'submit', name: 'iteration[status]', value: 'committed', class: 'btn-primary mr-1 mt-2', data: { disable_with: 'Saving...', confirm: "Outcomes cannot be changed and you'll receive regular reminders to check-in from the start date once you commit to this iteration. Are you ready to commit?" } %>
   <% else %>
     <%= f.submit class: 'btn btn-primary mt-2', data: { disable_with: 'Saving...' } %>
   <% end %>
