@@ -13,7 +13,7 @@ class Iteration < ApplicationRecord
   validates :title, presence: true
   validates :start_date, :debrief_date, presence: true, if: :status_committed?
   validates :outcomes, length: {
-    minimum: 1, maximum: 5, message: 'must have between 1-5 outcomes defined'
+    minimum: 1, maximum: 5, message: 'You must have between 1 and 5 outcomes defined'
   }, if: :status_committed?
 
   validate :cannot_be_longer_than_12_weeks

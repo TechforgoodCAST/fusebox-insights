@@ -19,14 +19,14 @@ class IterationTest < ActiveSupport::TestCase
   test 'at least one outcome when committing' do
     @subject.status = 'committed'
     @subject.valid?
-    assert_error(:outcomes, 'must have between 1-5 outcomes defined')
+    assert_error(:outcomes, 'You must have between 1 and 5 outcomes defined')
   end
 
   test 'no more than five outcomes when committing' do
     @subject.outcomes = build_list(:outcome, 6)
     @subject.status = 'committed'
     @subject.valid?
-    assert_error(:outcomes, 'must have between 1-5 outcomes defined')
+    assert_error(:outcomes, 'You must have between 1 and 5 outcomes defined')
   end
 
   test 'start date required when committing' do
