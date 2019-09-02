@@ -1,10 +1,12 @@
 <%= render partial: 'projects/subnav' %>
 
 <div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to iteration', project_iteration_path(@project, @iteration), class: 'underline' %></p>
 
   <div class="card">
-    <h1>Check in</h1>
-
+    <h1>New check-in</h1>
+    <p>For <%= link_to @iteration.title, project_iteration_path(@project, @iteration), class: 'underline' %></p>
+    <hr class="my-6">
     <%= simple_form_for([@project, @iteration, @check_in]) do |f| %>
 
       <% if @check_in.errors.any? %>
@@ -29,7 +31,7 @@
               <h3>What are we going to learn or prove?</h3>
               <p class="mb-3"><%= @iteration.outcomes[r.index].title%></p>
               <h3>What are we going to learn or prove?</h3>
-              <p><%= @iteration.outcomes[r.index].description%></p>
+              <p><%= @iteration.outcomes[r.index].success_criteria%></p>
             </div>
             
             <div class="mb-3">
@@ -52,15 +54,15 @@
               </fieldset>
             </div>
 
-            <%= r.input :comments, hint: "What progress have you made on this outcome? What have you learned, have there been any blockers or changes?"%>
+            <%= r.input :comments, hint: "What progress have you made on this outcome? What have you learned, have there been any blockers or changes?", input_html: {class: 'w-full', rows: 3}%>
 
           </div>
           <hr class="mb-6">
         <% end %>
 
-        <%= f.input :notes, hint: 'Any other notes' %>
+        <%= f.input :notes, hint: 'Any other notes', input_html: {class: 'w-full', rows: 3} %>
 
-      <%= f.submit class: 'btn btn-primary'%>
+      <%= f.submit 'Submit check-in', class: 'btn btn-primary'%>
     <% end %>
   </div>
 </div>

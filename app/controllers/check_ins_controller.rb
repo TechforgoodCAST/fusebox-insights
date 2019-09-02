@@ -1,15 +1,20 @@
 class CheckInsController < ApplicationController
+  
+  def index
+    new
+  end
+  
   def new
-    @project = Project.find(params[:project_id])
-    @iteration = Iteration.find(params[:iteration_id])
-    @check_in = CheckIn.new
+    @project = authorize Project.find(params[:project_id])
+    @iteration = authorize Iteration.find(params[:iteration_id])
+    @check_in = authorize @iteration.check_ins.new
     
     (@iteration.outcomes.length).times { @check_in.ratings.build }
   end
   
   def create
-    @project = Project.find(params[:project_id])
-    @iteration = Iteration.find(params[:iteration_id])
+    @project = authorize Project.find(params[:project_id])
+    @iteration = authorize Iteration.find(params[:iteration_id])
     
     @check_in = @iteration.check_ins.create(check_in_params)
     
@@ -21,13 +26,16 @@ class CheckInsController < ApplicationController
   end
   
   def show
-    @project = Project.find(params[:project_id])
-    @iteration = Iteration.find(params[:iteration_id])
-    @check_in = CheckIn.find(params[:id])
+    @project = authorize Project.find(params[:project_id])
+    @iteration = authorize Iteration.find(params[:iteration_id])
+    @check_in = authorize CheckIn.find(params[:id])
   end
   
   private
     def check_in_params
-      params.require(:check_in).permit(:notes, :completed, ratings_attributes: [:id, :score, :comments, :iteration, :outcome_id ])
+      params
+      .require(:check_in)
+      .permit(:notes, ratings_attributes: [:id, :score, :comments, :iteration, :outcome_id ])
+      .with_defaults(completed_by: current_user.id, complete_at: Date.current())
     end
 end

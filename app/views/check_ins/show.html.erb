@@ -20,7 +20,7 @@ classes = {
       <% @check_in.ratings.each do |rating| %>
         <div class="mt-3 card">
           <h3><%= Outcome.find(rating.outcome.id).title%></h3>
-          <p><%= Outcome.find(rating.outcome.id).description%></p>
+          <p><%= Outcome.find(rating.outcome.id).success_criteria%></p>
           <div class="my-3">
             <span class="my-3 tag <%= classes[Rating.ratings.key(rating.score)] %>"><%= Rating.ratings.key(rating.score).titleize %></span>
           </div>
