@@ -3,6 +3,10 @@
 class IterationsController < ApplicationController
   before_action :load_project
 
+  def index
+    redirect_to project_url(@project)
+  end
+  
   def new
     @iteration = authorize @project.iterations.new
   end
