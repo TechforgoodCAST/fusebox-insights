@@ -4,9 +4,9 @@ require 'application_system_test_case'
 
 class CheckInsTest < ApplicationSystemTestCase
   setup do
-    @check_in = build(:check_in)
-    @iteration = build(:iteration, check_ins: [@check_in])
-    @project = build(:project, iterations: [@iteration])
+    @check_in = create(:check_in)
+    @iteration = @check_in.iteration
+    @project = @check_in.iteration.project
     @user = create(:user, projects: [@project])
     visit new_user_session_path
   end
