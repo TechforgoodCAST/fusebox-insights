@@ -30,3 +30,5 @@ You will need to create a new user account to sign in, e.g. `rails c` then `User
 `rails test` to run Ruby unit tests.
 
 `rails test:system` to run browser tests.
+
+If you have inconsistencies with systems test and JavaScript, try recompiling the assets. Delete `public/assets` then run `rails assets:precompile NODE_ENV=test RAILS_ENV=test`.
