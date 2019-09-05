@@ -27,6 +27,16 @@ class Iteration < ApplicationRecord
     status_planned? || status_changed?(from: 'planned', to: 'committed')
   end
 
+  def send_notification!
+    message = which_notification
+    if message
+      NotificationsMailer.send(message, self).deliver_now
+      Rails.logger.info("[#{Time.zone.now}] #{message} sent for iteration #{id}")
+    else
+      Rails.logger.info("[#{Time.zone.now}] Nothing sent for iteration #{id}")
+    end
+  end
+
   def which_notification(check_in_gap: -14, debrief_gap: 7, overdue_gap: -3)
     return unless status_committed?
 

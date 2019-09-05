@@ -118,4 +118,24 @@ class IterationTest < ActiveSupport::TestCase
     @subject = build(:committed_iteration, :debrief_overdue)
     assert_equal(:debrief_overdue, @subject.which_notification)
   end
+
+  test '#send_notification! if #which_notification present' do
+    @subject = build(:committed_iteration, :check_in_due)
+    @subject.save(validate: false)
+    create(:membership, project: @subject.project)
+    @subject.send_notification!
+
+    assert_equal(1, ActionMailer::Base.deliveries.size)
+    ActionMailer::Base.deliveries.clear
+  end
+
+  test 'do not #send_notification! if #which_notification nil' do
+    @subject = build(:committed_iteration, :check_in_due, :debrief_imminent)
+    @subject.save(validate: false)
+    create(:membership, project: @subject.project)
+    @subject.send_notification!
+
+    assert_equal(0, ActionMailer::Base.deliveries.size)
+    ActionMailer::Base.deliveries.clear
+  end
 end
