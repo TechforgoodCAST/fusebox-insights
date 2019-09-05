@@ -79,4 +79,43 @@ class IterationTest < ActiveSupport::TestCase
     @subject.valid?
     assert_error(:debrief_date, "iteration can't be longer than 12 weeks")
   end
+
+  test '#which_notification planned iteration returns nil' do
+    assert_nil(@subject.which_notification)
+  end
+
+  test '#which_notification no :check_in_due notification 7 days before debrief' do
+    @subject = build(:committed_iteration, :check_in_due, :debrief_imminent)
+    assert_nil(@subject.which_notification)
+  end
+
+  test '#which_notification no :check_in_overdue notification 7 days before debrief' do
+    @subject = build(:committed_iteration, :check_in_overdue, :debrief_imminent)
+    assert_nil(@subject.which_notification)
+  end
+
+  test '#which_notification uses #last_check_in if present' do
+    @subject = build(:committed_iteration, :check_in_due, last_check_in_at: 2.weeks.ago)
+    assert_equal(:check_in_due, @subject.which_notification)
+  end
+
+  test '#which_notification returns :check_in_due' do
+    @subject = build(:committed_iteration, :check_in_due)
+    assert_equal(:check_in_due, @subject.which_notification)
+  end
+
+  test '#which_notification returns :check_in_overdue' do
+    @subject = build(:committed_iteration, :check_in_overdue)
+    assert_equal(:check_in_overdue, @subject.which_notification)
+  end
+
+  test '#which_notification returns :debrief_due' do
+    @subject = build(:committed_iteration, :debrief_due)
+    assert_equal(:debrief_due, @subject.which_notification)
+  end
+
+  test '#which_notification returns :debrief_overdue' do
+    @subject = build(:committed_iteration, :debrief_overdue)
+    assert_equal(:debrief_overdue, @subject.which_notification)
+  end
 end
