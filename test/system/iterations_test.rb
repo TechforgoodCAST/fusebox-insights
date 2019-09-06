@@ -40,6 +40,11 @@ class IterationsTest < ApplicationSystemTestCase
     assert_no_link('Remove outcome')
     assert_no_css('.iteration_outcomes_title')
   end
+  
+  test 'iterations#index redirects to projects#show' do 
+    visit project_iterations_path(@project)
+    assert_equal(project_path(@project), current_path)
+  end
 
   test 'check in frequency not displayed when planned' do
     iteration = create(:iteration, project: @project)
