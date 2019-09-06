@@ -37,7 +37,7 @@ class CheckInsController < ApplicationController
       params
       .require(:check_in)
       .permit(:notes, ratings_attributes: [:id, :score, :comments, :iteration, :outcome_id ])
-      .with_defaults(completed_by: current_user.id, complete_at: Date.current())
+      .with_defaults(completed_by: current_user.id, complete_at: DateTime.now)
     end
   
     def check_in_complete

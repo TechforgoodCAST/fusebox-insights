@@ -148,9 +148,19 @@ p + p
     @apply border-red-600
 /* purgecss end ignore */
 
+.input_wrapper
+  @apply mb-6
+
 .input
-  @apply border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y
+  @apply border-2 border-gray-400 rounded-sm px-2 py-1 resize-y
   &:focus
     @apply border-primary-600 outline-none
   @media (max-width: theme('screens.sm'))
     @apply max-w-full
+
+.radio
+  @apply block cursor-pointer
+  .input
+    @apply mr-2 cursor-pointer
+  label
+    @apply cursor-pointer
