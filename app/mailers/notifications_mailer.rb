@@ -11,6 +11,6 @@ class NotificationsMailer < ApplicationMailer
     @project = @check_in.iteration.project
     @user = user
     @recipient = recipient
-    mail to: @recipient.email, subject: "#{@user.full_name} has completed a check in for #{@project.title}"
+    mail to: @recipient.email, subject: "#{@user.full_name} has completed a check-in for #{@project.title}"
   end
 end
