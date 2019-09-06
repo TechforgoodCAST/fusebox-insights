@@ -8,7 +8,7 @@ class RatingTest < ActiveSupport::TestCase
     assert_present(:outcome, msg: 'must exist')
   end
   
-  test 'belongs to check in' do
+  test 'belongs to check-in' do
     assert_instance_of(CheckIn, @subject.check_in)
     assert_present(:check_in, msg: 'must exist')
   end

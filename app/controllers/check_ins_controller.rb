@@ -19,6 +19,7 @@ class CheckInsController < ApplicationController
     @check_in = authorize @iteration.check_ins.create(check_in_params)
     
     if @check_in.save
+      check_in_complete
       redirect_to project_iteration_url(@project, @iteration)
     else
       render 'new'
@@ -36,6 +37,17 @@ class CheckInsController < ApplicationController
       params
       .require(:check_in)
       .permit(:notes, ratings_attributes: [:id, :score, :comments, :iteration, :outcome_id ])
-      .with_defaults(completed_by: current_user.id, complete_at: Date.current())
+      .with_defaults(completed_by: current_user.id, complete_at: DateTime.now)
+    end
+  
+    def check_in_complete
+      memberships = Membership.joins(:user).where(project: @project).select(
+        'memberships.*', 'users.full_name AS user_full_name', 'users.email AS user_email'
+      )
+      @contributors_and_mentors = memberships.select { |m| m.role == 'contributor' || m.role == 'mentor' }
+
+      @contributors_and_mentors.each{ |membership|
+        NotificationsMailer.check_in_complete(@check_in, current_user, membership.user).deliver_now
+      }
     end
 end
