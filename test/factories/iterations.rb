@@ -37,6 +37,8 @@ FactoryBot.define do
       trait :debrief_overdue do
         debrief_date { 3.days.ago }
       end
+
+      factory :iteration_notifier, class: IterationNotifier
     end
   end
 end

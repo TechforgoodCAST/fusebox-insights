@@ -41,6 +41,20 @@ class IterationsTest < ApplicationSystemTestCase
     assert_no_css('.iteration_outcomes_title')
   end
 
+  test 'check in frequency not displayed when planned' do
+    iteration = create(:iteration, project: @project)
+    visit project_iteration_path(@project, iteration)
+
+    assert_no_text('Every two weeks')
+  end
+
+  test 'check in frequency displayed when committed' do
+    iteration = create(:committed_iteration, project: @project)
+    visit project_iteration_path(@project, iteration)
+
+    assert_text('Every two weeks')
+  end
+
   # TODO: implement
   # test 'cannot edit dates and outcomes once complete'
   # test 'contributor can view, create and update iterations'

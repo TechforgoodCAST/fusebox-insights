@@ -3,6 +3,6 @@
 namespace :scheduler do
   desc 'send notifications for iterations'
   task notify: :environment do
-    Iteration.status_committed.find_each(&:send_notification!)
+    IterationNotifier.status_committed.find_each(&:send_notification!)
   end
 end

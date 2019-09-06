@@ -15,4 +15,12 @@ module ApplicationHelper
 
     date.strftime("#{date.day.ordinalize} %b %Y")
   end
+
+  def with_default(value, text: 'Not set', formatter: nil)
+    if value.blank?
+      tag.span(text, class: 'missing-text')
+    else
+      formatter ? send(formatter, value) : value
+    end
+  end
 end
