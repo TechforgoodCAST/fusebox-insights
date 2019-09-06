@@ -12,9 +12,8 @@ classes = {
   
   <div class="card">
   
-    <h1>Check In</h1>
-    <p>Completed on <%= friendly_date(@check_in.date) %> for <%=@project.title%> project.</p>
-
+    <h1>Check-In</h1>
+    <p>Completed on <%= friendly_date(@check_in.complete_at) %> for <%=@project.title%> project.</p>
     <div class="mt-6">
       
       <% @check_in.ratings.each do |rating| %>
