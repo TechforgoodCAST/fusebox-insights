@@ -1,9 +1,10 @@
 <h1>Check-in overdue!</h1>
 
-<p>Your team has yet to complete its regular check-in to self-assess its progress against the outcomes of an iteration.</p>
+<p>Your team’s regular check-in to self-assess its progress is overdue!</p>
 
 <ol>
-  <li>Have one person load up the <%= link_to 'team check-in form', new_project_iteration_check_in_url(@iteration.project, @iteration) %> and use it as a guide for a quick chat with team members.</li>
-  <li>For each outcome select a consensus rating for the group and add a brief description of why the rating has been given and what next steps or support would help with any challenges.</li>
+  <li>Have one person open the <%= link_to 'team check-in form', new_project_iteration_check_in_url(@iteration.project, @iteration) %> and use it to guide a quick chat with team members.</li>
+  <li>For each outcome select a rating based on the groups rough consensus.</li>
+  <li>Add a brief description of why the rating has been given and what next steps or support might help.</li>
   <li>Submit the form!</li>
 </ol>
