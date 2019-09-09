@@ -70,7 +70,7 @@
       <p class="missing-text mt-2">You've not added any outcomes yet.</p>
     <% else %>
       <p class="hint">What we want to have achieved by the end of this batch of work.</p>
-      <% @iteration.outcomes.each do |outcome| %>
+      <% @iteration.outcomes.order(:created_at).each do |outcome| %>
         <div class='inner-card mt-4'>
           <p><strong>What are we going to learn or prove?</strong></p>
           <p class="mb-4"><%= outcome.title %></p>

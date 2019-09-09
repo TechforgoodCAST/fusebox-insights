@@ -10,7 +10,7 @@
     <%- if @iteration.draftable? %>
       <p class="hint mb-4">Between 1 and 5 outcomes that you'll work towards in this iteration.</p>
       <%= f.error :outcomes, class: 'text-sm text-red-600' %>
-      <%= f.simple_fields_for :outcomes, f.object.outcomes do |outcome| %>
+      <%= f.simple_fields_for :outcomes, f.object.outcomes.order(:created_at) do |outcome| %>
         <%= render 'outcome_fields', f: outcome %>
       <% end %>
     <% else %>
