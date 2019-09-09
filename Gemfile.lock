@@ -44,6 +44,11 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    ahoy_email (1.1.0)
+      actionmailer (>= 5)
+      addressable (>= 2.3.2)
+      nokogiri
+      safely_block (>= 0.1.1)
     ahoy_matey (3.0.0)
       activesupport (>= 5)
       device_detector
@@ -272,6 +277,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  ahoy_email
   ahoy_matey
   audited (~> 4.7)
   bootsnap (>= 1.1.0)

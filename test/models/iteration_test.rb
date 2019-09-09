@@ -79,4 +79,23 @@ class IterationTest < ActiveSupport::TestCase
     @subject.valid?
     assert_error(:debrief_date, "iteration can't be longer than 12 weeks")
   end
+
+  test '#warning planned iteration returns nil' do
+    assert_nil(@subject.warning)
+  end
+
+  test '#warning :check_in_due' do
+    @subject = build(:committed_iteration, :check_in_overdue)
+    assert_equal(:check_in_due, @subject.warning)
+  end
+
+  test '#warning no :check_in_due when debrief imminent' do
+    @subject = build(:committed_iteration, :check_in_overdue, debrief_date: 4.days.since)
+    assert_nil(@subject.warning)
+  end
+
+  test '#warning :debrief_due' do
+    @subject = build(:committed_iteration, :debrief_overdue)
+    assert_equal(:debrief_due, @subject.warning)
+  end
 end

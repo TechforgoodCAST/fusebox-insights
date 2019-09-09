@@ -27,6 +27,14 @@ class Iteration < ApplicationRecord
     status_planned? || status_changed?(from: 'planned', to: 'committed')
   end
 
+  def warning(check_in_gap: -14, debrief_gap: 4)
+    return unless status_committed?
+
+    return :check_in_due if check_in_distance < check_in_gap && debrief_distance > debrief_gap
+
+    return :debrief_due if debrief_distance.negative?
+  end
+
   private
 
   def cannot_be_longer_than_12_weeks
@@ -41,6 +49,14 @@ class Iteration < ApplicationRecord
     errors.add(:debrief_date, "iteration can't be shorter than 2 weeks") if number_of_weeks < 2
   end
 
+  def check_in_date
+    last_check_in_at&.to_date || start_date
+  end
+
+  def check_in_distance
+    (check_in_date - Time.zone.today).to_i
+  end
+
   def dates_missing?
     debrief_date.nil? || start_date.nil?
   end
@@ -49,6 +65,10 @@ class Iteration < ApplicationRecord
     return if dates_missing?
 
     errors.add(:debrief_date, "can't be before start date") if debrief_date < start_date
+  end
+
+  def debrief_distance
+    (debrief_date - Time.zone.today).to_i
   end
 
   def number_of_weeks
