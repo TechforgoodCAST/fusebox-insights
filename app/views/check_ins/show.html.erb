@@ -34,8 +34,8 @@ classes = {
     </div>
 
     <div class="mt-6">
-      <h2>Additional Notes</h2>
-      <p><i><%= @check_in.notes %></i></p>
+      <h2 class="mb-2">Additional Notes</h2>
+      <p><%= with_default(@check_in.notes, text: 'Not provided') %></p>
     </div>
   </div>
 </div>
