@@ -51,23 +51,24 @@ class CheckInsTest < ApplicationSystemTestCase
   end
 
   test 'mentors and contributors are notified when a check-in is completed' do
+    Membership.last.update(role: :contributor)
     @mentor = create(:user, projects: [@project])
     Membership.last.update(role: :mentor)
 
     visit new_project_iteration_check_in_path(@project, @iteration)
     click_on 'Submit check-in'
 
-    mails = ActionMailer::Base.deliveries.last(2)
-    assert_equal(mails.size, 2)
+    mail = ActionMailer::Base.deliveries.last
 
     recipients = [
       @user.email,
       @mentor.email
     ]
+    
+  	assert_equal("#{@user.full_name} has completed a check-in for #{@iteration.title}", mail.subject)
 
-    mails.each do |mail|
-      assert_includes(recipients, @mentor.email, mail.to[0])
-      assert_equal("#{@user.full_name} has completed a check-in for #{@project.title}", mail.subject)
+    mail.to.each do |recipient|
+      assert_includes(recipients, recipient)
     end
   end
 
