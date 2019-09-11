@@ -8,7 +8,7 @@ class CheckIn < ApplicationRecord
     allow_destroy: true,
     limit: 5
   
-  validates :complete_at, :completed_by, :notes, presence: true
+  validates :complete_at, :completed_by, presence: true
   
   def on_track
     max = 0;
@@ -18,18 +18,5 @@ class CheckIn < ApplicationRecord
     
     return Rating.ratings.key(max);
   end
-  
-#  def get_avg_score
-#    sum = 0;
-#    i = 0;
-#    self.ratings.each do |rating|
-#      sum += rating.score
-#      i += 1;
-#    end
-#    avg = sum/i;
-#    
-#    return avg
-#  end
-  
   
 end

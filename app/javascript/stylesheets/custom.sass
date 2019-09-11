@@ -88,11 +88,11 @@ h3
 
 .text-info
   color: theme('colors.alert.info.dark')
-.text-success
+.text-success, .on_track
   color: theme('colors.alert.success.dark')
-.text-warning
+.text-warning, .at_risk
   color: theme('colors.alert.warning.dark')
-.text-danger
+.text-danger, .off_track
   color: theme('colors.alert.danger.dark')
 
 .bg-info
@@ -146,11 +146,21 @@ p + p
       text-transform: capitalize
   .input
     @apply border-red-600
+
+.input_wrapper
+  @apply mb-6
 /* purgecss end ignore */
 
 .input
-  @apply border-2 border-gray-400 rounded-sm px-2 py-1 mb-6 resize-y
+  @apply border-2 border-gray-400 rounded-sm px-2 py-1 resize-y
   &:focus
     @apply border-primary-600 outline-none
   @media (max-width: theme('screens.sm'))
     @apply max-w-full
+
+.radio
+  @apply block cursor-pointer
+  .input
+    @apply mr-2 cursor-pointer
+  label
+    @apply cursor-pointer

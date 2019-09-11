@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_094452) do
+ActiveRecord::Schema.define(version: 2019_09_09_100854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2019_08_23_094452) do
     t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
     t.index ["user_id"], name: "index_ahoy_events_on_user_id"
     t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
+  end
+
+  create_table "ahoy_messages", force: :cascade do |t|
+    t.string "user_type"
+    t.bigint "user_id"
+    t.text "to"
+    t.string "mailer"
+    t.text "subject"
+    t.datetime "sent_at"
+    t.index ["user_type", "user_id"], name: "index_ahoy_messages_on_user_type_and_user_id"
   end
 
   create_table "ahoy_visits", force: :cascade do |t|
@@ -110,6 +120,7 @@ ActiveRecord::Schema.define(version: 2019_08_23_094452) do
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_check_in_at"
     t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
@@ -138,8 +149,8 @@ ActiveRecord::Schema.define(version: 2019_08_23_094452) do
   end
 
   create_table "outcomes", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "success_criteria"
+    t.text "title", null: false
+    t.text "success_criteria"
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

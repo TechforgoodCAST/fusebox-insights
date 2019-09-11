@@ -10,4 +10,6 @@ class CheckInTest < ActiveSupport::TestCase
 	
   test('complete at timestamp required') { assert_present(:complete_at) }
   
+  test('completed_by required') { assert_present(:completed_by) }
+  
 end

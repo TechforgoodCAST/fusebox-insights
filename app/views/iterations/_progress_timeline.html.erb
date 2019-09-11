@@ -29,8 +29,8 @@ classes = {
     <% unless current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
       <% iteration.check_ins.each do |check_in| %>
       <tr>
-        <td><%= link_to 'Check in', [project, iteration, check_in] %></td>
-        <td><%= friendly_date(check_in.date) %> - <b class="<%= classes[check_in.on_track()] %>"><%= check_in.on_track().humanize %></b> in some areas</td>
+        <td><%= link_to 'Check-in', [project, iteration, check_in] %></td>
+        <td><%= friendly_date(check_in.complete_at) %> - <b class="<%= classes[check_in.on_track()] %>"><%= check_in.on_track().humanize %></b> in some areas</td>
       </tr>
       <% end %>
     <% end %>

@@ -1,0 +1,5 @@
+<h1>Check-in Complete</h1>
+
+<p><%= @user.full_name %> has completed a check-in for <%= @check_in.iteration.title %> on Fusebox.</p>
+
+<p><%= link_to 'View iteration', project_iteration_url(@project, @check_in.iteration) %></p>

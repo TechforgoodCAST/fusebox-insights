@@ -1,7 +1,7 @@
 <%= simple_form_for(@project) do |f| %>
 
-  <%= f.input :title %>
-  <%= f.input :description, input_html: { class: 'w-full', rows: 2 } %>
+  <%= f.input :title, input_html: { class: 'w-full'} %>
+  <%= f.input :description, input_html: { class: 'w-full', rows: 3 } %>
 
   <%- if %w[edit update].include?(action_name) %>
     <%= f.input :more_details, as: :trix_editor %>

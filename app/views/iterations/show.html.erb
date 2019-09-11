@@ -15,24 +15,62 @@
     </div>
 
     <div class="mb-6">
-      <% if @iteration.description.blank? %>
-        <p class="missing-text">Description not provided</p>
-      <% else %>
-        <div><%= simple_format(@iteration.description) %></div>
-      <% end %>
+      <%= with_default(@iteration.description, text: 'Description not provided', formatter: :simple_format) %>
     </div>
 
     <div class="mb-6">
-      <h2>Progress</h2>
-      <%= render partial: 'progress_timeline', locals: {project: @project, iteration: @iteration} %>
+      <h2 class="mb-4">Progress</h2>
+      <%= render_warning(@iteration.warning) %>
+      <hr>
+
+      <div class="flex flex-wrap mt-3">
+        <div class="w-full sm:w-1/4 mb-3">Start</div>
+        <div class="w-full sm:w-3/4 mb-3">
+          <%= with_default(@iteration.start_date, formatter: :friendly_date) %>
+        </div>
+      </div>
+      <hr>
+
+      <% if @iteration.status_committed? %>
+        <div class="flex flex-wrap mt-3 missing-text">
+          <div class="w-full sm:w-1/4 mb-3">Check-ins</div>
+          <div class="w-full sm:w-3/4 mb-3">
+            Every two weeks
+            <% if policy(@iteration).create? %>
+              <small>(Only visible to project contributors)</small>
+            <% end %>
+          </div>
+        </div>
+        <hr>
+      <% end %>
+
+      <% if policy(@iteration).create? %>
+        <% @iteration.check_ins.each do |check_in| %>
+          <div class="flex flex-wrap mt-3">
+            <div class="w-full sm:w-1/4 mb-3"><%= link_to 'Check in', [@iteration.project, @iteration, check_in], class: 'link' %></div>
+            <div class="w-full sm:w-3/4 mb-3">
+              <%= friendly_date(check_in.updated_at) %> - <strong class="<%= check_in.on_track %>"><%= check_in.on_track.humanize %></strong> in some areas
+            </div>
+          </div>
+          <hr>
+        <% end %>
+      <% end %>
+
+      <div class="flex flex-wrap mt-3">
+        <div class="w-full sm:w-1/4 mb-3">Debrief</div>
+        <div class="w-full sm:w-3/4 mb-3">
+          <%= with_default(@iteration.debrief_date, formatter: :friendly_date) %>
+        </div>
+      </div>
+      <hr>
     </div>
 
     <h2>Outcomes</h2>
     <% if !@iteration.outcomes.any? %>
-      <p class="missing-text">You've not added any outcomes yet. <%= link_to 'Add an outcome', edit_project_iteration_path([@project, @iteration])%>.</p>
+      <p class="missing-text mt-2">You've not added any outcomes yet.</p>
     <% else %>
       <p class="hint">What we want to have achieved by the end of this batch of work.</p>
-      <% @iteration.outcomes.each do |outcome| %>
+      <% @iteration.outcomes.order(:created_at).each do |outcome| %>
         <div class='inner-card mt-4'>
           <p><strong>What are we going to learn or prove?</strong></p>
           <p class="mb-4"><%= outcome.title %></p>

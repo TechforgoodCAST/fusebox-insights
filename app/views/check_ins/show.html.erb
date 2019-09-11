@@ -8,19 +8,23 @@ classes = {
 %>
 
 <div class="max-w-3xl mx-auto px-4 my-8">
-  <p class="mb-6"><%= link_to '‹ Back to roadmap', project_path(@project), class: 'link' %></p>
-  
+  <p class="mb-6"><%= link_to '‹ Back to iteration', project_iteration_path(@project, @iteration), class: 'underline' %></p>
+
   <div class="card">
-  
-    <h1>Check In</h1>
-    <p>Completed on <%= friendly_date(@check_in.date) %> for <%=@project.title%> project.</p>
+
+    <h1>Check-In</h1>
+    <p>
+      For <%= link_to @iteration.title, project_iteration_path(@project, @iteration), class: 'underline' %>
+      completed on <%= friendly_date(@check_in.updated_at) %> -
+      <strong class="<%= @check_in.on_track %>"><%= @check_in.on_track.humanize %></strong> in some areas
+    </p>
 
     <div class="mt-6">
-      
+
       <% @check_in.ratings.each do |rating| %>
         <div class="mt-3 card">
           <h3><%= Outcome.find(rating.outcome.id).title%></h3>
-          <p><%= Outcome.find(rating.outcome.id).description%></p>
+          <p><%= Outcome.find(rating.outcome.id).success_criteria%></p>
           <div class="my-3">
             <span class="my-3 tag <%= classes[Rating.ratings.key(rating.score)] %>"><%= Rating.ratings.key(rating.score).titleize %></span>
           </div>
@@ -28,10 +32,10 @@ classes = {
         </div>
       <% end %>
     </div>
-    
+
     <div class="mt-6">
-      <h2>Additional Notes</h2>
-      <p><i><%= @check_in.notes %></i></p>
+      <h2 class="mb-2">Additional Notes</h2>
+      <p><%= with_default(@check_in.notes, text: 'Not provided') %></p>
     </div>
   </div>
 </div>
