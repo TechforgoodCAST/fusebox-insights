@@ -41,13 +41,6 @@ class CheckInsController < ApplicationController
     end
   
     def check_in_complete
-      memberships = Membership.joins(:user).where(project: @project).select(
-        'memberships.*', 'users.full_name AS user_full_name', 'users.email AS user_email'
-      )
-      @contributors_and_mentors = memberships.select { |m| m.role == 'contributor' || m.role == 'mentor' }
-
-      @contributors_and_mentors.each{ |membership|
-        NotificationsMailer.check_in_complete(@check_in, current_user, membership.user).deliver_now
-      }
+      NotificationsMailer.check_in_complete(@check_in, current_user).deliver_now
     end
 end

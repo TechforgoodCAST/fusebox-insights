@@ -12,12 +12,13 @@ class NotificationsMailer < ApplicationMailer
     mail to: emails, subject: 'Check-in due'
   end
 
-  def check_in_complete(check_in, user, recipient)
+  def check_in_complete(check_in, user)
     @check_in = check_in
+    @iteration = @check_in.iteration
     @project = @check_in.iteration.project
     @user = user
-    @recipient = recipient
-    mail to: @recipient.email, subject: "#{@user.full_name} has completed a check-in for #{@project.title}"
+	emails = emails_by_role(@iteration, %w[contributor mentor])
+    mail to: emails, subject: "#{@user.full_name} has completed a check-in for #{@iteration.title}"
   end
 
   def check_in_overdue(iteration)
