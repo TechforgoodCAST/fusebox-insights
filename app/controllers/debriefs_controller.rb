@@ -15,7 +15,7 @@ class DebriefsController < ApplicationController
       redirect_to project_iteration_url(@project, @iteration)
     end
     
-    @debrief = authorize @iteration.debriefs.new
+    @debrief = authorize @iteration.build_debrief
 
     (@iteration.outcomes.length).times { @debrief.debrief_ratings.build }
   end
@@ -24,7 +24,7 @@ class DebriefsController < ApplicationController
     @project = Project.find(params[:project_id])
     @iteration = Iteration.find(params[:iteration_id])
     @milestone = @project.milestones.find_by(status: :planned)
-    @debrief = authorize @iteration.debriefs.create(debrief_params)
+    @debrief = authorize @iteration.create_debrief(debrief_params)
     if @debrief.save
       NotificationsMailer.debrief_complete(@debrief, current_user).deliver_now
       @iteration.update({status: 'completed'})
