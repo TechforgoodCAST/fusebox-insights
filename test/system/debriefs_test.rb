@@ -7,6 +7,10 @@ class DebriefsTest < ApplicationSystemTestCase
     @debrief = create(:debrief)
     @iteration = @debrief.iteration
     @project = @debrief.iteration.project
+    @milestone = build(:milestone)
+    @project.milestones = [@milestone];
+    @project.save!
+    
     @user = create(:user, projects: [@project])
     visit new_user_session_path
     sign_in
@@ -64,8 +68,7 @@ class DebriefsTest < ApplicationSystemTestCase
     @stakeholder = create(:user, projects: [@project])
     Membership.last.update(role: :stakeholder)
 
-    visit new_project_iteration_debrief_path(@project, @iteration)
-    click_on 'Submit debrief'
+    submit_debrief
 
     mail = ActionMailer::Base.deliveries.last
 
@@ -82,11 +85,28 @@ class DebriefsTest < ApplicationSystemTestCase
     end
   end
   
-  test 'iteration status changed to completed when debrief completed' do
-    visit new_project_iteration_debrief_path(@project, @iteration)
-    click_on 'Submit debrief'
+  test 'iteration status changed to completed when debrief completed' do    
+    submit_debrief    
     updated_iteration = Iteration.find(@iteration.id)
     assert_equal('completed', updated_iteration.status)
+  end
+  
+  test 'can complete milestone when submitting debrief' do
+    @debrief.update({milestone_completed: @milestone.id})
+    
+    visit new_project_iteration_debrief_path(@project, @iteration)
+    choose 'Yes'
+    click_on 'Submit debrief'
+    
+    updated_milestone = Milestone.find(@milestone.id)
+    assert_equal('completed', updated_milestone.status)
+  end
+  
+  private 
+  def submit_debrief
+    visit new_project_iteration_debrief_path(@project, @iteration)
+    choose 'No'
+    click_on 'Submit debrief'
   end
   
 end

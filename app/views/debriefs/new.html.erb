@@ -8,10 +8,10 @@
     <p>For <%= link_to @iteration.title, project_iteration_path(@project, @iteration), class: 'underline' %></p>
     <hr class="my-6">
     <%= simple_form_for([@project, @iteration, @debrief]) do |f| %>
-
+        <h2>Outcomes</h2>
         <%= f.fields_for :debrief_ratings do |r| %>
 
-          <h2 class="my-3">Outcome <%= r.index+1 %> of <%= @iteration.outcomes.count %></h2>
+          <h3 class="my-3">Outcome <%= r.index+1 %> of <%= @iteration.outcomes.count %></h3>
 
           <div class="card mb-6">
             <h3>What are we going to learn or prove?</h3>
@@ -27,6 +27,23 @@
           
           <hr class="my-6">
         <% end %>
+        
+        <h2>Milestone</h2>
+        <p>The next milestone is...</p>
+        <div class="card my-6">
+          <h2><%= @milestone.title %></h2>
+          <p class="mb-3"><%= @milestone.description %></p>
+          <h3>We'll know we've reached this milestone when...</h3>
+          <% if @milestone.success_criteria.blank? %>
+            <p class="missing-text mb-3">Not provided</p>
+          <% else %>
+            <div class="rich-text"><%= @milestone.success_criteria&.html_safe %></div>
+          <% end %>
+          <h3>We plan to reach this milestone by...</h3>
+          <p><%= friendly_date(@milestone.deadline) %></p>
+        </div>
+        <%= f.input :milestone_completed, as: :radio_buttons, collection: {'Yes' => @milestone.id, 'No' => 0 }, item_label_class: 'tag', boolean_style: :inline, label: "Team rating: Following this iteration, can you confidently say you have met this milestone?" %>
+        <hr class="my-6">
 
         <%= f.input :notes, hint: 'Use this space to document any additional notes. For example, you might want to keep a record of the things the team should stop, start or continue in the next iteration.', input_html: {class: 'w-full', rows: 3} %>
 

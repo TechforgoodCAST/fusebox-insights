@@ -12,4 +12,6 @@ class DebriefTest < ActiveSupport::TestCase
   
   test('completed_by required') { assert_present(:completed_by) }
   
+  test('milestone_completed required') { assert_present(:milestone_completed) }
+  
 end

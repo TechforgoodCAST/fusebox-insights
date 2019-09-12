@@ -8,5 +8,5 @@ class Debrief < ApplicationRecord
     allow_destroy: true,
     limit: 5
   
-  validates :complete_at, :completed_by, presence: true
+  validates :complete_at, :completed_by, :milestone_completed, presence: true
 end

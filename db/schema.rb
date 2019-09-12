@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
     t.datetime "complete_at"
     t.bigint "completed_by"
     t.bigint "iteration_id"
+    t.bigint "milestone_completed"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
