@@ -63,11 +63,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # TODO: review dependencies
 
-gem 'ahoy_email'
-gem 'ahoy_matey'
+gem 'ahoy_email', '~> 1.1.0'
+gem 'ahoy_matey', '~> 3.0.0'
 gem 'audited', '~> 4.7'
-gem 'cocoon'
-gem 'devise', '~> 4.6.0'
+gem 'cocoon', '~> 1.2.14'
+gem 'devise', '~> 4.7.1'
 gem 'friendly_id', '~> 5.2.4'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'kaminari', '~> 1.1.0'
