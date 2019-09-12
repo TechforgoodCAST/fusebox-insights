@@ -4,7 +4,7 @@ class Iteration < ApplicationRecord
   belongs_to :project
 
   has_many :check_ins, dependent: :destroy
-  has_many :debriefs, dependent: :destroy
+  has_one :debrief, dependent: :destroy
 
   has_many :outcomes, dependent: :destroy
   accepts_nested_attributes_for :outcomes, allow_destroy: true
