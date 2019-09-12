@@ -115,12 +115,14 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
     t.text "notes"
     t.datetime "complete_at"
     t.bigint "completed_by"
-    t.bigint "iteration_id"
     t.bigint "milestone_completed"
+    t.bigint "milestone_id"
+    t.bigint "iteration_id"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_debriefs_on_iteration_id"
+    t.index ["milestone_id"], name: "index_debriefs_on_milestone_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -220,6 +222,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
   add_foreign_key "debrief_ratings", "debriefs"
   add_foreign_key "debrief_ratings", "outcomes"
   add_foreign_key "debriefs", "iterations"
+  add_foreign_key "debriefs", "milestones"
   add_foreign_key "iterations", "projects"
   add_foreign_key "milestones", "projects"
   add_foreign_key "outcomes", "iterations"

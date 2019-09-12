@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class DebriefsTest < ApplicationSystemTestCase
   setup do
-    @debrief = create(:debrief)
+    @debrief = build(:debrief)
     @iteration = @debrief.iteration
     @project = @debrief.iteration.project
     @milestone = build(:milestone)
@@ -19,7 +19,6 @@ class DebriefsTest < ApplicationSystemTestCase
   test 'debriefs are listed on iteration' do
     create(:debrief, iteration: @iteration)
     visit project_iteration_path(@project, @iteration)
-
     assert_link('Debrief', count: 2)
   end
 
@@ -30,6 +29,7 @@ class DebriefsTest < ApplicationSystemTestCase
   end
 
   test 'contributors can view debriefs' do
+    @debrief.save!
     Membership.last.update(role: :contributor)
     visit project_iteration_debrief_path(@project, @iteration, @debrief)
     assert_text('Debrief')
@@ -42,6 +42,7 @@ class DebriefsTest < ApplicationSystemTestCase
   end
 
   test 'mentors can view debriefs' do
+    @debrief.save!
     Membership.last.update(role: :mentor)
     visit project_iteration_debrief_path(@project, @iteration, @debrief)
     assert_text('Debrief')
@@ -55,6 +56,7 @@ class DebriefsTest < ApplicationSystemTestCase
   end
 
   test 'stakeholder can view debriefs' do
+    @debrief.save!
     Membership.last.update(role: :stakeholder)
     visit project_iteration_debrief_path(@project, @iteration, @debrief)
     assert_text('Debrief')
@@ -92,8 +94,6 @@ class DebriefsTest < ApplicationSystemTestCase
   end
   
   test 'can complete milestone when submitting debrief' do
-    @debrief.update({milestone_completed: @milestone.id})
-    
     visit new_project_iteration_debrief_path(@project, @iteration)
     choose 'Yes'
     click_on 'Submit debrief'
@@ -102,7 +102,15 @@ class DebriefsTest < ApplicationSystemTestCase
     assert_equal('completed', updated_milestone.status)
   end
   
-  private 
+  test 'contributors and mentors can complete one debrief per iteration' do
+    @debrief.save!
+    visit new_project_iteration_debrief_path(@project, @iteration)
+    
+    assert_text("You've already debriefed this iteration")
+  end
+  
+  private
+  
   def submit_debrief
     visit new_project_iteration_debrief_path(@project, @iteration)
     choose 'No'
