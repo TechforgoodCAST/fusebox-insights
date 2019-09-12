@@ -1,0 +1,36 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to iteration', project_iteration_path(@project, @iteration), class: 'underline' %></p>
+
+  <div class="card">
+    <h1>New debrief</h1>
+    <p>For <%= link_to @iteration.title, project_iteration_path(@project, @iteration), class: 'underline' %></p>
+    <hr class="my-6">
+    <%= simple_form_for([@project, @iteration, @debrief]) do |f| %>
+
+        <%= f.fields_for :debrief_ratings do |r| %>
+
+          <h2 class="my-3">Outcome <%= r.index+1 %> of <%= @iteration.outcomes.count %></h2>
+
+          <div class="card mb-6">
+            <h3>What are we going to learn or prove?</h3>
+            <p class="mb-3"><%= @iteration.outcomes[r.index].title%></p>
+            <h3>What are we going to learn or prove?</h3>
+            <p><%= @iteration.outcomes[r.index].success_criteria%></p>
+          </div>
+
+          <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
+          <%= r.input :score, as: :radio_buttons, collection: DebriefRating.ratings, label_method: lambda {|s| s[0].humanize}, item_label_class: 'tag', boolean_style: :inline, label: "Team rating: Did you learn or prove what you expected?" %>
+
+          <%= r.input :comments, label: "Why have you given this rating and what's the key takeaway?", input_html: {class: 'w-full', rows: 3}%>
+          
+          <hr class="my-6">
+        <% end %>
+
+        <%= f.input :notes, hint: 'Use this space to document any additional notes. For example, you might want to keep a record of the things the team should stop, start or continue in the next iteration.', input_html: {class: 'w-full', rows: 3} %>
+
+      <%= f.submit 'Submit debrief', class: 'btn btn-primary'%>
+    <% end %>
+  </div>
+</div>

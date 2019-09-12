@@ -1,0 +1,5 @@
+<h1>Debrief Complete</h1>
+
+<p><%= @user.full_name %> has completed a debrief for <%= @debrief.iteration.title %> on Fusebox.</p>
+
+<p><%= link_to 'View iteration', project_iteration_url(@project, @debrief.iteration) %></p>

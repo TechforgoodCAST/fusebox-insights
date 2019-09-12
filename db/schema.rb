@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_09_100854) do
+ActiveRecord::Schema.define(version: 2019_09_12_113953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,28 @@ ActiveRecord::Schema.define(version: 2019_09_09_100854) do
     t.datetime "updated_at", null: false
     t.date "date"
     t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
+  end
+
+  create_table "debrief_ratings", force: :cascade do |t|
+    t.integer "score"
+    t.text "comments"
+    t.bigint "debrief_id"
+    t.bigint "outcome_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["debrief_id"], name: "index_debrief_ratings_on_debrief_id"
+    t.index ["outcome_id"], name: "index_debrief_ratings_on_outcome_id"
+  end
+
+  create_table "debriefs", force: :cascade do |t|
+    t.text "notes"
+    t.datetime "complete_at"
+    t.bigint "completed_by"
+    t.bigint "iteration_id"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["iteration_id"], name: "index_debriefs_on_iteration_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -194,6 +216,9 @@ ActiveRecord::Schema.define(version: 2019_09_09_100854) do
   end
 
   add_foreign_key "check_ins", "iterations"
+  add_foreign_key "debrief_ratings", "debriefs"
+  add_foreign_key "debrief_ratings", "outcomes"
+  add_foreign_key "debriefs", "iterations"
   add_foreign_key "iterations", "projects"
   add_foreign_key "milestones", "projects"
   add_foreign_key "outcomes", "iterations"

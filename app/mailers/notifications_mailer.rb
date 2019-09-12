@@ -27,6 +27,27 @@ class NotificationsMailer < ApplicationMailer
     mail to: emails, subject: 'Check-in overdue!'
   end
 
+  def debrief_due(iteration)
+    @iteration = iteration
+    emails = emails_by_role(iteration, %w[contributor mentor])
+    mail to: emails, subject: 'Debrief due'
+  end
+  
+  def debrief_complete(debrief, user)
+    @debrief = debrief
+    @iteration = @debrief.iteration
+    @project = @debrief.iteration.project
+    @user = user
+	emails = emails_by_role(@iteration, %w[contributor mentor stakeholder])
+    mail to: emails, subject: "#{@user.full_name} has completed a debrief for #{@iteration.title}"
+  end
+
+  def debrief_overdue(iteration)
+    @iteration = iteration
+    emails = emails_by_role(iteration, %w[contributor mentor])
+    mail to: emails, subject: 'Debrief overdue!'
+  end
+  
   private
 
   def emails_by_role(iteration, roles = [])

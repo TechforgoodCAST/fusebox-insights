@@ -9,7 +9,10 @@ module IterationsHelper
           tag.a('Add a check in', href: new_project_iteration_check_in_path(@iteration.project, @iteration), class: 'link')
       end
     when :debrief_due
-      tag.div(class: 'notice danger my-4') { 'Debrief overdue. Add a debrief' }
+      tag.div(class: 'notice danger my-4') do 
+        tag.span('Debrief overdue. ') +
+            tag.a('Add a debrief', href: new_project_iteration_debrief_path(@iteration.project, @iteration), class: 'link')
+      end
     end
   end
 end
