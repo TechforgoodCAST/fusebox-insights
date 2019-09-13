@@ -10,7 +10,7 @@ class CheckInsController < ApplicationController
     @iteration = Iteration.find(params[:iteration_id])
     @check_in = authorize @iteration.check_ins.new
 
-    (@iteration.outcomes.length).times { @check_in.ratings.build }
+    @iteration.outcomes.length.times { @check_in.ratings.build }
   end
 
   def create
@@ -21,7 +21,7 @@ class CheckInsController < ApplicationController
 
     if @check_in.save
       NotificationsMailer.check_in_complete(@check_in, current_user).deliver_now
-      @iteration.update({last_check_in_at: DateTime.now})
+      @iteration.update(last_check_in_at: DateTime.current)
       redirect_to project_iteration_url(@project, @iteration)
     else
       render 'new'
@@ -38,8 +38,8 @@ class CheckInsController < ApplicationController
 
   def check_in_params
     params
-    .require(:check_in)
-    .permit(:notes, ratings_attributes: [:id, :score, :comments, :iteration, :outcome_id ])
-    .with_defaults(completed_by: current_user.id)
+      .require(:check_in)
+      .permit(:notes, ratings_attributes: %i[id score comments iteration outcome_id])
+      .with_defaults(completed_by: current_user.id)
   end
 end
