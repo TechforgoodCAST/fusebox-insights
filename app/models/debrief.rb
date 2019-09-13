@@ -9,7 +9,6 @@ class Debrief < ApplicationRecord
     allow_destroy: true,
     limit: 5
   
-  enum milestone_completed: { no: 0, yes: 1 }
-  
-  validates :complete_at, :completed_by, presence: true
+  validates_inclusion_of :milestone_completed, in: [true, false]
+  validates :completed_by, presence: true
 end

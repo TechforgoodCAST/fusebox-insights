@@ -49,7 +49,7 @@
           <div class="flex flex-wrap mt-3">
             <div class="w-full sm:w-1/4 mb-3"><%= link_to 'Check in', [@iteration.project, @iteration, check_in], class: 'link' %></div>
             <div class="w-full sm:w-3/4 mb-3">
-              <%= friendly_date(check_in.updated_at) %> - <strong class="<%= check_in.on_track %>"><%= check_in.on_track.humanize %></strong> in some areas
+              <%= friendly_date(check_in.updated_at) %> - <%= render_check_in_status(check_in) %>
             </div>
           </div>
           <hr>

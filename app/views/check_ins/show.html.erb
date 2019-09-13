@@ -1,11 +1,4 @@
 <%= render partial: 'projects/subnav' %>
-<%
-classes = {
-  'on_track'  => 'bg-success',
-  'at_risk'   => 'bg-warning',
-  'off_track' => 'bg-danger'
-}
-%>
 
 <div class="max-w-3xl mx-auto px-4 my-8">
   <p class="mb-6"><%= link_to '‹ Back to iteration', project_iteration_path(@project, @iteration), class: 'underline' %></p>
@@ -15,8 +8,7 @@ classes = {
     <h1>Check-In</h1>
     <p>
       For <%= link_to @iteration.title, project_iteration_path(@project, @iteration), class: 'underline' %>
-      completed on <%= friendly_date(@check_in.updated_at) %> -
-      <strong class="<%= @check_in.on_track %>"><%= @check_in.on_track.humanize %></strong> in some areas
+      completed on <%= friendly_date(@check_in.updated_at) %> - <%= render_check_in_status(@check_in) %>
     </p>
 
     <div class="mt-6">
@@ -26,7 +18,7 @@ classes = {
           <h3><%= Outcome.find(rating.outcome.id).title%></h3>
           <p><%= Outcome.find(rating.outcome.id).success_criteria%></p>
           <div class="my-3">
-            <span class="my-3 tag <%= classes[Rating.ratings.key(rating.score)] %>"><%= Rating.ratings.key(rating.score).titleize %></span>
+            <span class="my-3 tag <%= rating.get_score.parameterize %>"><%= rating.get_score %></span>
           </div>
           <p><i><%= rating.comments %></i></p>
         </div>

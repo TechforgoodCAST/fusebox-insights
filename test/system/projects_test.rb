@@ -85,7 +85,7 @@ class ProjectsTest < ApplicationSystemTestCase
     iteration = create(:committed_iteration, project: @project)
     @check_in = create(:check_in, iteration: iteration)
     visit project_path(@project)
-    assert_text('Checked in on '+friendly_date(@check_in.complete_at))
+    assert_text('Checked in on '+friendly_date(@check_in.created_at))
   end
   
   test 'iteration card displays check-in overdue' do

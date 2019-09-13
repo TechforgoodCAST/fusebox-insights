@@ -42,7 +42,7 @@ en:
         debrief_date: "When your team will meet to debrief the findings of this iteration and shape subsequent plans - between 2-12 weeks from the start date."
         outcomes:
           title: "E.g. That busy parents have trouble finding/accessing meals their fussy eaters will happily consume."
-          success_criteria: "E.g. We have surveyed 100 busy parents and 8/10 cite this challenge."
+          success_criteria: "E.g. We have interview 10 busy parents and 8/10 cite this challenge."
       # defaults:
       #   username: 'User name to sign in.'
       #   password: 'No special characters, please.'

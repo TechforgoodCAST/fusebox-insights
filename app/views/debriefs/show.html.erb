@@ -1,11 +1,4 @@
 <%= render partial: 'projects/subnav' %>
-<%
-classes = {
-  'on_track'  => 'bg-success',
-  'at_risk'   => 'bg-warning',
-  'off_track' => 'bg-danger'
-}
-%>
 
 <div class="max-w-3xl mx-auto px-4 my-8">
   <p class="mb-6"><%= link_to '‹ Back to iteration', project_iteration_path(@project, @iteration), class: 'underline' %></p>
@@ -31,7 +24,7 @@ classes = {
 
       <div class="my-3">
         <h3>Team rating: Did we learn or prove what we expected?</h3>
-        <span class="my-3 tag <%= classes[DebriefRating.ratings.key(rating.score)] %>"><%= DebriefRating.ratings.key(rating.score).titleize %></span>
+            <span class="my-3"><%= rating.get_score %></span>
       </div>
 
       <h3>Why have you given this rating and what's the key takeaway?</h3>
@@ -57,7 +50,7 @@ classes = {
       </div>
       <div class="my-3">
         <h3>Team rating: Team rating: Following this iteration, can we confidently say we have met this milestone?</h3>
-        <span class="my-3 tag"><%= @debrief.milestone_completed %></span>
+        <span class="my-3 tag"><%= ApplicationHelper::YESNO[@debrief.milestone_completed] %></span>
       </div>
 
       <hr class="my-6">
