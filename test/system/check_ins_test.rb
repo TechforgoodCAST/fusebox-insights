@@ -12,14 +12,14 @@ class CheckInsTest < ApplicationSystemTestCase
     sign_in
   end
 
-  test 'check ins are listed on iteration' do
+  test 'check-ins are listed on iteration' do
     create(:check_in, iteration: @iteration)
     visit project_iteration_path(@project, @iteration)
 
     assert_link('Check in', count: 2)
   end
 
-  test 'check ins hidden to stakeholders' do
+  test 'check-ins hidden to stakeholders' do
     Membership.last.update(role: :stakeholder)
     visit project_iteration_path(@project, @iteration)
 
@@ -52,6 +52,7 @@ class CheckInsTest < ApplicationSystemTestCase
 
   test 'mentors and contributors are notified when a check-in is completed' do
     Membership.last.update(role: :contributor)
+    @contributor = @user
     @mentor = create(:user, projects: [@project])
     Membership.last.update(role: :mentor)
 
@@ -61,7 +62,7 @@ class CheckInsTest < ApplicationSystemTestCase
     mail = ActionMailer::Base.deliveries.last
 
     recipients = [
-      @user.email,
+      @contributor.email,
       @mentor.email
     ]
     
@@ -72,14 +73,14 @@ class CheckInsTest < ApplicationSystemTestCase
     end
   end
 
-  test 'stakeholder cannot create check ins' do
+  test 'stakeholder cannot create check-ins' do
     Membership.last.update(role: :stakeholder)
     visit new_project_iteration_check_in_path(@project, @iteration)
 
     assert_text("Sorry, you don't have access to that")
   end
 
-  test 'stakeholder cannot view check ins' do
+  test 'stakeholder cannot view check-ins' do
     Membership.last.update(role: :stakeholder)
     visit project_iteration_check_in_path(@project, @iteration, @check_in)
 

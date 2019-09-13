@@ -16,7 +16,7 @@ class IterationsHelperTest < ActionView::TestCase
     html = Nokogiri::HTML(render_warning(:check_in_due))
 
     assert_includes(html.css('span').text, 'Over two weeks since last check in. ')
-    assert_includes(html.css('.link').text, 'Add a check in')
+    assert_includes(html.css('.link').text, 'Add a check-in')
     assert_includes(html.css('.link')[0]['href'], new_project_iteration_check_in_path(@iteration.project, @iteration))
   end
 
