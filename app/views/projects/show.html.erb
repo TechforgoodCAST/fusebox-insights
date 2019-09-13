@@ -127,16 +127,18 @@
                   <%= render_warning(iteration.warning, iteration) %>
                                  
                 <% elsif iteration.status_completed? %>
-                  <p class="mb-6"><%= link_to 'Debrief completed on '+friendly_date(iteration.debrief.complete_at), [@project, iteration, iteration.debrief] %></p>
+                  <p class="mb-6"><%= link_to 'Debrief completed on '+friendly_date(iteration.debrief.complete_at), [@project, iteration, iteration.debrief], class: 'link' %></p>
                   
                 <% elsif check_in = iteration.check_ins.last %>
-                  <p class="mb-6"><%= link_to 'Checked in on '+friendly_date(check_in.complete_at), [@project, iteration, check_in] %> - <b class="<%= classes[check_in.on_track()] %>"><%= check_in.on_track().humanize %></b> in some areas</p>
+                  <p class="mb-6"><%= link_to 'Checked in on '+friendly_date(check_in.complete_at), [@project, iteration, check_in], class: 'link' %> - <b class="<%= classes[check_in.on_track()] %>"><%= check_in.on_track().humanize %></b> in some areas</p>
                   
                 <% else %>
                   <p class="mb-6 missing-text">No updates yet</p>
                 <% end %>
                 
-                <p class="text-sm text-gray-600">Debrief due on <%= friendly_date(iteration.debrief_date) %></p>
+                <% if iteration.status_committed? %>
+                  <p class="text-sm text-gray-600">Debrief due on <%= friendly_date(iteration.debrief_date) %></p>
+                <% end %>
               </div>
             </div>
           <%

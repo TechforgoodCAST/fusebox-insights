@@ -16,12 +16,6 @@ class DebriefsTest < ApplicationSystemTestCase
     sign_in
   end
 
-  test 'debriefs are listed on iteration' do
-    create(:debrief, iteration: @iteration)
-    visit project_iteration_path(@project, @iteration)
-    assert_link('Debrief', count: 2)
-  end
-
   test 'contributors can create debriefs' do
     Membership.last.update(role: :contributor)
     visit new_project_iteration_debrief_path(@project, @iteration)

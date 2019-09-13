@@ -35,8 +35,8 @@ classes = {
       <% end %>
     <% end %>
     <tr>
-      <td>Debrief</td>
-       <td><%= iteration.debrief_date ? friendly_date(iteration.debrief_date) : '<span class="missing-text">Not set</span>'.html_safe %></td>
+      <td><%= iteration.debrief ? link_to 'Debrief', [project, iteration, iteration.debrief] : 'Debrief' %></td>
+      <td><%= iteration.debrief_date ? friendly_date(iteration.debrief_date) : '<span class="missing-text">Not set</span>'.html_safe %></td>
     </tr>
   </tbody>  
 </table>
