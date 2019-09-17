@@ -1,7 +1,10 @@
 FactoryBot.define do
-  factory :check_in do
+  factory :debrief do
     notes { "MyText" }
     completed_by {1}
+    milestone
+    milestone_completed { false }
     iteration
   end
 end
+

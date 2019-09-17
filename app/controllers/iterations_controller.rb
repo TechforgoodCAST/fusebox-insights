@@ -6,7 +6,7 @@ class IterationsController < ApplicationController
   def index
     redirect_to project_url(@project)
   end
-  
+
   def new
     @iteration = authorize @project.iterations.new
   end

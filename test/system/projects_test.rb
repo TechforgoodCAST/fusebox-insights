@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class ProjectsTest < ApplicationSystemTestCase
+  include ApplicationHelper
+  
   setup do
     @user = create(:user)
     visit projects_path
@@ -69,6 +71,52 @@ class ProjectsTest < ApplicationSystemTestCase
     click_on('Edit')
 
     assert_text("Sorry, you don't have access to that")
+  end
+  
+  test 'iteration card displays when there are no updates' do
+    create_project
+    @project = Project.last
+    iteration = create(:committed_iteration, project: @project)
+    visit project_path(@project)
+    assert_text('No updates')
+  end
+  
+  test 'iteration card displays latest check-in' do
+    create_project
+    @project = Project.last
+    iteration = create(:committed_iteration, project: @project)
+    @check_in = create(:check_in, iteration: iteration)
+    visit project_path(@project)
+    assert_text('Checked in on '+friendly_date(@check_in.created_at))
+  end
+  
+  test 'iteration card displays check-in overdue' do
+    create_project
+    @project = Project.last    
+    iteration = build(:committed_iteration, :check_in_overdue, project: @project)
+    iteration.save! validate: false
+    visit project_path(@project)
+    assert_text('Over two weeks since last check in')
+  end
+  
+  test 'iteration card displays debrief complete' do
+    create_project
+    @project = Project.last    
+    @debrief = build(:debrief)
+    iteration = build(:iteration, project: @project, debrief: @debrief, status: 'completed')
+    iteration.save! validate: false
+    visit project_path(@project)
+    find('a', text: 'Completed').click
+    assert_text('Debrief completed on '+friendly_date(iteration.debrief.created_at))
+  end
+  
+  test 'iteration card displays debrief overdue' do
+    create_project
+    @project = Project.last    
+    iteration = build(:committed_iteration, :debrief_overdue, project: @project)
+    iteration.save! validate: false
+    visit project_path(@project)
+    assert_text('Debrief overdue')
   end
 
   private

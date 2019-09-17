@@ -55,6 +55,7 @@ class IterationTest < ActiveSupport::TestCase
 
   test '#start_date_cannot_be_in_the_past' do
     @subject.start_date = Date.yesterday
+    @subject.status = 'committed'
     @subject.valid?
     assert_error(:start_date, "can't be in the past")
   end

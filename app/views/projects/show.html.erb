@@ -111,9 +111,43 @@
 
             <div class='row iteration <%= iteration.status %> '>
               <div class='card w-full'>
-                <h3><%= link_to iteration.title, [@project, iteration], class: 'underline hover:opacity-75' %> </h3>
-                <% if iteration.status_committed? %>
-                  <%= render partial: 'iterations/progress_timeline', locals: { project: @project, iteration: iteration } %>
+                <h3><%= link_to iteration.title, [@project, iteration], class: 'underline hover:opacity-75' %></h3>
+                <p class="mb-6"><%= iteration.description %></p>
+                <h3>Latest update</h3>
+                <% if current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
+                
+                  <% if iteration.status_completed? %>
+                    <p class="mb-6"><%= link_to 'Debrief completed on '+friendly_date(iteration.debrief.created_at), [@project, iteration, iteration.debrief], class: 'link' %></p>
+
+                  <% elsif check_ins = iteration.check_ins.count %>
+                    <p class="mb-6">Completed <%= pluralize(check_ins, 'check in') %></p>
+
+                  <% else %>
+                    <p class="mb-6 missing-text">No updates yet</p>
+                  <% end %>
+                 
+                <% else %>
+                 
+                  <% if iteration.warning == :check_in_due %>
+                    <%= render_warning(iteration.warning, iteration) %>
+
+                  <% elsif iteration.warning == :debrief_due %>
+                    <%= render_warning(iteration.warning, iteration) %>
+
+                  <% elsif iteration.status_completed? %>
+                    <p class="mb-6"><%= link_to 'Debrief completed on '+friendly_date(iteration.debrief.created_at), [@project, iteration, iteration.debrief], class: 'link' %></p>
+
+                  <% elsif check_in = iteration.check_ins.last %>
+                    <p class="mb-6"><%= link_to 'Checked in on '+friendly_date(check_in.created_at), [@project, iteration, check_in], class: 'link' %> - <%= render_check_in_status(check_in) %></p>
+
+                  <% else %>
+                    <p class="mb-6 missing-text">No updates yet</p>
+                  <% end %>
+
+                  <% if iteration.status_committed? %>
+                    <p class="text-sm text-gray-600">Debrief due on <%= friendly_date(iteration.debrief_date) %></p>
+                  <% end %>
+                  
                 <% end %>
               </div>
             </div>

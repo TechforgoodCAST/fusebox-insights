@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class Rating < ApplicationRecord
-  belongs_to :check_in
+class DebriefRating < ApplicationRecord
+  belongs_to :debrief
   belongs_to :outcome
 
-  SCORES = { 0 => 'On track', 100 => 'At risk', 200 => 'Off track' }.freeze
+  SCORES = { 0 => 'No', 100 => 'Inconclusive', 200 => 'Yes' }.freeze
 
   def get_score
     SCORES[score]
