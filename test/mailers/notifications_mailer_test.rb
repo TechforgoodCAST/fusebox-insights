@@ -20,16 +20,24 @@ class NotificationsMailerTest < ActionMailer::TestCase
   end
 
   test '#check_in_due' do
-    assert_check_in_email(:check_in_due, 'Check-in due')
+    assert_reminder_email(:check_in_due, 'Check-in due', 'check_in')
   end
 
   test '#check_in_overdue' do
-    assert_check_in_email(:check_in_overdue, 'Check-in overdue!')
+    assert_reminder_email(:check_in_overdue, 'Check-in overdue!', 'check_in')
+  end
+  
+  test '#debrief_due' do
+    assert_reminder_email(:debrief_due, 'Debrief due', 'debrief')
+  end
+
+  test '#debrief_overdue' do
+    assert_reminder_email(:debrief_overdue, 'Debrief overdue!', 'debrief')
   end
 
   private
 
-  def assert_check_in_email(method, subject)
+  def assert_reminder_email(method, subject, type)
     iteration = create(:iteration)
     contributor = create(:membership, role: :contributor, project: iteration.project)
     mentor = create(:membership, role: :mentor, project: iteration.project)
@@ -38,7 +46,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
     assert_equal(subject, mail.subject)
     assert_equal([contributor.user.email, mentor.user.email], mail.to)
     assert_match(
-      "/projects/#{iteration.project_id}/iterations/#{iteration.id}/check_ins/new",
+      "/projects/#{iteration.project_id}/iterations/#{iteration.id}/#{type}s/new",
       mail.body.encoded
     )
   end
