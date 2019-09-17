@@ -3,7 +3,6 @@
 require 'test_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  include ApplicationHelper
   driven_by :selenium, using: :headless_chrome, screen_size: [1280, 700]
 
   def sign_in(user = @user)

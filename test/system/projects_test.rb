@@ -3,6 +3,8 @@
 require 'application_system_test_case'
 
 class ProjectsTest < ApplicationSystemTestCase
+  include ApplicationHelper
+  
   setup do
     @user = create(:user)
     visit projects_path

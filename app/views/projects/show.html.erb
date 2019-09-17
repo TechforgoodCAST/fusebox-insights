@@ -92,11 +92,6 @@
         #Sort the merged array reverse chronologically
         items = merged.sort_by { |hsh| [hsh[:status], hsh[:start_date]] }
         old_status = '';
-        classes = {
-          'on_track'  => 'text-success',
-          'at_risk'   => 'text-warning',
-          'off_track' => 'text-danger'
-        }
         items.each_with_index do |item|
 
           if item[:status] != old_status

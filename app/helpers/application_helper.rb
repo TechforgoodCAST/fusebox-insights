@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  YESNO = { 0 => 'No', 1 => 'Yes' }.freeze
+  YESNO = { false => 'No', true => 'Yes' }.freeze
 
   def active_tab?(controller: nil, action: nil)
     if action
