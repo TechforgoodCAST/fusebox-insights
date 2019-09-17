@@ -8,7 +8,7 @@ class IterationsHelperTest < ActionView::TestCase
   end
 
   test '#render_warning invalid key' do
-    assert_nil(render_warning(ni, @iteration))
+    assert_nil(render_warning(nil, @iteration))
     assert_nil(render_warning(:missing, @iteration))
   end
 
