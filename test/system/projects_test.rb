@@ -99,6 +99,17 @@ class ProjectsTest < ApplicationSystemTestCase
     assert_text('Over two weeks since last check in')
   end
   
+  test 'iteration card displays debrief complete' do
+    create_project
+    @project = Project.last    
+    @debrief = build(:debrief)
+    iteration = build(:iteration, project: @project, debrief: @debrief, status: 'completed')
+    iteration.save! validate: false
+    visit project_path(@project)
+    find('a', text: 'Completed').click
+    assert_text('Debrief completed on '+friendly_date(iteration.debrief.created_at))
+  end
+  
   test 'iteration card displays debrief overdue' do
     create_project
     @project = Project.last    
