@@ -7,7 +7,7 @@ class DebriefsTest < ApplicationSystemTestCase
     @debrief = build(:debrief)
     @iteration = @debrief.iteration
     @project = @debrief.iteration.project
-    @milestone = build(:milestone)
+    @milestone = build(:milestone, status: 'committed')
     @project.milestones = [@milestone];
     @project.save!
     

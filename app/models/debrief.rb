@@ -3,7 +3,7 @@
 class Debrief < ApplicationRecord
   belongs_to :iteration
   has_many :debrief_ratings, dependent: :destroy
-  belongs_to :milestone
+  belongs_to :milestone, optional: true
 
   accepts_nested_attributes_for :debrief_ratings,
     reject_if: :all_blank,

@@ -91,9 +91,8 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
 
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
-    t.datetime "complete_at"
     t.bigint "completed_by", null: false
-    t.bigint "iteration_id", null: false
+    t.bigint "iteration_id", null: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
@@ -103,8 +102,8 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
   create_table "debrief_ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comments"
-    t.bigint "debrief_id", null: false
-    t.bigint "outcome_id", null: false
+    t.bigint "debrief_id", null: false, null: false
+    t.bigint "outcome_id", null: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["debrief_id"], name: "index_debrief_ratings_on_debrief_id"
@@ -115,8 +114,8 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
     t.text "notes"
     t.bigint "completed_by", null: false
     t.boolean "milestone_completed"
-    t.bigint "milestone_id", null: false
-    t.bigint "iteration_id", null: false
+    t.bigint "milestone_id", null: false, null: false
+    t.bigint "iteration_id", null: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_debriefs_on_iteration_id"

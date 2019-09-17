@@ -20,7 +20,7 @@ class Iteration < ApplicationRecord
   validate :cannot_be_longer_than_12_weeks
   validate :cannot_be_shorter_than_2_weeks
   validate :debrief_date_cannot_be_before_start_date
-  validate :start_date_cannot_be_in_the_past
+  validate :start_date_cannot_be_in_the_past, if: :status_committed?
 
   audited
 

@@ -8,7 +8,7 @@ class DebriefsController < ApplicationController
   def new
     @project = Project.find(params[:project_id])
     @iteration = Iteration.find(params[:iteration_id])
-    @milestone = @project.milestones.find_by(status: :planned)
+    @milestone = @project.milestones.find_by(status: :committed)
 
     if Debrief.find_by(iteration: @iteration)
       flash[:alert] = "You've already debriefed this iteration"
@@ -23,12 +23,12 @@ class DebriefsController < ApplicationController
   def create
     @project = Project.find(params[:project_id])
     @iteration = Iteration.find(params[:iteration_id])
-    @milestone = @project.milestones.find_by(status: :planned)
+    @milestone = @project.milestones.find_by(status: :committed)
     @debrief = authorize @iteration.create_debrief(debrief_params)
-    if @debrief.save
+    if @debrief.save!
       NotificationsMailer.debrief_complete(@debrief, current_user).deliver_now
-      @iteration.update(status: 'completed')
-      @milestone.update(status: 'completed') if debrief_params[:milestone_completed]
+      @iteration.update!(status: 'completed')
+      @milestone.update!(status: 'completed') if debrief_params[:milestone_completed]
       redirect_to project_iteration_url(@project, @iteration)
     else
       render 'new'

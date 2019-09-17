@@ -57,16 +57,21 @@
       <% end %>
 
       <div class="flex flex-wrap mt-3">
-        <div class="w-full sm:w-1/4 mb-3">
-          <% if @iteration.debrief %>
+        <% if @iteration.debrief %>
+          <div class="w-full sm:w-1/4 mb-3">
             <%= link_to 'Debrief', [@project, @iteration, @iteration.debrief], class: 'link' %>
-          <% else %>
+          </div>
+          <div class="w-full sm:w-3/4 mb-3">
+            <%= with_default(@iteration.debrief_date, formatter: :friendly_date) %>
+          </div>
+        <% else %>
+          <div class="w-full sm:w-1/4 mb-3">
             Debrief
-          <% end %>
-        </div>
-        <div class="w-full sm:w-3/4 mb-3">
-          <%= with_default(@iteration.debrief_date, formatter: :friendly_date) %>
-        </div>
+          </div>
+          <div class="w-full sm:w-3/4 mb-3">
+            Due <%= with_default(@iteration.debrief_date, formatter: :friendly_date) %>
+          </div>
+        <% end %>
       </div>
       <hr>
     </div>

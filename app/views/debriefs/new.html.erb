@@ -54,6 +54,8 @@
           <%= f.hidden_field(:milestone_id, value: @milestone.id) %>
           <%= f.input :milestone_completed, as: :radio_buttons, boolean_style: :inline, label: "Team rating: Following this iteration, can you confidently say you have met this milestone?" %>
           <hr class="my-6">
+        <% else %>
+          <%= f.hidden_field(:milestone_completed, value: false) %>
         <% end %>
 
         <%= f.input :notes, hint: 'Use this space to document any additional notes. For example, you might want to keep a record of the things the team should stop, start or continue in the next iteration.', input_html: {class: 'w-full', rows: 3} %>
