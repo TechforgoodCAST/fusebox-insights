@@ -3,13 +3,11 @@
 require 'test_helper'
 
 class CheckInsHelperTest < ActionView::TestCase
-  include TagHelper
   setup do
     @on_track_rating = build(:rating, score: 0)
     @at_risk_rating = build(:rating, score: 100)
     @off_track_rating = build(:rating, score: 200)
-  end
-  
+  end  
   
   test "'check in status says 'for some areas' when ratings are mixed" do
     #All off track
