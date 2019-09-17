@@ -8,12 +8,12 @@ class IterationsHelperTest < ActionView::TestCase
   end
 
   test '#render_warning invalid key' do
-    assert_nil(render_warning(nil))
-    assert_nil(render_warning(:missing))
+    assert_nil(render_warning(ni, @iteration))
+    assert_nil(render_warning(:missing, @iteration))
   end
 
   test '#render_warning :check_in_due' do
-    html = Nokogiri::HTML(render_warning(:check_in_due))
+    html = Nokogiri::HTML(render_warning(:check_in_due, @iteration))
 
     assert_includes(html.css('span').text, 'Over two weeks since last check in. ')
     assert_includes(html.css('.link').text, 'Add a check-in')
@@ -21,7 +21,7 @@ class IterationsHelperTest < ActionView::TestCase
   end
 
   test '#render_warning :debrief_due' do
-    html = Nokogiri::HTML(render_warning(:debrief_due))
+    html = Nokogiri::HTML(render_warning(:debrief_due, @iteration))
 
     assert_includes(html.css('.notice').text, 'Debrief overdue. Add a debrief')
   end
