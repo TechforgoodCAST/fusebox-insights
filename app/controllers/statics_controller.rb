@@ -1,3 +1,4 @@
-class StaticsController < ApplicationController
+# frozen_string_literal: true
 
+class StaticsController < ApplicationController
 end

@@ -21,7 +21,15 @@
           </div>
 
           <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
-          <%= r.input :score, as: :radio_buttons, collection: Rating.ratings, label_method: lambda {|s| s[0].humanize}, item_label_class: 'tag', boolean_style: :inline, label: "Team rating: What's the status of this outcome?" %>
+          <%= r.input :score, 
+                      as: :radio_buttons, 
+                      collection: Rating::SCORES, 
+                      label_method: :second, 
+                      value_method: :first,
+                      item_label_class: 'tag',
+                      boolean_style: :inline, 
+                      label: "Team rating: What's the status of this outcome?" 
+          %>
 
           <%= r.input :comments, label: "Why have you given this rating and what next steps or support would help?", input_html: {class: 'w-full', rows: 3}%>
           

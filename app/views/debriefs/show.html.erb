@@ -1,0 +1,64 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back to iteration', project_iteration_path(@project, @iteration), class: 'underline' %></p>
+
+  <div class="card">
+
+    <h1>Debrief</h1>
+    <p>
+      For <%= link_to @iteration.title, project_iteration_path(@project, @iteration), class: 'underline' %>
+      completed on <%= friendly_date(@debrief.updated_at) %>
+    </p>
+    <hr class="my-6">
+    
+    <h2>Outcomes</h2>
+    <% @debrief.debrief_ratings.each_with_index do |rating, index| %>
+      <h3 class="my-3">Outcome <%= index+1 %> of <%= @iteration.outcomes.count %></h3>
+      <div class="card mb-6">
+        <h3>What are we going to learn or prove?</h3>
+        <p class="mb-3"><%= @iteration.outcomes[index].title%></p>
+        <h3>What are we going to learn or prove?</h3>
+        <p><%= @iteration.outcomes[index].success_criteria%></p>
+      </div>
+
+      <div class="my-3">
+        <h3>Team rating: Did we learn or prove what we expected?</h3>
+            <span class="my-3 tag"><%= rating.get_score %></span>
+      </div>
+
+      <h3>Why have you given this rating and what's the key takeaway?</h3>
+      <p><%= rating.comments %></p>
+
+      <hr class="my-6">
+    <% end %>
+    
+    <% if @milestone %>
+      <h2>Milestone</h2>
+      <p>The next milestone is...</p>
+      <div class="card my-6">
+        <h2><%= @milestone.title %></h2>
+        <p class="mb-3"><%= @milestone.description %></p>
+        <h3>We'll know we've reached this milestone when...</h3>
+        <% if @milestone.success_criteria.blank? %>
+          <p class="missing-text mb-3">Not provided</p>
+        <% else %>
+          <div class="rich-text"><%= @milestone.success_criteria&.html_safe %></div>
+        <% end %>
+        <h3>We plan to reach this milestone by...</h3>
+        <p><%= friendly_date(@milestone.deadline) %></p>
+      </div>
+      <div class="my-3">
+        <h3>Team rating: Team rating: Following this iteration, can we confidently say we have met this milestone?</h3>
+        <span class="my-3 tag"><%= ApplicationHelper::YESNO[@debrief.milestone_completed] %></span>
+      </div>
+
+      <hr class="my-6">
+    <% end %>
+    
+    <div class="mt-6">
+      <h2 class="mb-2">Additional Notes</h2>
+      <p><%= with_default(@debrief.notes, text: 'Not provided') %></p>
+    </div>
+  </div>
+</div>

@@ -19,6 +19,9 @@ Rails.application.routes.draw do
       resources :check_ins do
         resources :ratings
       end
+      resources :debriefs do
+        resources :debrief_ratings
+      end
       resources :outcomes do
         resources :ratings
       end

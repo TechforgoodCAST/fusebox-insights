@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class CheckInTest < ActiveSupport::TestCase
-  setup { @subject = build(:check_in) }
+class DebriefTest < ActiveSupport::TestCase
+  setup { @subject = build(:debrief) }
 
   test 'belongs to iteration' do
     assert_instance_of(Iteration, @subject.iteration)
@@ -9,5 +9,7 @@ class CheckInTest < ActiveSupport::TestCase
   end
   
   test('completed_by required') { assert_present(:completed_by) }
+  
+  test('milestone_completed required') { assert_present(:milestone_completed, msg: 'is not included in the list') }
   
 end

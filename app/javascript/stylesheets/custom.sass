@@ -65,6 +65,15 @@ hr
     background-color: theme('colors.status.committed')
   &.completed
     @apply bg-green-600
+  &.on-track
+    background-color: theme('colors.alert.success.dark')
+    color: theme('colors.alert.success.light')
+  &.off-track
+    background-color: theme('colors.alert.warning.dark')
+    color: theme('colors.alert.warning.light')
+  &.at-risk
+    background-color: theme('colors.alert.danger.dark')
+    color: theme('colors.alert.danger.light')
 
 .divider
   &.planned
@@ -88,21 +97,21 @@ h3
 
 .text-info
   color: theme('colors.alert.info.dark')
-.text-success, .on_track
+.text-success, .on-track
   color: theme('colors.alert.success.dark')
-.text-warning, .at_risk
+.text-warning, .off-track
   color: theme('colors.alert.warning.dark')
-.text-danger, .off_track
+.text-danger, .at-risk
   color: theme('colors.alert.danger.dark')
 
 .bg-info
-  background-color: theme('colors.alert.info.dark')
+  background-color: theme('colors.alert.info.light')
 .bg-success
-  background-color: theme('colors.alert.success.dark')
+  background-color: theme('colors.alert.success.light')
 .bg-warning
-  background-color: theme('colors.alert.warning.dark')
+  background-color: theme('colors.alert.warning.light')
 .bg-danger
-  background-color: theme('colors.alert.danger.dark')
+  background-color: theme('colors.alert.danger.light')
 
 .notice
   @apply border rounded-sm px-4 py-3 my-6

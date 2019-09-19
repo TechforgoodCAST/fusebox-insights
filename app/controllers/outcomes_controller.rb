@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OutcomesController < ApplicationController
   def show
     @project = Project.find(params[:project_id])

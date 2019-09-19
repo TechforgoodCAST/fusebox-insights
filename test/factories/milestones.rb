@@ -6,6 +6,5 @@ FactoryBot.define do
     title { 'MyText' }
     description { 'MyText' }
     deadline { '2019-07-19' }
-    completed_at { '2019-07-19' }
   end
 end
