@@ -115,19 +115,19 @@
                 <p class="mb-6"><%= iteration.description %></p>
                 <h3>Latest update</h3>
                 <% if current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
-                
+
                   <% if iteration.status_completed? %>
                     <p class="mb-6"><%= link_to 'Debrief completed on '+friendly_date(iteration.debrief.created_at), [@project, iteration, iteration.debrief], class: 'link' %></p>
 
                   <% elsif check_ins = iteration.check_ins.count %>
-                    <p class="mb-6">Completed <%= pluralize(check_ins, 'check in') %></p>
+                    <p class="mb-6">Completed <%= pluralize(check_ins, 'check-in') %></p>
 
                   <% else %>
                     <p class="mb-6 missing-text">No updates yet</p>
                   <% end %>
-                 
+
                 <% else %>
-                 
+
                   <% if iteration.warning == :check_in_due %>
                     <%= render_warning(iteration.warning, iteration) %>
 
@@ -147,7 +147,7 @@
                   <% if iteration.status_committed? %>
                     <p class="text-sm text-gray-600">Debrief due on <%= friendly_date(iteration.debrief_date) %></p>
                   <% end %>
-                  
+
                 <% end %>
               </div>
             </div>
