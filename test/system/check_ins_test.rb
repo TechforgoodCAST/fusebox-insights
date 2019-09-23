@@ -4,9 +4,8 @@ require 'application_system_test_case'
 
 class CheckInsTest < ApplicationSystemTestCase
   setup do
-    @check_in = create(:check_in)
-    @iteration = @check_in.iteration
-    @project = @check_in.iteration.project
+    @iteration = create(:committed_iteration)
+    @project = @iteration.project
     @user = create(:user, projects: [@project])
     visit new_user_session_path
     sign_in
@@ -16,57 +15,60 @@ class CheckInsTest < ApplicationSystemTestCase
     create(:check_in, iteration: @iteration)
     visit project_iteration_path(@project, @iteration)
 
-    assert_link('Check in', count: 2)
+    assert_link('Check-in')
   end
 
   test 'check-ins hidden to stakeholders' do
     Membership.last.update(role: :stakeholder)
+    create(:check_in, iteration: @iteration)
     visit project_iteration_path(@project, @iteration)
 
-    assert_no_link('Check in')
+    assert_no_link('Check-in')
   end
 
   test 'contributors can create check-ins' do
     Membership.last.update(role: :contributor)
     visit new_project_iteration_check_in_path(@project, @iteration)
-    assert_text('New check-in')
+    complete_check_in
+
+    assert_check_in_created
   end
 
   test 'contributors can view check-ins' do
     Membership.last.update(role: :contributor)
-    visit project_iteration_check_in_path(@project, @iteration, @check_in)
-    assert_text('Check-In')
+    check_in = create(:check_in, iteration: @iteration)
+    visit project_iteration_check_in_path(@project, @iteration, check_in)
+
+    assert_text('Check-in')
   end
 
   test 'mentors can create check-ins' do
     Membership.last.update(role: :mentor)
     visit new_project_iteration_check_in_path(@project, @iteration)
-    assert_text('New check-in')
+    complete_check_in
+
+    assert_check_in_created
   end
 
   test 'mentors can view check-ins' do
     Membership.last.update(role: :mentor)
-    visit project_iteration_check_in_path(@project, @iteration, @check_in)
-    assert_text('Check-In')
+    check_in = create(:check_in, iteration: @iteration)
+    visit project_iteration_check_in_path(@project, @iteration, check_in)
+
+    assert_text('Check-in')
   end
 
   test 'mentors and contributors are notified when a check-in is completed' do
-    Membership.last.update(role: :contributor)
-    @contributor = @user
-    @mentor = create(:user, projects: [@project])
-    Membership.last.update(role: :mentor)
+    mentor = create(:user, projects: [@project])
+    Membership.find_by(project: @project, user: mentor).update(role: :mentor)
+    recipients = [@user.email, mentor.email]
 
     visit new_project_iteration_check_in_path(@project, @iteration)
-    click_on 'Submit check-in'
+    complete_check_in
 
     mail = ActionMailer::Base.deliveries.last
 
-    recipients = [
-      @contributor.email,
-      @mentor.email
-    ]
-    
-  	assert_equal("#{@user.full_name} has completed a check-in for #{@iteration.title}", mail.subject)
+    assert_equal("#{@user.full_name} has completed a check-in for #{@iteration.title}", mail.subject)
 
     mail.to.each do |recipient|
       assert_includes(recipients, recipient)
@@ -82,8 +84,26 @@ class CheckInsTest < ApplicationSystemTestCase
 
   test 'stakeholder cannot view check-ins' do
     Membership.last.update(role: :stakeholder)
-    visit project_iteration_check_in_path(@project, @iteration, @check_in)
+    check_in = create(:check_in, iteration: @iteration)
+    visit project_iteration_check_in_path(@project, @iteration, check_in)
 
     assert_text("Sorry, you don't have access to that")
+  end
+
+  private
+
+  def assert_check_in_created(iteration = @iteration)
+    assert_link('Check-in')
+    assert_text('ON TRACK')
+    iteration.reload
+    assert_not_nil(@iteration.last_check_in_at)
+  end
+
+  def complete_check_in(iteration = @iteration)
+    iteration.outcomes.size.times do |i|
+      choose("check_in_ratings_attributes_#{i}_score_0")
+      fill_in("check_in_ratings_attributes_#{i}_comments", with: 'Comments')
+    end
+    click_on 'Submit check-in'
   end
 end

@@ -21,7 +21,7 @@ class CheckInsController < ApplicationController
 
     if @check_in.save
       NotificationsMailer.check_in_complete(@check_in, current_user).deliver_now
-      @iteration.update(last_check_in_at: DateTime.current)
+      @iteration.update_column(:last_check_in_at, Time.current)
       redirect_to project_iteration_url(@project, @iteration)
     else
       render 'new'

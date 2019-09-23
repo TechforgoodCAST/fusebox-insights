@@ -5,7 +5,7 @@
 
   <div class="card">
 
-    <h1>Check-In</h1>
+    <h1>Check-in</h1>
     <p>
       For <%= link_to @iteration.title, project_iteration_path(@project, @iteration), class: 'underline' %>
       completed on <%= friendly_date(@check_in.updated_at) %> - <%= render_check_in_status(@check_in) %>
