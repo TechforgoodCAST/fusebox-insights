@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module IterationsHelper
+  def mentor_membership
+    Membership.find_by(project: @iteration.project, user: current_user, role: :mentor)
+  end
+
   def render_warning(key, iteration)
     case key
     when :check_in_due

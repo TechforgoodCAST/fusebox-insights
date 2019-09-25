@@ -26,7 +26,7 @@ class IterationsTest < ApplicationSystemTestCase
     fill_in 'What are we going to learn or prove?', with: 'Title'
     fill_in "As a minimum, we'll know we've learnt or proved this when...", with: 'Success criteria'
     fill_in :iteration_start_date, with: Time.zone.today
-    fill_in :iteration_debrief_date, with: 6.weeks.since
+    fill_in :iteration_planned_debrief_date, with: 6.weeks.since
     page.accept_confirm { click_on 'Commit to iteration' }
 
     assert_text 'Iteration saved.'
@@ -40,8 +40,8 @@ class IterationsTest < ApplicationSystemTestCase
     assert_no_link('Remove outcome')
     assert_no_css('.iteration_outcomes_title')
   end
-  
-  test 'iterations#index redirects to projects#show' do 
+
+  test 'iterations#index redirects to projects#show' do
     visit project_iterations_path(@project)
     assert_equal(project_path(@project), current_path)
   end
@@ -59,7 +59,7 @@ class IterationsTest < ApplicationSystemTestCase
 
     assert_text('Every two weeks')
   end
-  
+
   test 'contributors can view iterations' do
     Membership.last.update(role: :contributor)
     iteration = create(:committed_iteration, project: @project)
@@ -72,15 +72,44 @@ class IterationsTest < ApplicationSystemTestCase
     iteration = create(:committed_iteration, project: @project)
     visit new_project_iteration_path(@project, iteration)
     assert_text('New iteration')
-  end  
-  
+  end
+
   test 'contributors can edit iterations' do
     Membership.last.update(role: :contributor)
     iteration = create(:committed_iteration, project: @project)
     visit edit_project_iteration_path(@project, iteration)
     assert_text('Edit iteration')
   end
-  
+
+  test 'contributors cannot edit outcomes once committed' do
+    Membership.last.update(role: :contributor)
+    iteration = create(:committed_iteration, project: @project)
+    visit edit_project_iteration_path(@project, iteration)
+
+    iteration.outcomes.each_with_index do |_iteration, index|
+      assert_no_selector("#iteration_outcomes_attributes_#{index}_title")
+    end
+  end
+
+  test 'contributors cannot edit outcomes once completed' do
+    Membership.last.update(role: :contributor)
+    iteration = create(:completed_iteration, project: @project)
+    visit edit_project_iteration_path(@project, iteration)
+
+    iteration.outcomes.each_with_index do |_iteration, index|
+      assert_no_selector("#iteration_outcomes_attributes_#{index}_title")
+    end
+  end
+
+  test 'contributors cannot edit dates once completed' do
+    Membership.last.update(role: :contributor)
+    iteration = create(:completed_iteration, project: @project)
+    visit edit_project_iteration_path(@project, iteration)
+
+    assert_no_selector('#iteration_start_date')
+    assert_no_selector('#iteration_planned_debrief_date')
+  end
+
   test 'mentors can view iterations' do
     Membership.last.update(role: :mentor)
     iteration = create(:committed_iteration, project: @project)
@@ -93,36 +122,62 @@ class IterationsTest < ApplicationSystemTestCase
     iteration = create(:committed_iteration, project: @project)
     visit new_project_iteration_path(@project, iteration)
     assert_text('New iteration')
-  end  
-  
+  end
+
   test 'mentors can edit iterations' do
     Membership.last.update(role: :mentor)
     iteration = create(:committed_iteration, project: @project)
     visit edit_project_iteration_path(@project, iteration)
     assert_text('Edit iteration')
   end
-  
+
+  test 'mentors can edit outcomes once committed' do
+    Membership.last.update(role: :mentor)
+    iteration = create(:committed_iteration, project: @project)
+    visit edit_project_iteration_path(@project, iteration)
+
+    iteration.outcomes.each_with_index do |_iteration, index|
+      assert_selector("#iteration_outcomes_attributes_#{index}_title")
+    end
+  end
+
+  test 'mentors can edit outcomes once completed' do
+    Membership.last.update(role: :mentor)
+    iteration = create(:completed_iteration, project: @project)
+    visit edit_project_iteration_path(@project, iteration)
+
+    iteration.outcomes.each_with_index do |_iteration, index|
+      assert_selector("#iteration_outcomes_attributes_#{index}_title")
+    end
+  end
+
+  test 'mentors cannot edit dates once completed' do
+    Membership.last.update(role: :mentor)
+    iteration = create(:completed_iteration, project: @project)
+    visit edit_project_iteration_path(@project, iteration)
+
+    assert_no_selector('#iteration_start_date')
+    assert_no_selector('#iteration_planned_debrief_date')
+  end
+
   test 'stakeholder can view iterations' do
     Membership.last.update(role: :stakeholder)
     iteration = create(:committed_iteration, project: @project)
     visit project_iteration_path(@project, iteration)
     assert_text('COMMITTED')
   end
-  
+
   test 'stakeholder cannot create iterations' do
     Membership.last.update(role: :stakeholder)
     iteration = create(:committed_iteration, project: @project)
     visit new_project_iteration_path(@project, iteration)
     assert_text("Sorry, you don't have access to that")
   end
-  
+
   test 'stakeholder cannot update iterations' do
     Membership.last.update(role: :stakeholder)
     iteration = create(:committed_iteration, project: @project)
     visit edit_project_iteration_path(@project, iteration)
     assert_text("Sorry, you don't have access to that")
   end
-
-  # TODO: implement
-  # test 'cannot edit dates and outcomes once complete'
 end

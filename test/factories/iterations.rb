@@ -12,7 +12,7 @@ FactoryBot.define do
 
       status { 'committed' }
       start_date { Time.zone.today }
-      debrief_date { 6.weeks.since }
+      planned_debrief_date { 6.weeks.since }
 
       after(:build) do |iteration, evaluator|
         iteration.outcomes = build_list(:outcome, evaluator.outcomes_count, iteration: iteration)
@@ -27,18 +27,26 @@ FactoryBot.define do
       end
 
       trait :debrief_imminent do
-        debrief_date { 7.days.since }
+        planned_debrief_date { 7.days.since }
       end
 
       trait :debrief_due do
-        debrief_date { Time.zone.today }
+        planned_debrief_date { Time.zone.today }
       end
 
       trait :debrief_overdue do
-        debrief_date { 3.days.ago }
+        planned_debrief_date { 3.days.ago }
       end
 
       factory :iteration_notifier, class: IterationNotifier
+
+      factory :completed_iteration do
+        status { 'completed' }
+
+        after(:build) do |iteration, _evaluator|
+          iteration.debrief = build(:debrief, iteration: iteration)
+        end
+      end
     end
   end
 end

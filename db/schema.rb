@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_113953) do
+ActiveRecord::Schema.define(version: 2019_09_25_123144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
     t.bigint "completed_by", null: false
-    t.bigint "iteration_id", null: false, null: false
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "date"
@@ -102,8 +102,8 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
   create_table "debrief_ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comments"
-    t.bigint "debrief_id", null: false, null: false
-    t.bigint "outcome_id", null: false, null: false
+    t.bigint "debrief_id", null: false
+    t.bigint "outcome_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["debrief_id"], name: "index_debrief_ratings_on_debrief_id"
@@ -114,8 +114,8 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
     t.text "notes"
     t.bigint "completed_by", null: false
     t.boolean "milestone_completed"
-    t.bigint "milestone_id", null: false, null: false
-    t.bigint "iteration_id", null: false, null: false
+    t.bigint "milestone_id", null: false
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_debriefs_on_iteration_id"
@@ -137,12 +137,13 @@ ActiveRecord::Schema.define(version: 2019_09_12_113953) do
     t.string "title", null: false
     t.text "description"
     t.date "start_date"
-    t.date "debrief_date"
+    t.date "planned_debrief_date"
     t.integer "status", default: 0, null: false
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "last_check_in_at"
+    t.date "actual_debrief_date"
     t.index ["project_id"], name: "index_iterations_on_project_id"
   end
 
