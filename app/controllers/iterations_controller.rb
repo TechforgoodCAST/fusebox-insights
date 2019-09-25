@@ -43,14 +43,14 @@ class IterationsController < ApplicationController
 
   def iteration_params
     params.require(:iteration).permit(
-      :title, :description, :start_date, :debrief_date, :status,
+      :title, :description, :start_date, :planned_debrief_date, :status,
       outcomes_attributes: %i[id title success_criteria _destroy]
     )
   end
 
   def msg(draftable)
     {
-      true  => 'Iteration saved as draft.',
+      true => 'Iteration saved as draft.',
       false => "Iteration saved. You'll receive reminders to " \
                'check-in every two weeks from the start date.'
     }[draftable]

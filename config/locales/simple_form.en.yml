@@ -20,6 +20,7 @@ en:
         more_details: "More about this project"
       iteration:
         description: "(Optional) Description"
+        planned_debrief_date: "Debrief date"
         outcomes:
           title: "What are we going to learn or prove?"
           success_criteria: "As a minimum, we'll know we've learnt or proved this when..."
@@ -39,7 +40,7 @@ en:
         description: "Provide more details on what work you'll do (tasks to be completed, estimated time, who will be involved etc.)"
         description: "Provide more details on your team's approach to reaching the outcomes you intend - this could include the activities you'll undertake, how you'll conduct user research & testing, as well as the people, skills and capabilities you might need."
         start_date: "When your team will start working towards the outcomes of this iteration - you'll receive regular reminders to check-in from this date."
-        debrief_date: "When your team will meet to debrief the findings of this iteration and shape subsequent plans - between 2-12 weeks from the start date."
+        planned_debrief_date: "When your team will meet to debrief the findings of this iteration and shape subsequent plans - between 2-12 weeks from the start date."
         outcomes:
           title: "E.g. That busy parents have trouble finding/accessing meals their fussy eaters will happily consume."
           success_criteria: "E.g. We have interviewed 10 busy parents and 8/10 cite this challenge."

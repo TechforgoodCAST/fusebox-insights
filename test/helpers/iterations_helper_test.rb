@@ -3,8 +3,21 @@
 require 'test_helper'
 
 class IterationsHelperTest < ActionView::TestCase
+  include Devise::Test::ControllerHelpers
+
   setup do
     @iteration = create(:iteration)
+    @user = create(:user)
+    sign_in(@user)
+  end
+
+  test '#mentor_membership not found' do
+    assert_nil(mentor_membership)
+  end
+
+  test '#mentor_membership found' do
+    create(:membership, project: @iteration.project, user: @user, role: :mentor)
+    assert(mentor_membership)
   end
 
   test '#render_warning invalid key' do
@@ -24,5 +37,11 @@ class IterationsHelperTest < ActionView::TestCase
     html = Nokogiri::HTML(render_warning(:debrief_due, @iteration))
 
     assert_includes(html.css('.notice').text, 'Debrief overdue. Add a debrief')
+  end
+
+  private
+
+  def current_user
+    @user
   end
 end

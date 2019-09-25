@@ -36,7 +36,7 @@ class IterationTest < ActiveSupport::TestCase
 
   test 'debrief date required when committing' do
     @subject.status = 'committed'
-    assert_present(:debrief_date)
+    assert_present(:planned_debrief_date)
   end
 
   test '#draftable? planned' do
@@ -53,32 +53,25 @@ class IterationTest < ActiveSupport::TestCase
     assert_not(@subject.draftable?)
   end
 
-  test '#start_date_cannot_be_in_the_past' do
-    @subject.start_date = Date.yesterday
-    @subject.status = 'committed'
-    @subject.valid?
-    assert_error(:start_date, "can't be in the past")
-  end
-
-  test '#debrief_date_cannot_be_before_start_date' do
+  test '#planned_debrief_date_cannot_be_before_start_date' do
     @subject.start_date = Time.zone.today
-    @subject.debrief_date = Date.yesterday
+    @subject.planned_debrief_date = Date.yesterday
     @subject.valid?
-    assert_error(:debrief_date, "can't be before start date")
+    assert_error(:planned_debrief_date, "can't be before start date")
   end
 
   test '#cannot_be_shorter_than_2_weeks' do
     @subject.start_date = Time.zone.today
-    @subject.debrief_date = 1.week.since
+    @subject.planned_debrief_date = 1.week.since
     @subject.valid?
-    assert_error(:debrief_date, "iteration can't be shorter than 2 weeks")
+    assert_error(:planned_debrief_date, "iteration can't be shorter than 2 weeks")
   end
 
   test '#cannot_be_longer_than_12_weeks' do
     @subject.start_date = Time.zone.today
-    @subject.debrief_date = 13.weeks.since
+    @subject.planned_debrief_date = 13.weeks.since
     @subject.valid?
-    assert_error(:debrief_date, "iteration can't be longer than 12 weeks")
+    assert_error(:planned_debrief_date, "iteration can't be longer than 12 weeks")
   end
 
   test '#warning planned iteration returns nil' do
@@ -91,7 +84,7 @@ class IterationTest < ActiveSupport::TestCase
   end
 
   test '#warning no :check_in_due when debrief imminent' do
-    @subject = build(:committed_iteration, :check_in_overdue, debrief_date: 4.days.since)
+    @subject = build(:committed_iteration, :check_in_overdue, planned_debrief_date: 4.days.since)
     assert_nil(@subject.warning)
   end
 

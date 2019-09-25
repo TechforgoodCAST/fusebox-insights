@@ -59,7 +59,7 @@ hr
 
 /* purgecss start ignore */
 .tag
-  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black text-sm
+  @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black text-sm whitespace-no-wrap
   &.planned
     background-color: theme('colors.status.planned')
   &.committed
@@ -133,9 +133,6 @@ h3
     color: theme('colors.alert.danger.dark')
     background: theme('colors.alert.danger.light')
     border-color: theme('colors.alert.danger.dark')
-
-p + p
-  @apply mt-3
 
 .colored-text
   color: theme('colors.primary.600')

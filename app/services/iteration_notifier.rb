@@ -28,7 +28,7 @@ class IterationNotifier < Iteration
 
     return :check_in_overdue if send_check_in?(check_in_gap + overdue_gap, debrief_gap)
 
-    return :debrief_due if debrief_date == Time.zone.today
+    return :debrief_due if planned_debrief_date == Time.zone.today
 
     return :debrief_overdue if debrief_distance == overdue_gap
   end
