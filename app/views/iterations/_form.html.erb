@@ -25,7 +25,7 @@
     <% end %>
   </div>
 
-  <%- if @iteration.draftable? %>
+  <%- if mentor_membership || @iteration.draftable? %>
     <div class='mb-6'>
       <%= link_to_add_association 'Add outcome', f, :outcomes, class: 'link', data: { association_insertion_node: '#outcomes', association_insertion_method: :append } %>
     </div>
