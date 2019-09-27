@@ -124,6 +124,21 @@ class IterationsTest < ApplicationSystemTestCase
     assert_text('New iteration')
   end
 
+  test 'mentors can create outcomes once committed' do
+    Membership.last.update(role: :mentor)
+    iteration = create(:committed_iteration, outcomes_count: 1, project: @project)
+    visit edit_project_iteration_path(@project, iteration)
+    click_on 'Add outcome'
+    within '#outcomes' do
+      all('textarea:empty').each do |e|
+        e.fill_in(with: 'New outcome')
+      end
+    end
+    click_on 'Update Iteration'
+
+    assert_text('New outcome', count: 2)
+  end
+
   test 'mentors can edit iterations' do
     Membership.last.update(role: :mentor)
     iteration = create(:committed_iteration, project: @project)
