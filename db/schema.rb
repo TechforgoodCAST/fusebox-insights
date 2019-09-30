@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 2019_09_25_123144) do
     t.text "notes"
     t.bigint "completed_by", null: false
     t.boolean "milestone_completed"
-    t.bigint "milestone_id", null: false
+    t.bigint "milestone_id"
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
