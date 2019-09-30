@@ -101,8 +101,8 @@ class CheckInsTest < ApplicationSystemTestCase
 
   def complete_check_in(iteration = @iteration)
     iteration.outcomes.size.times do |i|
-      choose("check_in_ratings_attributes_#{i}_score_0")
-      fill_in("check_in_ratings_attributes_#{i}_comments", with: 'Comments')
+      choose("check_in_check_in_ratings_attributes_#{i}_score_0")
+      fill_in("check_in_check_in_ratings_attributes_#{i}_comments", with: 'Comments')
     end
     click_on 'Submit check-in'
   end

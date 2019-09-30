@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Rating < ApplicationRecord
+class CheckInRating < ApplicationRecord
   belongs_to :check_in
   belongs_to :outcome
 

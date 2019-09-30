@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_123144) do
+ActiveRecord::Schema.define(version: 2019_09_30_154558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,8 +89,20 @@ ActiveRecord::Schema.define(version: 2019_09_25_123144) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
+  create_table "check_in_ratings", force: :cascade do |t|
+    t.integer "score"
+    t.text "comments"
+    t.bigint "check_in_id", null: false
+    t.bigint "outcome_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["check_in_id"], name: "index_check_in_ratings_on_check_in_id"
+    t.index ["outcome_id"], name: "index_check_in_ratings_on_outcome_id"
+  end
+
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
+    t.datetime "complete_at"
     t.bigint "completed_by", null: false
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
@@ -188,17 +200,6 @@ ActiveRecord::Schema.define(version: 2019_09_25_123144) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ratings", force: :cascade do |t|
-    t.integer "score"
-    t.text "comments"
-    t.bigint "check_in_id", null: false
-    t.bigint "outcome_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["check_in_id"], name: "index_ratings_on_check_in_id"
-    t.index ["outcome_id"], name: "index_ratings_on_outcome_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "full_name"
     t.string "email", default: "", null: false
@@ -216,6 +217,8 @@ ActiveRecord::Schema.define(version: 2019_09_25_123144) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "check_in_ratings", "check_ins"
+  add_foreign_key "check_in_ratings", "outcomes"
   add_foreign_key "check_ins", "iterations"
   add_foreign_key "debrief_ratings", "debriefs"
   add_foreign_key "debrief_ratings", "outcomes"
@@ -224,6 +227,4 @@ ActiveRecord::Schema.define(version: 2019_09_25_123144) do
   add_foreign_key "iterations", "projects"
   add_foreign_key "milestones", "projects"
   add_foreign_key "outcomes", "iterations"
-  add_foreign_key "ratings", "check_ins"
-  add_foreign_key "ratings", "outcomes"
 end
