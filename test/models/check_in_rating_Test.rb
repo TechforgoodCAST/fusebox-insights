@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class RatingTest < ActiveSupport::TestCase
-  setup { @subject = build(:rating) }
+class CheckInRatingTest < ActiveSupport::TestCase
+  setup { @subject = build(:check_in_rating) }
 
   test 'belongs to outcome' do
     assert_instance_of(Outcome, @subject.outcome)

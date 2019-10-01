@@ -2,9 +2,9 @@
 
 class CheckIn < ApplicationRecord
   belongs_to :iteration
-  has_many :ratings, dependent: :destroy
+  has_many :check_in_ratings, dependent: :destroy
 
-  accepts_nested_attributes_for :ratings,
+  accepts_nested_attributes_for :check_in_ratings,
     reject_if: :all_blank,
     update_only: true,
     allow_destroy: true,

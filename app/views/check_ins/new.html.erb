@@ -9,7 +9,7 @@
     <hr class="my-6">
     <%= simple_form_for([@project, @iteration, @check_in]) do |f| %>
 
-        <%= f.fields_for :ratings do |r| %>
+        <%= f.fields_for :check_in_ratings do |r| %>
 
           <h2 class="my-3">Outcome <%= r.index+1 %> of <%= @iteration.outcomes.count %></h2>
 
@@ -23,7 +23,7 @@
           <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
           <%= r.input :score, 
                       as: :radio_buttons, 
-                      collection: Rating::SCORES, 
+                      collection: CheckInRating::SCORES, 
                       label_method: :second, 
                       value_method: :first,
                       item_label_class: 'tag',
