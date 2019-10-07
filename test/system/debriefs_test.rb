@@ -96,6 +96,15 @@ class DebriefsTest < ApplicationSystemTestCase
     assert_equal('completed', updated_milestone.status)
   end
   
+  test "don't have to complete milestone when submitting debrief" do
+    visit new_project_iteration_debrief_path(@project, @iteration)
+    choose 'No'
+    click_on 'Submit debrief'
+    
+    updated_milestone = Milestone.find(@milestone.id)
+    assert_equal('committed', updated_milestone.status)
+  end
+  
   test 'contributors and mentors can complete one debrief per iteration' do
     @debrief.save!
     visit new_project_iteration_debrief_path(@project, @iteration)

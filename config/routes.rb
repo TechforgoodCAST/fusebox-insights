@@ -17,13 +17,13 @@ Rails.application.routes.draw do
     # TODO: https://guides.rubyonrails.org/routing.html#limits-to-nesting
     resources :iterations, except: :destroy do
       resources :check_ins do
-        resources :ratings
+        resources :check_in_ratings
       end
       resources :debriefs do
         resources :debrief_ratings
       end
       resources :outcomes do
-        resources :ratings
+        resources :check_in_ratings
       end
     end
     resources :memberships, only: %i[new create index destroy]

@@ -28,7 +28,7 @@ class DebriefsController < ApplicationController
     if @debrief.save!
       NotificationsMailer.debrief_complete(@debrief, current_user).deliver_now
       @iteration.update!(status: 'completed', actual_debrief_date: @debrief.updated_at)
-      @milestone.update!(status: 'completed') if debrief_params[:milestone_completed]
+      @milestone.update!(status: 'completed') if ActiveModel::Type::Boolean.new.cast(debrief_params[:milestone_completed])
       redirect_to project_iteration_url(@project, @iteration)
     else
       render 'new'

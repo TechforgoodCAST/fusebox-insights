@@ -10,7 +10,7 @@ class CheckInsController < ApplicationController
     @iteration = Iteration.find(params[:iteration_id])
     @check_in = authorize @iteration.check_ins.new
 
-    @iteration.outcomes.length.times { @check_in.ratings.build }
+    @iteration.outcomes.length.times { @check_in.check_in_ratings.build }
   end
 
   def create
@@ -39,7 +39,7 @@ class CheckInsController < ApplicationController
   def check_in_params
     params
       .require(:check_in)
-      .permit(:notes, ratings_attributes: %i[id score comments iteration outcome_id])
+      .permit(:notes, check_in_ratings_attributes: %i[id score comments iteration outcome_id])
       .with_defaults(completed_by: current_user.id)
   end
 end
