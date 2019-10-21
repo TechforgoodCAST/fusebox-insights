@@ -24,7 +24,7 @@ class MembershipsController < ApplicationController
     @membership = @project.memberships.new(membership_params)
 
     if @membership.save_with_user
-      NotificationsMailer.project_invite(@membership).deliver_now
+      NotificationsMailer.project_invite(@membership, current_user).deliver_now
       redirect_to share_project_path(@project), notice: "#{@membership.role.titleize} added"
     else
       render :new

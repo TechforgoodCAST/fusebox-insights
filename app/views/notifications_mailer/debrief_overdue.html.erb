@@ -1,6 +1,6 @@
 <h1>Debrief overdue!</h1>
 
-<p>Your team’s regular check-in to self-assess its progress is overdue!</p>
+<p>Your team’s regular check-in to self-assess its progress on <%= @iteration.title %> is overdue!</p>
 
 <ol>
   <li>Have one person open the <%= link_to 'team debrief form', new_project_iteration_debrief_url(@iteration.project, @iteration) %> and use it to guide a quick chat with team members.</li>

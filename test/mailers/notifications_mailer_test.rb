@@ -4,18 +4,22 @@ require 'test_helper'
 
 class NotificationsMailerTest < ActionMailer::TestCase
   test '#project_invite' do
-    membership = create(:membership)
-    mail = NotificationsMailer.project_invite(membership)
+    project = create(:project, title: 'Test Project')
+    membership = create(:membership, project: project)
+    inviter = create(:user)
+    
+    mail = NotificationsMailer.project_invite(membership, inviter)
     assert_equal("You've been added to a project on Fusebox", mail.subject)
     assert_equal([membership.user.email], mail.to)
     assert_equal(['no-reply@fusebox.org.uk'], mail.from)
 
     assert_match('contributor', mail.body.encoded)
+    assert_match('Test Project', mail.body.encoded)
 
-    assert_match('View project', mail.body.encoded)
-    assert_match("/projects/#{membership.project_id}", mail.body.encoded)
+    assert_match('View the project', mail.body.encoded)
+    assert_match("/projects/#{project.id}", mail.body.encoded)
 
-    assert_match('reset your password', mail.body.encoded)
+    assert_match('set your password', mail.body.encoded)
     assert_match('/users/password/new', mail.body.encoded)
   end
 
@@ -49,5 +53,6 @@ class NotificationsMailerTest < ActionMailer::TestCase
       "/projects/#{iteration.project_id}/iterations/#{iteration.id}/#{type}s/new",
       mail.body.encoded
     )
+    assert_match(iteration.title, mail.body.encoded)
   end
 end

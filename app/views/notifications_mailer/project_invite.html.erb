@@ -1,7 +1,18 @@
-<h1>Project invite</h1>
+<%
+capabilities = {
+  #You can...
+  'contributor' => 'create and edit all items in the project. You will receive reminders about submitting check-ins and debriefs.',
+  'stakeholder' => 'view the project but cannot modify it. You will receive a notification when the team submits a debrief.',
+  'mentor' => 'create and edit all items in the project. You will receive reminders about submitting check-ins and debriefs.'
+}
+%>
 
-<p>You've been added as a <%= @membership.role %> to a project on Fusebox.</p>
+<h1>Project invitation</h1>
 
-<p><%= link_to 'View project', project_url(@membership.project) %></p>
+<p><%= @inviter.full_name %> has added you to their <%= @membership.project.title %> project on Fusebox, a platform for tracking progress on digital projects.</p>
 
-<p>Please note, if this is your first time using Fusebox you will need to <%= link_to 'reset your password', new_user_password_url %> first.</p>
+<p>You've been added as a <%= @membership.role %>, which means you can <%= capabilities[@membership.role] %></p>
+
+<p><%= link_to 'View the project', project_url(@membership.project) %></p>
+
+<p>Please note, if this is your first time using Fusebox you will need to <%= link_to 'set your password', new_user_password_url %> first.</p>
