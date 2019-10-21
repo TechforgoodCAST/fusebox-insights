@@ -18,6 +18,7 @@
       <%= with_default(@iteration.description, text: 'Description not provided', formatter: :simple_format) %>
     </div>
 
+    <% if !@iteration.status_planned? %>
     <div class="mb-6">
       <h2 class="mb-4">Progress</h2>
       <%= render_warning(@iteration.warning, @iteration) %>
@@ -75,6 +76,7 @@
       </div>
       <hr>
     </div>
+	<% end %>
 
     <h2>Outcomes</h2>
     <% if !@iteration.outcomes.any? %>
