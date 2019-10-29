@@ -73,6 +73,7 @@
           merged << {
             :type       => 'iteration',
             :status     => iteration.status,
+            :status_num => Iteration.statuses[iteration.status],
             :start_date => iteration.start_date || Date.tomorrow,
             :end_date   => iteration.debrief_date || Date.tomorrow,
             :data       => iteration
@@ -84,13 +85,14 @@
           merged << {
             :type       => 'milestone',
             :status   	=> milestone.status,
+            :status_num	=> Milestone.statuses[milestone.status],
             :start_date => milestone.deadline || Date.tomorrow,
             :data       => milestone
           }
         end
 
         #Sort the merged array reverse chronologically
-        items = merged.sort_by { |hsh| [hsh[:status], hsh[:start_date]] }
+        items = merged.sort_by { |hsh| [-hsh[:status_num], hsh[:start_date]] }
         old_status = '';
         items.each_with_index do |item|
 
