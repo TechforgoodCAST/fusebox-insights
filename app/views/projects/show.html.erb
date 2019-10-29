@@ -115,42 +115,48 @@
               <div class='card w-full'>
                 <h3>Iteration: <%= link_to iteration.title, [@project, iteration], class: 'underline hover:opacity-75' %></h3>
                 <p class="mb-6"><%= iteration.description %></p>
-                <h3>Latest update</h3>
-                <% if current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
 
-                  <% if iteration.status_completed? %>
-                    <p class="mb-6"><%= link_to 'Debrief completed on '+friendly_date(iteration.debrief.created_at), [@project, iteration, iteration.debrief], class: 'link' %></p>
+                <% if iteration.status_planned? %>
+                  <p class="missing-text">No updates yet</p>
+                
+                <% elsif iteration.status_committed? %>
+                  <h3>Latest update</h3>
 
-                  <% elsif check_ins = iteration.check_ins.count %>
-                    <p class="mb-6">Completed <%= pluralize(check_ins, 'check-in') %></p>
+                  <% if current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
+                    <% #Stakeholders can just see how many check-ins have been done %>
 
-                  <% else %>
-                    <p class="mb-6 missing-text">No updates yet</p>
-                  <% end %>
-
-                <% else %>
-
-                  <% if iteration.warning == :check_in_due %>
-                    <%= render_warning(iteration.warning, iteration) %>
-
-                  <% elsif iteration.warning == :debrief_due %>
-                    <%= render_warning(iteration.warning, iteration) %>
-
-                  <% elsif iteration.status_completed? %>
-                    <p class="mb-6"><%= link_to 'Debrief completed on '+friendly_date(iteration.debrief.created_at), [@project, iteration, iteration.debrief], class: 'link' %></p>
-
-                  <% elsif check_in = iteration.check_ins.last %>
-                    <p class="mb-6"><%= link_to 'Checked in on '+friendly_date(check_in.created_at), [@project, iteration, check_in], class: 'link' %> - <%= render_check_in_status(check_in) %></p>
+                    <% if check_ins = iteration.check_ins.count %>
+                      <p>Completed <%= pluralize(check_ins, 'check-in') %></p>
+                    <% else %>
+                      <p class="missing-text">No updates yet</p>
+                    <% end %>
 
                   <% else %>
-                    <p class="mb-6 missing-text">No updates yet</p>
-                  <% end %>
+                    <% #Mentors and contributors can see warnings, and links to all check-ins %>
 
-                  <% if iteration.status_committed? %>
-                    <p class="text-sm text-gray-600">Debrief due on <%= friendly_date(iteration.debrief_date) %></p>
+                    <% if iteration.warning == :check_in_due || iteration.warning == :debrief_due %>
+                      <%= render_warning(iteration.warning, iteration) %>
+                    <% end %>
+
+                    <% if check_in = iteration.check_ins.last %>
+                      <p><%= link_to 'Checked in on '+friendly_date(check_in.created_at), [@project, iteration, check_in], class: 'link' %> - <%= render_check_in_status(check_in) %></p>
+                    <% else %>
+                      <p class="missing-text">No updates yet</p>
+                    <% end %>
+
                   <% end %>
 
                 <% end %>
+
+                <% #Everyone can see information about debriefs %>
+                <% if iteration.status_completed? %>
+                  <p class="mt-6">Debrief completed on <%= link_to friendly_date(iteration.debrief.created_at), [@project, iteration, iteration.debrief], class: 'link' %></p>
+                <% elsif iteration.status_committed? %>
+                  <p class="mt-6">Debrief due on <%= friendly_date(iteration.debrief_date) %></p>
+                <% elsif iteration.status_planned? && iteration.debrief_date %>
+                  <p class="mt-6">Debrief planned for <%= friendly_date(iteration.debrief_date) %></p>
+                <% end %>
+               
               </div>
             </div>
           <%
