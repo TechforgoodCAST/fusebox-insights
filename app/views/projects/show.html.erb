@@ -117,7 +117,11 @@
                 <p class="mb-6"><%= iteration.description %></p>
 
                 <% if iteration.status_planned? %>
-                  <p class="missing-text">No updates yet</p>
+                  <% if iteration.start_date? %>
+                    <p>Planning to start <%= friendly_date(iteration.start_date) %></p>
+                  <% else %>
+                    <p class="missing-text">No updates yet</p>
+                  <% end %>
                 
                 <% elsif iteration.status_committed? %>
                   <h3>Latest update</h3>

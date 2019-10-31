@@ -17,10 +17,9 @@
     <div class="mb-6">
       <%= with_default(@iteration.description, text: 'Description not provided', formatter: :simple_format) %>
     </div>
-
-    <% if !@iteration.status_planned? %>
+    
     <div class="mb-6">
-      <h2 class="mb-4">Progress</h2>
+      <h2 class="mb-4"><%= @iteration.status_planned? ? 'Plan' : 'Progress' %></h2>
       <%= render_warning(@iteration.warning, @iteration) %>
       <hr>
 
@@ -65,18 +64,24 @@
           <div class="w-full sm:w-3/4 mb-3">
             <%= with_default(@iteration.debrief_date, formatter: :friendly_date) %>
           </div>
-        <% else %>
+        <% elsif @iteration.status_committed? %>
           <div class="w-full sm:w-1/4 mb-3">
             Debrief
           </div>
           <div class="w-full sm:w-3/4 mb-3">
             Due <%= with_default(@iteration.planned_debrief_date, formatter: :friendly_date) %>
           </div>
+        <% else %>
+          <div class="w-full sm:w-1/4 mb-3">
+            Debrief
+          </div>
+          <div class="w-full sm:w-3/4 mb-3">
+            <%= with_default(@iteration.planned_debrief_date, formatter: :friendly_date) %>
+          </div>
         <% end %>
       </div>
       <hr>
     </div>
-	<% end %>
 
     <h2>Outcomes</h2>
     <% if !@iteration.outcomes.any? %>
