@@ -1,7 +1,9 @@
-<h1>Project invite</h1>
+<h1>Project invitation</h1>
 
-<p>You've been added as a <%= @membership.role %> to a project on Fusebox.</p>
+<p><%= @inviter.full_name %> has added you to their <%= @membership.project.title %> project on Fusebox, a tool to guide, plan and communicate digital service development.</p>
 
-<p><%= link_to 'View project', project_url(@membership.project) %></p>
+<p>You've been added as a <%= @membership.role %>, which means you can <%= @capabilities %></p>
 
-<p>Please note, if this is your first time using Fusebox you will need to <%= link_to 'reset your password', new_user_password_url %> first.</p>
+<p><%= link_to 'View the project', project_url(@membership.project) %></p>
+
+<p>Please note, if this is your first time using Fusebox you will need to <%= link_to 'set your password', new_user_password_url %> first.</p>
