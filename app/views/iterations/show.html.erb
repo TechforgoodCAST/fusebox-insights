@@ -7,7 +7,12 @@
   <div class="card">
     <div class="flex items-end items-center justify-between mb-3">
       <h1><%= @iteration.title %></h1>
-      <%= link_to 'Edit', edit_project_iteration_path(@project, @iteration), class: 'link' %>
+      <div>
+		  <%= link_to 'Edit', edit_project_iteration_path(@project, @iteration), class: 'link' %>
+		  <% if @iteration.status_planned? %>
+			  <%= link_to 'Delete', project_iteration_path(@project, @iteration), class: 'link', data: {:confirm => 'Are you sure?'}, method: :delete %>
+		  <% end %>
+      </div>
     </div>
 
     <div class="mb-6">
