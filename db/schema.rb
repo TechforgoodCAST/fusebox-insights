@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_154558) do
+ActiveRecord::Schema.define(version: 2019_11_04_133739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 2019_09_30_154558) do
 
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
-    t.datetime "complete_at"
     t.bigint "completed_by", null: false
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
@@ -126,8 +125,8 @@ ActiveRecord::Schema.define(version: 2019_09_30_154558) do
     t.text "notes"
     t.bigint "completed_by", null: false
     t.boolean "milestone_completed"
-    t.bigint "milestone_id"
-    t.bigint "iteration_id", null: false
+    t.bigint "milestone_id", null: false
+    t.bigint "iteration_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_debriefs_on_iteration_id"
@@ -213,6 +212,7 @@ ActiveRecord::Schema.define(version: 2019_09_30_154558) do
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
+    t.boolean "is_admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
