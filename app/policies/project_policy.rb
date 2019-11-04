@@ -2,7 +2,7 @@
 
 class ProjectPolicy < ApplicationPolicy
   def show?
-    Membership.find_by(project: record, user: user)
+    Membership.find_by(project: record, user: user) || user.is_admin?
   end
 
   def create?
@@ -10,7 +10,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    Membership.find_by(project: record, user: user, role: %w[contributor mentor])
+    Membership.find_by(project: record, user: user, role: %w[contributor mentor]) || user.is_admin?
   end
 
   def about?

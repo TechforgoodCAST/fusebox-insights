@@ -11,6 +11,9 @@ class ProjectsController < ApplicationController
     @contributor = @projects.select { |p| p.role == Membership.roles['contributor'] }
     @stakeholder = @projects.select { |p| p.role == Membership.roles['stakeholder'] }
     @mentor = @projects.select { |p| p.role == Membership.roles['mentor'] }
+    
+    @other_projects = current_user.is_admin? ? Project.all - @projects : []
+    
   end
 
   def show
