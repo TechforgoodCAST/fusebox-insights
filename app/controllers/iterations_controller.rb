@@ -39,6 +39,14 @@ class IterationsController < ApplicationController
     end
   end
 
+  def destroy
+    @project = Project.find(params[:project_id])
+    @iteration = Iteration.find(params[:id])
+    @iteration.destroy
+
+    redirect_to project_path(@project), notice: 'Draft iteration deleted.'
+  end
+
   private
 
   def iteration_params
