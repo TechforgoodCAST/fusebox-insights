@@ -30,8 +30,7 @@
                     boolean_style: :inline, 
                     label: "Team rating: Did you learn or prove what you expected?" 
         %>
-
-        <%= r.input :comments, as: :trix_editor, label: "Why have you given this rating and what's the key takeaway?"%>
+        <%= r.input :comments, as: :trix_editor, label: "Why have you given this rating and what's the key takeaway?", input: 'debrief_debrief_ratings_attributes_'+r.index.to_s+'_comments' %>
 
         <hr class="my-6">
       <% end %>
