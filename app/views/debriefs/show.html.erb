@@ -27,8 +27,8 @@
             <span class="my-3 tag"><%= rating.get_score %></span>
       </div>
 
-      <h3>Why have you given this rating and what's the key takeaway?</h3>
-      <p><%= rating.comments %></p>
+      <h3 class="my-3">Why have you given this rating and what's the key takeaway?</h3>
+      <div class="rich-text"><%= rating.comments&.html_safe %></div>
 
       <hr class="my-6">
     <% end %>
@@ -36,20 +36,20 @@
     <% if @milestone %>
       <h2>Milestone</h2>
       <p>The next milestone is...</p>
-      <div class="card my-6">
+      <div class="card my-3">
         <h2><%= @milestone.title %></h2>
         <p class="mb-3"><%= @milestone.description %></p>
         <h3>We'll know we've reached this milestone when...</h3>
         <% if @milestone.success_criteria.blank? %>
           <p class="missing-text mb-3">Not provided</p>
         <% else %>
-          <div class="rich-text"><%= @milestone.success_criteria&.html_safe %></div>
+          <div class="rich-text mb-3"><%= @milestone.success_criteria&.html_safe %></div>
         <% end %>
         <h3>We plan to reach this milestone by...</h3>
         <p><%= friendly_date(@milestone.deadline) %></p>
       </div>
       <div class="my-3">
-        <h3>Team rating: Team rating: Following this iteration, can we confidently say we have met this milestone?</h3>
+        <h3>Team rating: Following this iteration, can we confidently say we have met this milestone?</h3>
         <span class="my-3 tag"><%= ApplicationHelper::YESNO[@debrief.milestone_completed] %></span>
       </div>
 
@@ -58,7 +58,7 @@
     
     <div class="mt-6">
       <h2 class="mb-2">Additional Notes</h2>
-      <p><%= with_default(@debrief.notes, text: 'Not provided') %></p>
+      <div class="rich-text"><%= with_default(@debrief.notes&.html_safe, text: 'Not provided') %></div>
     </div>
   </div>
 </div>
