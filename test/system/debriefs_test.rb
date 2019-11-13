@@ -89,10 +89,16 @@ class DebriefsTest < ApplicationSystemTestCase
   
   test "can't submit debrief without ratings" do
     visit new_project_iteration_debrief_path(@project, @iteration)
-    choose 'debrief_milestone_completed_true'
     click_on 'Submit debrief'
     
     assert_text("can't be blank")
+  end
+  
+  test "can submit debrief with ratings" do
+    visit new_project_iteration_debrief_path(@project, @iteration)
+    submit_debrief
+    
+    assert_text("COMPLETED")
   end
   
   test 'can complete milestone when submitting debrief' do
