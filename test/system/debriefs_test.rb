@@ -4,8 +4,8 @@ require 'application_system_test_case'
 
 class DebriefsTest < ApplicationSystemTestCase
   setup do
-    @debrief = build(:debrief)
-    @iteration = @debrief.iteration
+    @iteration = create(:committed_iteration)
+    @debrief = build(:debrief, iteration: @iteration)
     @project = @debrief.iteration.project
     @milestone = build(:milestone, status: 'committed')
     @project.milestones = [@milestone];
@@ -82,14 +82,29 @@ class DebriefsTest < ApplicationSystemTestCase
   end
   
   test 'iteration status changed to completed when debrief completed' do    
-    submit_debrief    
+    submit_debrief
     updated_iteration = Iteration.find(@iteration.id)
     assert_equal('completed', updated_iteration.status)
   end
   
+  test "can't submit debrief without ratings" do
+    visit new_project_iteration_debrief_path(@project, @iteration)
+    click_on 'Submit debrief'
+    
+    assert_text("can't be blank")
+  end
+  
+  test "can submit debrief with ratings" do
+    visit new_project_iteration_debrief_path(@project, @iteration)
+    submit_debrief
+    
+    assert_text("COMPLETED")
+  end
+  
   test 'can complete milestone when submitting debrief' do
     visit new_project_iteration_debrief_path(@project, @iteration)
-    choose 'Yes'
+    fill_debrief
+    choose 'debrief_milestone_completed_true'
     click_on 'Submit debrief'
     
     updated_milestone = Milestone.find(@milestone.id)
@@ -98,7 +113,8 @@ class DebriefsTest < ApplicationSystemTestCase
   
   test "don't have to complete milestone when submitting debrief" do
     visit new_project_iteration_debrief_path(@project, @iteration)
-    choose 'No'
+    fill_debrief
+    choose 'debrief_milestone_completed_false'
     click_on 'Submit debrief'
     
     updated_milestone = Milestone.find(@milestone.id)
@@ -114,10 +130,15 @@ class DebriefsTest < ApplicationSystemTestCase
   
   private
   
-  def submit_debrief
+  def fill_debrief
     visit new_project_iteration_debrief_path(@project, @iteration)
-    choose 'No'
-    click_on 'Submit debrief'
+    choose 'debrief_debrief_ratings_attributes_0_score_200'
+    first('trix-editor').click.set('New text')
+    choose 'debrief_milestone_completed_true'
   end
   
+  def submit_debrief
+    fill_debrief
+    click_on 'Submit debrief'
+  end
 end

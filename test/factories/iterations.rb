@@ -7,7 +7,7 @@ FactoryBot.define do
 
     factory :committed_iteration do
       transient do
-        outcomes_count { 5 }
+        outcomes_count { 1 }
       end
 
       status { 'committed' }
