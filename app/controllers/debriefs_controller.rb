@@ -12,7 +12,7 @@ class DebriefsController < ApplicationController
 
     if Debrief.find_by(iteration: @iteration)
       flash[:alert] = "You've already debriefed this iteration"
-      redirect_to project_iteration_url(@project, @iteration)
+      redirect_to project_iteration_url(@project, @iteration) and return
     end
 
     @debrief = authorize @iteration.build_debrief
