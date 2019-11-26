@@ -145,7 +145,7 @@ class ProjectsTest < ApplicationSystemTestCase
     User.last.update(is_admin: :true)
     visit projects_path
     
-    assert_text('All other projects')
+    assert_text('All Other Projects')
   end
 
   private
