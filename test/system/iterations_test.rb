@@ -20,15 +20,8 @@ class IterationsTest < ApplicationSystemTestCase
   end
 
   test 'can commit to iteration' do
-    click_on 'New iteration'
-    fill_in :iteration_title, with: 'Title'
-    click_link 'Add outcome'
-    fill_in 'What are we going to learn or prove?', with: 'Title'
-    fill_in "As a minimum, we'll know we've learnt or proved this when...", with: 'Success criteria'
-    fill_in :iteration_start_date, with: Time.zone.today
-    fill_in :iteration_planned_debrief_date, with: 6.weeks.since
-    page.accept_confirm { click_on 'Commit to iteration' }
-
+    submit_iteration
+    assert_equal(project_iteration_path(@project, Iteration.last), current_path)
     assert_text 'Iteration saved.'
   end
 
@@ -88,6 +81,29 @@ class IterationsTest < ApplicationSystemTestCase
     iteration = create(:committed_iteration, project: @project)
     visit new_project_iteration_path(@project, iteration)
     assert_text('New iteration')
+  end
+	
+  test 'mentors and contributors are notified when an iteration is added' do
+    Membership.last.update(role: :contributor)
+    @contributor = @user
+    @mentor = create(:user, projects: [@project])
+    Membership.last.update(role: :mentor)
+    
+    submit_iteration
+    assert_equal(project_iteration_path(@project, Iteration.last), current_path)
+    
+    mail = ActionMailer::Base.deliveries.last
+    
+    recipients = [
+      @contributor.email,
+      @mentor.email
+    ]
+    
+  	assert_equal("#{@user.full_name} has added an interation for #{@project.title}", mail.subject)
+
+    mail.to.each do |recipient|
+      assert_includes(recipients, recipient)
+    end
   end
 
   test 'contributors can edit iterations' do
@@ -211,4 +227,19 @@ class IterationsTest < ApplicationSystemTestCase
     visit edit_project_iteration_path(@project, iteration)
     assert_text("Sorry, you don't have access to that")
   end
+  
+  private
+  
+  def submit_iteration
+    click_on 'New iteration'
+    fill_in :iteration_title, with: 'Title'
+    click_link 'Add outcome'
+    fill_in 'What are we going to learn or prove?', with: 'Title'
+    fill_in "As a minimum, we'll know we've learnt or proved this when...", with: 'Success criteria'
+    fill_in :iteration_start_date, with: Time.zone.today
+    fill_in :iteration_planned_debrief_date, with: 6.weeks.since
+    page.accept_confirm { click_on 'Commit to iteration' }
+    sleep 1
+  end
+  
 end

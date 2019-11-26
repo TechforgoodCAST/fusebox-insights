@@ -56,7 +56,7 @@ class DebriefsTest < ApplicationSystemTestCase
     assert_text('Debrief')
   end
 
-  test 'mentors and contributors are notified when a debrief is completed' do
+  test 'mentors, contributors and stakeholders are notified when a debrief is completed' do
     Membership.last.update(role: :contributor)
     @contributor = @user
     @mentor = create(:user, projects: [@project])

@@ -15,6 +15,7 @@ class IterationsController < ApplicationController
     @iteration = authorize @project.iterations.new(iteration_params)
 
     if @iteration.save
+      NotificationsMailer.iteration_added(@iteration, current_user).deliver_now
       redirect_to project_iteration_url(@project, @iteration), notice: msg(@iteration.draftable?)
     else
       render :new
@@ -33,6 +34,7 @@ class IterationsController < ApplicationController
     @iteration = authorize @project.iterations.find_by(id: params[:id])
 
     if @iteration.update(iteration_params)
+      NotificationsMailer.iteration_added(@iteration, current_user).deliver_now
       redirect_to project_iteration_url(@project, @iteration), notice: msg(@iteration.draftable?)
     else
       render :edit

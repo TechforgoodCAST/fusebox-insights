@@ -57,6 +57,14 @@ class NotificationsMailer < ApplicationMailer
     emails = emails_by_role(iteration, %w[contributor mentor])
     mail to: emails, subject: 'Debrief overdue!'
   end
+	
+  def iteration_added(iteration, user)
+    @iteration = iteration
+    @project = @iteration.project
+    @user = user
+    emails = emails_by_role(@iteration, %w[contributor mentor])
+    mail to: emails, subject: "#{@user.full_name} has added an interation for #{@project.title}"
+  end
 
   private
 
