@@ -42,7 +42,7 @@
           <div class="w-full sm:w-3/4 mb-3">
             Every two weeks
             <% if policy(@iteration).create? %>
-              <small>(Only visible to project contributors)</small>
+              <br><small>(Only visible to project contributors)</small>
             <% end %>
           </div>
         </div>
@@ -74,7 +74,12 @@
             Debrief
           </div>
           <div class="w-full sm:w-3/4 mb-3">
-            Due <%= with_default(@iteration.planned_debrief_date, formatter: :friendly_date) %>
+            Due <%= with_default(@iteration.planned_debrief_date, formatter: :friendly_date) %><br>
+            <% if @iteration.planned_debrief_date.future? %> 
+				<small class="missing-text">Finished learning? <%= link_to 'Debrief early', new_project_iteration_debrief_path(@project, @iteration), class: 'link' %></small>
+			<% else %>
+				<small class="text-danger">Overdue! <%= link_to 'Add a debrief', new_project_iteration_debrief_path(@project, @iteration), class: 'link' %></small>
+			<% end %>
           </div>
         <% else %>
           <div class="w-full sm:w-1/4 mb-3">

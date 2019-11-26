@@ -21,6 +21,12 @@ class DebriefsTest < ApplicationSystemTestCase
     visit new_project_iteration_debrief_path(@project, @iteration)
     assert_text('New debrief')
   end
+	
+  test 'contributors can debrief early' do
+    Membership.last.update(role: :contributor)
+    visit project_iteration_path(@project, @iteration)
+    assert_text('Debrief early')
+  end
 
   test 'contributors can view debriefs' do
     @debrief.save!
