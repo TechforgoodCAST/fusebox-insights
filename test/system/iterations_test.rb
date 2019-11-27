@@ -113,16 +113,6 @@ class IterationsTest < ApplicationSystemTestCase
     assert_text('Edit iteration')
   end
 
-  test 'contributors cannot edit outcomes once committed' do
-    Membership.last.update(role: :contributor)
-    iteration = create(:committed_iteration, project: @project)
-    visit edit_project_iteration_path(@project, iteration)
-
-    iteration.outcomes.each_with_index do |_iteration, index|
-      assert_no_selector("#iteration_outcomes_attributes_#{index}_title")
-    end
-  end
-
   test 'contributors cannot edit outcomes once completed' do
     Membership.last.update(role: :contributor)
     iteration = create(:completed_iteration, project: @project)

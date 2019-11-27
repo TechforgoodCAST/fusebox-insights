@@ -28,13 +28,14 @@ class IterationsController < ApplicationController
 
   def edit
     @iteration = authorize @project.iterations.find_by(id: params[:id])
+    flash.now[:alert] = 'Changes to committed iterations should be very minor unless agreed with your mentor.'
   end
 
   def update
     @iteration = authorize @project.iterations.find_by(id: params[:id])
 
     if @iteration.update(iteration_params)
-      NotificationsMailer.iteration_added(@iteration, current_user).deliver_now
+      NotificationsMailer.iteration_updated(@iteration, current_user).deliver_now
       redirect_to project_iteration_url(@project, @iteration), notice: msg(@iteration.draftable?)
     else
       render :edit

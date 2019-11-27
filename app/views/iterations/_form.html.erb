@@ -7,21 +7,10 @@
   <div class="mb-6" id="outcomes">
     <h2>Outcomes</h2>
 
-    <%- if mentor_membership || @iteration.draftable? %>
-      <p class="hint mb-4">Between 1 and 5 outcomes that you'll work towards in this iteration.</p>
-      <%= f.error :outcomes, class: 'text-sm text-red-600' %>
-      <%= f.simple_fields_for :outcomes, f.object.outcomes.sort_by{|o| o.created_at} do |outcome| %>
-        <%= render 'outcome_fields', f: outcome %>
-      <% end %>
-    <% else %>
-      <% f.object.outcomes.each do |outcome| %>
-        <div class='inner-card mt-4'>
-          <p><strong>What are we going to learn or prove?</strong></p>
-          <p class="mb-4"><%= outcome.title %></p>
-          <p><strong>As a minimum, we’ll know we’ve learnt or proved this when…</strong></p>
-          <p><%= outcome.success_criteria %></p>
-        </div>
-      <% end %>
+    <p class="hint mb-4">Between 1 and 5 outcomes that you'll work towards in this iteration.</p>
+    <%= f.error :outcomes, class: 'text-sm text-red-600' %>
+    <%= f.simple_fields_for :outcomes, f.object.outcomes.sort_by{|o| o.created_at} do |outcome| %>
+      <%= render 'outcome_fields', f: outcome %>
     <% end %>
   </div>
 
