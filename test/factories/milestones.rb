@@ -5,6 +5,6 @@ FactoryBot.define do
     project
     title { 'MyText' }
     description { 'MyText' }
-    deadline { '2019-07-19' }
+    deadline { 6.months.since }
   end
 end
