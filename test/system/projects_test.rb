@@ -119,6 +119,45 @@ class ProjectsTest < ApplicationSystemTestCase
     assert_text('Debrief overdue')
   end
 
+  test 'users can see their projects' do
+    create_project
+    Membership.last.update(role: :stakeholder)
+    visit projects_path
+    
+    create_project
+    Membership.last.update(role: :contributor)
+    visit projects_path
+    
+    create_project
+    Membership.last.update(role: :mentor)
+    visit projects_path
+    
+    create(:project)
+    
+    assert_text('Stakeholder')
+    assert_text('Contributor')
+    assert_text('Mentor')
+    assert_no_text('All Other Projects')
+  end
+  
+  test 'admins can see all projects' do
+    create(:project)
+    User.last.update(is_admin: :true)
+    visit projects_path
+    
+    assert_text('All Other Projects')
+  end
+  
+  test 'admins can visit projects' do
+    create(:project)
+    @project = Project.last
+    iteration = create(:committed_iteration, project: @project)    
+    User.last.update(is_admin: :true)
+    visit project_path(@project)
+    
+    assert_text(@project.title)
+  end
+
   private
 
   def create_project(title: 'Title', description: 'Description')

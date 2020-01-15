@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       get :share, to: 'memberships#show'
     end
     # TODO: https://guides.rubyonrails.org/routing.html#limits-to-nesting
-    resources :iterations, except: :destroy do
+    resources :iterations do
       resources :check_ins do
         resources :check_in_ratings
       end

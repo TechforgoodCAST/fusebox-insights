@@ -16,7 +16,7 @@
           <div class="card mb-6">
             <h3>What are we going to learn or prove?</h3>
             <p class="mb-3"><%= @iteration.outcomes[r.index].title%></p>
-            <h3>What are we going to learn or prove?</h3>
+            <h3>As a minimum, we’ll know we’ve learnt or proved this when…</h3>
             <p><%= @iteration.outcomes[r.index].success_criteria%></p>
           </div>
 
@@ -26,8 +26,6 @@
                       collection: CheckInRating::SCORES, 
                       label_method: :second, 
                       value_method: :first,
-                      item_label_class: 'tag',
-                      boolean_style: :inline, 
                       label: "Team rating: What's the status of this outcome?" 
           %>
 

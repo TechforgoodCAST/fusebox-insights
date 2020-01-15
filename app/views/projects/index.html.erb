@@ -49,4 +49,15 @@
     </div>
 
   <% end %>
+  
+  <% if @other_projects.any? %>
+      <hr class="my-6">
+      <h2>All Other Projects</h2>
+      <% @other_projects.each do |project| %>
+        <div class="card mt-3">
+          <h3 class="text-lg font-bold mb-4"><%= link_to project.title, project_path(project), class: 'link' %></h3>
+          <%= project.description %>
+        </div>
+      <% end %>
+  <% end %>
 </div>
