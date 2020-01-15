@@ -12,4 +12,8 @@ class IterationPolicy < ApplicationPolicy
   def update?
     create?
   end
+  
+  def destroy?
+    (Membership.find_by(project: record.project, user: user, role: %w[contributor mentor]) && record.status_planned?)  || user.is_admin?
+  end
 end
