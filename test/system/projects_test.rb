@@ -147,6 +147,16 @@ class ProjectsTest < ApplicationSystemTestCase
     
     assert_text('All Other Projects')
   end
+  
+  test 'admins can visit projects' do
+    create(:project)
+    @project = Project.last
+    iteration = create(:committed_iteration, project: @project)    
+    User.last.update(is_admin: :true)
+    visit project_path(@project)
+    
+    assert_text(@project.title)
+  end
 
   private
 
