@@ -5,6 +5,10 @@ FactoryBot.define do
     project
     title { 'MyText' }
 
+    factory :planned_iteration do
+      status { 'planned' }
+    end
+    
     factory :committed_iteration do
       transient do
         outcomes_count { 1 }

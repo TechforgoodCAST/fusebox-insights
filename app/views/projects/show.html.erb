@@ -126,7 +126,7 @@
                 <% elsif iteration.status_committed? %>
                   <h3>Latest update</h3>
 
-                  <% if current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
+                  <% if !current_user.is_admin? && current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
                     <% #Stakeholders can just see how many check-ins have been done %>
 
                     <% if check_ins = iteration.check_ins.count %>
