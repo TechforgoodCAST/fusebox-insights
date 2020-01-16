@@ -39,7 +39,7 @@ class ApplicationPolicy
   def is_admin?
     @user&.is_admin?
   end
-	
+
   def is_project_member?(roles = %w[contributor mentor stakeholder])
     Membership.find_by(project: @project, user: user, role: roles) || is_admin?
   end
