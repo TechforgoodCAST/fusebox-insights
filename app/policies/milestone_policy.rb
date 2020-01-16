@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 
 class MilestonePolicy < ApplicationPolicy
+  def initialize(user, record)
+    @user = user
+    @record = record
+    @project = record.project
+  end
+
   def show?
-    Membership.find_by(project: record.project, user: user) || user.is_admin?
+    is_project_member?
   end
 
   def create?
-    Membership.find_by(project: record.project, user: user, role: %w[contributor mentor]) || user.is_admin?
+    is_project_member?(%w[contributor mentor])
   end
 
   def update?
