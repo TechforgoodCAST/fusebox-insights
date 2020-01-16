@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :check_in_rating do
     score { 200 }
-    comments { "MyText" }
+    comments { 'MyText' }
     check_in
     outcome
   end

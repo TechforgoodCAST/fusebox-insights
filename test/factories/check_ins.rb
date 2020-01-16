@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :check_in do
-    notes { "MyText" }
-    completed_by {1}
+    notes { 'MyText' }
+    completed_by { 1 }
     iteration
   end
 end

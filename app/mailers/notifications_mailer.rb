@@ -3,14 +3,14 @@
 class NotificationsMailer < ApplicationMailer
   def project_invite(membership, inviter)
     @membership = membership
-    
+  
     capabilities = {
-      #You can...
+      # You can...
       'contributor' => 'create and edit all items in the project. You will receive reminders about submitting check-ins and debriefs.',
       'stakeholder' => 'view the project but cannot modify it. You will receive a notification when the team submits a debrief.',
       'mentor' => 'create and edit all items in the project. You will receive reminders about submitting check-ins and debriefs.'
     }
-    
+  
     @capabilities = capabilities[@membership.role]
     @inviter = inviter
     mail to: @membership.user.email, subject: "You've been added to a project on Fusebox"

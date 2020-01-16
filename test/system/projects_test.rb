@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class ProjectsTest < ApplicationSystemTestCase
   include ApplicationHelper
-  
+
   setup do
     @user = create(:user)
     visit projects_path
@@ -72,47 +72,47 @@ class ProjectsTest < ApplicationSystemTestCase
 
     assert_text("Sorry, you don't have access to that")
   end
-  
+
   test 'iteration card displays when there are no updates' do
     create_project
     @project = Project.last
-    iteration = create(:committed_iteration, project: @project)
+    create(:committed_iteration, project: @project)
     visit project_path(@project)
     assert_text('No updates')
   end
-  
+
   test 'iteration card displays latest check-in' do
     create_project
     @project = Project.last
     iteration = create(:committed_iteration, project: @project)
     @check_in = create(:check_in, iteration: iteration)
     visit project_path(@project)
-    assert_text('Checked in on '+friendly_date(@check_in.created_at))
+    assert_text('Checked in on ' + friendly_date(@check_in.created_at))
   end
-  
+
   test 'iteration card displays check-in overdue' do
     create_project
-    @project = Project.last    
+    @project = Project.last
     iteration = build(:committed_iteration, :check_in_overdue, project: @project)
     iteration.save! validate: false
     visit project_path(@project)
     assert_text('Over two weeks since last check in')
   end
-  
+
   test 'iteration card displays debrief complete' do
     create_project
-    @project = Project.last    
+    @project = Project.last
     @debrief = build(:debrief)
     iteration = build(:iteration, project: @project, debrief: @debrief, status: 'completed')
     iteration.save! validate: false
     visit project_path(@project)
     find('a', text: 'Completed').click
-    assert_text('Debrief completed on '+friendly_date(iteration.debrief.created_at))
+    assert_text('Debrief completed on ' + friendly_date(iteration.debrief.created_at))
   end
-  
+
   test 'iteration card displays debrief overdue' do
     create_project
-    @project = Project.last    
+    @project = Project.last
     iteration = build(:committed_iteration, :debrief_overdue, project: @project)
     iteration.save! validate: false
     visit project_path(@project)
@@ -123,38 +123,38 @@ class ProjectsTest < ApplicationSystemTestCase
     create_project
     Membership.last.update(role: :stakeholder)
     visit projects_path
-    
+
     create_project
     Membership.last.update(role: :contributor)
     visit projects_path
-    
+
     create_project
     Membership.last.update(role: :mentor)
     visit projects_path
-    
+
     create(:project)
-    
+
     assert_text('Stakeholder')
     assert_text('Contributor')
     assert_text('Mentor')
     assert_no_text('All Other Projects')
   end
-  
+
   test 'admins can see all projects' do
     create(:project)
-    User.last.update(is_admin: :true)
+    User.last.update(is_admin: true)
     visit projects_path
-    
+
     assert_text('All Other Projects')
   end
-  
+
   test 'admins can visit projects' do
     create(:project)
     @project = Project.last
-    iteration = create(:committed_iteration, project: @project)    
-    User.last.update(is_admin: :true)
+    create(:committed_iteration, project: @project)
+    User.last.update(is_admin: true)
     visit project_path(@project)
-    
+
     assert_text(@project.title)
   end
 

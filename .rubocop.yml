@@ -1,11 +1,15 @@
 AllCops:
+  Include:
+    - 'app/**/*.rb'
+    - 'test/**/*.rb'
   Exclude:
-    - 'db/schema.rb'
+    - 'app/models/ahoy/*.rb'
+    - 'bin/**/*.rb'
 
 Rails:
   Enabled: true
 
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 Style/Documentation:

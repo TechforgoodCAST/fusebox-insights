@@ -8,7 +8,7 @@ FactoryBot.define do
     factory :planned_iteration do
       status { 'planned' }
     end
-    
+
     factory :committed_iteration do
       transient do
         outcomes_count { 1 }

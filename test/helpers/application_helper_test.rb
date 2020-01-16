@@ -26,12 +26,12 @@ class ApplicationHelperTest < ActionView::TestCase
   test '#active_tab? controller inactive and action inactive' do
     assert_nil(active_tab?(controller: 'oops', action: 'oops'))
   end
-  
+
   test 'friendly_date' do
     assert_raise(Exception) { friendly_date('x') }
     assert_raise(Exception) { friendly_date('1st Jan 2019') }
     assert_raise(Exception) { friendly_date(1234) }
-    assert_nothing_raised { friendly_date(Date.today) }
+    assert_nothing_raised { friendly_date(Time.zone.today) }
     assert_nothing_raised { friendly_date(DateTime.now) }
   end
 

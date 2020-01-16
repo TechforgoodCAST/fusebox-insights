@@ -36,8 +36,8 @@ class IterationsTest < ApplicationSystemTestCase
     iteration = create(:planned_iteration, project: @project)
     visit project_iteration_path(@project, iteration)
     page.accept_confirm { click_on 'Delete' }
-	
-	assert_text 'Draft iteration deleted.'
+
+    assert_text 'Draft iteration deleted.'
   end
 
   test 'cannot delete iteration once committed' do
@@ -46,7 +46,6 @@ class IterationsTest < ApplicationSystemTestCase
 
     assert_no_link('Delete')
   end
-
 
   test 'cannot edit outcomes once committed' do
     iteration = create(:committed_iteration, project: @project)
