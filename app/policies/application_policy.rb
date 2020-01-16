@@ -35,6 +35,14 @@ class ApplicationPolicy
   def destroy?
     false
   end
+  
+  def is_admin?
+    @user&.is_admin?
+  end
+	
+  def is_project_member?(roles = %w[contributor mentor stakeholder])
+    Membership.find_by(project: @project, user: user, role: roles) || is_admin?
+  end
 
   class Scope
     attr_reader :user, :scope

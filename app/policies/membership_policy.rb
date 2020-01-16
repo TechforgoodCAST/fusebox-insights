@@ -10,7 +10,7 @@ class MembershipPolicy < ApplicationPolicy
       'contributor' => true,
       'mentor' => true,
       'stakeholder' => false
-    }[record&.role] || user.is_admin?
+    }[record&.role] || is_admin?
   end
 
   def create?
