@@ -1,19 +1,25 @@
 # frozen_string_literal: true
 
 class IterationPolicy < ApplicationPolicy
+  def initialize(user, record)
+    @user = user
+    @record = record
+    @project = record.project
+  end
+
   def show?
-    Membership.find_by(project: record.project, user: user) || user.is_admin?
+    is_project_member?
   end
 
   def create?
-    Membership.find_by(project: record.project, user: user, role: %w[contributor mentor]) || user.is_admin?
+    is_project_member?(%w[contributor mentor])
   end
 
   def update?
     create?
   end
-  
+
   def destroy?
-    (Membership.find_by(project: record.project, user: user, role: %w[contributor mentor]) && record.status_planned?)  || user.is_admin?
+    (is_project_member?(%w[contributor mentor]) && record.status_planned?) || is_admin?
   end
 end

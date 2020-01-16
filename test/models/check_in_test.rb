@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CheckInTest < ActiveSupport::TestCase
@@ -7,7 +9,6 @@ class CheckInTest < ActiveSupport::TestCase
     assert_instance_of(Iteration, @subject.iteration)
     assert_present(:iteration, msg: 'must exist')
   end
-  
+
   test('completed_by required') { assert_present(:completed_by) }
-  
 end

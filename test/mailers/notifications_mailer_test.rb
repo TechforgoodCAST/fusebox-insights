@@ -7,7 +7,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
     project = create(:project, title: 'Test Project')
     membership = create(:membership, project: project)
     inviter = create(:user)
-    
+
     mail = NotificationsMailer.project_invite(membership, inviter)
     assert_equal("You've been added to a project on Fusebox", mail.subject)
     assert_equal([membership.user.email], mail.to)
@@ -30,7 +30,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
   test '#check_in_overdue' do
     assert_reminder_email(:check_in_overdue, 'Check-in overdue!', 'check_in')
   end
-  
+
   test '#debrief_due' do
     assert_reminder_email(:debrief_due, 'Debrief due', 'debrief')
   end

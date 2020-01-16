@@ -13,7 +13,6 @@ class ProjectsController < ApplicationController
     @mentor = @projects.select { |p| p.role == Membership.roles['mentor'] }
     
     @other_projects = current_user.is_admin? ? Project.all - @projects : []
-    
   end
 
   def show

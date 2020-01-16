@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 class ProjectPolicy < ApplicationPolicy
+  def initialize(user, record)
+    @user = user
+    @record = record
+    @project = record
+  end
+
   def show?
-    Membership.find_by(project: record, user: user) || user.is_admin?
+    is_project_member?
   end
 
   def create?
@@ -10,7 +16,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def update?
-    Membership.find_by(project: record, user: user, role: %w[contributor mentor]) || user.is_admin?
+    is_project_member?(%w[contributor mentor])
   end
 
   def about?
