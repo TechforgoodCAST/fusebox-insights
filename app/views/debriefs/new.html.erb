@@ -10,17 +10,18 @@
     <%= simple_form_for([@project, @iteration, @debrief]) do |f| %>
       <h2>Outcomes</h2>
       <%= f.fields_for :debrief_ratings do |r| %>
+        <% outcome = @iteration.outcomes.order(:created_at)[r.index] %>
 
         <h3 class="my-3">Outcome <%= r.index+1 %> of <%= @iteration.outcomes.count %></h3>
 
         <div class="card mb-6">
           <h3>What are we going to learn or prove?</h3>
-          <p class="mb-3"><%= @iteration.outcomes[r.index].title%></p>
+          <p class="mb-3"><%= outcome.title%></p>
           <h3>As a minimum, we’ll know we’ve learnt or proved this when…</h3>
-          <p><%= @iteration.outcomes[r.index].success_criteria%></p>
+          <p><%= outcome.success_criteria%></p>
         </div>
 
-        <%= r.hidden_field(:outcome_id, value: @iteration.outcomes[r.index].id) %>
+        <%= r.hidden_field(:outcome_id, value: outcome.id) %>
         <%= r.input :score, 
                     as: :radio_buttons, 
                     collection: DebriefRating::SCORES, 

@@ -13,7 +13,7 @@
 
     <div class="mt-6">
 
-      <% @check_in.check_in_ratings.each do |rating| %>
+      <% @check_in.check_in_ratings.includes(:outcome).order("outcomes.created_at asc").each do |rating| %>
         <div class="mt-3 card">
           <h3><%= Outcome.find(rating.outcome.id).title%></h3>
           <p><%= Outcome.find(rating.outcome.id).success_criteria%></p>

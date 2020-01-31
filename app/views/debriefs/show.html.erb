@@ -13,18 +13,18 @@
     <hr class="my-6">
     
     <h2>Outcomes</h2>
-    <% @debrief.debrief_ratings.each_with_index do |rating, index| %>
+    <% @debrief.debrief_ratings.includes(:outcome).order("outcomes.created_at asc").each_with_index do |rating, index| %>
       <h3 class="my-3">Outcome <%= index+1 %> of <%= @iteration.outcomes.count %></h3>
       <div class="card mb-6">
         <h3>What are we going to learn or prove?</h3>
-        <p class="mb-3"><%= @iteration.outcomes[index].title%></p>
+        <p class="mb-3"><%= rating.outcome.title%></p>
         <h3>As a minimum, we’ll know we’ve learnt or proved this when…</h3>
-        <p><%= @iteration.outcomes[index].success_criteria%></p>
+        <p><%= rating.outcome.success_criteria%></p>
       </div>
 
       <div class="my-3">
         <h3>Team rating: Did we learn or prove what we expected?</h3>
-            <span class="my-3 tag"><%= rating.get_score %></span>
+        <span class="my-3 tag"><%= rating.get_score %></span>
       </div>
 
       <h3 class="my-3">Why have you given this rating and what's the key takeaway?</h3>
