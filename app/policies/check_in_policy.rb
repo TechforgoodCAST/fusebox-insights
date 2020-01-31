@@ -6,7 +6,7 @@ class CheckInPolicy < ApplicationPolicy
     @record = record
     @project = record.iteration.project
   end
-  
+
   def show?
     is_project_member?(%w[contributor mentor])
   end
