@@ -34,7 +34,7 @@ class Iteration < ApplicationRecord
   def warning(check_in_gap: -14, debrief_gap: 4)
     return unless status_committed?
 
-    return :check_in_due if check_in_distance < check_in_gap && debrief_distance > debrief_gap
+    return :check_in_due if check_in_distance <= check_in_gap && debrief_distance > debrief_gap
 
     return :debrief_due if debrief_distance.negative?
   end
