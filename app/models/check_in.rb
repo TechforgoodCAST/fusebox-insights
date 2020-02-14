@@ -7,8 +7,7 @@ class CheckIn < ApplicationRecord
   accepts_nested_attributes_for :check_in_ratings,
     reject_if: :all_blank,
     update_only: true,
-    allow_destroy: true,
-    limit: 5
+    allow_destroy: true
 
   validates :completed_by, presence: true
 end
