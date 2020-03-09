@@ -11,4 +11,8 @@ class OfferTest < ActiveSupport::TestCase
   end
 
   test('title required') { assert_present(:title) }
+
+  test('duration_category required') { assert_present(:duration_category) }
+
+  test('duration_description required') { assert_present(:duration_description) }
 end

@@ -2,7 +2,8 @@
 
 ActiveAdmin.register Offer do
   permit_params :provider_id, :title, :short_description, :long_description,
-  :sign_up_link, :logo_link, :duration_category, :duration_description
+                :sign_up_link, :logo_link, :duration_category,
+                :duration_description
 
   index do
     selectable_column
@@ -21,12 +22,12 @@ ActiveAdmin.register Offer do
     f.inputs do
       f.input :provider, collection: Provider.all
       f.input :title
-      f.input :short_description, as: :trix_editor
-      f.input :long_description, as: :trix_editor
-      f.input :sign_up_link
-      f.input :logo_link
       f.input :duration_category
       f.input :duration_description
+      f.input :sign_up_link
+      f.input :logo_link
+      f.input :short_description, as: :trix_editor
+      f.input :long_description, as: :trix_editor
     end
     f.actions
   end
