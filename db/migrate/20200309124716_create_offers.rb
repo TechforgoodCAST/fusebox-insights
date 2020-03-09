@@ -3,8 +3,8 @@
 class CreateOffers < ActiveRecord::Migration[5.2]
   def change
     create_table :providers do |t|
-      t.text :name, null: false
-      t.text :website, null: false
+      t.string :name, null: false
+      t.string :website, null: false
       t.timestamps
     end
 
@@ -14,6 +14,7 @@ class CreateOffers < ActiveRecord::Migration[5.2]
       t.text :short_description
       t.text :long_description
       t.string :sign_up_link
+      t.string :logo_link
       t.integer :duration_category
       t.string :duration_description
       t.timestamps
