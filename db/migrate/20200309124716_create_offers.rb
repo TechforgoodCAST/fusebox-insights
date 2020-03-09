@@ -14,7 +14,8 @@ class CreateOffers < ActiveRecord::Migration[5.2]
       t.text :short_description
       t.text :long_description
       t.string :sign_up_link
-      t.integer :duration
+      t.integer :duration_category
+      t.string :duration_description
       t.timestamps
     end
   end
