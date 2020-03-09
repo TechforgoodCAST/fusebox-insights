@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     end
     resources :memberships, only: %i[new create index destroy]
     resources :milestones
+    resources :offers, only: %i[show]
   end
 
   # Statics

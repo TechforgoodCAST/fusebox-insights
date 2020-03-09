@@ -12,4 +12,11 @@ class ProviderTest < ActiveSupport::TestCase
   test('name required') { assert_present(:name) }
 
   test('website required') { assert_present(:website) }
+
+  test 'website format' do
+    @subject.website = nil
+    @subject.save
+    msg = 'enter a valid website address e.g. http://www.example.com'
+    assert_error(:website, msg)
+  end
 end

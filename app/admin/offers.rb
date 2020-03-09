@@ -8,12 +8,14 @@ ActiveAdmin.register Offer do
   index do
     selectable_column
     id_column
+    column :provider, &:provider
     column :title
     column :created_at
     column :updated_at
     actions
   end
 
+  filter :provider
   filter :title
   filter :created_at
   filter :updated_at

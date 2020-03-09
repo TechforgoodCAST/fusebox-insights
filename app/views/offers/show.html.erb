@@ -1,0 +1,32 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <%# # TODO: can navigate back %>
+  <p class="mb-6"><%= link_to '‹ Back', '#todo', class: 'underline' %></p>
+  <%= render partial: 'layouts/notices' %>
+
+  <div class="card">
+    <div class="flex flex-wrap items-start justify-between mb-3">
+      <h1><%= @offer.title %></h1>
+      <div class="order-first mb-3 sm:order-last sm:mb-0 provider-logo">
+        <%= link_to do %>
+          <%= image_tag(@offer.logo_link, width: 100, height: 100) %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mb-6">
+      <p>Run by: <%= link_to @offer.provider.name, @offer.provider.website, class: 'link', target: '_blank' %></p>
+      <p>Duration: <%= @offer.duration_description %></p>
+    </div>
+
+    <div class="mb-8">
+      <%# # TODO: only contributors (& mentors on behalf) can redeem an offer %>
+      <%= link_to 'Book your place', '#todo', class: 'btn bg-orange-500 hover:bg-orange-600 text-white' %>
+    </div>
+
+    <div class="rich-text border-none p-0">
+      <%= @offer.long_description&.html_safe %>
+    </div>
+  </div>
+</div>

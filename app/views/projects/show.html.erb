@@ -38,7 +38,7 @@
     <div class="flex-none w-full md:max-w-xs px-4 mb-8">
       <%= link_to 'New iteration', new_project_iteration_path(@project), class: 'btn btn-primary block w-full text-center mb-8' %>
       <h3 class="mb-3">Status</h3>
-      <ul id="statuses" class="colored-text">
+      <ul id="statuses" class="text-primary-600">
         <li class="active mb-3">
           <a data-status="default">
             Default
@@ -122,7 +122,7 @@
                   <% else %>
                     <p class="missing-text">No updates yet</p>
                   <% end %>
-                
+
                 <% elsif iteration.status_committed? %>
                   <h3>Latest update</h3>
 
@@ -160,7 +160,7 @@
                 <% elsif iteration.status_planned? && iteration.debrief_date %>
                   <p class="mt-6">Debrief planned for <%= friendly_date(iteration.debrief_date) %></p>
                 <% end %>
-               
+
               </div>
             </div>
           <%
