@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_133739) do
+ActiveRecord::Schema.define(version: 2020_03_09_124716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
 
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
+    t.datetime "complete_at"
     t.bigint "completed_by", null: false
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
@@ -125,8 +126,8 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
     t.text "notes"
     t.bigint "completed_by", null: false
     t.boolean "milestone_completed"
-    t.bigint "milestone_id", null: false
-    t.bigint "iteration_id"
+    t.bigint "milestone_id"
+    t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_debriefs_on_iteration_id"
@@ -182,6 +183,18 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
     t.index ["project_id"], name: "index_milestones_on_project_id"
   end
 
+  create_table "offers", force: :cascade do |t|
+    t.bigint "provider_id"
+    t.string "title", null: false
+    t.text "short_description"
+    t.text "long_description"
+    t.string "sign_up_link"
+    t.integer "duration"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_id"], name: "index_offers_on_provider_id"
+  end
+
   create_table "outcomes", force: :cascade do |t|
     t.text "title", null: false
     t.text "success_criteria"
@@ -195,6 +208,13 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
     t.string "title", null: false
     t.text "description"
     t.text "more_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.text "name", null: false
+    t.text "website", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -226,5 +246,6 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
   add_foreign_key "debriefs", "milestones"
   add_foreign_key "iterations", "projects"
   add_foreign_key "milestones", "projects"
+  add_foreign_key "offers", "providers"
   add_foreign_key "outcomes", "iterations"
 end
