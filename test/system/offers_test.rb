@@ -9,7 +9,7 @@ class OffersTest < ApplicationSystemTestCase
     sign_in
   end
 
-  test 'Any user can navigate to offer page'
+  test 'Any signed in user can navigate to offer page'
   test 'Contributors and mentors can book support via external booking service'
   test 'Contributors and mentors can book support via email'
 end
