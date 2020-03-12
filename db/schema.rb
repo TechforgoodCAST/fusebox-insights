@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_09_141317) do
+ActiveRecord::Schema.define(version: 2020_03_12_155814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,18 @@ ActiveRecord::Schema.define(version: 2020_03_09_141317) do
     t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
   end
 
+  create_table "cohorts", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cohorts_offers", id: false, force: :cascade do |t|
+    t.bigint "cohort_id", null: false
+    t.bigint "offer_id", null: false
+  end
+
   create_table "debrief_ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comments"
@@ -226,6 +238,11 @@ ActiveRecord::Schema.define(version: 2020_03_09_141317) do
     t.index ["provider_id"], name: "index_offers_on_provider_id"
   end
 
+  create_table "offers_topics", id: false, force: :cascade do |t|
+    t.bigint "topic_id", null: false
+    t.bigint "offer_id", null: false
+  end
+
   create_table "outcomes", force: :cascade do |t|
     t.text "title", null: false
     t.text "success_criteria"
@@ -241,11 +258,20 @@ ActiveRecord::Schema.define(version: 2020_03_09_141317) do
     t.text "more_details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cohort_id"
   end
 
   create_table "providers", force: :cascade do |t|
     t.string "name", null: false
     t.string "website", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "title"
+    t.text "short_desc"
+    t.text "long_desc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -279,4 +305,5 @@ ActiveRecord::Schema.define(version: 2020_03_09_141317) do
   add_foreign_key "milestones", "projects"
   add_foreign_key "offers", "providers"
   add_foreign_key "outcomes", "iterations"
+  add_foreign_key "projects", "cohorts"
 end
