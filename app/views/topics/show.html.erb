@@ -1,0 +1,28 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <%# # TODO: can navigate back %>
+  <p class="mb-6"><%= link_to '‹ Back', project_topics_path(@project), class: 'underline' %></p>
+  <%= render partial: 'layouts/notices' %>
+
+  <div class="card">
+    <div class="flex flex-wrap items-start justify-between mb-3">
+      <h1><%= @topic.title %></h1>
+      <div class="rich-text border-none p-0 my-3">
+        <%= @topic.long_desc&.html_safe %>
+      </div>
+      
+      <h2 class="my-3">Got less than an hour?</h2>
+      <div>
+        <% @topic.offers.each do |offer| %>
+          <h3 class="mb-3"><%= offer.title %></h3>
+          <p class="mb-5"><%= offer.short_description %></p>
+          <%= link_to 'Find out more', project_offer_path(@project, offer), class: 'btn bg-orange-500 hover:bg-orange-600 text-white my-6' %>
+          <hr class="my-6">
+        <% end %>
+      </div>
+      
+    </div>
+
+  </div>
+</div>
