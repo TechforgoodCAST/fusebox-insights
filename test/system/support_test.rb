@@ -106,7 +106,7 @@ class SupportTest < ApplicationSystemTestCase
     assert_text('Support request sent! You should hear back soon.')
   end
 
-  test 'Stakeholders cannot book support via email' do
+  test 'Stakeholders cannot book support' do
     add_offer_to_cohort
     Membership.last.update(role: :stakeholder)
 
@@ -119,8 +119,14 @@ class SupportTest < ApplicationSystemTestCase
     assert_text("Sorry, you don't have access to that")
   end
 
-  # test 'Contributors and mentors can book support via external booking service'
-  # test 'Stakeholders cannot book support via external booking service'
+  test 'Contributors and mentors can book support via external booking service' do
+    add_offer_to_cohort
+    @offer.update(sign_up_link: 'http://www.example.com')
+
+    # Visit offer page
+    visit project_offer_path(@project, @offer)
+    assert_selector(:css, 'a[href="http://www.example.com"]')
+  end
 
   private
 
