@@ -22,7 +22,7 @@ class SupportRequestsController < ApplicationController
     @request = authorize @offer.support_requests.create(support_request_params)
 
     if @request.save
-      NotificationsMailer.support_requested(@request, current_user).deliver_now
+      NotificationsMailer.support_requested(@request).deliver_now
       redirect_to project_url(@project)
       flash[:notice] = 'Support request sent! You should hear back soon.'
     else

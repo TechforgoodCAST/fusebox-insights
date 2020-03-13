@@ -60,9 +60,10 @@ class NotificationsMailer < ApplicationMailer
 
   def support_requested(support_request)
     @request = support_request
+    @beneficiary = @request.on_behalf_of || @request.requester
     @offer = support_request.offer
     @mentor = emails_by_role(@request, %w[mentor])
-    mail to: @offer.provider_email, cc: @request.requester.email, bcc: @mentor, reply_to: @request.requester.email, subject: 'New support request'
+    mail to: @offer.provider_email, cc: @beneficiary.email, bcc: @mentor, reply_to: @beneficiary.email, subject: 'New support request'
   end
 
   private
