@@ -6,7 +6,7 @@ class SupportRequestsController < ApplicationController
   def new
     @project = Project.find(params[:project_id])
 
-    if @project.topics.empty?
+    if @project.topics.empty? || current_user.is_project_member?(@project, 'stakeholder')
       flash[:alert] = "Sorry, you don't have access to that"
       redirect_back(fallback_location: root_path)
     end

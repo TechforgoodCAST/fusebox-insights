@@ -23,9 +23,7 @@
     </div>
 
     <div class="mb-8">
-      <% if !current_user.is_admin? && current_user.memberships.find_by(project: @project).role == 'stakeholder' %>
-        <%# # TODO: show message? %>
-      <% else %>
+      <% if current_user.is_project_member?(@project, %w[contributor mentor]) %>
         <%= link_to 'Book your place', project_offer_book_path(@project, @offer), action: :book, class: 'btn bg-orange-500 hover:bg-orange-600 text-white' %>
       <% end %>
     </div>

@@ -16,4 +16,8 @@ class Project < ApplicationRecord
   validates :description, :title, presence: true
 
   audited
+  
+  def members(roles = %w[contributor mentor stakeholder])
+    @memberships = self.users.joins(:memberships).where(memberships: {role: roles})
+  end
 end

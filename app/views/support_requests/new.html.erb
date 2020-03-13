@@ -9,14 +9,9 @@
     <%= simple_form_for([@project, @offer, @request]) do |f| %>
       <%= f.input :message, input_html: { class: 'w-full', rows: 6 }, hint: "Use this space to explain exactly what support you're looking for and let us know about any accessibility requirements you have." %>
       
-      <% if current_user.is_admin? || current_user.memberships.find_by(project: @project).role == 'mentor' %>
-        <%
-        @memberships = Membership.joins(:user).where(project: @project).select(
-          'memberships.*', 'users.full_name AS user_full_name'
-        )
-        @contributors = @memberships.select { |m| m.role == 'contributor' }.sort_by{|m| m.user_full_name}
-        %>
-        <%= f.association :on_behalf_of, collection: @contributors, label_method: :user_full_name, value_method: :id, label: 'Requesting support on behalf of' %>
+      <% if current_user.is_project_member?(@project, 'mentor') %>
+        <% @contributors = @project.members('contributor').sort_by{|u| u.full_name} %>
+        <%= f.association :on_behalf_of, collection: @contributors, label_method: :full_name, value_method: :id, label: 'Requesting support on behalf of', include_blank: false %>
       <% end %>
       <%= f.submit 'Send request', class: 'btn btn-primary', data: { disable_with: 'Sending...' } %>
     <% end %>

@@ -13,6 +13,10 @@ class User < ApplicationRecord
 
   validates :full_name, presence: true
 
+  def is_project_member?(project, roles = %w[contributor mentor stakeholder])
+    Membership.find_by(project: project, user: self, role: roles)
+  end
+
   private
 
   # Prevent Devise trackable module from recording IP addresses.
