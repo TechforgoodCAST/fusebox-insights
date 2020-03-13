@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_155814) do
+ActiveRecord::Schema.define(version: 2020_03_13_111430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,7 +131,6 @@ ActiveRecord::Schema.define(version: 2020_03_12_155814) do
 
   create_table "check_ins", force: :cascade do |t|
     t.text "notes"
-    t.datetime "complete_at"
     t.bigint "completed_by", null: false
     t.bigint "iteration_id", null: false
     t.datetime "created_at", null: false
@@ -167,8 +166,8 @@ ActiveRecord::Schema.define(version: 2020_03_12_155814) do
     t.text "notes"
     t.bigint "completed_by", null: false
     t.boolean "milestone_completed"
-    t.bigint "milestone_id"
-    t.bigint "iteration_id", null: false
+    t.bigint "milestone_id", null: false
+    t.bigint "iteration_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["iteration_id"], name: "index_debriefs_on_iteration_id"
@@ -235,6 +234,7 @@ ActiveRecord::Schema.define(version: 2020_03_12_155814) do
     t.string "duration_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider_email"
     t.index ["provider_id"], name: "index_offers_on_provider_id"
   end
 
@@ -266,6 +266,19 @@ ActiveRecord::Schema.define(version: 2020_03_12_155814) do
     t.string "website", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "support_requests", force: :cascade do |t|
+    t.bigint "requester_id"
+    t.bigint "on_behalf_of_id"
+    t.text "message"
+    t.bigint "offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+    t.index ["offer_id"], name: "index_support_requests_on_offer_id"
+    t.index ["on_behalf_of_id"], name: "index_support_requests_on_on_behalf_of_id"
+    t.index ["requester_id"], name: "index_support_requests_on_requester_id"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -306,4 +319,8 @@ ActiveRecord::Schema.define(version: 2020_03_12_155814) do
   add_foreign_key "offers", "providers"
   add_foreign_key "outcomes", "iterations"
   add_foreign_key "projects", "cohorts"
+  add_foreign_key "support_requests", "offers"
+  add_foreign_key "support_requests", "projects"
+  add_foreign_key "support_requests", "users", column: "on_behalf_of_id"
+  add_foreign_key "support_requests", "users", column: "requester_id"
 end

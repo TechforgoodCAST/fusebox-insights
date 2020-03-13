@@ -4,15 +4,15 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, :load_project
 
   def index
-    @topics = @project.topics.sort_by{ |t| t.title }
+    @topics = @project.topics.uniq.sort_by(&:title)
+
+    return unless @topics.empty?
     
-    if @topics.empty?
-      flash[:alert] = "Sorry, you don't have access to that"
-      redirect_back(fallback_location: root_path)
-    end
+    flash[:alert] = "Sorry, you don't have access to that"
+    redirect_back(fallback_location: root_path)
   end
 
   def show
-    @topic = Topic.find_by(id: params[:id])
+    @topic = Topic.find(params[:id])
   end
 end

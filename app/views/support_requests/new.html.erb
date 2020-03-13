@@ -1,0 +1,26 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back', project_offer_path(@project, @offer), class: 'underline' %></p>
+
+  <div class="card">
+    <h1 class="text-2xl font-bold mb-3">Book <%= @offer.title %></h1>
+    <p class="mb-6">Complete this form and we'll put you in touch with <%= @offer.provider.name %>.</p>
+    <%= simple_form_for([@project, @offer, @request]) do |f| %>
+      <%= f.input :message, input_html: { class: 'w-full', rows: 6 }, hint: "Use this space to explain exactly what support you're looking for and let us know about any accessibility requirements you have." %>
+      
+      <% if current_user.is_admin? || current_user.memberships.find_by(project: @project).role == 'mentor' %>
+        <%
+        @memberships = Membership.joins(:user).where(project: @project).select(
+          'memberships.*', 'users.full_name AS user_full_name'
+        )
+        @contributors = @memberships.select { |m| m.role == 'contributor' }.sort_by{|m| m.user_full_name}
+        %>
+        <%= f.association :on_behalf_of, collection: @contributors, label_method: :user_full_name, value_method: :id, label: 'Requesting support on behalf of' %>
+      <% end %>
+      <%= f.submit 'Send request', class: 'btn btn-primary', data: { disable_with: 'Sending...' } %>
+    <% end %>
+  </div>
+</div>
+ 
+ 

@@ -11,6 +11,8 @@ class Project < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
 
+  has_many :support_requests, dependent: :destroy
+
   validates :description, :title, presence: true
 
   audited

@@ -54,13 +54,20 @@ class NotificationsMailer < ApplicationMailer
 
   def debrief_overdue(iteration)
     @iteration = iteration
-    emails = emails_by_role(iteration, %w[contributor mentor])
+    emails = emails_by_role(@iteration, %w[contributor mentor])
     mail to: emails, subject: 'Debrief overdue!'
+  end
+
+  def support_requested(support_request)
+    @request = support_request
+    @offer = support_request.offer
+    @mentor = emails_by_role(@request, %w[mentor])
+    mail to: @offer.provider_email, cc: @request.requester.email, bcc: @mentor, reply_to: @request.requester.email, subject: 'New support request'
   end
 
   private
 
-  def emails_by_role(iteration, roles = [])
-    Membership.joins(:user).where(project_id: iteration.project_id, role: roles).pluck(:email)
+  def emails_by_role(obj, roles = [])
+    Membership.joins(:user).where(project_id: obj.project_id, role: roles).pluck(:email)
   end
 end

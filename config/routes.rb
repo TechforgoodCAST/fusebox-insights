@@ -35,7 +35,10 @@ Rails.application.routes.draw do
     end
     resources :memberships, only: %i[new create index destroy]
     resources :milestones
-    resources :offers, only: %i[show index]
+    resources :offers, only: %i[show book] do
+      get :book, to: 'support_requests#new'
+      resources :support_requests, only: %i[new create]
+    end
     resources :topics, only: %i[show index]
   end
   resources :cohorts, only: %i[show index]
