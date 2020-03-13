@@ -4,7 +4,7 @@ class MilestonesController < ApplicationController
   before_action :authenticate_user!, :load_project
 
   def show
-    @milestone = authorize @project.milestones.find_by(id: params[:id])
+    @milestone = authorize @project.milestones.find(params[:id])
   end
 
   def new
@@ -23,11 +23,11 @@ class MilestonesController < ApplicationController
   end
 
   def edit
-    @milestone = authorize @project.milestones.find_by(id: params[:id])
+    @milestone = authorize @project.milestones.find(params[:id])
   end
 
   def update
-    @milestone = authorize @project.milestones.find_by(id: params[:id])
+    @milestone = authorize @project.milestones.find(params[:id])
 
     if @milestone.update(milestone_params)
       update_milestone_statues!(@project)
