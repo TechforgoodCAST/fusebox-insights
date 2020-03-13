@@ -70,8 +70,8 @@ class CheckInsTest < ApplicationSystemTestCase
 
     assert_equal("#{@user.full_name} has completed a check-in for #{@iteration.title}", mail.subject)
 
-    mail.to.each do |recipient|
-      assert_includes(recipients, recipient)
+    recipients.each do |recipient|
+      assert_includes(mail.to, recipient)
     end
   end
 

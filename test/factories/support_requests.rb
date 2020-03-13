@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :support_request do
-    requester { nil }
+    requester
     on_behalf_of { nil }
     message { "MyText" }
-    offer { nil }
+    offer
+    project
   end
 end
