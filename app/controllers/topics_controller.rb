@@ -7,12 +7,17 @@ class TopicsController < ApplicationController
     @topics = @project.topics.uniq.sort_by(&:title)
 
     return unless @topics.empty?
-    
+
     flash[:alert] = "Sorry, you don't have access to that"
     redirect_back(fallback_location: root_path)
   end
 
   def show
     @topic = Topic.find(params[:id])
+
+    return if @project.topics.include?(@topic)
+
+    flash[:alert] = "Sorry, you don't have access to that"
+    redirect_back(fallback_location: root_path)
   end
 end
