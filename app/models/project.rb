@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Project < ApplicationRecord
-  belongs_to :cohort
+  belongs_to :cohort, optional: true
   has_many :offers, through: :cohort
   has_many :topics, through: :offers
 
