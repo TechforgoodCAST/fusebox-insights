@@ -4,5 +4,5 @@ class SupportRequest < ApplicationRecord
   belongs_to :offer
   belongs_to :project
   
-  validates :requester, :message, presence: true
+  validates :requester, :message, :offer, :project, presence: true
 end

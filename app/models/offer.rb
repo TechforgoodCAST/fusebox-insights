@@ -8,5 +8,5 @@ class Offer < ApplicationRecord
 
   enum duration_category: { small: 0, medium: 1, large: 2 }
 
-  validates :title, :duration_category, :duration_description, presence: true
+  validates :title, :duration_category, :duration_description, :provider_email, presence: true
 end
