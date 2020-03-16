@@ -1,26 +1,29 @@
 # frozen_string_literal: true
 
-ActiveAdmin.register Provider do
-  permit_params :name, :website
+ActiveAdmin.register Cohort do
+  permit_params :name, :description, project_ids: []
 
   index do
     selectable_column
     column :name
-    column :website
+    column :description
+    column :projects
     column :created_at
     column :updated_at
     actions
   end
 
   filter :name
-  filter :website
+  filter :description
+  filter :projects
   filter :created_at
   filter :updated_at
 
   form do |f|
     f.inputs do
       f.input :name
-      f.input :website
+      f.input :description
+      f.input :projects
     end
     f.actions
   end

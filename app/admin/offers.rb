@@ -2,27 +2,32 @@
 
 ActiveAdmin.register Offer do
   permit_params :provider_id, :title, :short_description, :long_description,
-                :sign_up_link, :logo_link, :duration_category,
-                :duration_description
+                :sign_up_link, :logo_link, :duration_category, :provider_email,
+                :duration_description, cohort_ids: [], topic_ids: []
 
   index do
     selectable_column
-    id_column
-    column :provider, &:provider
+    column :provider
     column :title
-    column :created_at
+    column :cohorts
+    column :topics
     column :updated_at
     actions
   end
 
   filter :provider
   filter :title
+  filter :cohorts
+  filter :topics
   filter :created_at
   filter :updated_at
 
   form do |f|
     f.inputs do
-      f.input :provider, collection: Provider.all
+      f.input :cohorts
+      f.input :topics
+      f.input :provider
+      f.input :provider_email
       f.input :title
       f.input :duration_category
       f.input :duration_description
