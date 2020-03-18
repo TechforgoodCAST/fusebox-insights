@@ -1,8 +1,7 @@
 <%= render partial: 'projects/subnav' %>
 
 <div class="max-w-3xl mx-auto px-4 my-8">
-  <%# # TODO: can navigate back %>
-  <p class="mb-6"><%= link_to '‹ Back', '#todo', class: 'underline' %></p>
+  <p class="mb-6"><%= link_to '‹ Back', :back, class: 'underline' %></p>
   <%= render partial: 'layouts/notices' %>
 
   <div class="card">
