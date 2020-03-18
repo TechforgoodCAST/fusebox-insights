@@ -19,6 +19,10 @@ class SupportTest < ApplicationSystemTestCase
     @offer = build(:offer, topics: [@topic])
     @topic.update(offers: [@offer])
 
+  	# Visit project page
+    visit project_path(@project)
+    assert_no_link('Get support')
+
     # Visit topics index
     visit project_topics_path(@project)
     assert_text("Sorry, you don't have access to that")
