@@ -39,6 +39,10 @@ class SupportTest < ApplicationSystemTestCase
   test 'User can view support if is available to their cohort' do
     add_offer_to_cohort
 
+  	# Visit project page
+    visit project_path(@project)
+    assert_link('Get support')
+
     # Visit topics index
     visit project_topics_path(@project)
     assert_text('Get help with your project')
