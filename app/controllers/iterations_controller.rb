@@ -22,15 +22,15 @@ class IterationsController < ApplicationController
   end
 
   def show
-    @iteration = authorize @project.iterations.find_by(id: params[:id])
+    @iteration = authorize @project.iterations.find(params[:id])
   end
 
   def edit
-    @iteration = authorize @project.iterations.find_by(id: params[:id])
+    @iteration = authorize @project.iterations.find(params[:id])
   end
 
   def update
-    @iteration = authorize @project.iterations.find_by(id: params[:id])
+    @iteration = authorize @project.iterations.find(params[:id])
 
     if @iteration.update(iteration_params)
       redirect_to project_iteration_url(@project, @iteration), notice: msg(@iteration.draftable?)

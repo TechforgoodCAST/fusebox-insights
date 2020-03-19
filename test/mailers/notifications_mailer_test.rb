@@ -39,6 +39,25 @@ class NotificationsMailerTest < ActionMailer::TestCase
     assert_reminder_email(:debrief_overdue, 'Debrief overdue!', 'debrief')
   end
 
+  test '#support_requested' do
+    @project = create(:project)
+    @user = create(:user, projects: [@project])
+    @mentor = create(:user, projects: [@project])
+    Membership.last.update(role: :mentor)
+    @offer = build(:offer)
+    @request = build(:support_request, requester: @user, message: 'Test', offer: @offer, project: @project)
+
+    mail = NotificationsMailer.support_requested(@request)
+    assert_equal('New support request', mail.subject)
+    assert_equal([@offer.provider_email], mail.to)
+    assert_equal([@user.email], mail.cc)
+    assert_equal([@user.email], mail.reply_to)
+    assert_equal([@mentor.email], mail.bcc)
+    assert_equal(['no-reply@fusebox.org.uk'], mail.from)
+
+    assert_match('expressed interest in a '+ @offer.title + ' with you', mail.body.encoded)
+  end
+
   private
 
   def assert_reminder_email(method, subject, type)
