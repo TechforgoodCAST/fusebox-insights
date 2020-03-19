@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_133739) do
+ActiveRecord::Schema.define(version: 2020_03_13_111430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
 
   create_table "ahoy_events", force: :cascade do |t|
     t.bigint "visit_id"
@@ -110,6 +139,18 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
     t.index ["iteration_id"], name: "index_check_ins_on_iteration_id"
   end
 
+  create_table "cohorts", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cohorts_offers", id: false, force: :cascade do |t|
+    t.bigint "cohort_id", null: false
+    t.bigint "offer_id", null: false
+  end
+
   create_table "debrief_ratings", force: :cascade do |t|
     t.integer "score"
     t.text "comments"
@@ -182,6 +223,26 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
     t.index ["project_id"], name: "index_milestones_on_project_id"
   end
 
+  create_table "offers", force: :cascade do |t|
+    t.bigint "provider_id"
+    t.string "title", null: false
+    t.text "short_description"
+    t.text "long_description"
+    t.string "sign_up_link"
+    t.string "logo_link"
+    t.integer "duration_category"
+    t.string "duration_description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "provider_email"
+    t.index ["provider_id"], name: "index_offers_on_provider_id"
+  end
+
+  create_table "offers_topics", id: false, force: :cascade do |t|
+    t.bigint "topic_id", null: false
+    t.bigint "offer_id", null: false
+  end
+
   create_table "outcomes", force: :cascade do |t|
     t.text "title", null: false
     t.text "success_criteria"
@@ -195,6 +256,35 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
     t.string "title", null: false
     t.text "description"
     t.text "more_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "cohort_id"
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "website", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "support_requests", force: :cascade do |t|
+    t.bigint "requester_id"
+    t.bigint "on_behalf_of_id"
+    t.text "message"
+    t.bigint "offer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "project_id"
+    t.index ["offer_id"], name: "index_support_requests_on_offer_id"
+    t.index ["on_behalf_of_id"], name: "index_support_requests_on_on_behalf_of_id"
+    t.index ["requester_id"], name: "index_support_requests_on_requester_id"
+  end
+
+  create_table "topics", force: :cascade do |t|
+    t.string "title"
+    t.text "short_desc"
+    t.text "long_desc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -226,5 +316,11 @@ ActiveRecord::Schema.define(version: 2019_11_04_133739) do
   add_foreign_key "debriefs", "milestones"
   add_foreign_key "iterations", "projects"
   add_foreign_key "milestones", "projects"
+  add_foreign_key "offers", "providers"
   add_foreign_key "outcomes", "iterations"
+  add_foreign_key "projects", "cohorts"
+  add_foreign_key "support_requests", "offers"
+  add_foreign_key "support_requests", "projects"
+  add_foreign_key "support_requests", "users", column: "on_behalf_of_id"
+  add_foreign_key "support_requests", "users", column: "requester_id"
 end

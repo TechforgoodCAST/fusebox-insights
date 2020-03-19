@@ -1,0 +1,29 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-3xl mx-auto px-4 my-8">
+  <p class="mb-6"><%= link_to '‹ Back', project_topics_path(@project), class: 'underline' %></p>
+  <%= render partial: 'layouts/notices' %>
+
+  <div class="card mb-3">
+      <h1><%= @topic.title %></h1>
+      <div class="rich-text border-none p-0 my-3">
+        <%= @topic.long_desc&.html_safe %>
+      </div>
+
+      <% @topic.offers.group_by(&:duration_category).each do |category, offers| %>
+        <h2 class="mt-12 mb-3"><%= category %></h2>
+        <% offers.each do |offer| %>
+          <div>
+            <h3 class="mb-3"><%= offer.title %></h3>
+
+            <div class="rich-text border-none p-0 mb-5">
+              <%= offer.short_description&.html_safe %>
+            </div>
+
+            <%= link_to 'Find out more', project_offer_path(@project, offer), class: 'btn bg-orange-500 hover:bg-orange-600 text-white my-6' %>
+            <hr class="my-6">
+          </div>
+        <% end %>
+      <% end %>
+  </div>
+</div>

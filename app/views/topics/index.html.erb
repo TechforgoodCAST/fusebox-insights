@@ -1,0 +1,39 @@
+<%= render partial: 'projects/subnav' %>
+
+<div class="max-w-5xl container mx-auto px-4 my-8">
+  <div class="mx-4 "><%= render partial: 'layouts/notices' %></div>
+
+  <h1> Get help with your project </h1>
+  <div class="md:flex my-8">
+    <div class="flex-none md:max-w-xs mb-8 mr-8">
+      <h3 class="mb-2">Categories</h3>
+      <ul>
+        <% @topics.each do |topic| %>
+          <li class="mb-1"><%= link_to topic.title, '#' + topic.title.parameterize, class: 'link' %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="flex-1">
+      <div class="flex flex-wrap items-start justify-between">
+        <% @topics.each do |topic| %>
+          <div class="w-1/2 flex self-stretch">
+            <div class="w-full ml-12 mb-12 border-2 border-gray-300 flex flex-col bg-white">
+              <div class="bg-gray-400 px-6 py-4">
+                <h1 id="<%= topic.title.parameterize %>"><%= topic.title %></h1>
+              </div>
+              <div class="p-6">
+                <p><%= topic.short_desc %></p>
+              </div>
+              <div class="p-6 pt-0 mt-auto">
+                <p class="mt-auto"><%= link_to 'Find out more', project_topic_path(@project, topic), class: 'link' %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="mx-12">
+        <p>If the support you're looking for isn't listed here, get in touch with your coach <%= @project.members('mentor')[0].full_name %>.</p>
+      </div>
+    </div>
+  </div>
+</div>

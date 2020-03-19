@@ -32,7 +32,7 @@ class MembershipsController < ApplicationController
   end
 
   def destroy
-    @membership = Membership.find_by(id: params[:id])
+    @membership = Membership.find(params[:id])
     notice = "#{@membership.role.titleize} removed"
     removing_current_user = @membership.user == current_user
     @membership.destroy

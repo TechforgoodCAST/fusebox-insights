@@ -1,7 +1,6 @@
 html
-  @apply font-sans
+  @apply font-sans bg-bg
   font-size: 16px
-  background-color: theme('colors.bg')
 
 body
   @apply flex h-screen flex-col
@@ -20,7 +19,7 @@ hr
 .btn.btn-primary
   @apply text-white bg-primary-600
   &:hover
-    @apply bg-primary-700
+    @apply bg-teal-600
 
 .card
   @apply bg-white p-6 border-2 border-gray-300 rounded-sm
@@ -61,27 +60,24 @@ hr
 .tag
   @apply font-bold uppercase px-2 py-1 rounded-sm text-white tracking-wider bg-black text-sm whitespace-no-wrap
   &.planned
-    background-color: theme('colors.status.planned')
+    @apply bg-status-planned
   &.committed
-    background-color: theme('colors.status.committed')
+    @apply bg-status-committed
   &.completed
     @apply bg-green-600
   &.on-track
-    background-color: theme('colors.alert.success.dark')
-    color: theme('colors.alert.success.light')
-  &.off-track
-    background-color: theme('colors.alert.warning.dark')
-    color: theme('colors.alert.warning.light')
+    @apply bg-green-700 text-green-100
   &.at-risk
-    background-color: theme('colors.alert.danger.dark')
-    color: theme('colors.alert.danger.light')
+    @apply bg-orange-600 text-orange-200
+  &.off-track
+    @apply bg-red-700 text-red-100
 /* purgecss end ignore */
 
 .divider
   &.planned
-    border-color: theme('colors.status.planned')
+    @apply border-status-planned
   &.committed
-    border-color: theme('colors.status.committed')
+    @apply border-status-committed
   &.completed
     @apply border-green-600
 
@@ -118,24 +114,22 @@ h3
 .notice
   @apply border rounded-sm px-4 py-3 my-6
   &.info
-    color: theme('colors.alert.info.dark')
-    background: theme('colors.alert.info.light')
-    border-color: theme('colors.alert.info.dark')
+    @apply text-blue-700 bg-blue-100 border-blue-700
   &.success
-    color: theme('colors.alert.success.dark')
-    background: theme('colors.alert.success.light')
-    border-color: theme('colors.alert.success.dark')
+    @apply text-green-700 bg-green-100 border-green-700
   &.warning
-    color: theme('colors.alert.warning.dark')
-    background: theme('colors.alert.warning.light')
-    border-color: theme('colors.alert.warning.dark')
+    @apply text-orange-600 bg-orange-200 border-orange-600
   &.danger
-    color: theme('colors.alert.danger.dark')
-    background: theme('colors.alert.danger.light')
-    border-color: theme('colors.alert.danger.dark')
+    @apply text-red-700 bg-red-100 border-red-700
 
-.colored-text
-  color: theme('colors.primary.600')
+.provider-logo
+  @apply max-h-full
+  @screen sm
+    max-height: 40px
+
+a[target="_blank"]::after
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==)
+  margin: 0 3px 0 5px
 
 // Form
 // =========================================================================  //
