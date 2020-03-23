@@ -41,7 +41,7 @@ class ApplicationPolicy
   end
   
   def is_project_member?(roles = %w[contributor mentor stakeholder])
-    user.is_project_member?(@project, roles) || is_admin?
+    @user&.is_project_member?(@project, roles) || is_admin?
   end
 
   class Scope
