@@ -47,7 +47,7 @@ class NotificationsMailerTest < ActionMailer::TestCase
     @offer = build(:offer)
     @request = build(:support_request, requester: @user, message: 'Test', offer: @offer, project: @project)
 
-    mail = NotificationsMailer.support_requested(@request)
+    mail = NotificationsMailer.support_requested(@request, @project)
     assert_equal('New support request', mail.subject)
     assert_equal([@offer.provider_email], mail.to)
     assert_equal([@user.email], mail.cc)
