@@ -31,9 +31,11 @@
           </div>
         <% end %>
       </div>
+      <% unless @project.members('mentor').empty? %>
       <div class="mx-12">
         <p>If the support you're looking for isn't listed here, get in touch with your coach <%= @project.members('mentor')[0].full_name %>.</p>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
