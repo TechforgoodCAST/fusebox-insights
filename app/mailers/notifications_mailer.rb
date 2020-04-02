@@ -58,8 +58,9 @@ class NotificationsMailer < ApplicationMailer
     mail to: emails, subject: 'Debrief overdue!'
   end
 
-  def support_requested(support_request)
+  def support_requested(support_request, project)
     @request = support_request
+    @project = project
     @beneficiary = @request.on_behalf_of || @request.requester
     @offer = support_request.offer
     @mentor = emails_by_role(@request, %w[mentor])
