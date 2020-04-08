@@ -12,5 +12,11 @@ class OffersController < ApplicationController
     end
 
     @offer = Offer.find(params[:id])
+
+    previous_url = URI(request.referer || '').path
+    if previous_url.include? "topic"
+      session[:previous_url] = previous_url
+    end
+    @back_url = session[:previous_url]
   end
 end

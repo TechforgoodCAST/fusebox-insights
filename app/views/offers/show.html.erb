@@ -1,7 +1,7 @@
 <%= render partial: 'projects/subnav' %>
 
 <div class="max-w-3xl mx-auto px-4 my-8">
-  <p class="mb-6"><%= link_to '‹ Back', :back, class: 'underline' %></p>
+  <p class="mb-6"><%= link_to '‹ Back', @back_url, class: 'underline' %></p>
   <%= render partial: 'layouts/notices' %>
 
   <div class="card">
@@ -23,8 +23,8 @@
 
     <div class="mb-8">
       <% if current_user.is_project_member?(@project, %w[contributor mentor]) %>
-        <% link = @offer.sign_up_link || project_offer_book_path(@project, @offer) %>
-        <% link_id = @offer.sign_up_link.nil? ? 'email-support' : 'external-support' %>
+        <% link = @offer.sign_up_link.blank? ? project_offer_book_path(@project, @offer) : @offer.sign_up_link %>
+        <% link_id = @offer.sign_up_link.blank? ? 'email-support' : 'external-support' %>
         <%= link_to 'Book your place', link, class: 'btn bg-orange-500 hover:bg-orange-600 text-white ', id: link_id %>
       <% end %>
     </div>
