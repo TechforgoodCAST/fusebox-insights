@@ -14,6 +14,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
+    @offers = @topic.offers & @project.offers
 
     return if @project.topics.include?(@topic)
 

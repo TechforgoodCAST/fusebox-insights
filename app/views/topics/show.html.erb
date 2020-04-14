@@ -10,7 +10,7 @@
         <%= @topic.long_desc&.html_safe %>
       </div>
 
-      <% @topic.offers.group_by(&:duration_category).each do |category, offers| %>
+      <% @offers.group_by(&:duration_category).each do |category, offers| %>
         <h2 class="mt-12 mb-3"><%= category %></h2>
         <% offers.each do |offer| %>
           <div>
