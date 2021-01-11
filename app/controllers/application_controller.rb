@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   before_action :configure_permitted_parameters, if: :devise_controller?
-  after_action :track_action
 
   protected
 
@@ -18,10 +17,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update) do |u|
       u.permit(:full_name, :display_name, :email, :password, :current_password)
     end
-  end
-
-  def track_action
-    ahoy.track "#{controller_name}##{action_name}", request.path_parameters
   end
 
   private
