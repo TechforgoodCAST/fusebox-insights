@@ -64,8 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # TODO: review dependencies
 
 gem 'activeadmin', '~> 2.6.1'
-gem 'ahoy_email', '~> 1.1.0'
-gem 'ahoy_matey', '~> 3.0.0'
 gem 'audited', '~> 4.7'
 gem 'cocoon', '~> 1.2.14'
 gem 'devise', '~> 4.7.1'
